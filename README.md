@@ -4,4 +4,4 @@
  ## Coverage
 |Author|Title|Date|
 |:----|:----|:----|
-|[J. Saadaoui](ResearchPapers/Saadaoui 2015|["Global imbalances: Should we use fundamental equilibrium exchange rates?"](https://www.sciencedirect.com/science/article/abs/pii/S0264999315000243)|June 2015|
+|[J. Saadaoui](ResearchPapers/Saadaoui 2015)|["Global imbalances: Should we use fundamental equilibrium exchange rates?"](https://www.sciencedirect.com/science/article/abs/pii/S0264999315000243)|June 2015|
