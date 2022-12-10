@@ -1,0 +1,12 @@
+	(1)
+VARIABLES	logfeer
+	
+logreer	0.820***
+	(0)
+	
+Observations	624
+Number of cn	26
+R-squared	0.436
+pval in parentheses	
+*** p<0.01, ** p<0.05, * p<0.1	
+Notes:	

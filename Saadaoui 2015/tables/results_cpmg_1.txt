@@ -1,0 +1,25 @@
+	(1)	(2)
+	D.logreer	
+VARIABLES	ec	SR
+		
+ec		-0.194***
+		(4.36e-08)
+D.logfeer		0.215***
+		(5.60e-05)
+D.logreer_cs		0.621***
+		(0.00705)
+D.logfeer_cs		-0.228*
+		(0.0928)
+logfeer	0.738***	
+	(0)	
+L.logreer_cs	-0.0283	
+	(0.860)	
+logfeer_cs	-0.187	
+	(0.109)	
+Constant		0.429***
+		(4.29e-08)
+		
+Observations	728	728
+pval in parentheses		
+*** p<0.01, ** p<0.05, * p<0.1		
+Notes:		

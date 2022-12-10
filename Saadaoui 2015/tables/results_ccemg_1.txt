@@ -1,0 +1,17 @@
+	(1)
+VARIABLES	logreer
+	
+logfeer	0.425***
+	(1.35e-07)
+__00000M_logreer	0.310
+	(0.211)
+__00000L_logfeer	-0.202
+	(0.485)
+Constant	0.0334
+	(0.976)
+	
+Observations	754
+Number of cn	26
+pval in parentheses	
+*** p<0.01, ** p<0.05, * p<0.1	
+Notes:	

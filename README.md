@@ -1,2 +1,2 @@
 # Replication-Files-For-Research-Papers
- 
+ This repository houses the code and data to accompany most fo my research papers. You can find the list of my publication in the following link: [**Publications**](https://www.jamelsaadaoui.com/publications/complete-list/).
