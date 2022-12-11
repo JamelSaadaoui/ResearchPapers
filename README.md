@@ -11,7 +11,7 @@
 <!-- display the social media buttons in your README -->
 
 ## Contacts
-[Jamel Saadaoui](mailto:jamelsaadaoui@gmail.com) 
+[Jamel Saadaoui](mailto:jamelsaadaoui@gmail.com)  
 [University of Strasbourg](https://www.jamelsaadaoui.com/)
 
 [![alt text][1.1]][1]
