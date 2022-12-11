@@ -10,6 +10,9 @@
 
 <!-- display the social media buttons in your README -->
 
+## Contacts
+[Jamel Saadaoui](mailto:jamelsaadaoui@gmail.com)  
+
 [![alt text][1.1]][1]
 [![alt text][2.1]][2]
 
@@ -19,8 +22,8 @@
 
 <!-- icons with padding -->
 
-[1.1]: https://cdn.aptech.com/www/uploads/2019/02/gh.png
-[2.1]: https://cdn.aptech.com/www/uploads/2019/02/li.png
+[1.1]: https://cdn.aptech.com/www/uploads/2019/02/li.png
+[2.1]: https://cdn.aptech.com/www/uploads/2019/02/gh.png
 
 
 <!-- links to your social media accounts -->
