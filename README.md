@@ -12,7 +12,7 @@
 
 ## Contacts
 [Jamel Saadaoui](mailto:jamelsaadaoui@gmail.com) 
-University of Strasbourg
+[University of Strasbourg](https://www.jamelsaadaoui.com/)
 
 [![alt text][1.1]][1]
 [![alt text][2.1]][2]
