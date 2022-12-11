@@ -2,7 +2,7 @@
       name:  xrdynamics
        log:  C:\Users\jamel\Documents\GitHub\ResearchPapers\Saadaoui 2015\xrdynamics.log
   log type:  text
- opened on:  10 Dec 2022, 19:34:58
+ opened on:  11 Dec 2022, 13:22:34
 
 . 
 . *Import the data from Excel
@@ -1799,60 +1799,3 @@ dir : seeout
 . // KAO & CHIANG (2000) DOLS ESTIMATOR
 . 
 . xtdolshm logreer logfeer, nla(2) nle(2)
-
-
-DOLS Hom. Panel data Coint. Estimation results  Number of obs      =       624
-Group variable: cn                              Number of groups   =        26
-Wald chi2(1)  =    183.62                       Obs per group: min =        29
-Prob > chi2   =     0.000                                      avg =        29
-                                                               max =        29
-                                                R-squared          =    0.4306
-                                                Adj R-squared      =   0.0152
-------------------------------------------------------------------------------
-             | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
--------------+----------------------------------------------------------------
-     logfeer |   .6773011   .0499828    13.55   0.000     .5793365    .7752657
-------------------------------------------------------------------------------
-
-. outreg2 using tables\results_dols_1, ///
-> excel pvalue replace ///
-> cttop() addnote(Notes:)
-tables\results_dols_1.xml
-dir : seeout
-
-. 
-. xtdolshm logfeer logreer, nla(2) nle(2)
-
-
-DOLS Hom. Panel data Coint. Estimation results  Number of obs      =       624
-Group variable: cn                              Number of groups   =        26
-Wald chi2(1)  =    211.22                       Obs per group: min =        29
-Prob > chi2   =     0.000                                      avg =        29
-                                                               max =        29
-                                                R-squared          =    0.4356
-                                                Adj R-squared      =   -0.0201
-------------------------------------------------------------------------------
-             | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
--------------+----------------------------------------------------------------
-     logreer |   .8200307   .0564238    14.53   0.000     .7094421    .9306192
-------------------------------------------------------------------------------
-
-. outreg2 using tables\results_dols_2, ///
-> excel pvalue replace ///
-> cttop() addnote(Notes:)
-tables\results_dols_2.xml
-dir : seeout
-
-. 
-. // Save the data
-. save data\xrdynamics.dta, replace
-(file data\xrdynamics.dta not found)
-file data\xrdynamics.dta saved
-
-. 
-. log close xrdynamics
-      name:  xrdynamics
-       log:  C:\Users\jamel\Documents\GitHub\ResearchPapers\Saadaoui 2015\xrdynamics.log
-  log type:  text
- closed on:  10 Dec 2022, 19:38:09
---------------------------------------------------------------------------------------------------
