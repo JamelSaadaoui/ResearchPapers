@@ -1,0 +1,255 @@
+----------------------------------------------------------------------------------------------------------------
+      name:  feerbeer
+       log:  C:\Users\jamel\Documents\GitHub\ResearchPapers\Lopez Mazier Saadaoui 2012\feerbeer.log
+  log type:  text
+ opened on:  15 Dec 2022, 05:18:32
+
+. 
+. *Import the data from Excel
+. 
+. import excel data\data.xlsx, /// 
+> sheet("Feuil1") firstrow clear // Note 1
+(9 vars, 442 obs)
+
+. 
+. xtset country period
+
+Panel variable: country (strongly balanced)
+ Time variable: period, 1982 to 2007
+         Delta: 1 unit
+
+. 
+. xtdescribe
+
+ country:  1, 2, ..., 17                                     n =         17
+  period:  1982, 1983, ..., 2007                             T =         26
+           Delta(period) = 1 unit
+           Span(period)  = 26 periods
+           (country*period uniquely identifies each observation)
+
+Distribution of T_i:   min      5%     25%       50%       75%     95%     max
+                        26      26      26        26        26      26      26
+
+     Freq.  Percent    Cum. |  Pattern
+ ---------------------------+----------------------------
+       17    100.00  100.00 |  11111111111111111111111111
+ ---------------------------+----------------------------
+       17    100.00         |  XXXXXXXXXXXXXXXXXXXXXXXXXX
+
+. 
+. encode names, generate(cn)
+
+. 
+. label list cn
+cn:
+           1 ARG
+           2 BRA
+           3 CHL
+           4 CHN
+           5 COL
+           6 EU
+           7 IND
+           8 INS
+           9 JPN
+          10 KOR
+          11 MEX
+          12 MYS
+          13 PHL
+          14 THA
+          15 UK
+          16 URU
+          17 USA
+
+. 
+. capture ssc install xtpmg, replace
+
+. 
+. // Table 2 in the paper
+. 
+. xtpmg d.logfeer d.logbeer, lr(l.logfeer logbeer) ec(ec) replace pmg
+
+Iteration 0:   log likelihood =  395.28975  
+Iteration 1:   log likelihood =  395.33388  
+Iteration 2:   log likelihood =  395.33388  
+
+Pooled Mean Group Regression
+(Estimate results saved as pmg)
+
+Panel Variable (i): country                     Number of obs      =       425
+Time Variable (t): period                       Number of groups   =        17
+                                                Obs per group: min =        25
+                                                               avg =      25.0
+                                                               max =        25
+
+                                                Log Likelihood     =  395.3339
+------------------------------------------------------------------------------
+   D.logfeer | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ec           |
+     logbeer |   .9224054   .1810999     5.09   0.000     .5674561    1.277355
+-------------+----------------------------------------------------------------
+SR           |
+          ec |  -.2972067    .046129    -6.44   0.000    -.3876179   -.2067956
+             |
+     logbeer |
+         D1. |   .4664592   .2130584     2.19   0.029     .0488723     .884046
+             |
+       _cons |   .1227642   .0193059     6.36   0.000     .0849254    .1606031
+------------------------------------------------------------------------------
+
+. 
+. outreg2 using tables\results_table_2, ///
+> excel pvalue replace dec(3) ///
+> title("Dependent variable: D.logfeer") ///
+> cttop() addnote(Notes:)
+tables\results_table_2.xml
+dir : seeout
+
+. 
+. xtpmg d.logfeer d.logbeer if period>=1994, ///
+>   lr(l.logfeer logbeer) ec(ec) replace pmg
+
+Iteration 0:   log likelihood =  288.95454  
+Iteration 1:   log likelihood =  289.72231  (not concave)
+Iteration 2:   log likelihood =  295.68809  
+Iteration 3:   log likelihood =  296.46775  
+Iteration 4:   log likelihood =  296.46796  
+Iteration 5:   log likelihood =  296.46796  
+
+Pooled Mean Group Regression
+(Estimate results saved as pmg)
+
+Panel Variable (i): country                     Number of obs      =       238
+Time Variable (t): period                       Number of groups   =        17
+                                                Obs per group: min =        14
+                                                               avg =      14.0
+                                                               max =        14
+
+                                                Log Likelihood     =   296.468
+------------------------------------------------------------------------------
+   D.logfeer | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ec           |
+     logbeer |   1.929022   .1591638    12.12   0.000     1.617067    2.240977
+-------------+----------------------------------------------------------------
+SR           |
+          ec |  -.4108255   .0707931    -5.80   0.000    -.5495774   -.2720737
+             |
+     logbeer |
+         D1. |   .0841451   .2270081     0.37   0.711    -.3607826    .5290729
+             |
+       _cons |  -1.720002    .311182    -5.53   0.000    -2.329907   -1.110096
+------------------------------------------------------------------------------
+
+. 
+. xtpmg d.logfeer d.logbeer if period<=1994, ///
+>   lr(l.logfeer logbeer) ec(ec) replace pmg
+
+Iteration 0:   log likelihood =  193.03289  
+Iteration 1:   log likelihood =    193.557  
+Iteration 2:   log likelihood =  193.55978  
+Iteration 3:   log likelihood =  193.55979  
+
+Pooled Mean Group Regression
+(Estimate results saved as pmg)
+
+Panel Variable (i): country                     Number of obs      =       204
+Time Variable (t): period                       Number of groups   =        17
+                                                Obs per group: min =        12
+                                                               avg =      12.0
+                                                               max =        12
+
+                                                Log Likelihood     =  193.5598
+------------------------------------------------------------------------------
+   D.logfeer | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ec           |
+     logbeer |   .6189497   .2410943     2.57   0.010     .1464136    1.091486
+-------------+----------------------------------------------------------------
+SR           |
+          ec |  -.4188799   .0601977    -6.96   0.000    -.5368653   -.3008945
+             |
+     logbeer |
+         D1. |    .509024   .2956942     1.72   0.085     -.070526    1.088574
+             |
+       _cons |   .7468286   .1214627     6.15   0.000      .508766    .9848912
+------------------------------------------------------------------------------
+
+. 
+. // Table B1 in the paper
+. 
+. capture drop advanced
+
+. generate advanced = 0
+
+. replace advanced = 1 if  ///
+>                 names=="USA" | names=="UK" | ///
+>                 names=="JPN" | names=="EU"
+(104 real changes made)
+
+. 
+. tabulate advanced
+
+   advanced |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |        338       76.47       76.47
+          1 |        104       23.53      100.00
+------------+-----------------------------------
+      Total |        442      100.00
+
+.                 
+. xtpmg d.logfeer d.logbeer ///
+>  if advanced!=1, ///
+>  lr(l.logfeer logbeer) ec(ec) replace pmg
+
+Iteration 0:   log likelihood =  261.03266  
+Iteration 1:   log likelihood =  261.03266  (backed up)
+Iteration 2:   log likelihood =  261.05182  
+Iteration 3:   log likelihood =  261.06392  
+Iteration 4:   log likelihood =  261.06393  
+
+Pooled Mean Group Regression
+(Estimate results saved as pmg)
+
+Panel Variable (i): country                     Number of obs      =       325
+Time Variable (t): period                       Number of groups   =        13
+                                                Obs per group: min =        25
+                                                               avg =      25.0
+                                                               max =        25
+
+                                                Log Likelihood     =  261.0639
+------------------------------------------------------------------------------
+   D.logfeer | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ec           |
+     logbeer |   .8717567   .2555805     3.41   0.001     .3708281    1.372685
+-------------+----------------------------------------------------------------
+SR           |
+          ec |  -.2884853   .0502635    -5.74   0.000        -.387   -.1899706
+             |
+     logbeer |
+         D1. |   .6782451   .2372498     2.86   0.004      .213244    1.143246
+             |
+       _cons |   .1944292   .0356909     5.45   0.000     .1244764     .264382
+------------------------------------------------------------------------------
+
+. 
+. outreg2 using tables\results_table_B1, ///
+> excel pvalue replace dec(3) ///
+> title("Dependent variable: D.logfeer") ///
+> cttop() addnote(Notes:)
+tables\results_table_B1.xml
+dir : seeout
+
+. 
+. // Save the data
+. save data\feerbeer.dta, replace
+file data\feerbeer.dta saved
+
+. 
+. log close feerbeer
+      name:  feerbeer
+       log:  C:\Users\jamel\Documents\GitHub\ResearchPapers\Lopez Mazier Saadaoui 2012\feerbeer.log
+  log type:  text
+ closed on:  15 Dec 2022, 05:18:47
+----------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,17 @@
+Dependent variable: D.logfeer		
+	(1)	(2)
+VARIABLES	ec	SR
+		
+ec		-0.297***
+		(0.000)
+D.logbeer		0.466**
+		(0.029)
+logbeer	0.922***	
+	(0.000)	
+Constant		0.123***
+		(0.000)
+		
+Observations	425	425
+pval in parentheses		
+*** p<0.01, ** p<0.05, * p<0.1		
+Notes:		
