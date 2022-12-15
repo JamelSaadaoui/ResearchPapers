@@ -7,6 +7,7 @@
  ## Coverage
 |Author|Title|Date|
 |:----|:----|:----|
+|[Lopez Mazier Saadaoui 2015](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Lopez%20Mazier%20Saadaoui%202012)|["Temporal dimension and equilibrium exchange rate: A FEER/BEER comparison"](https://www.sciencedirect.com/science/article/abs/pii/S1566014111000616)|March 2012|
 |[Saadaoui 2015](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Saadaoui%202015)|["Global imbalances: Should we use fundamental equilibrium exchange rates?"](https://www.sciencedirect.com/science/article/abs/pii/S0264999315000243)|June 2015|
 
 <!-- Please don't remove this: Grab your social icons from https://github.com/carlsednaoui/gitsocial -->
