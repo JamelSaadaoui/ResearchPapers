@@ -1,0 +1,2236 @@
+%!PS-Adobe-2.0 EPSF-2.0
+%%Creator: WinRATS Pro (32-bit)
+%%CreationDate: Fri Aug 25 10:00:39 AM
+%%BoundingBox: 0 0 565 348
+/RGFHORZ -5 def/RGFVERT -18 def/ROTATE 0 def
+%%
+%% prolog.pst
+%% PostScript prolog for GRAFEDIT
+%%  (c) 1993-2007 Thomas A. Doan. All rights reserved.
+%%
+%%Pages:(atend)
+%%EndComments
+
+save
+
+%
+% Local dictionary - we need a matching end in the postlog
+%
+
+150 dict begin
+
+%
+% Set the origins and orientation
+% PostScript specifies a default user space with the origin at the
+% lower left of the page in <<portrait>> mode. Our user space has the
+% origin at the lower left in <<landscape>> mode, with a printable
+% area of 720 points by 576 points (10" x 8"). We need to translate
+% and rotate (clockwise) to move from our space to PostScript space.
+%
+% In order to center an image on a sheet of paper whose physical size
+% is A points (long dimension) x B points, the translation should be
+%
+% -(A+720)/2 (B-576)/2 translate
+%
+% For Letter size (11" x 8.5")  (792 points x 612 points)
+%  -756 18 translate
+% For A4 size (11.7" x 8.3") (842.4 points x 597.6 points)
+%  -781.2 10.8 translate
+%
+% For EPS import, use -(4th element in %%BoundingBox) 0
+%
+% If RGFHORZ and RGFVERT are not set above to the appropriate values
+% the following line will define them.
+%
+
+/RGFHORZ where {pop} {/RGFHORZ -756 def/RGFVERT 18 def} ifelse
+/ROTATE  where {pop} {/ROTATE  -90 def} ifelse
+
+/USERTODEFAULT {ROTATE rotate RGFHORZ RGFVERT translate} def
+
+%
+% User definable
+%
+
+%
+% Define the possible line widths
+% THIN is a "hairline". 0 gives the minimal width on the device. That's
+% not recommended because it can be almost invisible. r THICK sets the
+% line thickness at r * the value in the definition.
+%
+
+/THIN  {0.125 setlinewidth } def
+/THICK {1.000 mul setlinewidth } def
+
+
+%
+%Define the solid line pattern
+%
+
+/LINESOLID			{[] 0 setdash} def
+
+%
+% Determine the actual height of this font. Used to center strings vertically
+%
+
+/HEIGHT {gsave newpath 0 0 moveto
+	(M) true charpath flattenpath pathbbox
+	exch pop exch sub exch pop
+	grestore
+	} def
+
+%
+%  Define macros to print text in each alignment and orientation
+%  To put out a text string we need to following syntax:
+%
+%  {string} x y BEGTEXT "rotation op" "horiz pos" "vertical pos" ENDTEXT
+%
+
+/BEGTEXT    {moveto gsave currentpoint translate} def
+/ENDTEXT    {rmoveto show grestore} def
+
+/LEFTAXIS   {90 rotate} def
+/RIGHTAXIS  {-90 rotate} def
+/UPSIDEDOWN {180 rotate} def
+
+/HCENTER    {dup stringwidth pop -2 div} def
+/HLEFT      {0} def
+/HRIGHT     {dup stringwidth pop -1 mul} def
+
+/VCENTER    {HEIGHT -2 div} def
+/VTOP       {HEIGHT -1 mul} def
+/VBOTTOM    {0} def
+
+%
+%Define a macro to outline the existing shape in a thin black line
+%
+
+/OUTLINE {[] 0.0 setgray 0 setdash 0.25 setlinewidth stroke } def
+
+%
+%Define a macro to white out a region
+%
+
+/WHITEOUT {gsave 1.000 setgray fill grestore} def
+
+%
+%Define a macro to draw a box
+%
+
+/BOX {newpath
+	3 index 3 index moveto
+	3 index 1 index lineto
+	2 copy lineto
+	1 index 3 index lineto
+	pop pop lineto
+	} def
+
+%
+%Define a macro to draw an arbitrary polygon given 4 points
+%
+
+/POLYGON {newpath
+	moveto lineto lineto lineto
+	closepath
+	} def
+
+%
+%Define a macro to draw a dot
+%
+
+/DOT {1 setlinejoin THIN moveto currentpoint lineto stroke 0 setlinejoin} def
+
+%
+%Define a macro to find the bounding box of the current path
+%aligned on 1 inch centers
+%
+
+/INCHBOX {
+	gsave flattenpath pathbbox
+	72 div ceiling 72 mul 4 1 roll
+	72 div ceiling 72 mul 4 1 roll
+	72 div floor   72 mul 4 1 roll
+	72 div floor   72 mul 4 1 roll
+	grestore } def
+
+%
+%Define a macro to draw vertical rules through the box
+%whose lower left and upper right corners on the stack
+%
+/RULES {
+	mark
+	1 index
+	4 index
+	sub
+	0
+	exch
+	5 index
+	7 index
+	2.25    %this is the gap in points between the lines
+	7 index
+	{ 4 copy exch moveto rlineto stroke pop }
+	newpath
+	for
+	cleartomark
+	} def
+
+%
+%Draw vertical bars through the shape defined by the current path
+%
+/DRAWHATCHING {
+	gsave THIN
+	clip
+	mark
+	INCHBOX
+	RULES
+	cleartomark grestore } def
+
+%
+%Draw crosshatched lines through the shape defined by the current path
+%
+/HATCHCROSS {
+	gsave
+	45 rotate DRAWHATCHING
+	-90 rotate DRAWHATCHING
+	grestore
+} def
+
+%
+% Vertical hatching
+%
+/HATCHVERT {
+	gsave
+    DRAWHATCHING
+    grestore
+} def
+
+
+%
+% Horizontal hatching
+%
+/HATCHHORIZ {
+	gsave
+	-90 rotate DRAWHATCHING
+	grestore
+} def
+
+%
+%Draw upward sloping lines through the shape defined by the current path
+%
+/HATCHUP {
+	gsave
+	-45 rotate DRAWHATCHING
+	grestore
+} def
+
+%
+%Draw downward sloping lines through the shape defined by the current path
+%
+/HATCHDOWN {
+	gsave
+	45 rotate DRAWHATCHING
+	grestore
+} def
+
+%
+%Draw a checker board pattern through the shape defined by the current path
+%
+/HATCHCHECK {
+	gsave
+	DRAWHATCHING
+	-90 rotate DRAWHATCHING
+	grestore
+} def
+
+%
+%  Define graphics symbols
+%   Calling sequence   0 or 90 size x y SYMBOLx
+%
+%  The definitions are based upon points on a radius 1 circle
+%
+
+/SYMBOLIN {
+	gsave translate LINESOLID THIN dup scale rotate newpath
+} def
+
+/SYMBOLOUT {
+	grestore
+} def
+
+USERTODEFAULT
+
+%%EndProlog
+
+%%Page: ? 2
+save
+newpath
+/Arial-Bold findfont 12.320000 scalefont setfont
+(Pol. relation)151.20 356.00 BEGTEXT HCENTER VTOP ENDTEXT
+/Arial findfont 11.680000 scalefont setfont
+(0)78.40 200.48 BEGTEXT HCENTER VBOTTOM ENDTEXT
+(20)126.56 200.48 BEGTEXT HCENTER VBOTTOM ENDTEXT
+(40)174.88 200.48 BEGTEXT HCENTER VBOTTOM ENDTEXT
+(60)223.20 200.48 BEGTEXT HCENTER VBOTTOM ENDTEXT
+THIN LINESOLID 0.0000 setgray
+78.40 217.92 moveto
+78.40 212.16 lineto
+currentpoint stroke moveto
+102.40 217.92 moveto
+102.40 215.04 lineto
+currentpoint stroke moveto
+126.56 217.92 moveto
+126.56 212.16 lineto
+currentpoint stroke moveto
+150.72 217.92 moveto
+150.72 215.04 lineto
+currentpoint stroke moveto
+174.88 217.92 moveto
+174.88 212.16 lineto
+currentpoint stroke moveto
+199.04 217.92 moveto
+199.04 215.04 lineto
+currentpoint stroke moveto
+223.20 217.92 moveto
+223.20 212.16 lineto
+currentpoint stroke moveto
+247.36 217.92 moveto
+247.36 215.04 lineto
+currentpoint stroke moveto
+THIN LINESOLID 0.0000 setgray
+/Arial findfont 11.680000 scalefont setfont
+(-2.0)48.64 217.92 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+66.40 217.92 moveto
+57.44 217.92 lineto
+currentpoint stroke moveto
+(-1.5)48.64 233.12 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+66.40 233.12 moveto
+57.44 233.12 lineto
+currentpoint stroke moveto
+(-1.0)48.64 248.32 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+66.40 248.32 moveto
+57.44 248.32 lineto
+currentpoint stroke moveto
+(-0.5)48.64 263.68 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+66.40 263.68 moveto
+57.44 263.68 lineto
+currentpoint stroke moveto
+(0.0)48.64 278.88 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+66.40 278.88 moveto
+57.44 278.88 lineto
+currentpoint stroke moveto
+(0.5)48.64 294.08 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+66.40 294.08 moveto
+57.44 294.08 lineto
+currentpoint stroke moveto
+(1.0)48.64 309.44 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+66.40 309.44 moveto
+57.44 309.44 lineto
+currentpoint stroke moveto
+(1.5)48.64 324.64 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+66.40 324.64 moveto
+57.44 324.64 lineto
+currentpoint stroke moveto
+(2.0)48.64 339.84 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+66.40 339.84 moveto
+57.44 339.84 lineto
+currentpoint stroke moveto
+THIN LINESOLID 0.0000 setgray
+66.40 278.88 moveto
+281.12 278.88 lineto
+currentpoint stroke moveto
+THIN LINESOLID 0.0000 setgray
+281.12 217.92 moveto
+66.40 217.92 lineto
+66.40 339.84 lineto
+281.12 339.84 lineto
+281.12 217.92 lineto
+currentpoint stroke moveto
+2.6622 THICK LINESOLID 0.0000 0.0000 1.0000 setrgbcolor
+78.40 248.32 moveto
+80.80 244.00 lineto
+83.20 240.80 lineto
+85.60 239.84 lineto
+88.00 238.72 lineto
+90.40 237.28 lineto
+92.80 239.84 lineto
+95.20 238.72 lineto
+97.60 240.96 lineto
+100.00 241.44 lineto
+102.40 239.52 lineto
+104.96 239.52 lineto
+107.36 239.52 lineto
+109.76 240.32 lineto
+112.16 240.64 lineto
+114.56 239.68 lineto
+116.96 241.76 lineto
+119.36 244.16 lineto
+121.76 245.76 lineto
+124.16 251.20 lineto
+126.56 250.88 lineto
+129.12 251.52 lineto
+131.52 252.00 lineto
+133.92 251.04 lineto
+136.32 251.84 lineto
+138.72 251.20 lineto
+141.12 252.00 lineto
+143.52 251.20 lineto
+145.92 251.20 lineto
+148.32 252.80 lineto
+150.72 252.64 lineto
+153.12 253.60 lineto
+155.68 253.60 lineto
+158.08 253.76 lineto
+160.48 254.88 lineto
+162.88 254.56 lineto
+165.28 254.08 lineto
+167.68 254.24 lineto
+170.08 253.76 lineto
+172.48 254.72 lineto
+174.88 255.36 lineto
+177.28 255.84 lineto
+179.84 256.64 lineto
+182.24 257.12 lineto
+184.64 258.40 lineto
+187.04 259.04 lineto
+189.44 259.68 lineto
+191.84 260.16 lineto
+194.24 260.32 lineto
+196.64 261.12 lineto
+199.04 261.44 lineto
+201.44 262.08 lineto
+203.84 262.88 lineto
+206.40 263.20 lineto
+208.80 264.32 lineto
+211.20 264.96 lineto
+213.60 265.60 lineto
+216.00 266.24 lineto
+218.40 266.56 lineto
+220.80 267.04 lineto
+223.20 267.36 lineto
+225.60 267.68 lineto
+228.00 268.16 lineto
+230.56 268.32 lineto
+232.96 268.96 lineto
+235.36 269.44 lineto
+237.76 269.92 lineto
+240.16 270.56 lineto
+242.56 270.88 lineto
+244.96 271.36 lineto
+247.36 271.84 lineto
+249.76 272.16 lineto
+252.16 272.64 lineto
+254.56 272.80 lineto
+257.12 273.28 lineto
+259.52 273.76 lineto
+261.92 274.08 lineto
+264.32 274.56 lineto
+266.72 274.88 lineto
+269.12 275.52 lineto
+currentpoint stroke moveto
+1 THICK [  6.00   2.00   1.00   2.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+78.40 248.32 moveto
+80.80 240.96 lineto
+83.20 236.48 lineto
+85.60 234.56 lineto
+88.00 231.68 lineto
+90.40 229.28 lineto
+92.80 230.72 lineto
+95.20 228.48 lineto
+97.60 229.60 lineto
+100.00 229.12 lineto
+102.40 226.56 lineto
+104.96 225.76 lineto
+107.36 224.80 lineto
+109.76 224.96 lineto
+112.16 224.80 lineto
+114.56 223.20 lineto
+116.96 224.80 lineto
+119.36 226.88 lineto
+121.76 228.00 lineto
+124.16 233.28 lineto
+126.56 232.96 lineto
+129.12 233.28 lineto
+131.52 233.76 lineto
+133.92 232.64 lineto
+136.32 233.28 lineto
+138.72 232.80 lineto
+141.12 233.60 lineto
+143.52 232.80 lineto
+145.92 232.64 lineto
+148.32 234.40 lineto
+150.72 234.08 lineto
+153.12 235.20 lineto
+155.68 235.20 lineto
+158.08 235.36 lineto
+160.48 236.48 lineto
+162.88 236.16 lineto
+165.28 235.68 lineto
+167.68 235.84 lineto
+170.08 235.20 lineto
+172.48 236.32 lineto
+174.88 236.64 lineto
+177.28 237.12 lineto
+179.84 237.92 lineto
+182.24 238.40 lineto
+184.64 239.68 lineto
+187.04 240.16 lineto
+189.44 240.96 lineto
+191.84 241.44 lineto
+194.24 241.60 lineto
+196.64 242.40 lineto
+199.04 242.88 lineto
+201.44 243.52 lineto
+203.84 244.48 lineto
+206.40 244.80 lineto
+208.80 245.92 lineto
+211.20 246.88 lineto
+213.60 247.68 lineto
+216.00 248.48 lineto
+218.40 248.80 lineto
+220.80 249.44 lineto
+223.20 249.76 lineto
+225.60 250.24 lineto
+228.00 250.72 lineto
+230.56 251.20 lineto
+232.96 251.84 lineto
+235.36 252.32 lineto
+237.76 252.96 lineto
+240.16 253.76 lineto
+242.56 254.08 lineto
+244.96 254.72 lineto
+247.36 255.36 lineto
+249.76 255.84 lineto
+252.16 256.32 lineto
+254.56 256.64 lineto
+257.12 257.28 lineto
+259.52 257.92 lineto
+261.92 258.40 lineto
+264.32 259.04 lineto
+266.72 259.52 lineto
+269.12 260.16 lineto
+currentpoint stroke moveto
+1 THICK [  4.00   4.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+78.40 248.32 moveto
+80.80 241.92 lineto
+83.20 237.92 lineto
+85.60 236.16 lineto
+88.00 233.92 lineto
+90.40 231.68 lineto
+92.80 233.44 lineto
+95.20 231.52 lineto
+97.60 232.96 lineto
+100.00 232.64 lineto
+102.40 230.08 lineto
+104.96 229.44 lineto
+107.36 228.80 lineto
+109.76 228.96 lineto
+112.16 228.96 lineto
+114.56 227.36 lineto
+116.96 228.96 lineto
+119.36 231.20 lineto
+121.76 232.48 lineto
+124.16 237.76 lineto
+126.56 237.44 lineto
+129.12 237.76 lineto
+131.52 238.40 lineto
+133.92 237.28 lineto
+136.32 237.92 lineto
+138.72 237.28 lineto
+141.12 238.24 lineto
+143.52 237.28 lineto
+145.92 237.28 lineto
+148.32 239.04 lineto
+150.72 238.72 lineto
+153.12 239.84 lineto
+155.68 239.68 lineto
+158.08 239.84 lineto
+160.48 240.96 lineto
+162.88 240.64 lineto
+165.28 240.00 lineto
+167.68 240.16 lineto
+170.08 239.68 lineto
+172.48 240.64 lineto
+174.88 241.12 lineto
+177.28 241.60 lineto
+179.84 242.40 lineto
+182.24 243.04 lineto
+184.64 244.32 lineto
+187.04 244.80 lineto
+189.44 245.60 lineto
+191.84 246.24 lineto
+194.24 246.24 lineto
+196.64 247.20 lineto
+199.04 247.52 lineto
+201.44 248.32 lineto
+203.84 249.12 lineto
+206.40 249.44 lineto
+208.80 250.56 lineto
+211.20 251.36 lineto
+213.60 252.16 lineto
+216.00 252.80 lineto
+218.40 253.12 lineto
+220.80 253.76 lineto
+223.20 254.08 lineto
+225.60 254.56 lineto
+228.00 255.04 lineto
+230.56 255.36 lineto
+232.96 256.00 lineto
+235.36 256.64 lineto
+237.76 257.12 lineto
+240.16 257.92 lineto
+242.56 258.40 lineto
+244.96 259.04 lineto
+247.36 259.52 lineto
+249.76 260.00 lineto
+252.16 260.64 lineto
+254.56 260.96 lineto
+257.12 261.44 lineto
+259.52 261.92 lineto
+261.92 262.40 lineto
+264.32 263.20 lineto
+266.72 263.68 lineto
+269.12 264.32 lineto
+currentpoint stroke moveto
+1 THICK [  4.00   4.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+78.40 248.32 moveto
+80.80 245.60 lineto
+83.20 242.72 lineto
+85.60 241.76 lineto
+88.00 240.64 lineto
+90.40 239.36 lineto
+92.80 242.08 lineto
+95.20 240.80 lineto
+97.60 242.88 lineto
+100.00 243.20 lineto
+102.40 241.28 lineto
+104.96 241.12 lineto
+107.36 240.80 lineto
+109.76 241.60 lineto
+112.16 241.92 lineto
+114.56 240.80 lineto
+116.96 243.04 lineto
+119.36 245.60 lineto
+121.76 247.04 lineto
+124.16 252.64 lineto
+126.56 252.32 lineto
+129.12 252.80 lineto
+131.52 253.60 lineto
+133.92 252.64 lineto
+136.32 253.44 lineto
+138.72 252.80 lineto
+141.12 253.60 lineto
+143.52 252.48 lineto
+145.92 252.64 lineto
+148.32 254.24 lineto
+150.72 253.92 lineto
+153.12 254.88 lineto
+155.68 254.88 lineto
+158.08 254.88 lineto
+160.48 256.00 lineto
+162.88 255.52 lineto
+165.28 254.88 lineto
+167.68 255.04 lineto
+170.08 254.56 lineto
+172.48 255.68 lineto
+174.88 256.16 lineto
+177.28 256.64 lineto
+179.84 257.60 lineto
+182.24 258.08 lineto
+184.64 259.52 lineto
+187.04 260.00 lineto
+189.44 260.64 lineto
+191.84 261.12 lineto
+194.24 261.12 lineto
+196.64 262.24 lineto
+199.04 262.56 lineto
+201.44 263.20 lineto
+203.84 264.16 lineto
+206.40 264.48 lineto
+208.80 265.60 lineto
+211.20 266.40 lineto
+213.60 267.04 lineto
+216.00 267.68 lineto
+218.40 268.00 lineto
+220.80 268.48 lineto
+223.20 268.80 lineto
+225.60 269.12 lineto
+228.00 269.60 lineto
+230.56 269.92 lineto
+232.96 270.40 lineto
+235.36 270.88 lineto
+237.76 271.52 lineto
+240.16 272.16 lineto
+242.56 272.48 lineto
+244.96 272.96 lineto
+247.36 273.44 lineto
+249.76 273.76 lineto
+252.16 274.24 lineto
+254.56 274.56 lineto
+257.12 274.88 lineto
+259.52 275.36 lineto
+261.92 275.84 lineto
+264.32 276.32 lineto
+266.72 276.80 lineto
+269.12 277.28 lineto
+currentpoint stroke moveto
+1 THICK [  6.00   2.00   1.00   2.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+78.40 248.32 moveto
+80.80 246.72 lineto
+83.20 244.32 lineto
+85.60 243.52 lineto
+88.00 242.88 lineto
+90.40 241.76 lineto
+92.80 244.80 lineto
+95.20 243.84 lineto
+97.60 246.24 lineto
+100.00 246.88 lineto
+102.40 244.80 lineto
+104.96 244.96 lineto
+107.36 244.80 lineto
+109.76 245.76 lineto
+112.16 246.24 lineto
+114.56 245.28 lineto
+116.96 247.68 lineto
+119.36 250.40 lineto
+121.76 252.00 lineto
+124.16 257.76 lineto
+126.56 257.60 lineto
+129.12 258.08 lineto
+131.52 258.88 lineto
+133.92 257.76 lineto
+136.32 258.72 lineto
+138.72 258.24 lineto
+141.12 258.88 lineto
+143.52 258.08 lineto
+145.92 258.24 lineto
+148.32 259.84 lineto
+150.72 259.52 lineto
+153.12 260.64 lineto
+155.68 260.32 lineto
+158.08 260.48 lineto
+160.48 261.44 lineto
+162.88 260.96 lineto
+165.28 260.48 lineto
+167.68 260.48 lineto
+170.08 260.16 lineto
+172.48 261.12 lineto
+174.88 261.60 lineto
+177.28 262.24 lineto
+179.84 262.88 lineto
+182.24 263.36 lineto
+184.64 264.80 lineto
+187.04 265.12 lineto
+189.44 265.92 lineto
+191.84 266.56 lineto
+194.24 266.56 lineto
+196.64 267.52 lineto
+199.04 267.84 lineto
+201.44 268.32 lineto
+203.84 269.28 lineto
+206.40 269.60 lineto
+208.80 270.56 lineto
+211.20 271.52 lineto
+213.60 272.16 lineto
+216.00 272.80 lineto
+218.40 273.12 lineto
+220.80 273.60 lineto
+223.20 274.08 lineto
+225.60 274.24 lineto
+228.00 274.72 lineto
+230.56 274.88 lineto
+232.96 275.52 lineto
+235.36 276.00 lineto
+237.76 276.48 lineto
+240.16 277.28 lineto
+242.56 277.60 lineto
+244.96 278.24 lineto
+247.36 278.72 lineto
+249.76 279.04 lineto
+252.16 279.52 lineto
+254.56 279.68 lineto
+257.12 280.00 lineto
+259.52 280.48 lineto
+261.92 280.96 lineto
+264.32 281.44 lineto
+266.72 281.76 lineto
+269.12 282.24 lineto
+currentpoint stroke moveto
+/Arial-Bold findfont 12.320000 scalefont setfont
+0 0 0 setrgbcolor 0 setgray
+(Supply)151.20 183.20 BEGTEXT HCENTER VTOP ENDTEXT
+/Arial findfont 11.680000 scalefont setfont
+(0)67.84 27.84 BEGTEXT HCENTER VBOTTOM ENDTEXT
+(20)118.56 27.84 BEGTEXT HCENTER VBOTTOM ENDTEXT
+(40)169.44 27.84 BEGTEXT HCENTER VBOTTOM ENDTEXT
+(60)220.16 27.84 BEGTEXT HCENTER VBOTTOM ENDTEXT
+THIN LINESOLID 0.0000 setgray
+67.84 45.12 moveto
+67.84 39.36 lineto
+currentpoint stroke moveto
+93.12 45.12 moveto
+93.12 42.24 lineto
+currentpoint stroke moveto
+118.56 45.12 moveto
+118.56 39.36 lineto
+currentpoint stroke moveto
+144.00 45.12 moveto
+144.00 42.24 lineto
+currentpoint stroke moveto
+169.44 45.12 moveto
+169.44 39.36 lineto
+currentpoint stroke moveto
+194.88 45.12 moveto
+194.88 42.24 lineto
+currentpoint stroke moveto
+220.16 45.12 moveto
+220.16 39.36 lineto
+currentpoint stroke moveto
+245.60 45.12 moveto
+245.60 42.24 lineto
+currentpoint stroke moveto
+THIN LINESOLID 0.0000 setgray
+/Arial findfont 11.680000 scalefont setfont
+(-3)37.44 45.12 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+55.20 45.12 moveto
+46.40 45.12 lineto
+currentpoint stroke moveto
+(-2)37.44 65.44 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+55.20 65.44 moveto
+46.40 65.44 lineto
+currentpoint stroke moveto
+(-1)37.44 85.76 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+55.20 85.76 moveto
+46.40 85.76 lineto
+currentpoint stroke moveto
+(0)37.44 106.08 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+55.20 106.08 moveto
+46.40 106.08 lineto
+currentpoint stroke moveto
+(1)37.44 126.56 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+55.20 126.56 moveto
+46.40 126.56 lineto
+currentpoint stroke moveto
+(2)37.44 146.88 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+55.20 146.88 moveto
+46.40 146.88 lineto
+currentpoint stroke moveto
+(3)37.44 167.20 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+55.20 167.20 moveto
+46.40 167.20 lineto
+currentpoint stroke moveto
+THIN LINESOLID 0.0000 setgray
+55.20 106.08 moveto
+281.12 106.08 lineto
+currentpoint stroke moveto
+THIN LINESOLID 0.0000 setgray
+281.12 45.12 moveto
+55.20 45.12 lineto
+55.20 167.20 lineto
+281.12 167.20 lineto
+281.12 45.12 lineto
+currentpoint stroke moveto
+2.6622 THICK LINESOLID 0.0000 0.0000 1.0000 setrgbcolor
+67.84 106.08 moveto
+70.40 100.96 lineto
+72.80 105.12 lineto
+75.36 101.60 lineto
+77.92 105.28 lineto
+80.48 104.64 lineto
+83.04 102.40 lineto
+85.60 101.12 lineto
+88.16 105.28 lineto
+90.72 100.80 lineto
+93.12 100.16 lineto
+95.68 100.80 lineto
+98.24 104.16 lineto
+100.80 96.96 lineto
+103.36 94.08 lineto
+105.92 99.36 lineto
+108.48 101.44 lineto
+111.04 108.80 lineto
+113.60 112.64 lineto
+116.00 112.64 lineto
+118.56 114.72 lineto
+121.12 120.16 lineto
+123.68 118.88 lineto
+126.24 111.36 lineto
+128.80 109.60 lineto
+131.36 108.48 lineto
+133.92 109.76 lineto
+136.32 111.68 lineto
+138.88 113.60 lineto
+141.44 115.84 lineto
+144.00 116.64 lineto
+146.56 117.12 lineto
+149.12 117.76 lineto
+151.68 117.60 lineto
+154.24 116.96 lineto
+156.64 115.20 lineto
+159.20 114.72 lineto
+161.76 112.48 lineto
+164.32 111.84 lineto
+166.88 112.00 lineto
+169.44 112.00 lineto
+172.00 114.08 lineto
+174.56 115.68 lineto
+177.12 115.04 lineto
+179.52 116.80 lineto
+182.08 116.96 lineto
+184.64 116.16 lineto
+187.20 115.20 lineto
+189.76 114.72 lineto
+192.32 113.60 lineto
+194.88 112.48 lineto
+197.44 112.48 lineto
+199.84 112.48 lineto
+202.40 113.12 lineto
+204.96 113.76 lineto
+207.52 113.60 lineto
+210.08 113.92 lineto
+212.64 114.24 lineto
+215.20 112.96 lineto
+217.76 112.32 lineto
+220.16 111.52 lineto
+222.72 110.56 lineto
+225.28 109.92 lineto
+227.84 109.28 lineto
+230.40 108.96 lineto
+232.96 108.96 lineto
+235.52 108.80 lineto
+238.08 108.64 lineto
+240.48 108.48 lineto
+243.04 108.32 lineto
+245.60 107.68 lineto
+248.16 107.04 lineto
+250.72 106.56 lineto
+253.28 105.76 lineto
+255.84 105.12 lineto
+258.40 104.64 lineto
+260.96 104.32 lineto
+263.36 104.16 lineto
+265.92 104.00 lineto
+268.48 103.68 lineto
+currentpoint stroke moveto
+1 THICK [  6.00   2.00   1.00   2.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+67.84 106.08 moveto
+70.40 92.16 lineto
+72.80 95.52 lineto
+75.36 89.76 lineto
+77.92 91.68 lineto
+80.48 89.76 lineto
+83.04 87.36 lineto
+85.60 85.28 lineto
+88.16 88.80 lineto
+90.72 84.16 lineto
+93.12 82.72 lineto
+95.68 82.40 lineto
+98.24 85.44 lineto
+100.80 77.28 lineto
+103.36 74.56 lineto
+105.92 79.52 lineto
+108.48 80.80 lineto
+111.04 87.68 lineto
+113.60 91.20 lineto
+116.00 91.04 lineto
+118.56 93.28 lineto
+121.12 98.72 lineto
+123.68 97.76 lineto
+126.24 90.40 lineto
+128.80 89.12 lineto
+131.36 88.16 lineto
+133.92 90.24 lineto
+136.32 92.64 lineto
+138.88 94.56 lineto
+141.44 97.44 lineto
+144.00 98.40 lineto
+146.56 98.88 lineto
+149.12 100.00 lineto
+151.68 100.16 lineto
+154.24 99.36 lineto
+156.64 97.92 lineto
+159.20 97.92 lineto
+161.76 95.84 lineto
+164.32 95.36 lineto
+166.88 96.00 lineto
+169.44 96.32 lineto
+172.00 98.72 lineto
+174.56 100.64 lineto
+177.12 100.00 lineto
+179.52 102.08 lineto
+182.08 102.56 lineto
+184.64 101.76 lineto
+187.20 101.12 lineto
+189.76 100.48 lineto
+192.32 99.68 lineto
+194.88 98.56 lineto
+197.44 98.72 lineto
+199.84 98.56 lineto
+202.40 99.20 lineto
+204.96 100.00 lineto
+207.52 99.84 lineto
+210.08 100.32 lineto
+212.64 100.48 lineto
+215.20 99.20 lineto
+217.76 98.56 lineto
+220.16 97.60 lineto
+222.72 96.64 lineto
+225.28 95.84 lineto
+227.84 95.20 lineto
+230.40 94.72 lineto
+232.96 94.72 lineto
+235.52 94.72 lineto
+238.08 94.40 lineto
+240.48 94.40 lineto
+243.04 94.40 lineto
+245.60 93.44 lineto
+248.16 92.96 lineto
+250.72 92.32 lineto
+253.28 91.52 lineto
+255.84 90.88 lineto
+258.40 90.40 lineto
+260.96 89.92 lineto
+263.36 89.92 lineto
+265.92 89.60 lineto
+268.48 89.28 lineto
+currentpoint stroke moveto
+1 THICK [  4.00   4.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+67.84 106.08 moveto
+70.40 95.36 lineto
+72.80 99.36 lineto
+75.36 94.72 lineto
+77.92 96.96 lineto
+80.48 95.52 lineto
+83.04 93.12 lineto
+85.60 91.36 lineto
+88.16 95.20 lineto
+90.72 90.40 lineto
+93.12 89.28 lineto
+95.68 89.76 lineto
+98.24 92.96 lineto
+100.80 84.96 lineto
+103.36 82.08 lineto
+105.92 87.20 lineto
+108.48 88.64 lineto
+111.04 95.68 lineto
+113.60 99.36 lineto
+116.00 99.36 lineto
+118.56 101.60 lineto
+121.12 106.88 lineto
+123.68 105.76 lineto
+126.24 98.72 lineto
+128.80 96.96 lineto
+131.36 96.16 lineto
+133.92 97.92 lineto
+136.32 100.00 lineto
+138.88 101.92 lineto
+141.44 104.48 lineto
+144.00 105.44 lineto
+146.56 106.08 lineto
+149.12 107.20 lineto
+151.68 107.36 lineto
+154.24 106.56 lineto
+156.64 105.12 lineto
+159.20 104.80 lineto
+161.76 102.72 lineto
+164.32 102.24 lineto
+166.88 102.56 lineto
+169.44 102.72 lineto
+172.00 105.12 lineto
+174.56 107.04 lineto
+177.12 106.40 lineto
+179.52 108.32 lineto
+182.08 108.64 lineto
+184.64 108.00 lineto
+187.20 107.20 lineto
+189.76 106.72 lineto
+192.32 105.76 lineto
+194.88 104.64 lineto
+197.44 104.64 lineto
+199.84 104.64 lineto
+202.40 105.44 lineto
+204.96 106.24 lineto
+207.52 105.92 lineto
+210.08 106.40 lineto
+212.64 106.72 lineto
+215.20 105.44 lineto
+217.76 104.96 lineto
+220.16 104.00 lineto
+222.72 102.88 lineto
+225.28 102.40 lineto
+227.84 101.60 lineto
+230.40 101.28 lineto
+232.96 101.28 lineto
+235.52 101.12 lineto
+238.08 100.80 lineto
+240.48 100.64 lineto
+243.04 100.48 lineto
+245.60 99.84 lineto
+248.16 99.20 lineto
+250.72 98.56 lineto
+253.28 97.60 lineto
+255.84 97.12 lineto
+258.40 96.64 lineto
+260.96 96.16 lineto
+263.36 96.00 lineto
+265.92 95.84 lineto
+268.48 95.36 lineto
+currentpoint stroke moveto
+1 THICK [  4.00   4.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+67.84 106.08 moveto
+70.40 104.80 lineto
+72.80 110.88 lineto
+75.36 109.12 lineto
+77.92 112.96 lineto
+80.48 112.48 lineto
+83.04 110.72 lineto
+85.60 109.44 lineto
+88.16 113.76 lineto
+90.72 109.60 lineto
+93.12 109.12 lineto
+95.68 110.24 lineto
+98.24 113.92 lineto
+100.80 106.88 lineto
+103.36 104.48 lineto
+105.92 109.92 lineto
+108.48 112.00 lineto
+111.04 119.68 lineto
+113.60 123.52 lineto
+116.00 123.68 lineto
+118.56 126.08 lineto
+121.12 131.84 lineto
+123.68 130.72 lineto
+126.24 123.84 lineto
+128.80 121.44 lineto
+131.36 120.00 lineto
+133.92 120.96 lineto
+136.32 122.72 lineto
+138.88 124.00 lineto
+141.44 126.40 lineto
+144.00 127.36 lineto
+146.56 127.36 lineto
+149.12 128.32 lineto
+151.68 128.16 lineto
+154.24 127.04 lineto
+156.64 125.12 lineto
+159.20 124.32 lineto
+161.76 121.92 lineto
+164.32 121.12 lineto
+166.88 121.12 lineto
+169.44 121.12 lineto
+172.00 123.20 lineto
+174.56 125.12 lineto
+177.12 124.32 lineto
+179.52 126.24 lineto
+182.08 126.40 lineto
+184.64 125.60 lineto
+187.20 124.64 lineto
+189.76 124.16 lineto
+192.32 123.20 lineto
+194.88 122.24 lineto
+197.44 122.40 lineto
+199.84 122.24 lineto
+202.40 123.20 lineto
+204.96 124.00 lineto
+207.52 123.84 lineto
+210.08 124.32 lineto
+212.64 124.80 lineto
+215.20 123.36 lineto
+217.76 122.88 lineto
+220.16 122.08 lineto
+222.72 121.28 lineto
+225.28 120.64 lineto
+227.84 120.16 lineto
+230.40 119.68 lineto
+232.96 119.84 lineto
+235.52 119.68 lineto
+238.08 119.52 lineto
+240.48 119.36 lineto
+243.04 119.20 lineto
+245.60 118.56 lineto
+248.16 117.76 lineto
+250.72 117.28 lineto
+253.28 116.16 lineto
+255.84 115.68 lineto
+258.40 115.20 lineto
+260.96 114.72 lineto
+263.36 114.72 lineto
+265.92 114.56 lineto
+268.48 114.08 lineto
+currentpoint stroke moveto
+1 THICK [  6.00   2.00   1.00   2.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+67.84 106.08 moveto
+70.40 107.68 lineto
+72.80 115.04 lineto
+75.36 114.08 lineto
+77.92 118.24 lineto
+80.48 118.24 lineto
+83.04 116.80 lineto
+85.60 115.36 lineto
+88.16 119.84 lineto
+90.72 116.00 lineto
+93.12 115.84 lineto
+95.68 117.28 lineto
+98.24 120.96 lineto
+100.80 113.92 lineto
+103.36 112.16 lineto
+105.92 117.76 lineto
+108.48 119.84 lineto
+111.04 127.20 lineto
+113.60 131.84 lineto
+116.00 131.84 lineto
+118.56 134.40 lineto
+121.12 140.00 lineto
+123.68 139.36 lineto
+126.24 132.48 lineto
+128.80 129.76 lineto
+131.36 128.00 lineto
+133.92 128.80 lineto
+136.32 130.40 lineto
+138.88 131.52 lineto
+141.44 133.76 lineto
+144.00 134.40 lineto
+146.56 134.56 lineto
+149.12 135.36 lineto
+151.68 135.04 lineto
+154.24 133.76 lineto
+156.64 131.84 lineto
+159.20 131.04 lineto
+161.76 128.48 lineto
+164.32 127.52 lineto
+166.88 127.52 lineto
+169.44 127.36 lineto
+172.00 129.44 lineto
+174.56 131.04 lineto
+177.12 130.24 lineto
+179.52 132.00 lineto
+182.08 132.16 lineto
+184.64 131.36 lineto
+187.20 130.56 lineto
+189.76 130.08 lineto
+192.32 129.44 lineto
+194.88 128.48 lineto
+197.44 128.64 lineto
+199.84 128.64 lineto
+202.40 129.60 lineto
+204.96 130.24 lineto
+207.52 129.92 lineto
+210.08 130.56 lineto
+212.64 131.04 lineto
+215.20 129.44 lineto
+217.76 128.96 lineto
+220.16 128.16 lineto
+222.72 127.52 lineto
+225.28 126.88 lineto
+227.84 126.24 lineto
+230.40 125.92 lineto
+232.96 125.92 lineto
+235.52 125.92 lineto
+238.08 125.76 lineto
+240.48 125.60 lineto
+243.04 125.60 lineto
+245.60 124.80 lineto
+248.16 124.32 lineto
+250.72 123.68 lineto
+253.28 122.72 lineto
+255.84 122.08 lineto
+258.40 121.60 lineto
+260.96 121.28 lineto
+263.36 121.28 lineto
+265.92 120.96 lineto
+268.48 120.64 lineto
+currentpoint stroke moveto
+/Arial-Bold findfont 12.320000 scalefont setfont
+0 0 0 setrgbcolor 0 setgray
+(Demand)424.64 356.00 BEGTEXT HCENTER VTOP ENDTEXT
+/Arial findfont 11.680000 scalefont setfont
+(0)351.84 200.48 BEGTEXT HCENTER VBOTTOM ENDTEXT
+(20)400.16 200.48 BEGTEXT HCENTER VBOTTOM ENDTEXT
+(40)448.48 200.48 BEGTEXT HCENTER VBOTTOM ENDTEXT
+(60)496.80 200.48 BEGTEXT HCENTER VBOTTOM ENDTEXT
+THIN LINESOLID 0.0000 setgray
+351.84 217.92 moveto
+351.84 212.16 lineto
+currentpoint stroke moveto
+376.00 217.92 moveto
+376.00 215.04 lineto
+currentpoint stroke moveto
+400.16 217.92 moveto
+400.16 212.16 lineto
+currentpoint stroke moveto
+424.32 217.92 moveto
+424.32 215.04 lineto
+currentpoint stroke moveto
+448.48 217.92 moveto
+448.48 212.16 lineto
+currentpoint stroke moveto
+472.64 217.92 moveto
+472.64 215.04 lineto
+currentpoint stroke moveto
+496.80 217.92 moveto
+496.80 212.16 lineto
+currentpoint stroke moveto
+520.96 217.92 moveto
+520.96 215.04 lineto
+currentpoint stroke moveto
+THIN LINESOLID 0.0000 setgray
+/Arial findfont 11.680000 scalefont setfont
+(-5.0)322.08 217.92 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+339.84 217.92 moveto
+331.04 217.92 lineto
+currentpoint stroke moveto
+(-2.5)322.08 248.32 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+339.84 248.32 moveto
+331.04 248.32 lineto
+currentpoint stroke moveto
+(0.0)322.08 278.88 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+339.84 278.88 moveto
+331.04 278.88 lineto
+currentpoint stroke moveto
+(2.5)322.08 309.44 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+339.84 309.44 moveto
+331.04 309.44 lineto
+currentpoint stroke moveto
+(5.0)322.08 339.84 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+339.84 339.84 moveto
+331.04 339.84 lineto
+currentpoint stroke moveto
+THIN LINESOLID 0.0000 setgray
+339.84 278.88 moveto
+554.56 278.88 lineto
+currentpoint stroke moveto
+THIN LINESOLID 0.0000 setgray
+554.56 217.92 moveto
+339.84 217.92 lineto
+339.84 339.84 lineto
+554.56 339.84 lineto
+554.56 217.92 lineto
+currentpoint stroke moveto
+2.6622 THICK LINESOLID 0.0000 0.0000 1.0000 setrgbcolor
+351.84 278.88 moveto
+354.24 276.16 lineto
+356.64 275.20 lineto
+359.04 274.88 lineto
+361.44 273.28 lineto
+363.84 272.48 lineto
+366.40 273.44 lineto
+368.80 271.52 lineto
+371.20 271.36 lineto
+373.60 267.68 lineto
+376.00 266.72 lineto
+378.40 268.96 lineto
+380.80 268.48 lineto
+383.20 266.56 lineto
+385.60 266.24 lineto
+388.00 267.04 lineto
+390.56 267.84 lineto
+392.96 266.72 lineto
+395.36 265.92 lineto
+397.76 266.72 lineto
+400.16 264.00 lineto
+402.56 264.48 lineto
+404.96 263.20 lineto
+407.36 263.04 lineto
+409.76 262.88 lineto
+412.16 262.08 lineto
+414.56 262.08 lineto
+417.12 260.48 lineto
+419.52 259.68 lineto
+421.92 259.36 lineto
+424.32 258.40 lineto
+426.72 258.88 lineto
+429.12 258.88 lineto
+431.52 258.88 lineto
+433.92 259.36 lineto
+436.32 259.52 lineto
+438.72 260.00 lineto
+441.28 260.00 lineto
+443.68 260.16 lineto
+446.08 260.48 lineto
+448.48 260.16 lineto
+450.88 259.84 lineto
+453.28 260.48 lineto
+455.68 260.16 lineto
+458.08 260.64 lineto
+460.48 260.32 lineto
+462.88 260.64 lineto
+465.28 260.64 lineto
+467.84 260.32 lineto
+470.24 260.48 lineto
+472.64 260.00 lineto
+475.04 260.00 lineto
+477.44 259.84 lineto
+479.84 259.36 lineto
+482.24 259.20 lineto
+484.64 258.88 lineto
+487.04 258.40 lineto
+489.44 258.08 lineto
+492.00 257.76 lineto
+494.40 257.44 lineto
+496.80 257.12 lineto
+499.20 256.80 lineto
+501.60 256.48 lineto
+504.00 256.00 lineto
+506.40 255.68 lineto
+508.80 255.52 lineto
+511.20 255.04 lineto
+513.60 254.88 lineto
+516.00 254.40 lineto
+518.56 254.24 lineto
+520.96 254.08 lineto
+523.36 253.76 lineto
+525.76 253.76 lineto
+528.16 253.44 lineto
+530.56 253.44 lineto
+532.96 253.12 lineto
+535.36 252.96 lineto
+537.76 252.80 lineto
+540.16 252.48 lineto
+542.72 252.32 lineto
+currentpoint stroke moveto
+1 THICK [  6.00   2.00   1.00   2.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+351.84 278.88 moveto
+354.24 273.76 lineto
+356.64 272.16 lineto
+359.04 269.92 lineto
+361.44 267.52 lineto
+363.84 265.44 lineto
+366.40 265.28 lineto
+368.80 262.24 lineto
+371.20 261.12 lineto
+373.60 256.16 lineto
+376.00 254.24 lineto
+378.40 255.52 lineto
+380.80 254.40 lineto
+383.20 251.52 lineto
+385.60 250.40 lineto
+388.00 250.40 lineto
+390.56 250.40 lineto
+392.96 248.80 lineto
+395.36 247.52 lineto
+397.76 247.52 lineto
+400.16 244.48 lineto
+402.56 244.48 lineto
+404.96 242.40 lineto
+407.36 241.92 lineto
+409.76 241.28 lineto
+412.16 240.16 lineto
+414.56 239.84 lineto
+417.12 238.24 lineto
+419.52 237.44 lineto
+421.92 237.12 lineto
+424.32 235.84 lineto
+426.72 236.48 lineto
+429.12 236.48 lineto
+431.52 236.64 lineto
+433.92 236.96 lineto
+436.32 237.12 lineto
+438.72 238.08 lineto
+441.28 238.08 lineto
+443.68 238.40 lineto
+446.08 238.72 lineto
+448.48 238.24 lineto
+450.88 237.92 lineto
+453.28 238.56 lineto
+455.68 237.92 lineto
+458.08 238.56 lineto
+460.48 237.92 lineto
+462.88 238.08 lineto
+465.28 238.08 lineto
+467.84 237.60 lineto
+470.24 237.44 lineto
+472.64 236.64 lineto
+475.04 236.32 lineto
+477.44 235.84 lineto
+479.84 235.20 lineto
+482.24 234.72 lineto
+484.64 234.08 lineto
+487.04 233.12 lineto
+489.44 232.64 lineto
+492.00 231.84 lineto
+494.40 231.36 lineto
+496.80 230.72 lineto
+499.20 230.08 lineto
+501.60 229.44 lineto
+504.00 228.80 lineto
+506.40 228.16 lineto
+508.80 227.84 lineto
+511.20 227.04 lineto
+513.60 226.72 lineto
+516.00 225.92 lineto
+518.56 225.60 lineto
+520.96 225.28 lineto
+523.36 224.80 lineto
+525.76 224.48 lineto
+528.16 224.16 lineto
+530.56 223.84 lineto
+532.96 223.52 lineto
+535.36 223.04 lineto
+537.76 222.72 lineto
+540.16 222.40 lineto
+542.72 221.92 lineto
+currentpoint stroke moveto
+1 THICK [  4.00   4.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+351.84 278.88 moveto
+354.24 274.72 lineto
+356.64 273.44 lineto
+359.04 271.68 lineto
+361.44 269.60 lineto
+363.84 268.00 lineto
+366.40 268.16 lineto
+368.80 265.60 lineto
+371.20 264.80 lineto
+373.60 260.32 lineto
+376.00 258.72 lineto
+378.40 260.32 lineto
+380.80 259.04 lineto
+383.20 256.64 lineto
+385.60 255.84 lineto
+388.00 256.32 lineto
+390.56 256.48 lineto
+392.96 255.04 lineto
+395.36 253.76 lineto
+397.76 254.24 lineto
+400.16 251.20 lineto
+402.56 251.36 lineto
+404.96 249.76 lineto
+407.36 249.28 lineto
+409.76 248.64 lineto
+412.16 247.68 lineto
+414.56 247.52 lineto
+417.12 245.76 lineto
+419.52 244.80 lineto
+421.92 244.32 lineto
+424.32 243.04 lineto
+426.72 243.52 lineto
+429.12 243.52 lineto
+431.52 243.52 lineto
+433.92 243.84 lineto
+436.32 244.16 lineto
+438.72 244.64 lineto
+441.28 244.64 lineto
+443.68 244.80 lineto
+446.08 245.12 lineto
+448.48 244.80 lineto
+450.88 244.48 lineto
+453.28 245.12 lineto
+455.68 244.64 lineto
+458.08 245.28 lineto
+460.48 244.80 lineto
+462.88 244.80 lineto
+465.28 244.80 lineto
+467.84 244.32 lineto
+470.24 244.32 lineto
+472.64 243.68 lineto
+475.04 243.36 lineto
+477.44 243.04 lineto
+479.84 242.40 lineto
+482.24 242.08 lineto
+484.64 241.44 lineto
+487.04 240.80 lineto
+489.44 240.48 lineto
+492.00 239.68 lineto
+494.40 239.20 lineto
+496.80 238.72 lineto
+499.20 238.08 lineto
+501.60 237.60 lineto
+504.00 237.12 lineto
+506.40 236.48 lineto
+508.80 236.16 lineto
+511.20 235.52 lineto
+513.60 235.20 lineto
+516.00 234.56 lineto
+518.56 234.24 lineto
+520.96 233.92 lineto
+523.36 233.44 lineto
+525.76 233.28 lineto
+528.16 232.80 lineto
+530.56 232.64 lineto
+532.96 232.32 lineto
+535.36 231.84 lineto
+537.76 231.36 lineto
+540.16 231.04 lineto
+542.72 230.72 lineto
+currentpoint stroke moveto
+1 THICK [  4.00   4.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+351.84 278.88 moveto
+354.24 277.12 lineto
+356.64 276.96 lineto
+359.04 276.96 lineto
+361.44 275.84 lineto
+363.84 275.68 lineto
+366.40 277.28 lineto
+368.80 275.84 lineto
+371.20 276.16 lineto
+373.60 272.80 lineto
+376.00 272.32 lineto
+378.40 275.04 lineto
+380.80 274.72 lineto
+383.20 272.96 lineto
+385.60 272.96 lineto
+388.00 274.24 lineto
+390.56 275.04 lineto
+392.96 274.24 lineto
+395.36 273.60 lineto
+397.76 274.56 lineto
+400.16 272.16 lineto
+402.56 272.64 lineto
+404.96 271.36 lineto
+407.36 271.36 lineto
+409.76 271.20 lineto
+412.16 270.24 lineto
+414.56 270.08 lineto
+417.12 268.48 lineto
+419.52 267.36 lineto
+421.92 266.88 lineto
+424.32 265.44 lineto
+426.72 265.76 lineto
+429.12 265.60 lineto
+431.52 265.28 lineto
+433.92 265.44 lineto
+436.32 265.44 lineto
+438.72 265.92 lineto
+441.28 265.60 lineto
+443.68 265.60 lineto
+446.08 265.76 lineto
+448.48 265.44 lineto
+450.88 264.96 lineto
+453.28 265.44 lineto
+455.68 265.12 lineto
+458.08 265.92 lineto
+460.48 265.60 lineto
+462.88 265.92 lineto
+465.28 266.08 lineto
+467.84 265.92 lineto
+470.24 266.08 lineto
+472.64 265.92 lineto
+475.04 265.92 lineto
+477.44 265.92 lineto
+479.84 265.60 lineto
+482.24 265.60 lineto
+484.64 265.28 lineto
+487.04 264.96 lineto
+489.44 264.80 lineto
+492.00 264.48 lineto
+494.40 264.32 lineto
+496.80 264.00 lineto
+499.20 263.68 lineto
+501.60 263.52 lineto
+504.00 263.20 lineto
+506.40 262.72 lineto
+508.80 262.56 lineto
+511.20 262.08 lineto
+513.60 262.08 lineto
+516.00 261.60 lineto
+518.56 261.44 lineto
+520.96 261.28 lineto
+523.36 261.12 lineto
+525.76 260.96 lineto
+528.16 260.80 lineto
+530.56 260.64 lineto
+532.96 260.32 lineto
+535.36 260.16 lineto
+537.76 260.00 lineto
+540.16 259.84 lineto
+542.72 259.68 lineto
+currentpoint stroke moveto
+1 THICK [  6.00   2.00   1.00   2.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+351.84 278.88 moveto
+354.24 277.92 lineto
+356.64 278.40 lineto
+359.04 278.88 lineto
+361.44 278.24 lineto
+363.84 278.40 lineto
+366.40 280.48 lineto
+368.80 279.68 lineto
+371.20 280.32 lineto
+373.60 277.28 lineto
+376.00 277.28 lineto
+378.40 280.16 lineto
+380.80 280.16 lineto
+383.20 278.88 lineto
+385.60 279.04 lineto
+388.00 280.32 lineto
+390.56 281.60 lineto
+392.96 280.80 lineto
+395.36 280.48 lineto
+397.76 281.76 lineto
+400.16 279.52 lineto
+402.56 280.16 lineto
+404.96 278.88 lineto
+407.36 278.88 lineto
+409.76 278.72 lineto
+412.16 278.08 lineto
+414.56 277.76 lineto
+417.12 276.32 lineto
+419.52 275.20 lineto
+421.92 274.56 lineto
+424.32 273.44 lineto
+426.72 273.60 lineto
+429.12 273.28 lineto
+431.52 272.96 lineto
+433.92 273.12 lineto
+436.32 273.12 lineto
+438.72 273.44 lineto
+441.28 273.28 lineto
+443.68 273.28 lineto
+446.08 273.44 lineto
+448.48 273.28 lineto
+450.88 272.80 lineto
+453.28 273.12 lineto
+455.68 272.64 lineto
+458.08 273.44 lineto
+460.48 273.12 lineto
+462.88 273.44 lineto
+465.28 273.60 lineto
+467.84 273.44 lineto
+470.24 273.76 lineto
+472.64 273.44 lineto
+475.04 273.60 lineto
+477.44 273.60 lineto
+479.84 273.60 lineto
+482.24 273.60 lineto
+484.64 273.44 lineto
+487.04 273.28 lineto
+489.44 273.12 lineto
+492.00 272.96 lineto
+494.40 272.80 lineto
+496.80 272.64 lineto
+499.20 272.64 lineto
+501.60 272.64 lineto
+504.00 272.32 lineto
+506.40 272.16 lineto
+508.80 272.16 lineto
+511.20 271.68 lineto
+513.60 271.68 lineto
+516.00 271.36 lineto
+518.56 271.20 lineto
+520.96 271.04 lineto
+523.36 270.72 lineto
+525.76 270.72 lineto
+528.16 270.72 lineto
+530.56 270.72 lineto
+532.96 270.56 lineto
+535.36 270.56 lineto
+537.76 270.40 lineto
+540.16 270.40 lineto
+542.72 270.24 lineto
+currentpoint stroke moveto
+/Arial-Bold findfont 12.320000 scalefont setfont
+0 0 0 setrgbcolor 0 setgray
+(Price)424.64 183.20 BEGTEXT HCENTER VTOP ENDTEXT
+/Arial findfont 11.680000 scalefont setfont
+(0)341.28 27.84 BEGTEXT HCENTER VBOTTOM ENDTEXT
+(20)392.16 27.84 BEGTEXT HCENTER VBOTTOM ENDTEXT
+(40)442.88 27.84 BEGTEXT HCENTER VBOTTOM ENDTEXT
+(60)493.76 27.84 BEGTEXT HCENTER VBOTTOM ENDTEXT
+THIN LINESOLID 0.0000 setgray
+341.28 45.12 moveto
+341.28 39.36 lineto
+currentpoint stroke moveto
+366.72 45.12 moveto
+366.72 42.24 lineto
+currentpoint stroke moveto
+392.16 45.12 moveto
+392.16 39.36 lineto
+currentpoint stroke moveto
+417.60 45.12 moveto
+417.60 42.24 lineto
+currentpoint stroke moveto
+442.88 45.12 moveto
+442.88 39.36 lineto
+currentpoint stroke moveto
+468.32 45.12 moveto
+468.32 42.24 lineto
+currentpoint stroke moveto
+493.76 45.12 moveto
+493.76 39.36 lineto
+currentpoint stroke moveto
+519.20 45.12 moveto
+519.20 42.24 lineto
+currentpoint stroke moveto
+THIN LINESOLID 0.0000 setgray
+/Arial findfont 11.680000 scalefont setfont
+(-6)311.04 45.12 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+328.80 45.12 moveto
+319.84 45.12 lineto
+currentpoint stroke moveto
+(-4)311.04 62.56 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+328.80 62.56 moveto
+319.84 62.56 lineto
+currentpoint stroke moveto
+(-2)311.04 80.00 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+328.80 80.00 moveto
+319.84 80.00 lineto
+currentpoint stroke moveto
+(0)311.04 97.44 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+328.80 97.44 moveto
+319.84 97.44 lineto
+currentpoint stroke moveto
+(2)311.04 114.88 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+328.80 114.88 moveto
+319.84 114.88 lineto
+currentpoint stroke moveto
+(4)311.04 132.32 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+328.80 132.32 moveto
+319.84 132.32 lineto
+currentpoint stroke moveto
+(6)311.04 149.76 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+328.80 149.76 moveto
+319.84 149.76 lineto
+currentpoint stroke moveto
+(8)311.04 167.20 BEGTEXT HRIGHT VCENTER ENDTEXT
+THIN LINESOLID 0.0000 setgray
+328.80 167.20 moveto
+319.84 167.20 lineto
+currentpoint stroke moveto
+THIN LINESOLID 0.0000 setgray
+328.80 97.44 moveto
+554.56 97.44 lineto
+currentpoint stroke moveto
+THIN LINESOLID 0.0000 setgray
+554.56 45.12 moveto
+328.80 45.12 lineto
+328.80 167.20 lineto
+554.56 167.20 lineto
+554.56 45.12 lineto
+currentpoint stroke moveto
+2.6622 THICK LINESOLID 0.0000 0.0000 1.0000 setrgbcolor
+341.28 97.44 moveto
+343.84 100.64 lineto
+346.40 102.88 lineto
+348.96 106.40 lineto
+351.52 106.56 lineto
+354.08 104.64 lineto
+356.48 103.36 lineto
+359.04 98.88 lineto
+361.60 92.48 lineto
+364.16 87.04 lineto
+366.72 84.00 lineto
+369.28 80.64 lineto
+371.84 81.28 lineto
+374.40 84.16 lineto
+376.80 89.12 lineto
+379.36 92.00 lineto
+381.92 97.28 lineto
+384.48 93.28 lineto
+387.04 86.40 lineto
+389.60 82.72 lineto
+392.16 81.28 lineto
+394.72 83.52 lineto
+397.28 85.60 lineto
+399.68 80.48 lineto
+402.24 82.24 lineto
+404.80 85.44 lineto
+407.36 88.00 lineto
+409.92 89.60 lineto
+412.48 90.40 lineto
+415.04 90.56 lineto
+417.60 90.72 lineto
+420.00 91.04 lineto
+422.56 92.64 lineto
+425.12 94.40 lineto
+427.68 95.52 lineto
+430.24 97.76 lineto
+432.80 100.64 lineto
+435.36 104.00 lineto
+437.92 105.12 lineto
+440.32 106.24 lineto
+442.88 106.08 lineto
+445.44 107.04 lineto
+448.00 109.28 lineto
+450.56 110.40 lineto
+453.12 110.24 lineto
+455.68 110.08 lineto
+458.24 110.40 lineto
+460.80 111.20 lineto
+463.20 112.32 lineto
+465.76 113.60 lineto
+468.32 114.72 lineto
+470.88 116.32 lineto
+473.44 117.44 lineto
+476.00 118.24 lineto
+478.56 118.88 lineto
+481.12 118.40 lineto
+483.52 118.56 lineto
+486.08 118.88 lineto
+488.64 119.36 lineto
+491.20 119.52 lineto
+493.76 119.84 lineto
+496.32 120.16 lineto
+498.88 121.44 lineto
+501.44 122.40 lineto
+503.84 123.20 lineto
+506.40 123.52 lineto
+508.96 123.68 lineto
+511.52 123.84 lineto
+514.08 124.00 lineto
+516.64 124.32 lineto
+519.20 124.32 lineto
+521.76 124.64 lineto
+524.32 125.12 lineto
+526.72 125.60 lineto
+529.28 126.40 lineto
+531.84 126.88 lineto
+534.40 127.04 lineto
+536.96 127.36 lineto
+539.52 127.68 lineto
+542.08 127.84 lineto
+currentpoint stroke moveto
+1 THICK [  6.00   2.00   1.00   2.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+341.28 97.44 moveto
+343.84 93.76 lineto
+346.40 92.16 lineto
+348.96 92.64 lineto
+351.52 90.08 lineto
+354.08 85.76 lineto
+356.48 82.24 lineto
+359.04 76.96 lineto
+361.60 68.96 lineto
+364.16 62.56 lineto
+366.72 58.56 lineto
+369.28 54.24 lineto
+371.84 54.40 lineto
+374.40 56.32 lineto
+376.80 60.80 lineto
+379.36 63.20 lineto
+381.92 68.00 lineto
+384.48 63.68 lineto
+387.04 56.80 lineto
+389.60 52.96 lineto
+392.16 51.52 lineto
+394.72 52.80 lineto
+397.28 54.72 lineto
+399.68 49.28 lineto
+402.24 50.72 lineto
+404.80 54.08 lineto
+407.36 56.64 lineto
+409.92 58.40 lineto
+412.48 59.68 lineto
+415.04 60.32 lineto
+417.60 60.96 lineto
+420.00 61.60 lineto
+422.56 63.20 lineto
+425.12 65.28 lineto
+427.68 66.56 lineto
+430.24 69.12 lineto
+432.80 72.32 lineto
+435.36 76.00 lineto
+437.92 77.12 lineto
+440.32 78.24 lineto
+442.88 78.24 lineto
+445.44 79.20 lineto
+448.00 81.60 lineto
+450.56 82.88 lineto
+453.12 82.88 lineto
+455.68 83.04 lineto
+458.24 83.36 lineto
+460.80 84.16 lineto
+463.20 85.28 lineto
+465.76 86.88 lineto
+468.32 88.16 lineto
+470.88 90.24 lineto
+473.44 91.68 lineto
+476.00 92.64 lineto
+478.56 93.28 lineto
+481.12 92.96 lineto
+483.52 93.60 lineto
+486.08 94.24 lineto
+488.64 94.88 lineto
+491.20 95.20 lineto
+493.76 95.68 lineto
+496.32 96.32 lineto
+498.88 97.92 lineto
+501.44 99.04 lineto
+503.84 100.16 lineto
+506.40 100.48 lineto
+508.96 100.80 lineto
+511.52 100.96 lineto
+514.08 101.28 lineto
+516.64 101.92 lineto
+519.20 102.08 lineto
+521.76 102.56 lineto
+524.32 103.20 lineto
+526.72 104.00 lineto
+529.28 104.64 lineto
+531.84 105.44 lineto
+534.40 105.76 lineto
+536.96 106.40 lineto
+539.52 106.88 lineto
+542.08 107.20 lineto
+currentpoint stroke moveto
+1 THICK [  4.00   4.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+341.28 97.44 moveto
+343.84 96.64 lineto
+346.40 96.80 lineto
+348.96 98.72 lineto
+351.52 97.28 lineto
+354.08 93.92 lineto
+356.48 91.68 lineto
+359.04 86.24 lineto
+361.60 78.88 lineto
+364.16 72.48 lineto
+366.72 69.12 lineto
+369.28 65.12 lineto
+371.84 65.12 lineto
+374.40 67.68 lineto
+376.80 72.48 lineto
+379.36 75.20 lineto
+381.92 80.16 lineto
+384.48 75.68 lineto
+387.04 68.48 lineto
+389.60 64.64 lineto
+392.16 63.20 lineto
+394.72 64.96 lineto
+397.28 66.56 lineto
+399.68 61.44 lineto
+402.24 62.88 lineto
+404.80 66.08 lineto
+407.36 68.64 lineto
+409.92 70.40 lineto
+412.48 71.36 lineto
+415.04 71.20 lineto
+417.60 71.52 lineto
+420.00 72.00 lineto
+422.56 73.60 lineto
+425.12 75.52 lineto
+427.68 76.96 lineto
+430.24 79.36 lineto
+432.80 82.72 lineto
+435.36 86.24 lineto
+437.92 87.36 lineto
+440.32 88.80 lineto
+442.88 88.64 lineto
+445.44 89.76 lineto
+448.00 92.32 lineto
+450.56 93.60 lineto
+453.12 93.60 lineto
+455.68 93.60 lineto
+458.24 94.08 lineto
+460.80 95.04 lineto
+463.20 96.32 lineto
+465.76 97.92 lineto
+468.32 99.36 lineto
+470.88 100.96 lineto
+473.44 102.40 lineto
+476.00 103.36 lineto
+478.56 104.00 lineto
+481.12 103.68 lineto
+483.52 104.16 lineto
+486.08 104.80 lineto
+488.64 105.60 lineto
+491.20 105.92 lineto
+493.76 106.56 lineto
+496.32 107.20 lineto
+498.88 108.64 lineto
+501.44 109.92 lineto
+503.84 110.88 lineto
+506.40 111.20 lineto
+508.96 111.84 lineto
+511.52 112.00 lineto
+514.08 112.48 lineto
+516.64 112.96 lineto
+519.20 113.12 lineto
+521.76 113.92 lineto
+524.32 114.56 lineto
+526.72 115.36 lineto
+529.28 116.48 lineto
+531.84 117.12 lineto
+534.40 117.60 lineto
+536.96 118.24 lineto
+539.52 118.56 lineto
+542.08 119.04 lineto
+currentpoint stroke moveto
+1 THICK [  4.00   4.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+341.28 97.44 moveto
+343.84 104.32 lineto
+346.40 108.64 lineto
+348.96 114.72 lineto
+351.52 116.80 lineto
+354.08 116.16 lineto
+356.48 116.32 lineto
+359.04 112.80 lineto
+361.60 107.20 lineto
+364.16 102.08 lineto
+366.72 99.68 lineto
+369.28 96.64 lineto
+371.84 97.44 lineto
+374.40 100.16 lineto
+376.80 104.96 lineto
+379.36 108.00 lineto
+381.92 113.28 lineto
+384.48 109.44 lineto
+387.04 102.56 lineto
+389.60 98.88 lineto
+392.16 97.12 lineto
+394.72 99.04 lineto
+397.28 100.96 lineto
+399.68 96.48 lineto
+402.24 98.24 lineto
+404.80 100.96 lineto
+407.36 103.04 lineto
+409.92 104.16 lineto
+412.48 104.64 lineto
+415.04 104.00 lineto
+417.60 103.68 lineto
+420.00 103.68 lineto
+422.56 104.96 lineto
+425.12 106.56 lineto
+427.68 107.68 lineto
+430.24 110.08 lineto
+432.80 112.96 lineto
+435.36 116.32 lineto
+437.92 117.44 lineto
+440.32 118.88 lineto
+442.88 118.88 lineto
+445.44 119.84 lineto
+448.00 122.24 lineto
+450.56 123.36 lineto
+453.12 123.52 lineto
+455.68 123.36 lineto
+458.24 124.00 lineto
+460.80 124.96 lineto
+463.20 125.92 lineto
+465.76 127.20 lineto
+468.32 128.32 lineto
+470.88 130.08 lineto
+473.44 131.36 lineto
+476.00 132.32 lineto
+478.56 132.96 lineto
+481.12 132.64 lineto
+483.52 133.12 lineto
+486.08 133.60 lineto
+488.64 134.24 lineto
+491.20 134.72 lineto
+493.76 135.20 lineto
+496.32 135.84 lineto
+498.88 137.12 lineto
+501.44 138.40 lineto
+503.84 139.52 lineto
+506.40 140.00 lineto
+508.96 140.48 lineto
+511.52 140.80 lineto
+514.08 141.12 lineto
+516.64 141.76 lineto
+519.20 141.92 lineto
+521.76 142.40 lineto
+524.32 143.04 lineto
+526.72 143.84 lineto
+529.28 144.80 lineto
+531.84 145.44 lineto
+534.40 145.76 lineto
+536.96 146.40 lineto
+539.52 146.88 lineto
+542.08 147.36 lineto
+currentpoint stroke moveto
+1 THICK [  6.00   2.00   1.00   2.00 ] 0 setdash 0.0000 0.0000 1.0000 setrgbcolor
+341.28 97.44 moveto
+343.84 106.56 lineto
+346.40 112.32 lineto
+348.96 119.84 lineto
+351.52 122.88 lineto
+354.08 123.52 lineto
+356.48 124.48 lineto
+359.04 121.92 lineto
+361.60 116.96 lineto
+364.16 112.32 lineto
+366.72 110.40 lineto
+369.28 107.36 lineto
+371.84 108.32 lineto
+374.40 111.36 lineto
+376.80 116.64 lineto
+379.36 119.52 lineto
+381.92 124.96 lineto
+384.48 120.64 lineto
+387.04 113.92 lineto
+389.60 110.40 lineto
+392.16 108.80 lineto
+394.72 111.04 lineto
+397.28 113.12 lineto
+399.68 108.48 lineto
+402.24 110.08 lineto
+404.80 113.44 lineto
+407.36 115.20 lineto
+409.92 116.16 lineto
+412.48 116.00 lineto
+415.04 115.52 lineto
+417.60 114.88 lineto
+420.00 114.40 lineto
+422.56 115.68 lineto
+425.12 117.28 lineto
+427.68 118.24 lineto
+430.24 120.32 lineto
+432.80 123.20 lineto
+435.36 126.72 lineto
+437.92 127.68 lineto
+440.32 128.96 lineto
+442.88 129.12 lineto
+445.44 129.76 lineto
+448.00 132.16 lineto
+450.56 133.44 lineto
+453.12 133.12 lineto
+455.68 133.12 lineto
+458.24 133.60 lineto
+460.80 134.40 lineto
+463.20 135.36 lineto
+465.76 136.48 lineto
+468.32 137.60 lineto
+470.88 139.20 lineto
+473.44 140.32 lineto
+476.00 141.12 lineto
+478.56 141.76 lineto
+481.12 141.44 lineto
+483.52 141.92 lineto
+486.08 142.40 lineto
+488.64 143.04 lineto
+491.20 143.36 lineto
+493.76 143.84 lineto
+496.32 144.48 lineto
+498.88 145.60 lineto
+501.44 146.88 lineto
+503.84 148.00 lineto
+506.40 148.32 lineto
+508.96 148.80 lineto
+511.52 148.80 lineto
+514.08 149.28 lineto
+516.64 149.92 lineto
+519.20 149.92 lineto
+521.76 150.56 lineto
+524.32 151.20 lineto
+526.72 151.84 lineto
+529.28 152.80 lineto
+531.84 153.44 lineto
+534.40 153.92 lineto
+536.96 154.56 lineto
+539.52 154.88 lineto
+542.08 155.36 lineto
+currentpoint stroke moveto
+showpage
+restore

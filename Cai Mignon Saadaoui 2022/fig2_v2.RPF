@@ -1,0 +1,367 @@
+***************************************************************************************************
+* Estimation of VAR identified with external instruments: effects of food commodity price shocks
+* Baseline estimations
+*
+* Gert Peersman
+***************************************************************************************************
+
+cal(m) 1960:1
+allocate 2019:12
+
+***************************************************************************************************
+* Input for estimations
+***************************************************************************************************
+
+comp start = 1971:1                  ;* sample period
+comp end = 2019:12
+
+comp nlags = 24                       ;* number of lags VAR
+
+comp nsteps = 80                     ;* number of periods impulse response functions
+comp ndraws = 10000                   ;* number of draws to construct (bootstrapped) error bands
+
+comp perL1 = 16                      ;* error bands (percentiles lower and upper bounds)
+comp perL2 = 5
+comp perU1 = 84
+comp perU2 = 95
+
+***************************************************************************************************
+* Reading datasets + determine variables for estimations
+***************************************************************************************************
+
+open data dpri.xlsx
+data(for=xlsx,org=obs)
+close data
+print
+
+***************************************************************************************************
+
+* Input baseline VAR model
+
+  comp nvars = 4                                             ;* number of variables in VAR
+
+  dec vect[string] varlabel(nvars)
+  dec vect[series] VAR(nvars) DVAR(nvars)
+
+  comp varlabel=||'Pol. relation','Supply','Demand','Price'||
+
+*  set VAR(1) = opprom
+*  set VAR(2) = 100*log(realpri)
+*  set VAR(3) = ipg
+*  set VAR(4) = infg
+*  set VAR(5) = ue
+
+  set VAR(1) = PRI_S
+  set VAR(2) = GOP
+  set VAR(3) = WIP
+  set VAR(4) = RSPRI
+*  set VAR(5) = log(ue)
+
+*  DIFF(CENTER) VAR(1) / DVAR(1)
+*  DIFF(CENTER) VAR(2) / DVAR(2)
+*  DIFF(CENTER) VAR(3) / DVAR(3)
+*  DIFF(CENTER) VAR(4) / DVAR(4)
+*  DIFF(CENTER) VAR(5) / DVAR(5)
+
+*  set FOODSH1 = opshock                                      ;* External instrument
+
+***************************************************************************************************
+* Estimation of baseline VAR model - point estimations of IRFs, VD and historical contributions
+***************************************************************************************************
+
+system(model=varmodel)
+variables VAR(1) to VAR(nvars)
+lags 1 to nlags
+det constant
+end(system)
+
+* Silent regression to obtain exact sample period (needed for bootstrapping)
+
+  smpl(reglist)
+  # constant VAR(1) to VAR(nvars)
+
+  estimate(model=varmodel,noprint)
+  comp cstart=%regstart()
+  comp bstart = %IF(cstart+nlags>=start,cstart+nlags,start)
+  comp bend = %regend()
+
+* Estimation of reduced form VAR
+
+  estimate(model=varmodel,resids=ETA,noprint,outsigma=vmat) bstart bend
+
+  comp bpoint1 = %identity(nvars)                     ;* contemporaneous impact matrix of shock
+  comp betaols = %modelgetcoeffs(varmodel)            ;* coefficients of VAR (for bootstrapping)
+
+* Calculation of impulse responses
+
+  impulse(noprint,shock=||-1.0,0.0,0.0,0.0||,decomp=bpoint1,model=varmodel,results=respoint1) * nsteps
+
+* Calculation of the shocks + historical contributions
+
+  comp nhor = 5                                           ;* extra months out-of-sample
+
+  dec rect shocks1M(bend-bstart+1+nhor,nvars)
+  dec vect[series] HIST1(nvars+2) HIST2(nvars+2)
+
+  comp invB1 = inv(bpoint1)
+  set shocks1 bstart bend = 0.0
+  do ss=1,nvars
+     set shocks1 = shocks1 + invB1(1,ss)*ETA(ss)
+  end do ss
+
+  do jj=1,nvars
+     do gg=1,bend-bstart+1+nhor
+        comp shocks1M(gg,jj) = 0.0                  ;* set all past and future shocks to zero
+     end do gg
+     do gg=1,bend-bstart+1
+        comp shocks1M(gg,jj) = shocks1(bstart+gg-1)*bpoint1(jj,1)
+     end do gg
+  end do jj
+
+  forecast(model=varmodel,results=forecast0,from=bstart,to=bend+nhor) *
+  forecast(model=varmodel,results=forecast1,from=bstart,to=bend+nhor,matrix=shocks1M) *
+
+  do jj=1,nvars
+     set HIST1(jj) bstart bend+nhor = forecast1(jj)-forecast0(jj)
+  end do jj
+
+* Forecast error variance decompositions
+
+  dec vect[series] SQIRF1A(nvars) SQIRF1B(nvars) VD1(nvars) VD2(nvars)
+
+  errors(noprint,model=varmodel,cv=vmat,steps=nsteps,stderrs=stdvVAR) *
+
+  statistics(noprint) shocks1 bstart bend
+  comp stdv1 = sqrt(%variance)
+
+  do jj=1,nvars
+     set SQIRF1A(jj) 1 nsteps = (stdv1*respoint1(jj,1)*stdv1*respoint1(jj,1))
+     acc SQIRF1A(jj) 1 nsteps SQIRF1B(jj)
+     set VD1(jj) 1 nsteps = 100*SQIRF1B(jj)/(stdvVAR(jj)*stdvVAR(jj))
+  end do jj
+
+print
+
+*
+*
+*
+
+***************************************************************************************************
+* Construction error bands impulse responses - moving block bootstrapping Bruggemann et al. (2016)
+***************************************************************************************************
+
+dec vect[series] udraws(nvars) resample(nvars) flip(ndraws)
+dec vect[series] sETA(nvars)
+dec rect[series] IRF1(nvars,nsteps)
+
+seed 372698
+
+* set-up system/equations and input for moving block bootstrapping
+
+  system(model=bootmodel)
+  variables resample
+  lags 1 to nlags
+  det constant
+  end(system)
+
+  do i=1,nvars
+     set resample(i) = %modeldepvars(varmodel)(i){0}
+  end do i
+
+  comp count = 0                            ;* counts number of draws
+  comp bsize = 6                            ;* size of blocks
+*  comp bsize = (bend-bstart)^0.33
+
+* re-estimation for each draw + storage of results
+
+infobox(action=define,progress,lower=1,upper=ndraws) 'MOVING BLOCK BOOTSTRAPPING'
+  until count==ndraws
+   {
+   comp count = count + 1
+   infobox(current=count)
+
+
+   comp %modelsetcoeffs(varmodel,betaols)
+
+   * Moving block draws
+
+
+   boot(block=bsize,method=overlap) entries / bstart bend
+   do i=1,nvars
+      set udraws(i) = ETA(i)(entries(T))
+   end do i
+
+
+
+   forecast(paths,model=varmodel,results=resample,from=bstart,to=bend)
+   # udraws
+
+   estimate(model=bootmodel,resids=sETA,noprint,outsigma=sigmad) bstart bend
+
+   comp swish1 = %identity(nvars)
+
+   impulse(noprint,decomp=swish1,shock=||-1.0,0.0,0.0,0.0||,model=bootmodel,results=resp1) * nsteps
+
+   do rr=1,nsteps
+      do tt=1,nvars
+         set IRF1(tt,rr) count count = resp1(tt,1)(rr)-respoint1(tt,1)(rr)
+      end do tt
+   end do rr
+
+
+   }
+  end until
+  infobox(action=remove)
+
+***************************************************************************************************
+* Calculation of error bands baseline VAR
+***************************************************************************************************
+
+dec rect[series] IRFE1(6,nvars) IRFE2(6,nvars) IRFE3(6,nvars) IRFE3b(6,nvars)
+
+  smpl 1 ndraws
+
+  do j=1,nsteps
+     do k=1,nvars
+
+        order IRF1(k,j) 1 ndraws
+        set IRFE1(1,k) j j = respoint1(k,1)(j)
+        set IRFE1(2,k) j j = respoint1(k,1)(j)-IRF1(k,j)(ndraws*perU1/100)
+        set IRFE1(3,k) j j = respoint1(k,1)(j)-IRF1(k,j)(ndraws*perL1/100)
+        set IRFE1(4,k) j j = respoint1(k,1)(j)-IRF1(k,j)(ndraws*perU2/100)
+        set IRFE1(5,k) j j = respoint1(k,1)(j)-IRF1(k,j)(ndraws*perL2/100)
+
+     end do k
+  end do j
+
+***************************************************************************************************
+* Figures showing results
+***************************************************************************************************
+
+***************************************************************************************************
+
+* Figure with shocks
+
+  smpl bstart bend
+
+  spgraph(vfields=1,hfields=1,height=4,width=8)
+  grparm  axislabel 28
+  grparm(define="line_color_1=0,0000FF,3.0")
+  grparm(bold) hlabel 36 matrixlabels 36 header 36 key 18
+    graph(style=bars) 1
+    # shocks1
+  spgraph(done)
+
+  corr(qstats,span=1,partial=partial,number=12) shocks1 bstart bend
+
+***************************************************************************************************
+
+* Figures historical contributions of the shocks + counterfactuals
+
+  smpl bstart bend+nhor
+
+  spgraph(vfields=5,hfields=1,height=12,width=6)
+  grparm  axislabel 36
+  grparm(define="line_color_1=0,0000FF,2.0")
+  grparm(bold) hlabel 10 matrixlabels 10 header 36 key 18
+    graph(style=bars,header=varlabel(1)) 1
+    # HIST1(1) / 2
+    graph(style=bars,header=varlabel(2)) 1
+    # HIST1(2) / 2
+    graph(style=bars,header=varlabel(3)) 1
+    # HIST1(3) / 2
+    graph(style=bars,header=varlabel(4)) 1
+    # HIST1(4) / 2
+  spgraph(done)
+
+***************************************************************************************************
+
+  smpl bstart+nlags bend+nhor
+
+  set cf1 = VAR(1) - HIST1(1)
+  set cf2 = VAR(2) - HIST1(2)
+  set cf3 = VAR(3) - HIST1(3)
+  set cf4 = VAR(4) - HIST1(4)
+  *set cf5 = VAR(5) - HIST1(5)
+
+  DIFF(CENTER) cf1 / dcf1
+  DIFF(CENTER) cf2 / dcf2
+  DIFF(CENTER) cf3 / dcf3
+  DIFF(CENTER) cf4 / dcf4
+  *DIFF(CENTER) cf5 / dcf5
+
+  smpl bstart+nlags bend
+
+  spgraph(vfields=2,hfields=3,height=6,width=9)
+  grparm  axislabel 36
+  grparm  KEYLABELS 42
+  grparm(bold) hlabel 24 matrixlabels 36 header 36
+  grparm(define="line_color_1=0,0000FF,3.0")
+  grparm(define="line_color_2=0,FF0000,3.0")
+    graph(header=varlabel(1),noaxis,key=Upleft,klabel=||"Original evolution","Counterfactual evolution"||) 2
+    # VAR(1)
+    # cf1
+    graph(header=varlabel(2),noaxis) 2
+    # VAR(2)
+    # cf2
+    graph(header=varlabel(3),noaxis) 2
+    # VAR(3)
+    # cf3
+    graph(header=varlabel(4),noaxis) 2
+    # VAR(4)
+    # cf4
+  spgraph(done)
+
+***************************************************************************************************
+
+* Figure variance decompositions
+
+  smpl 1 nsteps
+
+  spgraph(vfields=1,hfields=5,height=3,width=12)
+  grparm  axislabel 36
+  grparm(bold) hlabel 36 matrixlabels 36 header 36 key 18
+   do k=1,nvars
+      graph(style=polygonal,min=0,max=100,number=0,header=varlabel(k)) 1
+      # VD1(k) / 2
+   end do k
+  spgraph(done)
+
+***************************************************************************************************
+
+* Figure impulse responses baseline VAR
+  smpl 1 nsteps
+
+  spgraph(vfields=2,hfields=2,height=6,width=6)
+  grparm  axislabel 36
+  grparm(define="line_color_1=0,0000FF,6.0")
+  grparm(define="line_color_2=4,0000FF,2.0")
+  grparm(define="line_color_3=2,0000FF,2.0")
+  grparm(define="line_color_4=2,0000FF,2.0")
+  grparm(define="line_color_5=4,0000FF,2.0")
+  grparm(bold) hlabel 36 matrixlabels 36 header 36 key 18
+      graph(style=lines,ovsamescale,number=0,min=-2,max=2,header=varlabel(1)) 5
+      # IRFE1(1,1)
+      # IRFE1(4,1)
+      # IRFE1(2,1)
+      # IRFE1(3,1)
+      # IRFE1(5,1)
+      graph(style=lines,ovsamescale,ovcount=4,number=0,min=-3,max=3,header=varlabel(2)) 5
+      # IRFE1(1,2)
+      # IRFE1(4,2)
+      # IRFE1(2,2)
+      # IRFE1(3,2)
+      # IRFE1(5,2)
+      graph(style=lines,ovsamescale,ovcount=4,number=0,min=-5,max=5,header=varlabel(3)) 5
+      # IRFE1(1,3)
+      # IRFE1(4,3)
+      # IRFE1(2,3)
+      # IRFE1(3,3)
+      # IRFE1(5,3)
+      graph(style=lines,ovsamescale,ovcount=4,number=0,min=-6,max=6,header=varlabel(4)) 5
+      # IRFE1(1,4)
+      # IRFE1(4,4)
+      # IRFE1(2,4)
+      # IRFE1(3,4)
+      # IRFE1(5,4)
+  spgraph(done)
