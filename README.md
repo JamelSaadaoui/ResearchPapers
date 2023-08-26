@@ -2,7 +2,7 @@
 [![alt text][2.1]][2]
 
 # Replication-Files-For-Research-Papers
- This repository houses the code and data to accompany most of my research papers. Click on the links in the Author column to access the folder for the code. Furthermore, you can access the publication by clicking on the links in the author column. You can find the list of my publications in the following link: [**Publications**](https://www.jamelsaadaoui.com/publications/).
+ This repository houses the code and data to accompany most of my research papers. Click on the links in the Author column to access the folder for the code. Furthermore, you can access the publication by clicking on the links in the author column. You can find the list of my publications in the following link: [**Publications**](https://www.jamelsaadaoui.com/publications/). Please quote the articles, if you are inspired by the content.
  
  ## Coverage
 |Author|Title|Journal|Date|
