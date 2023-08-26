@@ -5,12 +5,12 @@
  This repository houses the code and data to accompany most of my research papers. Click on the links in the Author column to access the folder for the code. Furthermore, you can access the publication by clicking on the links in the author column. You can find the list of my publications in the following link: [**Publications**](https://www.jamelsaadaoui.com/publications/).
  
  ## Coverage
-|Author|Title|Date|
-|:----|:----|:----|
-|[Cai Mignon Saadaoui 2022](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Cai%20Mignon%20Saadaoui%202022) |["Not all political relation shocks are alike: Assessing the impacts of US–China tensions on the oil market"](https://www.sciencedirect.com/science/article/pii/S0140988322003498) | October 2022 |
-|[Saadaoui 2018](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Saadaoui%202018) | ["Internal Devaluations and Equilibrium Exchange Rates: new evidences and perspectives for the EMU"](https://www.tandfonline.com/doi/full/10.1080/00036846.2018.1486019) | June 2018 |
-|[Saadaoui 2015](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Saadaoui%202015) | ["Global imbalances: Should we use fundamental equilibrium exchange rates?"](https://www.sciencedirect.com/science/article/abs/pii/S0264999315000243) | June 2015 |
-|[Lopez Mazier Saadaoui 2012](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Lopez%20Mazier%20Saadaoui%202012) | ["Temporal dimension and equilibrium exchange rate: A FEER/BEER comparison"](https://www.sciencedirect.com/science/article/abs/pii/S1566014111000616) | March 2012 |
+|Author|Title|Journal|Date|
+|:----|:----|:----|:----|
+|[Cai Mignon Saadaoui 2022](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Cai%20Mignon%20Saadaoui%202022) |["Not all political relation shocks are alike: Assessing the impacts of US–China tensions on the oil market"](https://www.sciencedirect.com/science/article/pii/S0140988322003498) | Energy Economics | October 2022 |
+|[Saadaoui 2018](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Saadaoui%202018) | ["Internal Devaluations and Equilibrium Exchange Rates: new evidences and perspectives for the EMU"](https://www.tandfonline.com/doi/full/10.1080/00036846.2018.1486019) | Applied Economics | June 2018 |
+|[Saadaoui 2015](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Saadaoui%202015) | ["Global imbalances: Should we use fundamental equilibrium exchange rates?"](https://www.sciencedirect.com/science/article/abs/pii/S0264999315000243) | Economic Modelling | June 2015 |
+|[Lopez Mazier Saadaoui 2012](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Lopez%20Mazier%20Saadaoui%202012) | ["Temporal dimension and equilibrium exchange rate: A FEER/BEER comparison"](https://www.sciencedirect.com/science/article/abs/pii/S1566014111000616) | Emerging Markets Review | March 2012 |
 
 
 <!-- Please don't remove this: Grab your social icons from https://github.com/carlsednaoui/gitsocial -->
