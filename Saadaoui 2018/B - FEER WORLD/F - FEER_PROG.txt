@@ -1,0 +1,21 @@
+******************************************************************************************************************************
+import "C:\Users\Jamel\Documents\Etudes\Thèse\Estimation Cur_th\DATABASE 2009-03_th\FEER ACTUA 2016\F - B GPI Eviews (6).xlsx" range=1 colhead=1 na="#N/A" @freq A @id @date(series01) @destid @date @smpl @all
+******************************************************************************************************************************
+import "C:\Users\Jamel\Documents\Etudes\Thèse\Estimation Cur_th\DATABASE 2009-03_th\FEER ACTUA 2016\F - DI Eviews (3).xlsx" range=1 colhead=1 na="#N/A" @freq A @id @date(series01) @destid @date @smpl @all
+******************************************************************************************************************************
+model_2004_2008.vars
+model_2004_2008.eqs
+model_2004_2008.solve
+group_e_r.sheet
+close GROUP_E_R
+group_pd_px.sheet
+close GROUP_PD_PX
+model_2004_2008.msg
+group_e_r.sheet
+close GROUP_E_R
+close MODEL_2004_2008
+******************************************************************************************************************************
+wfsave(2) "C:\Users\Jamel\Documents\Etudes\Thèse\Estimation Cur_th\DATABASE 2009-03_th\FEER ACTUA 2016\g - feer 2004 2008 (9).wf1"
+******************************************************************************************************************************
+wfclose "c:\users\jamel\documents\etudes\thèse\estimation cur_th\database 2009-03_th\feer actua 2016\g - feer 2004 2008 (9).wf1"
+******************************************************************************************************************************

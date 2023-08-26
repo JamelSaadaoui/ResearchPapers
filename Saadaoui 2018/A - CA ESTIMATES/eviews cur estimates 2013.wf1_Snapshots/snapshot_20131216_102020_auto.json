@@ -1,0 +1,936 @@
+
+{
+	"commands" : "",
+	"description" : "Generated when this file was opened on 2023/08/26 11:23:38.",
+	"label" : "auto base",
+	"workbook_meta" : 
+	{
+		"_name" : "c:\\users\\jamel\\dropbox\\pc\\downloads\\saadaoui 2018\\cur estimates 2013\\eviews cur estimates 2013.wf1",
+		"_pages" : 
+		[
+			
+			{
+				"_frequency" : "U",
+				"_last_update" : [ 735217.4307638889, "12/16/2013 10:20" ],
+				"_name" : "PI",
+				"_obj_count" : 66,
+				"_objects" : 
+				[
+					
+					{
+						"_data_type" : [ "character", "date" ],
+						"_name" : [ "COUNTRY", "DATEID" ],
+						"_type" : "INDEX"
+					},
+					
+					{
+						"_name" : "AUSTRALIA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "AUSTRIA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "C",
+						"_type" : "COEF"
+					},
+					
+					{
+						"_name" : "CA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "CANADA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "COUNTRY",
+						"_type" : "ALPHA"
+					},
+					
+					{
+						"_name" : "DATEID",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "DENMARK",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "EQ_CDR",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_EXP_IE",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_EXP_IE_BEST",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_EXP_IE_BEST_DUMMY",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_EXP_OLS",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_EXP_TE",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_IE",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_IE_GLS",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_IE_GLS_HET",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_IE_HET",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_ODR",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_OLS",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_OLS_GLS",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_OLS_GLS_HET",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_OLS_HET",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_TE",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_TE_GLS",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_TE_GLS_HET",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_TE_HET",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "ERCDR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ERODR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ERTDR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "FINLAND",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "FRANCE",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "FX_OLS_EQ",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "G_CDR",
+						"_type" : "GRAPH"
+					},
+					
+					{
+						"_name" : "G_ODR",
+						"_type" : "GRAPH"
+					},
+					
+					{
+						"_name" : "GERMANY",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "GREECE",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "IRELAND",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ISNFA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ITALY",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "JAPAN",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "KOREA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "NETHERLANDS",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "NEW_ZEALAND",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "NORWAY",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "OLS_EQ",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "PERIOD",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "PORTUGAL",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RCDR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RESID",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RESULTS",
+						"_type" : "TABLE"
+					},
+					
+					{
+						"_name" : "RESULTS_BEST",
+						"_type" : "TABLE"
+					},
+					
+					{
+						"_name" : "RESULTS_EQ_IE",
+						"_type" : "TABLE"
+					},
+					
+					{
+						"_name" : "RESULTS_EQ_OLS",
+						"_type" : "TABLE"
+					},
+					
+					{
+						"_name" : "RESULTS_EQ_TE",
+						"_type" : "TABLE"
+					},
+					
+					{
+						"_name" : "RESULTS_EXP",
+						"_type" : "TABLE"
+					},
+					
+					{
+						"_name" : "RODR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ROG",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RTDR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "SERIES01",
+						"_type" : "ALPHA"
+					},
+					
+					{
+						"_name" : "SERIES02",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "SPAIN",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "SWEDEN",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "TX_OLS_EQ",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "UNITED_KINGDOM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "UNITED_STATES",
+						"_type" : "SERIES"
+					}
+				],
+				"_obs_count" : 160
+			},
+			
+			{
+				"_frequency" : "U",
+				"_last_update" : [ 735217.4307638889, "12/16/2013 10:20" ],
+				"_name" : "PE",
+				"_obj_count" : 67,
+				"_objects" : 
+				[
+					
+					{
+						"_data_type" : [ "character", "date" ],
+						"_name" : [ "COUNTRY", "DATEID01" ],
+						"_type" : "INDEX"
+					},
+					
+					{
+						"_name" : "ARGENTINA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "BRAZIL",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "C",
+						"_type" : "COEF"
+					},
+					
+					{
+						"_name" : "CA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "CHILE",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "CHINA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "COLOMBIA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "COUNTRY",
+						"_type" : "ALPHA"
+					},
+					
+					{
+						"_name" : "CROSSID",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "DATEID",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "DATEID01",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ECUADOR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "EGYPT",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "EQ_CDR",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_EXP_IE",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_EXP_IE_GLS_BEST",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_EXP_IE_GLS_BEST_DUMMY",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_EXP_OLS",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_EXP_TE_GLS",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_IE",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_IE_GLS",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_IE_GLS_HET",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_IE_HET",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_ODR",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_OLS",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_OLS_GLS",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_OLS_GLS_HET",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_OLS_HET",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_TE",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_TE_GLS",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_TE_GLS_HET",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_TE_HET",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "ERCDR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ERODR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ERTDR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "FX_OLS_EQ",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "G_CDR",
+						"_type" : "GRAPH"
+					},
+					
+					{
+						"_name" : "G_ODR",
+						"_type" : "GRAPH"
+					},
+					
+					{
+						"_name" : "INDIA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "INDONESIA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ISNFA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "MALAYSIA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "MEXICO",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "MOROCCO",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "OLS_EQ",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "PAKISTAN",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "PERIOD",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "PERU",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "PHILIPPINES",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RCDR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RESID",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RESULTS_BEST",
+						"_type" : "TABLE"
+					},
+					
+					{
+						"_name" : "RESULTS_EQ_IE",
+						"_type" : "TABLE"
+					},
+					
+					{
+						"_name" : "RESULTS_EQ_OLS",
+						"_type" : "TABLE"
+					},
+					
+					{
+						"_name" : "RESULTS_EQ_TE",
+						"_type" : "TABLE"
+					},
+					
+					{
+						"_name" : "RESULTS_EXP",
+						"_type" : "TABLE"
+					},
+					
+					{
+						"_name" : "RODR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ROG",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RTDR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "SERIES01",
+						"_type" : "ALPHA"
+					},
+					
+					{
+						"_name" : "SERIES02",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "SOUTH_AFRICA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "THAILAND",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "TUNISIA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "TURKEY",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "TX_OLS_EQ",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "VENEZUELA",
+						"_type" : "SERIES"
+					}
+				],
+				"_obs_count" : 160
+			},
+			
+			{
+				"_frequency" : "A",
+				"_last_update" : [ 735217.4307638889, "12/16/2013 10:20" ],
+				"_name" : "PI_ANN",
+				"_obj_count" : 19,
+				"_objects" : 
+				[
+					
+					{
+						"_data_type" : [ "character", "date" ],
+						"_name" : [ "COUNTRY", "DATEID" ],
+						"_type" : "INDEX"
+					},
+					
+					{
+						"_name" : "C",
+						"_type" : "COEF"
+					},
+					
+					{
+						"_name" : "CA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "COUNTRY",
+						"_type" : "ALPHA"
+					},
+					
+					{
+						"_name" : "DATE",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "DATEID",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "EQ_CDR",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_IE_GLS",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_ODR",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "ERCDR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ERODR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ERTDR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "G_CDR",
+						"_type" : "GRAPH"
+					},
+					
+					{
+						"_name" : "G_ODR",
+						"_type" : "GRAPH"
+					},
+					
+					{
+						"_name" : "ISNFA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RCDR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RESID",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RODR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ROG",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RTDR",
+						"_type" : "SERIES"
+					}
+				],
+				"_obs_count" : 640
+			},
+			
+			{
+				"_frequency" : "A",
+				"_last_update" : [ 735217.4307638889, "12/16/2013 10:20" ],
+				"_name" : "PE_ANN",
+				"_obj_count" : 19,
+				"_objects" : 
+				[
+					
+					{
+						"_data_type" : [ "character", "date" ],
+						"_name" : [ "COUNTRY", "DATEID" ],
+						"_type" : "INDEX"
+					},
+					
+					{
+						"_name" : "C",
+						"_type" : "COEF"
+					},
+					
+					{
+						"_name" : "CA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "COUNTRY",
+						"_type" : "ALPHA"
+					},
+					
+					{
+						"_name" : "DATEID",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "EQ_CDR",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_IE_GLS",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "EQ_ODR",
+						"_type" : "EQUATION"
+					},
+					
+					{
+						"_name" : "ERCDR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ERODR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ERTDR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "G_CDR",
+						"_type" : "GRAPH"
+					},
+					
+					{
+						"_name" : "G_ODR",
+						"_type" : "GRAPH"
+					},
+					
+					{
+						"_name" : "ISNFA",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "PERIOD",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RCDR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RESID",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RODR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "ROG",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RTDR",
+						"_type" : "SERIES"
+					}
+				],
+				"_obs_count" : 640
+			}
+		]
+	}
+}

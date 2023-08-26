@@ -1,0 +1,22 @@
+pagestruct(end=2016)
+import "C:\Users\Jamel\Documents\Etudes\Thèse\Estimation Cur_th\DATABASE 2009-03_th\FEER ACTUA 2016\E - RGDPCONSTANT.xlsx" range=Feuil1 colhead=1 namepos=all na="#N/A" names=(, Arg, Bra, Chl, Chn, Col, Ecu, Egy, Ind, Mal, Mex, Pak, Per, Phi, ZAF, Sri, Tha, Ins, Mor, Tun, Tur) @freq A @id @date(series01) @destid @date @smpl @all
+arg.hpf(25) hptrendarg25
+bra.hpf(25) hptrendbra25
+chl.hpf(25) hptrendchl25
+chn.hpf(25) hptrendchn25
+col.hpf(25) hptrendcol25
+ecu.hpf(25) hptrendecu25
+egy.hpf(25) hptrendegy25
+ind.hpf(25) hptrendind25
+ins.hpf(25) hptrendins25
+mal.hpf(25) hptrendmal25
+mex.hpf(25) hptrendmex25
+mor.hpf(25) hptrendmor25
+pak.hpf(25) hptrendpak25
+per.hpf(25) hptrendper25
+phi.hpf(25) hptrendphi25
+sri.hpf(25) hptrendsri25
+tha.hpf(25) hptrendtha25
+tun.hpf(25) hptrendtun25
+tur.hpf(25) hptrendtur25
+zaf.hpf(25) hptrendzaf25
