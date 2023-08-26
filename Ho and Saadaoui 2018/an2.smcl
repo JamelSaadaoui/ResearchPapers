@@ -1,0 +1,811 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\jamel\Dropbox\stata\vn\an2.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}26 Aug 2023, 19:51:44
+{txt}
+{com}. 
+. capture ssc install actest                  //-> Note 1
+{txt}
+{com}. 
+. // ARDL 
+. 
+. regress D.ln_m2dc L.ln_m2dc D.l(2/4).ln_m2dc ///
+> L.ln_ner D.l(1/6).ln_ner ///
+> L.ln_gdpc_sa D.l(0 2 3 5 6).ln_gdpc_sa ///
+> L.ir3 D.l(0 1).ir3
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}        63
+{txt}{hline 13}{c +}{hline 34}   F(20, 42)       = {res}     6.07
+{txt}       Model {c |} {res} .862822686        20  .043141134   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} .298582207        42    .0071091   {txt}R-squared       ={res}    0.7429
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.6205
+{txt}       Total {c |} {res} 1.16140489        62  .018732337   {txt}Root MSE        =   {res} .08432
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}   D.ln_m2dc{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}ln_m2dc {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.9399298{col 26}{space 2}  .108128{col 37}{space 1}   -8.69{col 46}{space 3}0.000{col 54}{space 4}-1.158141{col 67}{space 3}-.7217188
+{txt}{space 8}L2D. {c |}{col 14}{res}{space 2} -.238586{col 26}{space 2} .1170032{col 37}{space 1}   -2.04{col 46}{space 3}0.048{col 54}{space 4}-.4747081{col 67}{space 3} -.002464
+{txt}{space 8}L3D. {c |}{col 14}{res}{space 2}-.3721134{col 26}{space 2} .1252771{col 37}{space 1}   -2.97{col 46}{space 3}0.005{col 54}{space 4}-.6249327{col 67}{space 3} -.119294
+{txt}{space 8}L4D. {c |}{col 14}{res}{space 2}-.1547836{col 26}{space 2} .1157711{col 37}{space 1}   -1.34{col 46}{space 3}0.188{col 54}{space 4}-.3884191{col 67}{space 3} .0788518
+{txt}{space 12} {c |}
+{space 6}ln_ner {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-3.520291{col 26}{space 2} .5116097{col 37}{space 1}   -6.88{col 46}{space 3}0.000{col 54}{space 4}-4.552762{col 67}{space 3}-2.487821
+{txt}{space 9}LD. {c |}{col 14}{res}{space 2} 1.467151{col 26}{space 2} .9885345{col 37}{space 1}    1.48{col 46}{space 3}0.145{col 54}{space 4}-.5277927{col 67}{space 3} 3.462094
+{txt}{space 8}L2D. {c |}{col 14}{res}{space 2} 4.785169{col 26}{space 2} .9729364{col 37}{space 1}    4.92{col 46}{space 3}0.000{col 54}{space 4} 2.821704{col 67}{space 3} 6.748634
+{txt}{space 8}L3D. {c |}{col 14}{res}{space 2} 5.556295{col 26}{space 2} 1.203443{col 37}{space 1}    4.62{col 46}{space 3}0.000{col 54}{space 4} 3.127648{col 67}{space 3} 7.984942
+{txt}{space 8}L4D. {c |}{col 14}{res}{space 2} 3.842144{col 26}{space 2} 1.173759{col 37}{space 1}    3.27{col 46}{space 3}0.002{col 54}{space 4} 1.473402{col 67}{space 3} 6.210885
+{txt}{space 8}L5D. {c |}{col 14}{res}{space 2} 3.354277{col 26}{space 2} 1.191622{col 37}{space 1}    2.81{col 46}{space 3}0.007{col 54}{space 4} .9494865{col 67}{space 3} 5.759067
+{txt}{space 8}L6D. {c |}{col 14}{res}{space 2} 6.111676{col 26}{space 2}  1.15994{col 37}{space 1}    5.27{col 46}{space 3}0.000{col 54}{space 4} 3.770822{col 67}{space 3}  8.45253
+{txt}{space 12} {c |}
+{space 2}ln_gdpc_sa {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} 2.081169{col 26}{space 2} .2776166{col 37}{space 1}    7.50{col 46}{space 3}0.000{col 54}{space 4} 1.520915{col 67}{space 3} 2.641422
+{txt}{space 9}D1. {c |}{col 14}{res}{space 2} 10.75291{col 26}{space 2} 2.515475{col 37}{space 1}    4.27{col 46}{space 3}0.000{col 54}{space 4} 5.676473{col 67}{space 3} 15.82934
+{txt}{space 8}L2D. {c |}{col 14}{res}{space 2}  4.41585{col 26}{space 2} 2.706349{col 37}{space 1}    1.63{col 46}{space 3}0.110{col 54}{space 4}-1.045784{col 67}{space 3} 9.877484
+{txt}{space 8}L3D. {c |}{col 14}{res}{space 2} 8.014275{col 26}{space 2}   2.4508{col 37}{space 1}    3.27{col 46}{space 3}0.002{col 54}{space 4}  3.06836{col 67}{space 3} 12.96019
+{txt}{space 8}L5D. {c |}{col 14}{res}{space 2} 4.217324{col 26}{space 2} 2.680889{col 37}{space 1}    1.57{col 46}{space 3}0.123{col 54}{space 4} -1.19293{col 67}{space 3} 9.627577
+{txt}{space 8}L6D. {c |}{col 14}{res}{space 2} 8.437523{col 26}{space 2} 3.092854{col 37}{space 1}    2.73{col 46}{space 3}0.009{col 54}{space 4} 2.195892{col 67}{space 3} 14.67915
+{txt}{space 12} {c |}
+{space 9}ir3 {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.0297403{col 26}{space 2}  .006943{col 37}{space 1}   -4.28{col 46}{space 3}0.000{col 54}{space 4}-.0437519{col 67}{space 3}-.0157287
+{txt}{space 9}D1. {c |}{col 14}{res}{space 2}-.0175784{col 26}{space 2} .0115134{col 37}{space 1}   -1.53{col 46}{space 3}0.134{col 54}{space 4}-.0408134{col 67}{space 3} .0056565
+{txt}{space 9}LD. {c |}{col 14}{res}{space 2} .0185064{col 26}{space 2} .0115031{col 37}{space 1}    1.61{col 46}{space 3}0.115{col 54}{space 4}-.0047078{col 67}{space 3} .0417206
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} 11.92504{col 26}{space 2}  2.03418{col 37}{space 1}    5.86{col 46}{space 3}0.000{col 54}{space 4} 7.819902{col 67}{space 3} 16.03018
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. capture predict fitted_ardl
+{txt}
+{com}. capture predict r_ardl, residuals 
+{txt}
+{com}. 
+. twoway (tsline d.ln_m2dc) (tsline fitted_ardl)
+{res}{txt}
+{com}. 
+. // Normality of residuals
+. 
+. sktest r_ardl
+{res}
+{txt}Skewness and kurtosis tests for normality
+{col 58}{hline 5} Joint test {hline 5}
+{col 5}Variable {c |}{col 22}Obs   Pr(skewness)   Pr(kurtosis)   Adj chi2(2)  Prob>chi2
+{hline 13}{c +}{hline 65}
+      r_ardl {c |}{res}{col 16}       63{col 34}0.0058{col 49}0.0082{col 60}    11.91{col 74}0.0026
+{txt}
+{com}. swilk r_ardl
+
+                   {txt}Shapiro–Wilk W test for normal data
+
+    Variable {c |}        Obs{col 33}W{col 45}V{col 55}z       Prob>z
+{hline 13}{c +}{hline 54}
+      r_ardl {c |} {res}        63    0.95678      2.443     1.931    0.02674
+{txt}
+{com}. sfrancia r_ardl
+
+{txt}{col 19}Shapiro{ch_endash}Francia W' test for normal data
+
+    Variable {c |}       Obs{col 32}W'{col 44}V'{col 54}z       Prob>z
+{hline 13}{c +}{hline 53}
+      r_ardl {c |}{res}        63    0.94816      3.243     2.257    0.01201
+{txt}
+{com}. 
+. qnorm r_ardl
+{res}{txt}
+{com}. graph rename qnorm_ardl, replace
+{txt}(note: graph qnorm_ardl not found)
+
+{com}. capture graph export qnorm_ardl.png, replace
+{txt}
+{com}. capture graph export qnorm_ardl.pdf, replace
+{txt}
+{com}. graph close qnorm_ardl
+{txt}
+{com}. 
+. pnorm r_ardl
+{res}{txt}
+{com}. graph rename pnorm_ardl, replace
+{txt}(note: graph pnorm_ardl not found)
+
+{com}. capture graph export pnorm_ardl.png, replace
+{txt}
+{com}. capture graph export pnorm_ardl.pdf, replace
+{txt}
+{com}. graph close pnorm_ardl
+{txt}
+{com}. 
+. histogram r_ardl, frequency addlabel normal
+{txt}(bin={res}7{txt}, start={res}-.26811221{txt}, width={res}.06012565{txt})
+{res}{txt}
+{com}. graph rename normality_ardl, replace
+{txt}(note: graph normality_ardl not found)
+
+{com}. capture graph export normality_ardl.png, replace
+{txt}
+{com}. capture graph export normality_ardl.pdf, replace
+{txt}
+{com}. 
+. 
+. // Autocorrelation of residuals
+. 
+. estat dwatson
+
+{txt}Durbin–Watson d-statistic({res} 21{txt},{res}    63{txt}) = {res} 1.945278
+{txt}
+{com}. estat durbinalt
+
+{txt}Durbin's alternative test for autocorrelation
+{hline 13}{c TT}{hline 61}
+{col 5}lags({it:p}){col 14}{c |}{col 25}chi2{col 44}df{col 63}Prob > chi2
+{hline 13}{c +}{hline 61}
+{col 6}  1{col 14}{c |}{res}{col 20}     0.047{col 43}  1{col 63}  0.8292
+{txt}{hline 13}{c BT}{hline 61}
+{col 25}H0: no serial correlation
+
+{com}. estat durbinalt, lags(1/6)
+
+{txt}Durbin's alternative test for autocorrelation
+{hline 13}{c TT}{hline 61}
+{col 5}lags({it:p}){col 14}{c |}{col 25}chi2{col 44}df{col 63}Prob > chi2
+{hline 13}{c +}{hline 61}
+{col 6}  1{col 14}{c |}{res}{col 20}     0.047{col 43}  1{col 63}  0.8292
+{txt}{col 6}  2{col 14}{c |}{res}{col 20}     0.774{col 43}  2{col 63}  0.6792
+{txt}{col 6}  3{col 14}{c |}{res}{col 20}     1.427{col 43}  3{col 63}  0.6993
+{txt}{col 6}  4{col 14}{c |}{res}{col 20}     6.143{col 43}  4{col 63}  0.1887
+{txt}{col 6}  5{col 14}{c |}{res}{col 20}     6.551{col 43}  5{col 63}  0.2562
+{txt}{col 6}  6{col 14}{c |}{res}{col 20}     6.381{col 43}  6{col 63}  0.3819
+{txt}{hline 13}{c BT}{hline 61}
+{col 25}H0: no serial correlation
+
+{com}. estat durbinalt, lags(1/6) small
+
+{txt}Durbin's alternative test for autocorrelation
+{hline 13}{c TT}{hline 61}
+{col 5}lags({it:p}){col 14}{c |}{col 25}F{col 44}df{col 63}Prob > F
+{hline 13}{c +}{hline 61}
+{col 6}  1{col 14}{c |}{res}{col 18}     0.047{col 39}(  1,   41 ){col 63}  0.8303
+{txt}{col 6}  2{col 14}{c |}{res}{col 18}     0.387{col 39}(  2,   40 ){col 63}  0.6817
+{txt}{col 6}  3{col 14}{c |}{res}{col 18}     0.476{col 39}(  3,   39 ){col 63}  0.7011
+{txt}{col 6}  4{col 14}{c |}{res}{col 18}     1.536{col 39}(  4,   38 ){col 63}  0.2114
+{txt}{col 6}  5{col 14}{c |}{res}{col 18}     1.310{col 39}(  5,   37 ){col 63}  0.2809
+{txt}{col 6}  6{col 14}{c |}{res}{col 18}     1.064{col 39}(  6,   36 ){col 63}  0.4021
+{txt}{hline 13}{c BT}{hline 61}
+{col 25}H0: no serial correlation
+
+{com}. 
+. estat bgodfrey, lags(1/6)
+
+{txt}Breusch–Godfrey LM test for autocorrelation
+{hline 13}{c TT}{hline 61}
+{col 5}lags({it:p}){col 14}{c |}{col 25}chi2{col 44}df{col 63}Prob > chi2
+{hline 13}{c +}{hline 61}
+{col 6}  1{col 14}{c |}{res}{col 20}     0.071{col 43}  1{col 63}  0.7893
+{txt}{col 6}  2{col 14}{c |}{res}{col 20}     1.195{col 43}  2{col 63}  0.5501
+{txt}{col 6}  3{col 14}{c |}{res}{col 20}     2.223{col 43}  3{col 63}  0.5273
+{txt}{col 6}  4{col 14}{c |}{res}{col 20}     8.767{col 43}  4{col 63}  0.0672
+{txt}{col 6}  5{col 14}{c |}{res}{col 20}     9.476{col 43}  5{col 63}  0.0915
+{txt}{col 6}  6{col 14}{c |}{res}{col 20}     9.486{col 43}  6{col 63}  0.1480
+{txt}{hline 13}{c BT}{hline 61}
+{col 25}H0: no serial correlation
+
+{com}. estat bgodfrey, lags(1/6) nomiss0 small
+
+{txt}Breusch–Godfrey LM test for autocorrelation
+{hline 13}{c TT}{hline 61}
+{col 5}lags({it:p}){col 14}{c |}{col 25}F{col 44}df{col 63}Prob > F
+{hline 13}{c +}{hline 61}
+{col 6}  1{col 14}{c |}{res}{col 18}     0.152{col 39}(  1,   40 ){col 63}  0.6983
+{txt}{col 6}  2{col 14}{c |}{res}{col 18}     0.683{col 39}(  2,   38 ){col 63}  0.5113
+{txt}{col 6}  3{col 14}{c |}{res}{col 18}     0.857{col 39}(  3,   36 ){col 63}  0.4721
+{txt}{col 6}  4{col 14}{c |}{res}{col 18}     2.657{col 39}(  4,   34 ){col 63}  0.0495
+{txt}{col 6}  5{col 14}{c |}{res}{col 18}     2.228{col 39}(  5,   32 ){col 63}  0.0756
+{txt}{col 6}  6{col 14}{c |}{res}{col 18}     1.925{col 39}(  6,   30 ){col 63}  0.1091
+{txt}{hline 13}{c BT}{hline 61}
+{col 25}H0: no serial correlation
+
+{com}. 
+. // Autocorrelation of residuals: Q-stat
+. 
+. forvalues y = 1/12 {c -(}              
+{txt}  2{com}.         wntestq r_ardl, lags(`y')
+{txt}  3{com}. {c )-}
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    0.0427
+{txt} Prob > chi2({res}1{txt})            = {res}    0.8362
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    0.6911
+{txt} Prob > chi2({res}2{txt})            = {res}    0.7078
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    0.8264
+{txt} Prob > chi2({res}3{txt})            = {res}    0.8431
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    3.3401
+{txt} Prob > chi2({res}4{txt})            = {res}    0.5026
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    4.2418
+{txt} Prob > chi2({res}5{txt})            = {res}    0.5151
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    4.4643
+{txt} Prob > chi2({res}6{txt})            = {res}    0.6141
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    4.5409
+{txt} Prob > chi2({res}7{txt})            = {res}    0.7158
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    6.4965
+{txt} Prob > chi2({res}8{txt})            = {res}    0.5918
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    6.5272
+{txt} Prob > chi2({res}9{txt})            = {res}    0.6862
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}   11.7086
+{txt} Prob > chi2({res}10{txt})           = {res}    0.3050
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}   11.7483
+{txt} Prob > chi2({res}11{txt})           = {res}    0.3829
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}   14.3385
+{txt} Prob > chi2({res}12{txt})           = {res}    0.2796
+{txt}
+{com}. // Cumby–Huizinga (C-H) test statistic
+. 
+. actest r_ardl, lags(6) small
+
+{txt}Cumby-Huizinga test for autocorrelation
+  H0: disturbance is MA process up to order q
+  HA: serial correlation present at specified lags >q
+{hline 41}{c TT}{hline 35}
+  H0: q=0 (serially uncorrelated){col 42}{c |}  H0: q=specified lag-1
+  HA: s.c. present at range specified{col 42}{c |}  HA: s.c. present at lag specified
+{hline 11}{c TT}{hline 29}{c +}{hline 5}{c TT}{hline 29}
+{col 5}lags{col 12}{c |}{col 19}chi2{col 29}df{col 36}p-val{col 42}{c |}{col 44}lag{col 48}{c |}{col 55}chi2{col 65}df{col 72}p-val
+{hline 11}{c +}{hline 29}{c +}{hline 5}{c +}{hline 29}
+{res}{col 2}  1{txt}{col 6}-{res}{col 7}  1{txt}{col 12}{c |}{res}{col 17}  0.043{col 30}1{col 35}0.8361{txt}{col 42}{c |}{res}{col 44}  1{txt}{col 48}{c |}{res}{col 53}  0.043{col 66}1{col 71}0.8361
+{col 2}  1{txt}{col 6}-{res}{col 7}  2{txt}{col 12}{c |}{res}{col 17}  0.701{col 30}2{col 35}0.7043{txt}{col 42}{c |}{res}{col 44}  2{txt}{col 48}{c |}{res}{col 53}  0.649{col 66}1{col 71}0.4204
+{col 2}  1{txt}{col 6}-{res}{col 7}  3{txt}{col 12}{c |}{res}{col 17}  0.872{col 30}3{col 35}0.8323{txt}{col 42}{c |}{res}{col 44}  3{txt}{col 48}{c |}{res}{col 53}  0.134{col 66}1{col 71}0.7144
+{col 2}  1{txt}{col 6}-{res}{col 7}  4{txt}{col 12}{c |}{res}{col 17}  3.908{col 30}4{col 35}0.4186{txt}{col 42}{c |}{res}{col 44}  4{txt}{col 48}{c |}{res}{col 53}  2.581{col 66}1{col 71}0.1082
+{col 2}  1{txt}{col 6}-{res}{col 7}  5{txt}{col 12}{c |}{res}{col 17}  4.793{col 30}5{col 35}0.4416{txt}{col 42}{c |}{res}{col 44}  5{txt}{col 48}{c |}{res}{col 53}  0.907{col 66}1{col 71}0.3409
+{col 2}  1{txt}{col 6}-{res}{col 7}  6{txt}{col 12}{c |}{res}{col 17}  4.794{col 30}6{col 35}0.5704{txt}{col 42}{c |}{res}{col 44}  6{txt}{col 48}{c |}{res}{col 53}  0.221{col 66}1{col 71}0.6383
+{txt}{hline 11}{c BT}{hline 29}{c BT}{hline 5}{c BT}{hline 29}
+  Test requires conditional homoskedasticity
+
+{com}. actest r_ardl, lags(6) bp small
+
+{txt}Cumby-Huizinga test for autocorrelation (Ljung-Box)
+  H0: disturbance is MA process up to order q
+  HA: serial correlation present at specified lags >q
+{hline 41}{c TT}{hline 35}
+  H0: q=0 (serially uncorrelated){col 42}{c |}  H0: q=0 (serially uncorrelated)
+  HA: s.c. present at range specified{col 42}{c |}  HA: s.c. present at lag specified
+{hline 11}{c TT}{hline 29}{c +}{hline 5}{c TT}{hline 29}
+{col 5}lags{col 12}{c |}{col 19}chi2{col 29}df{col 36}p-val{col 42}{c |}{col 44}lag{col 48}{c |}{col 55}chi2{col 65}df{col 72}p-val
+{hline 11}{c +}{hline 29}{c +}{hline 5}{c +}{hline 29}
+{res}{col 2}  1{txt}{col 6}-{res}{col 7}  1{txt}{col 12}{c |}{res}{col 17}  0.043{col 30}1{col 35}0.8362{txt}{col 42}{c |}{res}{col 44}  1{txt}{col 48}{c |}{res}{col 53}  0.043{col 66}1{col 71}0.8362
+{col 2}  1{txt}{col 6}-{res}{col 7}  2{txt}{col 12}{c |}{res}{col 17}  0.691{col 30}2{col 35}0.7078{txt}{col 42}{c |}{res}{col 44}  2{txt}{col 48}{c |}{res}{col 53}  0.648{col 66}1{col 71}0.4207
+{col 2}  1{txt}{col 6}-{res}{col 7}  3{txt}{col 12}{c |}{res}{col 17}  0.826{col 30}3{col 35}0.8431{txt}{col 42}{c |}{res}{col 44}  3{txt}{col 48}{c |}{res}{col 53}  0.135{col 66}1{col 71}0.7129
+{col 2}  1{txt}{col 6}-{res}{col 7}  4{txt}{col 12}{c |}{res}{col 17}  3.340{col 30}4{col 35}0.5026{txt}{col 42}{c |}{res}{col 44}  4{txt}{col 48}{c |}{res}{col 53}  2.514{col 66}1{col 71}0.1129
+{col 2}  1{txt}{col 6}-{res}{col 7}  5{txt}{col 12}{c |}{res}{col 17}  4.242{col 30}5{col 35}0.5151{txt}{col 42}{c |}{res}{col 44}  5{txt}{col 48}{c |}{res}{col 53}  0.902{col 66}1{col 71}0.3423
+{col 2}  1{txt}{col 6}-{res}{col 7}  6{txt}{col 12}{c |}{res}{col 17}  4.464{col 30}6{col 35}0.6141{txt}{col 42}{c |}{res}{col 44}  6{txt}{col 48}{c |}{res}{col 53}  0.222{col 66}1{col 71}0.6372
+{txt}{hline 11}{c BT}{hline 29}{c BT}{hline 5}{c BT}{hline 29}
+  Test requires conditional homoskedasticity
+
+{com}. 
+. 
+. // Heteroscedasticity of residuals
+. 
+. estat imtest, white
+
+{txt}White's test
+H0: Homoskedasticity
+Ha: Unrestricted heteroskedasticity
+
+{ralign 11:chi2({res:62})} = {res}{ralign 6:63.00}
+{txt}{ralign 11:Prob > chi2} = {res}{ralign 6:0.4407}
+
+{txt}Cameron & Trivedi's decomposition of IM-test
+
+{hline 21}{c TT}{hline 28}
+{ralign 20:Source} {c |}       chi2     df         p
+{hline 21}{c +}{hline 28}
+{ralign 20:Heteroskedasticity} {c |}{res}      63.00     62    0.4407
+{txt}{ralign 20:Skewness} {c |}{res}      29.25     20    0.0830
+{txt}{ralign 20:Kurtosis} {c |}{res}       0.93      1    0.3356
+{txt}{hline 21}{c +}{hline 28}
+{ralign 20:Total} {c |}{res}      93.17     83    0.2088
+{txt}{hline 21}{c BT}{hline 28}
+
+{com}. estat hettest
+
+{txt}Breusch–Pagan/Cook–Weisberg test for heteroskedasticity 
+Assumption: Normal error terms
+{p 0 11 0}Variable:{space 1}{res:{txt:Fitted values of} {res:D.ln_m2dc}}{p_end}
+
+H0: Constant variance
+
+{ralign 11:chi2({res:1})} = {res}{ralign 6:14.65}
+{txt}{ralign 11:Prob > chi2} = {res}{ralign 6:0.0001}
+{txt}
+{com}. estat archlm, lags(1/6)
+{txt}LM test for autoregressive conditional heteroskedasticity (ARCH)
+{hline 13}{c TT}{hline 61}
+{col 5}lags({it:p}){col 14}{c |}{col 25}chi2{col 44}df{col 63}Prob > chi2
+{hline 13}{c +}{hline 61}
+{col 6}  1{col 14}{c |}{res}{col 20}     0.060{col 43}  1{col 63}  0.8071
+{txt}{col 6}  2{col 14}{c |}{res}{col 20}     0.067{col 43}  2{col 63}  0.9671
+{txt}{col 6}  3{col 14}{c |}{res}{col 20}     1.027{col 43}  3{col 63}  0.7947
+{txt}{col 6}  4{col 14}{c |}{res}{col 20}     1.369{col 43}  4{col 63}  0.8496
+{txt}{col 6}  5{col 14}{c |}{res}{col 20}     2.376{col 43}  5{col 63}  0.7950
+{txt}{col 6}  6{col 14}{c |}{res}{col 20}     2.441{col 43}  6{col 63}  0.8750
+{txt}{hline 13}{c BT}{hline 61}
+{col 10}H0: no ARCH effects{col 35}{it:vs.}{col 40}H1: ARCH({it:p}) disturbance
+
+{com}. 
+. // NARDL
+. 
+. regress D.ln_m2dc /// 
+> L.ln_m2dc /// 
+> L.ln_ner_pos L.ln_ner_neg ///
+> ln_gdpc_sa ir3 ///
+> D.l(1).ln_m2dc ///
+> D.ln_ner_pos ///
+> D.ln_ner_neg ///
+> D.l(1/11).ln_ner_pos ///
+> D.l(1/11).ln_ner_neg
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}        58
+{txt}{hline 13}{c +}{hline 34}   F(30, 27)       = {res}     4.55
+{txt}       Model {c |} {res}  .93388481        30  .031129494   {txt}Prob > F        ={res}    0.0001
+{txt}    Residual {c |} {res} .184573329        27  .006836049   {txt}R-squared       ={res}    0.8350
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.6516
+{txt}       Total {c |} {res} 1.11845814        57  .019622073   {txt}Root MSE        =   {res} .08268
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}   D.ln_m2dc{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}ln_m2dc {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-1.164169{col 26}{space 2} .2034369{col 37}{space 1}   -5.72{col 46}{space 3}0.000{col 54}{space 4}-1.581587{col 67}{space 3}-.7467513
+{txt}{space 12} {c |}
+{space 2}ln_ner_pos {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-8.597912{col 26}{space 2}  1.67666{col 37}{space 1}   -5.13{col 46}{space 3}0.000{col 54}{space 4}-12.03813{col 67}{space 3} -5.15769
+{txt}{space 12} {c |}
+{space 2}ln_ner_neg {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-18.26391{col 26}{space 2} 6.960597{col 37}{space 1}   -2.62{col 46}{space 3}0.014{col 54}{space 4}-32.54588{col 67}{space 3}-3.981949
+{txt}{space 12} {c |}
+{space 2}ln_gdpc_sa {c |}{col 14}{res}{space 2} 3.743659{col 26}{space 2} .6700687{col 37}{space 1}    5.59{col 46}{space 3}0.000{col 54}{space 4} 2.368791{col 67}{space 3} 5.118526
+{txt}{space 9}ir3 {c |}{col 14}{res}{space 2}-.0404725{col 26}{space 2} .0135651{col 37}{space 1}   -2.98{col 46}{space 3}0.006{col 54}{space 4}-.0683057{col 67}{space 3}-.0126394
+{txt}{space 12} {c |}
+{space 5}ln_m2dc {c |}
+{space 9}LD. {c |}{col 14}{res}{space 2} .1898109{col 26}{space 2} .1604568{col 37}{space 1}    1.18{col 46}{space 3}0.247{col 54}{space 4}-.1394192{col 67}{space 3} .5190409
+{txt}{space 12} {c |}
+{space 2}ln_ner_pos {c |}
+{space 9}D1. {c |}{col 14}{res}{space 2}-3.142543{col 26}{space 2} 1.433318{col 37}{space 1}   -2.19{col 46}{space 3}0.037{col 54}{space 4}-6.083469{col 67}{space 3}-.2016179
+{txt}{space 12} {c |}
+{space 2}ln_ner_neg {c |}
+{space 9}D1. {c |}{col 14}{res}{space 2} .9695902{col 26}{space 2} 5.447782{col 37}{space 1}    0.18{col 46}{space 3}0.860{col 54}{space 4}-10.20834{col 67}{space 3} 12.14752
+{txt}{space 12} {c |}
+{space 2}ln_ner_pos {c |}
+{space 9}LD. {c |}{col 14}{res}{space 2} 4.533001{col 26}{space 2} 1.832248{col 37}{space 1}    2.47{col 46}{space 3}0.020{col 54}{space 4} .7735392{col 67}{space 3} 8.292462
+{txt}{space 8}L2D. {c |}{col 14}{res}{space 2} 7.521244{col 26}{space 2} 1.610107{col 37}{space 1}    4.67{col 46}{space 3}0.000{col 54}{space 4} 4.217576{col 67}{space 3} 10.82491
+{txt}{space 8}L3D. {c |}{col 14}{res}{space 2} 7.848989{col 26}{space 2} 1.571864{col 37}{space 1}    4.99{col 46}{space 3}0.000{col 54}{space 4}  4.62379{col 67}{space 3} 11.07419
+{txt}{space 8}L4D. {c |}{col 14}{res}{space 2} 7.662005{col 26}{space 2} 1.839526{col 37}{space 1}    4.17{col 46}{space 3}0.000{col 54}{space 4} 3.887611{col 67}{space 3}  11.4364
+{txt}{space 8}L5D. {c |}{col 14}{res}{space 2} 5.545502{col 26}{space 2}  1.84218{col 37}{space 1}    3.01{col 46}{space 3}0.006{col 54}{space 4} 1.765661{col 67}{space 3} 9.325343
+{txt}{space 8}L6D. {c |}{col 14}{res}{space 2} 4.412504{col 26}{space 2} 1.602512{col 37}{space 1}    2.75{col 46}{space 3}0.010{col 54}{space 4} 1.124421{col 67}{space 3} 7.700588
+{txt}{space 8}L7D. {c |}{col 14}{res}{space 2} 1.785235{col 26}{space 2} 1.545078{col 37}{space 1}    1.16{col 46}{space 3}0.258{col 54}{space 4}-1.385002{col 67}{space 3} 4.955473
+{txt}{space 8}L8D. {c |}{col 14}{res}{space 2} 6.663423{col 26}{space 2} 1.602891{col 37}{space 1}    4.16{col 46}{space 3}0.000{col 54}{space 4} 3.374563{col 67}{space 3} 9.952283
+{txt}{space 8}L9D. {c |}{col 14}{res}{space 2} 3.637716{col 26}{space 2} 1.638236{col 37}{space 1}    2.22{col 46}{space 3}0.035{col 54}{space 4} .2763347{col 67}{space 3} 6.999098
+{txt}{space 7}L10D. {c |}{col 14}{res}{space 2} 4.992515{col 26}{space 2} 1.692822{col 37}{space 1}    2.95{col 46}{space 3}0.007{col 54}{space 4} 1.519131{col 67}{space 3} 8.465899
+{txt}{space 7}L11D. {c |}{col 14}{res}{space 2} 3.652353{col 26}{space 2} 1.892582{col 37}{space 1}    1.93{col 46}{space 3}0.064{col 54}{space 4}-.2309055{col 67}{space 3} 7.535611
+{txt}{space 12} {c |}
+{space 2}ln_ner_neg {c |}
+{space 9}LD. {c |}{col 14}{res}{space 2} 13.84718{col 26}{space 2} 7.910875{col 37}{space 1}    1.75{col 46}{space 3}0.091{col 54}{space 4}-2.384596{col 67}{space 3} 30.07895
+{txt}{space 8}L2D. {c |}{col 14}{res}{space 2} 15.22867{col 26}{space 2} 9.118471{col 37}{space 1}    1.67{col 46}{space 3}0.106{col 54}{space 4}-3.480889{col 67}{space 3} 33.93822
+{txt}{space 8}L3D. {c |}{col 14}{res}{space 2} 12.46338{col 26}{space 2} 8.366676{col 37}{space 1}    1.49{col 46}{space 3}0.148{col 54}{space 4}-4.703622{col 67}{space 3} 29.63038
+{txt}{space 8}L4D. {c |}{col 14}{res}{space 2} 17.46486{col 26}{space 2} 7.161407{col 37}{space 1}    2.44{col 46}{space 3}0.022{col 54}{space 4} 2.770866{col 67}{space 3} 32.15885
+{txt}{space 8}L5D. {c |}{col 14}{res}{space 2} 21.02399{col 26}{space 2} 7.429246{col 37}{space 1}    2.83{col 46}{space 3}0.009{col 54}{space 4} 5.780435{col 67}{space 3} 36.26754
+{txt}{space 8}L6D. {c |}{col 14}{res}{space 2} 35.38689{col 26}{space 2} 6.476554{col 37}{space 1}    5.46{col 46}{space 3}0.000{col 54}{space 4}  22.0981{col 67}{space 3} 48.67569
+{txt}{space 8}L7D. {c |}{col 14}{res}{space 2} 22.27315{col 26}{space 2} 7.142259{col 37}{space 1}    3.12{col 46}{space 3}0.004{col 54}{space 4} 7.618448{col 67}{space 3} 36.92786
+{txt}{space 8}L8D. {c |}{col 14}{res}{space 2} 10.16344{col 26}{space 2} 6.691305{col 37}{space 1}    1.52{col 46}{space 3}0.140{col 54}{space 4}-3.565986{col 67}{space 3} 23.89286
+{txt}{space 8}L9D. {c |}{col 14}{res}{space 2} 8.170202{col 26}{space 2} 6.203316{col 37}{space 1}    1.32{col 46}{space 3}0.199{col 54}{space 4}-4.557951{col 67}{space 3} 20.89835
+{txt}{space 7}L10D. {c |}{col 14}{res}{space 2}  13.5923{col 26}{space 2} 7.488542{col 37}{space 1}    1.82{col 46}{space 3}0.081{col 54}{space 4}-1.772921{col 67}{space 3} 28.95752
+{txt}{space 7}L11D. {c |}{col 14}{res}{space 2} 6.029218{col 26}{space 2} 5.670988{col 37}{space 1}    1.06{col 46}{space 3}0.297{col 54}{space 4}-5.606688{col 67}{space 3} 17.66512
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}-40.95347{col 26}{space 2}  7.52065{col 37}{space 1}   -5.45{col 46}{space 3}0.000{col 54}{space 4}-56.38456{col 67}{space 3}-25.52237
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. capture predict fitted_nardl
+{txt}
+{com}. capture predict r_nardl, residuals 
+{txt}
+{com}. 
+. twoway (tsline d.ln_m2dc) (tsline fitted_ardl)
+{res}{txt}
+{com}. 
+. // Normality of residuals
+. 
+. sktest r_nardl
+{res}
+{txt}Skewness and kurtosis tests for normality
+{col 58}{hline 5} Joint test {hline 5}
+{col 5}Variable {c |}{col 22}Obs   Pr(skewness)   Pr(kurtosis)   Adj chi2(2)  Prob>chi2
+{hline 13}{c +}{hline 65}
+     r_nardl {c |}{res}{col 16}       58{col 34}0.9737{col 49}0.9987{col 60}     0.00{col 74}0.9995
+{txt}
+{com}. swilk r_nardl
+
+                   {txt}Shapiro–Wilk W test for normal data
+
+    Variable {c |}        Obs{col 33}W{col 45}V{col 55}z       Prob>z
+{hline 13}{c +}{hline 54}
+     r_nardl {c |} {res}        58    0.99296      0.372    -2.125    0.98321
+{txt}
+{com}. sfrancia r_nardl
+
+{txt}{col 19}Shapiro{ch_endash}Francia W' test for normal data
+
+    Variable {c |}       Obs{col 32}W'{col 44}V'{col 54}z       Prob>z
+{hline 13}{c +}{hline 53}
+     r_nardl {c |}{res}        58    0.99451      0.322    -2.164    0.98478
+{txt}
+{com}. 
+. qnorm r_nardl
+{res}{txt}
+{com}. graph rename qnorm_nardl, replace
+{txt}(note: graph qnorm_nardl not found)
+
+{com}. capture graph export qnorm_nardl.png, replace
+{txt}
+{com}. capture graph export qnorm_nardl.pdf, replace
+{txt}
+{com}. graph close qnorm_nardl
+{txt}
+{com}. 
+. pnorm r_nardl
+{res}{txt}
+{com}. graph rename pnorm_nardl, replace
+{txt}(note: graph pnorm_nardl not found)
+
+{com}. capture graph export pnorm_nardl.png, replace
+{txt}
+{com}. capture graph export pnorm_nardl.pdf, replace
+{txt}
+{com}. graph close pnorm_nardl
+{txt}
+{com}. 
+. histogram r_nardl, frequency addlabel normal
+{txt}(bin={res}7{txt}, start={res}-.13182344{txt}, width={res}.03772207{txt})
+{res}{txt}
+{com}. graph rename normality_nardl, replace
+{txt}(note: graph normality_nardl not found)
+
+{com}. capture graph export normality_nardl.png, replace
+{txt}
+{com}. capture graph export normality_nardl.pdf, replace
+{txt}
+{com}. 
+. 
+. // Autocorrelation of residuals
+. 
+. estat dwatson
+
+{txt}Durbin–Watson d-statistic({res} 31{txt},{res}    58{txt}) = {res} 1.880202
+{txt}
+{com}. estat durbinalt
+
+{txt}Durbin's alternative test for autocorrelation
+{hline 13}{c TT}{hline 61}
+{col 5}lags({it:p}){col 14}{c |}{col 25}chi2{col 44}df{col 63}Prob > chi2
+{hline 13}{c +}{hline 61}
+{col 6}  1{col 14}{c |}{res}{col 20}     0.151{col 43}  1{col 63}  0.6976
+{txt}{hline 13}{c BT}{hline 61}
+{col 25}H0: no serial correlation
+
+{com}. estat durbinalt, lags(1/12)
+
+{txt}Durbin's alternative test for autocorrelation
+{hline 13}{c TT}{hline 61}
+{col 5}lags({it:p}){col 14}{c |}{col 25}chi2{col 44}df{col 63}Prob > chi2
+{hline 13}{c +}{hline 61}
+{col 6}  1{col 14}{c |}{res}{col 20}     0.151{col 43}  1{col 63}  0.6976
+{txt}{col 6}  2{col 14}{c |}{res}{col 20}     6.555{col 43}  2{col 63}  0.0377
+{txt}{col 6}  3{col 14}{c |}{res}{col 20}     7.931{col 43}  3{col 63}  0.0475
+{txt}{col 6}  4{col 14}{c |}{res}{col 20}     7.685{col 43}  4{col 63}  0.1038
+{txt}{col 6}  5{col 14}{c |}{res}{col 20}     9.455{col 43}  5{col 63}  0.0922
+{txt}{col 6}  6{col 14}{c |}{res}{col 20}    10.065{col 43}  6{col 63}  0.1219
+{txt}{col 6}  7{col 14}{c |}{res}{col 20}    13.526{col 43}  7{col 63}  0.0603
+{txt}{col 6}  8{col 14}{c |}{res}{col 20}    13.025{col 43}  8{col 63}  0.1110
+{txt}{col 6}  9{col 14}{c |}{res}{col 20}    12.341{col 43}  9{col 63}  0.1948
+{txt}{col 6} 10{col 14}{c |}{res}{col 20}    14.201{col 43} 10{col 63}  0.1640
+{txt}{col 6} 11{col 14}{c |}{res}{col 20}    32.243{col 43} 11{col 63}  0.0007
+{txt}{col 6} 12{col 14}{c |}{res}{col 20}    37.636{col 43} 12{col 63}  0.0002
+{txt}{hline 13}{c BT}{hline 61}
+{col 25}H0: no serial correlation
+
+{com}. estat durbinalt, lags(1/12) small
+
+{txt}Durbin's alternative test for autocorrelation
+{hline 13}{c TT}{hline 61}
+{col 5}lags({it:p}){col 14}{c |}{col 25}F{col 44}df{col 63}Prob > F
+{hline 13}{c +}{hline 61}
+{col 6}  1{col 14}{c |}{res}{col 18}     0.151{col 39}(  1,   26 ){col 63}  0.7008
+{txt}{col 6}  2{col 14}{c |}{res}{col 18}     3.278{col 39}(  2,   25 ){col 63}  0.0544
+{txt}{col 6}  3{col 14}{c |}{res}{col 18}     2.644{col 39}(  3,   24 ){col 63}  0.0722
+{txt}{col 6}  4{col 14}{c |}{res}{col 18}     1.921{col 39}(  4,   23 ){col 63}  0.1410
+{txt}{col 6}  5{col 14}{c |}{res}{col 18}     1.891{col 39}(  5,   22 ){col 63}  0.1369
+{txt}{col 6}  6{col 14}{c |}{res}{col 18}     1.678{col 39}(  6,   21 ){col 63}  0.1760
+{txt}{col 6}  7{col 14}{c |}{res}{col 18}     1.932{col 39}(  7,   20 ){col 63}  0.1173
+{txt}{col 6}  8{col 14}{c |}{res}{col 18}     1.628{col 39}(  8,   19 ){col 63}  0.1822
+{txt}{col 6}  9{col 14}{c |}{res}{col 18}     1.371{col 39}(  9,   18 ){col 63}  0.2711
+{txt}{col 6} 10{col 14}{c |}{res}{col 18}     1.420{col 39}( 10,   17 ){col 63}  0.2522
+{txt}{col 6} 11{col 14}{c |}{res}{col 18}     2.931{col 39}( 11,   16 ){col 63}  0.0251
+{txt}{col 6} 12{col 14}{c |}{res}{col 18}     3.136{col 39}( 12,   15 ){col 63}  0.0198
+{txt}{hline 13}{c BT}{hline 61}
+{col 25}H0: no serial correlation
+
+{com}. 
+. estat bgodfrey, lags(1/12)
+
+{txt}Breusch–Godfrey LM test for autocorrelation
+{hline 13}{c TT}{hline 61}
+{col 5}lags({it:p}){col 14}{c |}{col 25}chi2{col 44}df{col 63}Prob > chi2
+{hline 13}{c +}{hline 61}
+{col 6}  1{col 14}{c |}{res}{col 20}     0.335{col 43}  1{col 63}  0.5628
+{txt}{col 6}  2{col 14}{c |}{res}{col 20}    12.049{col 43}  2{col 63}  0.0024
+{txt}{col 6}  3{col 14}{c |}{res}{col 20}    14.407{col 43}  3{col 63}  0.0024
+{txt}{col 6}  4{col 14}{c |}{res}{col 20}    14.525{col 43}  4{col 63}  0.0058
+{txt}{col 6}  5{col 14}{c |}{res}{col 20}    17.434{col 43}  5{col 63}  0.0037
+{txt}{col 6}  6{col 14}{c |}{res}{col 20}    18.792{col 43}  6{col 63}  0.0045
+{txt}{col 6}  7{col 14}{c |}{res}{col 20}    23.400{col 43}  7{col 63}  0.0015
+{txt}{col 6}  8{col 14}{c |}{res}{col 20}    23.589{col 43}  8{col 63}  0.0027
+{txt}{col 6}  9{col 14}{c |}{res}{col 20}    23.591{col 43}  9{col 63}  0.0050
+{txt}{col 6} 10{col 14}{c |}{res}{col 20}    26.398{col 43} 10{col 63}  0.0032
+{txt}{col 6} 11{col 14}{c |}{res}{col 20}    38.764{col 43} 11{col 63}  0.0001
+{txt}{col 6} 12{col 14}{c |}{res}{col 20}    41.471{col 43} 12{col 63}  0.0000
+{txt}{hline 13}{c BT}{hline 61}
+{col 25}H0: no serial correlation
+
+{com}. estat bgodfrey, lags(1/12) nomiss0 small
+
+{txt}Breusch–Godfrey LM test for autocorrelation
+{hline 13}{c TT}{hline 61}
+{col 5}lags({it:p}){col 14}{c |}{col 25}F{col 44}df{col 63}Prob > F
+{hline 13}{c +}{hline 61}
+{col 6}  1{col 14}{c |}{res}{col 18}     0.844{col 39}(  1,   25 ){col 63}  0.3671
+{txt}{col 6}  2{col 14}{c |}{res}{col 18}     6.479{col 39}(  2,   23 ){col 63}  0.0059
+{txt}{col 6}  3{col 14}{c |}{res}{col 18}     4.746{col 39}(  3,   21 ){col 63}  0.0111
+{txt}{col 6}  4{col 14}{c |}{res}{col 18}     3.858{col 39}(  4,   19 ){col 63}  0.0185
+{txt}{col 6}  5{col 14}{c |}{res}{col 18}     3.667{col 39}(  5,   17 ){col 63}  0.0196
+{txt}{col 6}  6{col 14}{c |}{res}{col 18}     3.398{col 39}(  6,   15 ){col 63}  0.0254
+{txt}{col 6}  7{col 14}{c |}{res}{col 18}     3.177{col 39}(  7,   13 ){col 63}  0.0344
+{txt}{col 6}  8{col 14}{c |}{res}{col 18}     2.736{col 39}(  8,   11 ){col 63}  0.0623
+{txt}{col 6}  9{col 14}{c |}{res}{col 18}     2.610{col 39}(  9,    9 ){col 63}  0.0846
+{txt}{col 6} 10{col 14}{c |}{res}{col 18}     2.525{col 39}( 10,    7 ){col 63}  0.1158
+{txt}{col 6} 11{col 14}{c |}{res}{col 18}     3.314{col 39}( 11,    5 ){col 63}  0.0982
+{txt}{col 6} 12{col 14}{c |}{res}{col 18}     3.682{col 39}( 12,    3 ){col 63}  0.1553
+{txt}{hline 13}{c BT}{hline 61}
+{col 25}H0: no serial correlation
+
+{com}. 
+. // Autocorrelation of residuals: Q-stat
+. 
+. forvalues y = 1/12 {c -(}              
+{txt}  2{com}.         wntestq r_nardl, lags(`y')
+{txt}  3{com}. {c )-}
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    0.0899
+{txt} Prob > chi2({res}1{txt})            = {res}    0.7643
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    4.2640
+{txt} Prob > chi2({res}2{txt})            = {res}    0.1186
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    4.8359
+{txt} Prob > chi2({res}3{txt})            = {res}    0.1842
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    4.8713
+{txt} Prob > chi2({res}4{txt})            = {res}    0.3008
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    6.3647
+{txt} Prob > chi2({res}5{txt})            = {res}    0.2723
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    6.3940
+{txt} Prob > chi2({res}6{txt})            = {res}    0.3805
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    6.4513
+{txt} Prob > chi2({res}7{txt})            = {res}    0.4882
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    6.4938
+{txt} Prob > chi2({res}8{txt})            = {res}    0.5921
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    6.5898
+{txt} Prob > chi2({res}9{txt})            = {res}    0.6797
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    6.6342
+{txt} Prob > chi2({res}10{txt})           = {res}    0.7595
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    6.8121
+{txt} Prob > chi2({res}11{txt})           = {res}    0.8141
+
+{txt}Portmanteau test for white noise
+{hline 39}
+ Portmanteau (Q) statistic = {res}    8.5629
+{txt} Prob > chi2({res}12{txt})           = {res}    0.7397
+{txt}
+{com}. 
+. // Cumby–Huizinga (C-H) test statistic
+. 
+. actest r_nardl, lags(12) small
+
+{txt}Cumby-Huizinga test for autocorrelation
+  H0: disturbance is MA process up to order q
+  HA: serial correlation present at specified lags >q
+{hline 41}{c TT}{hline 35}
+  H0: q=0 (serially uncorrelated){col 42}{c |}  H0: q=specified lag-1
+  HA: s.c. present at range specified{col 42}{c |}  HA: s.c. present at lag specified
+{hline 11}{c TT}{hline 29}{c +}{hline 5}{c TT}{hline 29}
+{col 5}lags{col 12}{c |}{col 19}chi2{col 29}df{col 36}p-val{col 42}{c |}{col 44}lag{col 48}{c |}{col 55}chi2{col 65}df{col 72}p-val
+{hline 11}{c +}{hline 29}{c +}{hline 5}{c +}{hline 29}
+{res}{col 2}  1{txt}{col 6}-{res}{col 7}  1{txt}{col 12}{c |}{res}{col 17}  0.091{col 30}1{col 35}0.7625{txt}{col 42}{c |}{res}{col 44}  1{txt}{col 48}{c |}{res}{col 53}  0.091{col 66}1{col 71}0.7625
+{col 2}  1{txt}{col 6}-{res}{col 7}  2{txt}{col 12}{c |}{res}{col 17}  4.413{col 30}2{col 35}0.1101{txt}{col 42}{c |}{res}{col 44}  2{txt}{col 48}{c |}{res}{col 53}  4.275{col 66}1{col 71}0.0387
+{col 2}  1{txt}{col 6}-{res}{col 7}  3{txt}{col 12}{c |}{res}{col 17}  4.811{col 30}3{col 35}0.1862{txt}{col 42}{c |}{res}{col 44}  3{txt}{col 48}{c |}{res}{col 53}  0.523{col 66}1{col 71}0.4696
+{col 2}  1{txt}{col 6}-{res}{col 7}  4{txt}{col 12}{c |}{res}{col 17}  4.889{col 30}4{col 35}0.2989{txt}{col 42}{c |}{res}{col 44}  4{txt}{col 48}{c |}{res}{col 53}  0.035{col 66}1{col 71}0.8511
+{col 2}  1{txt}{col 6}-{res}{col 7}  5{txt}{col 12}{c |}{res}{col 17}  7.741{col 30}5{col 35}0.1711{txt}{col 42}{c |}{res}{col 44}  5{txt}{col 48}{c |}{res}{col 53}  1.544{col 66}1{col 71}0.2140
+{col 2}  1{txt}{col 6}-{res}{col 7}  6{txt}{col 12}{c |}{res}{col 17}  7.854{col 30}6{col 35}0.2490{txt}{col 42}{c |}{res}{col 44}  6{txt}{col 48}{c |}{res}{col 53}  0.030{col 66}1{col 71}0.8634
+{col 2}  1{txt}{col 6}-{res}{col 7}  7{txt}{col 12}{c |}{res}{col 17}  8.325{col 30}7{col 35}0.3048{txt}{col 42}{c |}{res}{col 44}  7{txt}{col 48}{c |}{res}{col 53}  0.059{col 66}1{col 71}0.8087
+{col 2}  1{txt}{col 6}-{res}{col 7}  8{txt}{col 12}{c |}{res}{col 17}  9.142{col 30}8{col 35}0.3305{txt}{col 42}{c |}{res}{col 44}  8{txt}{col 48}{c |}{res}{col 53}  0.044{col 66}1{col 71}0.8333
+{col 2}  1{txt}{col 6}-{res}{col 7}  9{txt}{col 12}{c |}{res}{col 17}  9.501{col 30}9{col 35}0.3924{txt}{col 42}{c |}{res}{col 44}  9{txt}{col 48}{c |}{res}{col 53}  0.108{col 66}1{col 71}0.7429
+{col 2}  1{txt}{col 6}-{res}{col 7} 10{txt}{col 12}{c |}{res}{col 17} 10.629{col 30}10{col 35}0.3872{txt}{col 42}{c |}{res}{col 44} 10{txt}{col 48}{c |}{res}{col 53}  0.050{col 66}1{col 71}0.8227
+{col 2}  1{txt}{col 6}-{res}{col 7} 11{txt}{col 12}{c |}{res}{col 17} 12.044{col 30}11{col 35}0.3603{txt}{col 42}{c |}{res}{col 44} 11{txt}{col 48}{c |}{res}{col 53}  0.201{col 66}1{col 71}0.6542
+{col 2}  1{txt}{col 6}-{res}{col 7} 12{txt}{col 12}{c |}{res}{col 17} 12.616{col 30}12{col 35}0.3976{txt}{col 42}{c |}{res}{col 44} 12{txt}{col 48}{c |}{res}{col 53}  1.966{col 66}1{txt}*{res}{col 71}0.1608
+{txt}{hline 11}{c BT}{hline 29}{c BT}{hline 5}{c BT}{hline 29}
+  Test requires conditional homoskedasticity
+  * Eigenvalues adjusted to make matrix positive semidefinite
+
+{com}. actest r_nardl, lags(12) bp small
+
+{txt}Cumby-Huizinga test for autocorrelation (Ljung-Box)
+  H0: disturbance is MA process up to order q
+  HA: serial correlation present at specified lags >q
+{hline 41}{c TT}{hline 35}
+  H0: q=0 (serially uncorrelated){col 42}{c |}  H0: q=0 (serially uncorrelated)
+  HA: s.c. present at range specified{col 42}{c |}  HA: s.c. present at lag specified
+{hline 11}{c TT}{hline 29}{c +}{hline 5}{c TT}{hline 29}
+{col 5}lags{col 12}{c |}{col 19}chi2{col 29}df{col 36}p-val{col 42}{c |}{col 44}lag{col 48}{c |}{col 55}chi2{col 65}df{col 72}p-val
+{hline 11}{c +}{hline 29}{c +}{hline 5}{c +}{hline 29}
+{res}{col 2}  1{txt}{col 6}-{res}{col 7}  1{txt}{col 12}{c |}{res}{col 17}  0.090{col 30}1{col 35}0.7643{txt}{col 42}{c |}{res}{col 44}  1{txt}{col 48}{c |}{res}{col 53}  0.090{col 66}1{col 71}0.7643
+{col 2}  1{txt}{col 6}-{res}{col 7}  2{txt}{col 12}{c |}{res}{col 17}  4.264{col 30}2{col 35}0.1186{txt}{col 42}{c |}{res}{col 44}  2{txt}{col 48}{c |}{res}{col 53}  4.174{col 66}1{col 71}0.0410
+{col 2}  1{txt}{col 6}-{res}{col 7}  3{txt}{col 12}{c |}{res}{col 17}  4.836{col 30}3{col 35}0.1842{txt}{col 42}{c |}{res}{col 44}  3{txt}{col 48}{c |}{res}{col 53}  0.572{col 66}1{col 71}0.4495
+{col 2}  1{txt}{col 6}-{res}{col 7}  4{txt}{col 12}{c |}{res}{col 17}  4.871{col 30}4{col 35}0.3008{txt}{col 42}{c |}{res}{col 44}  4{txt}{col 48}{c |}{res}{col 53}  0.035{col 66}1{col 71}0.8508
+{col 2}  1{txt}{col 6}-{res}{col 7}  5{txt}{col 12}{c |}{res}{col 17}  6.365{col 30}5{col 35}0.2723{txt}{col 42}{c |}{res}{col 44}  5{txt}{col 48}{c |}{res}{col 53}  1.493{col 66}1{col 71}0.2217
+{col 2}  1{txt}{col 6}-{res}{col 7}  6{txt}{col 12}{c |}{res}{col 17}  6.394{col 30}6{col 35}0.3805{txt}{col 42}{c |}{res}{col 44}  6{txt}{col 48}{c |}{res}{col 53}  0.029{col 66}1{col 71}0.8641
+{col 2}  1{txt}{col 6}-{res}{col 7}  7{txt}{col 12}{c |}{res}{col 17}  6.451{col 30}7{col 35}0.4882{txt}{col 42}{c |}{res}{col 44}  7{txt}{col 48}{c |}{res}{col 53}  0.057{col 66}1{col 71}0.8108
+{col 2}  1{txt}{col 6}-{res}{col 7}  8{txt}{col 12}{c |}{res}{col 17}  6.494{col 30}8{col 35}0.5921{txt}{col 42}{c |}{res}{col 44}  8{txt}{col 48}{c |}{res}{col 53}  0.043{col 66}1{col 71}0.8365
+{col 2}  1{txt}{col 6}-{res}{col 7}  9{txt}{col 12}{c |}{res}{col 17}  6.590{col 30}9{col 35}0.6797{txt}{col 42}{c |}{res}{col 44}  9{txt}{col 48}{c |}{res}{col 53}  0.096{col 66}1{col 71}0.7567
+{col 2}  1{txt}{col 6}-{res}{col 7} 10{txt}{col 12}{c |}{res}{col 17}  6.634{col 30}10{col 35}0.7595{txt}{col 42}{c |}{res}{col 44} 10{txt}{col 48}{c |}{res}{col 53}  0.044{col 66}1{col 71}0.8331
+{col 2}  1{txt}{col 6}-{res}{col 7} 11{txt}{col 12}{c |}{res}{col 17}  6.812{col 30}11{col 35}0.8141{txt}{col 42}{c |}{res}{col 44} 11{txt}{col 48}{c |}{res}{col 53}  0.178{col 66}1{col 71}0.6732
+{col 2}  1{txt}{col 6}-{res}{col 7} 12{txt}{col 12}{c |}{res}{col 17}  8.563{col 30}12{col 35}0.7397{txt}{col 42}{c |}{res}{col 44} 12{txt}{col 48}{c |}{res}{col 53}  1.751{col 66}1{col 71}0.1858
+{txt}{hline 11}{c BT}{hline 29}{c BT}{hline 5}{c BT}{hline 29}
+  Test requires conditional homoskedasticity
+
+{com}. 
+. // Heteroscedasticity of residuals
+. 
+. estat imtest, white
+
+{txt}White's test
+H0: Homoskedasticity
+Ha: Unrestricted heteroskedasticity
+
+{ralign 11:chi2({res:57})} = {res}{ralign 6:58.00}
+{txt}{ralign 11:Prob > chi2} = {res}{ralign 6:0.4382}
+
+{txt}Cameron & Trivedi's decomposition of IM-test
+
+{hline 21}{c TT}{hline 28}
+{ralign 20:Source} {c |}       chi2     df         p
+{hline 21}{c +}{hline 28}
+{ralign 20:Heteroskedasticity} {c |}{res}      58.00     57    0.4382
+{txt}{ralign 20:Skewness} {c |}{res}      26.56     30    0.6463
+{txt}{ralign 20:Kurtosis} {c |}{res}       0.26      1    0.6087
+{txt}{hline 21}{c +}{hline 28}
+{ralign 20:Total} {c |}{res}      84.82     88    0.5762
+{txt}{hline 21}{c BT}{hline 28}
+
+{com}. estat hettest
+
+{txt}Breusch–Pagan/Cook–Weisberg test for heteroskedasticity 
+Assumption: Normal error terms
+{p 0 11 0}Variable:{space 1}{res:{txt:Fitted values of} {res:D.ln_m2dc}}{p_end}
+
+H0: Constant variance
+
+{ralign 11:chi2({res:1})} = {res}{ralign 6:0.84}
+{txt}{ralign 11:Prob > chi2} = {res}{ralign 6:0.3585}
+{txt}
+{com}. estat archlm, lags(1/12)
+{txt}LM test for autoregressive conditional heteroskedasticity (ARCH)
+{hline 13}{c TT}{hline 61}
+{col 5}lags({it:p}){col 14}{c |}{col 25}chi2{col 44}df{col 63}Prob > chi2
+{hline 13}{c +}{hline 61}
+{col 6}  1{col 14}{c |}{res}{col 20}     0.168{col 43}  1{col 63}  0.6816
+{txt}{col 6}  2{col 14}{c |}{res}{col 20}     1.544{col 43}  2{col 63}  0.4620
+{txt}{col 6}  3{col 14}{c |}{res}{col 20}     2.296{col 43}  3{col 63}  0.5133
+{txt}{col 6}  4{col 14}{c |}{res}{col 20}     2.849{col 43}  4{col 63}  0.5834
+{txt}{col 6}  5{col 14}{c |}{res}{col 20}     6.636{col 43}  5{col 63}  0.2492
+{txt}{col 6}  6{col 14}{c |}{res}{col 20}     6.765{col 43}  6{col 63}  0.3431
+{txt}{col 6}  7{col 14}{c |}{res}{col 20}     7.969{col 43}  7{col 63}  0.3354
+{txt}{col 6}  8{col 14}{c |}{res}{col 20}     8.308{col 43}  8{col 63}  0.4040
+{txt}{col 6}  9{col 14}{c |}{res}{col 20}    14.424{col 43}  9{col 63}  0.1080
+{txt}{col 6} 10{col 14}{c |}{res}{col 20}    14.657{col 43} 10{col 63}  0.1451
+{txt}{col 6} 11{col 14}{c |}{res}{col 20}    14.300{col 43} 11{col 63}  0.2168
+{txt}{col 6} 12{col 14}{c |}{res}{col 20}    14.199{col 43} 12{col 63}  0.2882
+{txt}{hline 13}{c BT}{hline 61}
+{col 10}H0: no ARCH effects{col 35}{it:vs.}{col 40}H1: ARCH({it:p}) disturbance
+
+{com}. 
+. // Save the data
+. save ///
+> "C:\Users\jamel\Dropbox\stata\vn\data_an2.dta", ///
+> replace
+{txt}{p 0 4 2}
+file {bf}
+C:\Users\jamel\Dropbox\stata\vn\data_an2.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\jamel\Dropbox\stata\vn\an2.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}26 Aug 2023, 19:51:54
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

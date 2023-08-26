@@ -1,0 +1,908 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\jamel\Dropbox\stata\vn\crdata1.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}26 Aug 2023, 19:50:46
+{txt}
+{com}. 
+. import excel C:\Users\jamel\Dropbox\stata\vn\data_final.xlsx,/*
+> */ sheet("Data") firstrow clear
+{res}{text}(15 vars, 72 obs)
+
+{com}. 
+. generate qtr = tq(2000q4) + _n-1
+{txt}
+{com}. format %tq qtr
+{txt}
+{com}. 
+. rename ( M2_current_price NFA_current_price M2D_current_price ///
+> M2_constant_price M2_constant_price_SA M2D_constant_price ///
+> M2D_constant_price_SA GDP_constant_price GDP_constant_price_SA ///
+> GDP_current_price Deflator NER) (m2 nfa m2d m2c m2c_sa m2dc ///
+> m2dc_sa gdpc gdpc_sa gdp defla ner ), dryrun
+{res}{txt}
+  {it:              oldname} {c |} {it:newname}
+  {hline 22}{c +}{hline 22}
+       M2_current_price {c |} m2
+      NFA_current_price {c |} nfa
+      M2D_current_price {c |} m2d
+      M2_constant_price {c |} m2c
+   M2_constant_price_SA {c |} m2c_sa
+     M2D_constant_price {c |} m2dc
+  M2D_constant_price_SA {c |} m2dc_sa
+     GDP_constant_price {c |} gdpc
+  GDP_constant_price_SA {c |} gdpc_sa
+      GDP_current_price {c |} gdp
+               Deflator {c |} defla
+                    NER {c |} ner
+  {hline 22}{c BT}{hline 22}
+
+{com}. 
+. rename ( M2_current_price NFA_current_price M2D_current_price ///
+> M2_constant_price M2_constant_price_SA M2D_constant_price ///
+> M2D_constant_price_SA GDP_constant_price GDP_constant_price_SA ///
+> GDP_current_price Deflator NER) (m2 nfa m2d m2c m2c_sa m2dc ///
+> m2dc_sa gdpc gdpc_sa gdp defla ner )
+{res}{txt}
+{com}. 
+. 
+. label variable m2 "Money supply current price (M2)"
+{txt}
+{com}. label variable nfa "Net foreign asset"
+{txt}
+{com}. label variable m2d " = M2 - NFA"
+{txt}
+{com}. label variable m2c "deflated by GDP deflator"
+{txt}
+{com}. label variable m2c_sa " M2_constant_price_(seasonal ajusted) "
+{txt}
+{com}. label variable m2dc " M2D_constant_price (deflated by GDP deflator) "
+{txt}
+{com}. label variable m2dc_sa " M2D_constant_price (deflated & seasonal adj) "
+{txt}
+{com}. label variable gdpc " 2010 = 100 "
+{txt}
+{com}. label variable gdpc_sa " 2010 = 100 "
+{txt}
+{com}. label variable defla "GDP current price/GDP constant price"
+{txt}
+{com}. label variable ner "USD/VND: e VND = 1 USD"
+{txt}
+{com}. label variable ir3 "deposit rate 3 month"       // Note 1
+{txt}
+{com}. 
+. capture generate ln_m2c = log(m2c)              // Note 2
+{txt}
+{com}. la var ln_m2c "Natural log of money supply"     // Note 3
+{txt}
+{com}. 
+. capture generate ln_m2c_sa = log(m2c_sa)
+{txt}
+{com}. la var ln_m2c_sa "Natural log of (seas. adj.) money supply"
+{txt}
+{com}. 
+. capture generate ln_m2dc = log(m2dc)
+{txt}
+{com}. la var ln_m2dc "Natural log of money supply - nfa"
+{txt}
+{com}. 
+. capture generate ln_m2dc_sa = log(m2dc_sa)
+{txt}
+{com}. la var ln_m2dc_sa "Natural log of (seas. adj.) money supply - nfa"
+{txt}
+{com}. 
+. capture generate ln_gdpc = log(gdpc)
+{txt}
+{com}. la var ln_gdpc "Natural log of gdp (const. price)"
+{txt}
+{com}. 
+. capture generate ln_gdpc_sa = log(gdpc_sa)
+{txt}
+{com}. la var ln_gdpc_sa "Natural log of gdp (seas. adj.)"
+{txt}
+{com}. 
+. capture generate ln_ner = log(ner)              
+{txt}
+{com}. la var ln_ner "Natural log of nominal XR (e VND = 1 USD)" 
+{txt}
+{com}. 
+. drop Time-t
+{txt}
+{com}. 
+. order qtr, first
+{txt}
+{com}. order ir3, last
+{txt}
+{com}. 
+. // Declare time series
+. 
+. tsset qtr, quarterly
+{res}
+{p 0 15 2}{txt:Time variable: }{res:qtr}{txt:, }{res:{bind:2000q4}}{txt: to }{res:{bind:2018q3}}{p_end}
+{txt}{col 9}Delta: {res}1 quarter
+{txt}
+{com}. 
+. // Apply the Stata Journal scheme
+. 
+. set scheme sj
+{txt}
+{com}. 
+. foreach v in m2dc m2dc_sa gdpc gdpc_sa ner ir3 {c -(}
+{txt}  2{com}. twoway (line `v' qtr)
+{txt}  3{com}. capture graph rename `v', replace
+{txt}  4{com}. capture graph export `v'.png, replace
+{txt}  5{com}. capture graph export `v'.pdf, replace
+{txt}  6{com}. *graph close `v'
+. {c )-}
+{res}{txt}
+{com}. 
+. foreach v in m2dc m2dc_sa gdpc gdpc_sa ner {c -(}
+{txt}  2{com}. twoway (line ln_`v' qtr)
+{txt}  3{com}. capture graph rename ln_`v', replace
+{txt}  4{com}. capture graph export ln_`v'.png, replace
+{txt}  5{com}. capture graph export ln_`v'.pdf, replace
+{txt}  6{com}. *graph close ln_`v'
+. {c )-}
+{res}{txt}
+{com}. 
+. foreach v in ln_ner ln_gdpc ln_gdpc_sa ir3 {c -(}
+{txt}  2{com}.         generate `v'_pos  = 0
+{txt}  3{com}.         generate `v'_neg  = 0
+{txt}  4{com}.         generate d`v'_pos = max(0,D.`v')
+{txt}  5{com}.         generate d`v'_neg = min(0,D.`v')
+{txt}  6{com}.         capture replace  `v'_pos  = L.`v'_pos + d`v'_pos if _n>1
+{txt}  7{com}.         capture replace  `v'_neg  = L.`v'_neg + d`v'_neg if _n>1
+{txt}  8{com}.         {c )-}
+{txt}
+{com}. 
+. la var ln_ner_pos "XR Positive partial sums" 
+{txt}
+{com}. la var ln_ner_neg "XR Negative partial sums"
+{txt}
+{com}. 
+. la var ln_gdpc_pos "GDP Positive partial sums" 
+{txt}
+{com}. la var ln_gdpc_neg "GDP Negative partial sums"
+{txt}
+{com}. 
+. la var ln_gdpc_sa_pos "GDP SA Positive partial sums" 
+{txt}
+{com}. la var ln_gdpc_sa_neg "GDP SA Negative partial sums"
+{txt}
+{com}. 
+. la var ir3_pos "IR Positive partial sums" 
+{txt}
+{com}. la var ir3_neg "IR Negative partial sums"
+{txt}
+{com}. 
+. // Plot the variables and the partial sums
+. 
+. foreach v in ln_ner_pos ln_ner_neg ln_gdpc_pos ln_gdpc_neg ///
+>              ln_gdpc_sa_pos ln_gdpc_sa_neg ir3_pos ir3_neg {c -(}
+{txt}  2{com}.                          twoway (bar d`v' qtr, yaxis(2))  ///
+>                          (line `v' qtr), name(cum_`v', replace)
+{txt}  3{com}.              capture graph export cum_`v'.png, replace
+{txt}  4{com}.                          capture graph export cum_`v'.pdf, replace
+{txt}  5{com}.                          *graph close cum_`v'
+. {c )-}
+{res}{txt}
+{com}. 
+. twoway (bar dln_ner_neg qtr) (bar dln_ner_pos qtr), ///
+> name(cum_ner_check, replace)
+{res}{txt}
+{com}. capture graph export cum_ner_check.png, replace
+{txt}
+{com}. capture graph export cum_ner_check.pdf, replace
+{txt}
+{com}. 
+. twoway (bar dln_gdpc_neg qtr) (bar dln_gdpc_pos qtr), ///
+> name(cum_gdpc_check, replace)
+{res}{txt}
+{com}. capture graph export cum_gdpc_check.png, replace
+{txt}
+{com}. capture graph export cum_gdpc_check.pdf, replace
+{txt}
+{com}. 
+. twoway (bar dln_gdpc_sa_neg qtr) (bar dln_gdpc_sa_pos qtr), ///
+> name(cum_gdpc_sa_check, replace)
+{res}{txt}
+{com}. capture graph export cum_gdpc_sa_check.png, replace
+{txt}
+{com}. capture graph export cum_gdpc_sa_check.pdf, replace
+{txt}
+{com}. 
+. twoway (bar dir3_neg qtr) (bar dir3_pos qtr), ///
+> name(cum_ir3_check, replace)
+{res}{txt}
+{com}. capture graph export cum_ir3_check.png, replace
+{txt}
+{com}. capture graph export cum_ir3_check.pdf, replace
+{txt}
+{com}. 
+. twoway (bar dln_ner_neg qtr) (bar dln_ner_pos qtr) /// 
+> (line ln_ner qtr, yaxis(2)), ///
+> name(cum_ner_check_line, replace) legend(col(1))
+{res}{txt}
+{com}. capture graph export cum_ner_check_line.png, replace
+{txt}
+{com}. capture graph export cum_ner_check_line.pdf, replace
+{txt}
+{com}. 
+. describe
+
+{txt}Contains data
+ Observations:{res}            72                  
+{txt}    Variables:{res}            37                  
+{txt}{hline}
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:qtr            }{txt}{bind: float   }{bind:%tq       }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:m2             }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Money supply current price (M2){p_end}
+{p 0 48}{bind:nfa            }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Net foreign asset{p_end}
+{p 0 48}{bind:m2d            }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res} = M2 - NFA{p_end}
+{p 0 48}{bind:m2c            }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}deflated by GDP deflator{p_end}
+{p 0 48}{bind:m2c_sa         }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res} M2_constant_price_(seasonal ajusted) {p_end}
+{p 0 48}{bind:m2dc           }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res} M2D_constant_price (deflated by GDP deflator) {p_end}
+{p 0 48}{bind:m2dc_sa        }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res} M2D_constant_price (deflated & seasonal adj) {p_end}
+{p 0 48}{bind:gdpc           }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res} 2010 = 100 {p_end}
+{p 0 48}{bind:gdpc_sa        }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res} 2010 = 100 {p_end}
+{p 0 48}{bind:gdp            }{txt}{bind: long    }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}GDP_current_price{p_end}
+{p 0 48}{bind:defla          }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}GDP current price/GDP constant price{p_end}
+{p 0 48}{bind:ner            }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}USD/VND: e VND = 1 USD{p_end}
+{p 0 48}{bind:ln_m2c         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Natural log of money supply{p_end}
+{p 0 48}{bind:ln_m2c_sa      }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Natural log of (seas. adj.) money supply{p_end}
+{p 0 48}{bind:ln_m2dc        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Natural log of money supply - nfa{p_end}
+{p 0 48}{bind:ln_m2dc_sa     }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Natural log of (seas. adj.) money supply - nfa{p_end}
+{p 0 48}{bind:ln_gdpc        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Natural log of gdp (const. price){p_end}
+{p 0 48}{bind:ln_gdpc_sa     }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Natural log of gdp (seas. adj.){p_end}
+{p 0 48}{bind:ln_ner         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Natural log of nominal XR (e VND = 1 USD){p_end}
+{p 0 48}{bind:ir3            }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}deposit rate 3 month{p_end}
+{p 0 48}{bind:ln_ner_pos     }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}XR Positive partial sums{p_end}
+{p 0 48}{bind:ln_ner_neg     }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}XR Negative partial sums{p_end}
+{p 0 48}{bind:dln_ner_pos    }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:dln_ner_neg    }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ln_gdpc_pos    }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}GDP Positive partial sums{p_end}
+{p 0 48}{bind:ln_gdpc_neg    }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}GDP Negative partial sums{p_end}
+{p 0 48}{bind:dln_gdpc_pos   }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:dln_gdpc_neg   }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ln_gdpc_sa_pos }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}GDP SA Positive partial sums{p_end}
+{p 0 48}{bind:ln_gdpc_sa_neg }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}GDP SA Negative partial sums{p_end}
+{p 0 48}{bind:dln_gdpc_sa_pos}{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:dln_gdpc_sa_neg}{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:ir3_pos        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}IR Positive partial sums{p_end}
+{p 0 48}{bind:ir3_neg        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}IR Negative partial sums{p_end}
+{p 0 48}{bind:dir3_pos       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:dir3_neg       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{txt}{hline}
+Sorted by: {res}qtr
+{txt}     Note: {res}Dataset has changed since last saved.
+{txt}
+{com}. 
+. sum
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 9}qtr {c |}{res}         72       198.5    20.92845        163        234
+{txt}{space 10}m2 {c |}{res}         72     2933190     2580834   245090.4    8933435
+{txt}{space 9}nfa {c |}{res}         70    427138.4    328032.5   94193.22    1372127
+{txt}{space 9}m2d {c |}{res}         72     2517916     2333571   150897.2    8933435
+{txt}{space 9}m2c {c |}{res}         71     24679.7    13862.51   6171.337   59309.39
+{txt}{hline 13}{c +}{hline 57}
+{space 6}m2c_sa {c |}{res}         70    24202.05    13344.97   5965.581   54600.28
+{txt}{space 8}m2dc {c |}{res}         71    253.0423    61.30521   131.6287   396.1452
+{txt}{space 5}m2dc_sa {c |}{res}         70    251.1206    58.18573   129.5112   350.7647
+{txt}{space 8}gdpc {c |}{res}         72    529065.8      192851   235103.1    1057613
+{txt}{space 5}gdpc_sa {c |}{res}         70    519884.6    164815.5   274981.3   839403.5
+{txt}{hline 13}{c +}{hline 57}
+{space 9}gdp {c |}{res}         72      572766    423822.8      96443    1676602
+{txt}{space 7}defla {c |}{res}         72    94.89631    43.56534   39.71431   167.7234
+{txt}{space 9}ner {c |}{res}         72       18604    2952.657      14498      23303
+{txt}{space 6}ln_m2c {c |}{res}         71    9.934068    .6362718   8.727671   10.99052
+{txt}{space 3}ln_m2c_sa {c |}{res}         70    9.919332    .6286063   8.693762   10.90779
+{txt}{hline 13}{c +}{hline 57}
+{space 5}ln_m2dc {c |}{res}         71    5.503436     .250606   4.879985   5.981781
+{txt}{space 2}ln_m2dc_sa {c |}{res}         70    5.497762    .2435783   4.863767   5.860116
+{txt}{space 5}ln_gdpc {c |}{res}         72    13.11414    .3638293   12.36778   13.87152
+{txt}{space 2}ln_gdpc_sa {c |}{res}         70    13.10975     .327964   12.52446   13.64045
+{txt}{space 6}ln_ner {c |}{res}         72    9.818679    .1589759   9.581766   10.05634
+{txt}{hline 13}{c +}{hline 57}
+{space 9}ir3 {c |}{res}         72    7.469167    2.903572       3.89      16.99
+{txt}{space 2}ln_ner_pos {c |}{res}         72    .2663756    .1852426          0    .549366
+{txt}{space 2}ln_ner_neg {c |}{res}         72   -.0294632    .0270562  -.0747948          0
+{txt}{space 1}dln_ner_pos {c |}{res}         72    .0076301    .0115865          0   .0681467
+{txt}{space 1}dln_ner_neg {c |}{res}         72   -.0010388    .0027646  -.0138702          0
+{txt}{hline 13}{c +}{hline 57}
+{space 1}ln_gdpc_pos {c |}{res}         72     3.89891    2.469149          0   8.375775
+{txt}{space 1}ln_gdpc_neg {c |}{res}         72   -3.452943    2.143187  -7.342743          0
+{txt}dln_gdpc_pos {c |}{res}         72    .1163302    .1087329          0   .2680197
+{txt}dln_gdpc_neg {c |}{res}         72   -.1019825    .1768845  -.5066166          0
+{txt}ln_gdpc_sa~s {c |}{res}         72    .6013324    .3361333          0   1.119499
+{txt}{hline 13}{c +}{hline 57}
+ln_gdpc_sa~g {c |}{res}         72   -.0012977    .0012373  -.0035105          0
+{txt}dln_gdpc_s~s {c |}{res}         72    .0155486    .0067313          0   .0284977
+{txt}dln_gdpc_s~g {c |}{res}         72   -.0000488    .0002957  -.0020866          0
+{txt}{space 5}ir3_pos {c |}{res}         72    14.21542    9.349146          0       24.4
+{txt}{space 5}ir3_neg {c |}{res}         72   -10.63625    9.543772     -23.67          0
+{txt}{hline 13}{c +}{hline 57}
+{space 4}dir3_pos {c |}{res}         72    .3388889    .7761272          0       4.68
+{txt}{space 4}dir3_neg {c |}{res}         72     -.32875    .9820099      -5.98          0
+{txt}
+{com}. summarize, detail
+
+                             {txt}qtr
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}      163            163
+{txt} 5%    {res}      166            164
+{txt}10%    {res}      170            165       {txt}Obs         {res}         72
+{txt}25%    {res}    180.5            166       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}    198.5                      {txt}Mean          {res}    198.5
+                        {txt}Largest       Std. dev.     {res} 20.92845
+{txt}75%    {res}    216.5            231
+{txt}90%    {res}      227            232       {txt}Variance      {res}      438
+{txt}95%    {res}      231            233       {txt}Skewness      {res}        0
+{txt}99%    {res}      234            234       {txt}Kurtosis      {res} 1.799537
+
+               {txt}Money supply current price (M2)
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 245090.4       245090.4
+{txt} 5%    {res}   289616       262214.6
+{txt}10%    {res} 346358.5       273781.9       {txt}Obs         {res}         72
+{txt}25%    {res} 624255.8         289616       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}  2226941                      {txt}Mean          {res}  2933190
+                        {txt}Largest       Std. dev.     {res}  2580834
+{txt}75%    {res}  4616592        8192548
+{txt}90%    {res}  7125801        8521098       {txt}Variance      {res} 6.66e+12
+{txt}95%    {res}  8192548        8879582       {txt}Skewness      {res} .8237654
+{txt}99%    {res}  8933435        8933435       {txt}Kurtosis      {res}  2.52064
+
+                      {txt}Net foreign asset
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 94193.22       94193.22
+{txt} 5%    {res} 114941.2         100349
+{txt}10%    {res} 118000.9       107842.3       {txt}Obs         {res}         70
+{txt}25%    {res} 147050.2       114941.2       {txt}Sum of wgt. {res}         70
+
+{txt}50%    {res} 319916.6                      {txt}Mean          {res} 427138.4
+                        {txt}Largest       Std. dev.     {res} 328032.5
+{txt}75%    {res} 610318.2        1025258
+{txt}90%    {res} 946463.6        1109031       {txt}Variance      {res} 1.08e+11
+{txt}95%    {res}  1025258        1262004       {txt}Skewness      {res} 1.029534
+{txt}99%    {res}  1372127        1372127       {txt}Kurtosis      {res} 3.021845
+
+                         {txt}= M2 - NFA
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 150897.2       150897.2
+{txt} 5%    {res} 174674.9       161865.6
+{txt}10%    {res} 227136.9       165939.5       {txt}Obs         {res}         72
+{txt}25%    {res} 475936.2       174674.9       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}  1928776                      {txt}Mean          {res}  2517916
+                        {txt}Largest       Std. dev.     {res}  2333571
+{txt}75%    {res}  3890911        6930544
+{txt}90%    {res}  6179410        7148971       {txt}Variance      {res} 5.45e+12
+{txt}95%    {res}  6930544        8879582       {txt}Skewness      {res} .9332926
+{txt}99%    {res}  8933435        8933435       {txt}Kurtosis      {res} 2.988781
+
+                  {txt}deflated by GDP deflator
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 6171.337       6171.337
+{txt} 5%    {res} 6985.431       6392.113
+{txt}10%    {res} 7876.071         6415.7       {txt}Obs         {res}         71
+{txt}25%    {res} 11436.04       6985.431       {txt}Sum of wgt. {res}         71
+
+{txt}50%    {res} 24581.67                      {txt}Mean          {res}  24679.7
+                        {txt}Largest       Std. dev.     {res} 13862.51
+{txt}75%    {res} 31354.97       51774.27
+{txt}90%    {res} 46660.44       52402.02       {txt}Variance      {res} 1.92e+08
+{txt}95%    {res} 51774.27       52824.89       {txt}Skewness      {res} .5458526
+{txt}99%    {res} 59309.39       59309.39       {txt}Kurtosis      {res}  2.50164
+
+            {txt}M2_constant_price_(seasonal ajusted) 
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 5965.581       5965.581
+{txt} 5%    {res} 7052.831       6350.884
+{txt}10%    {res} 7792.159       6622.216       {txt}Obs         {res}         70
+{txt}25%    {res} 11244.81       7052.831       {txt}Sum of wgt. {res}         70
+
+{txt}50%    {res} 24513.73                      {txt}Mean          {res} 24202.05
+                        {txt}Largest       Std. dev.     {res} 13344.97
+{txt}75%    {res} 30366.02       50495.63
+{txt}90%    {res} 45569.64       51742.21       {txt}Variance      {res} 1.78e+08
+{txt}95%    {res} 50495.63       51988.05       {txt}Skewness      {res} .4885887
+{txt}99%    {res} 54600.28       54600.28       {txt}Kurtosis      {res} 2.396125
+
+       {txt}M2D_constant_price (deflated by GDP deflator) 
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 131.6287       131.6287
+{txt} 5%    {res} 155.8232       150.3431
+{txt}10%    {res} 172.9251       155.3933       {txt}Obs         {res}         71
+{txt}25%    {res} 206.5229       155.8232       {txt}Sum of wgt. {res}         71
+
+{txt}50%    {res} 244.7308                      {txt}Mean          {res} 253.0423
+                        {txt}Largest       Std. dev.     {res} 61.30521
+{txt}75%    {res} 308.2418       357.0039
+{txt}90%    {res} 330.2589       360.5124       {txt}Variance      {res} 3758.328
+{txt}95%    {res} 357.0039       361.0077       {txt}Skewness      {res} .1527054
+{txt}99%    {res} 396.1452       396.1452       {txt}Kurtosis      {res} 2.174284
+
+        {txt}M2D_constant_price (deflated & seasonal adj) 
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 129.5112       129.5112
+{txt} 5%    {res} 158.9035       145.6535
+{txt}10%    {res} 172.0671       155.7553       {txt}Obs         {res}         70
+{txt}25%    {res} 207.1946       158.9035       {txt}Sum of wgt. {res}         70
+
+{txt}50%    {res} 245.7195                      {txt}Mean          {res} 251.1206
+                        {txt}Largest       Std. dev.     {res} 58.18573
+{txt}75%    {res} 306.4397       336.3771
+{txt}90%    {res} 329.5914        338.507       {txt}Variance      {res} 3385.579
+{txt}95%    {res} 336.3771       341.7402       {txt}Skewness      {res}-.0381331
+{txt}99%    {res} 350.7647       350.7647       {txt}Kurtosis      {res} 1.916063
+
+                         {txt}2010 = 100 
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 235103.1       235103.1
+{txt} 5%    {res}   280849       250447.1
+{txt}10%    {res} 308390.1       268088.1       {txt}Obs         {res}         72
+{txt}25%    {res} 373028.7         280849       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res} 500824.1                      {txt}Mean          {res} 529065.8
+                        {txt}Largest       Std. dev.     {res}   192851
+{txt}75%    {res} 646021.5         891983
+{txt}90%    {res}   804599         921353       {txt}Variance      {res} 3.72e+10
+{txt}95%    {res}   891983         983590       {txt}Skewness      {res} .6423484
+{txt}99%    {res}  1057613        1057613       {txt}Kurtosis      {res} 2.720951
+
+                         {txt}2010 = 100 
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 274981.3       274981.3
+{txt} 5%    {res} 287789.4       280446.1
+{txt}10%    {res}   307189       286198.8       {txt}Obs         {res}         70
+{txt}25%    {res} 372461.2       287789.4       {txt}Sum of wgt. {res}         70
+
+{txt}50%    {res} 505533.2                      {txt}Mean          {res} 519884.6
+                        {txt}Largest       Std. dev.     {res} 164815.5
+{txt}75%    {res} 645658.9       802348.8
+{txt}90%    {res} 760594.7       824996.5       {txt}Variance      {res} 2.72e+10
+{txt}95%    {res} 802348.8       839219.7       {txt}Skewness      {res} .2521338
+{txt}99%    {res} 839403.5       839403.5       {txt}Kurtosis      {res} 1.940977
+
+                      {txt}GDP_current_price
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}    96443          96443
+{txt} 5%    {res}   122610         109180
+{txt}10%    {res}   137070         116440       {txt}Obs         {res}         72
+{txt}25%    {res}   195594         122610       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}   433592                      {txt}Mean          {res}   572766
+                        {txt}Largest       Std. dev.     {res} 423822.8
+{txt}75%    {res}   909195        1341472
+{txt}90%    {res}  1242220        1414982       {txt}Variance      {res} 1.80e+11
+{txt}95%    {res}  1341472        1464905       {txt}Skewness      {res} .7046033
+{txt}99%    {res}  1676602        1676602       {txt}Kurtosis      {res} 2.321965
+
+            {txt}GDP current price/GDP constant price
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 39.71431       39.71431
+{txt} 5%    {res}  41.8638       41.02158
+{txt}10%    {res} 43.97605       41.46001       {txt}Obs         {res}         72
+{txt}25%    {res} 53.59346        41.8638       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}  84.1373                      {txt}Mean          {res} 94.89631
+                        {txt}Largest       Std. dev.     {res} 43.56534
+{txt}75%    {res} 143.4437        158.527
+{txt}90%    {res} 150.6969       158.6333       {txt}Variance      {res} 1897.939
+{txt}95%    {res}  158.527       161.3084       {txt}Skewness      {res} .2196299
+{txt}99%    {res} 167.7234       167.7234       {txt}Kurtosis      {res} 1.428704
+
+                   {txt}USD/VND: e VND = 1 USD
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}    14498          14498
+{txt} 5%    {res}    14994          14561
+{txt}10%    {res}    15330          14675       {txt}Obs         {res}         72
+{txt}25%    {res}  15830.5          14994       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res} 18154.75                      {txt}Mean          {res}    18604
+                        {txt}Largest       Std. dev.     {res} 2952.657
+{txt}75%    {res}    21165        22750.5
+{txt}90%    {res}    22685          22797       {txt}Variance      {res}  8718186
+{txt}95%    {res}  22750.5          22800       {txt}Skewness      {res} .1316109
+{txt}99%    {res}    23303          23303       {txt}Kurtosis      {res} 1.352796
+
+                 {txt}Natural log of money supply
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 8.727671       8.727671
+{txt} 5%    {res} 8.851582        8.76282
+{txt}10%    {res} 8.971584       8.766503       {txt}Obs         {res}         71
+{txt}25%    {res} 9.344524       8.851582       {txt}Sum of wgt. {res}         71
+
+{txt}50%    {res} 10.10976                      {txt}Mean          {res} 9.934068
+                        {txt}Largest       Std. dev.     {res} .6362718
+{txt}75%    {res} 10.35313       10.85465
+{txt}90%    {res} 10.75065        10.8667       {txt}Variance      {res} .4048418
+{txt}95%    {res} 10.85465       10.87474       {txt}Skewness      {res}-.3650726
+{txt}99%    {res} 10.99052       10.99052       {txt}Kurtosis      {res} 2.003805
+
+          {txt}Natural log of (seas. adj.) money supply
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 8.693762       8.693762
+{txt} 5%    {res} 8.861184        8.75635
+{txt}10%    {res} 8.960655       8.798185       {txt}Obs         {res}         70
+{txt}25%    {res} 9.327662       8.861184       {txt}Sum of wgt. {res}         70
+
+{txt}50%    {res} 10.10625                      {txt}Mean          {res} 9.919332
+                        {txt}Largest       Std. dev.     {res} .6286063
+{txt}75%    {res} 10.32108       10.82964
+{txt}90%    {res} 10.72691       10.85403       {txt}Variance      {res} .3951459
+{txt}95%    {res} 10.82964       10.85877       {txt}Skewness      {res}-.3834561
+{txt}99%    {res} 10.90779       10.90779       {txt}Kurtosis      {res} 1.993864
+
+              {txt}Natural log of money supply - nfa
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 4.879985       4.879985
+{txt} 5%    {res} 5.048722        5.01292
+{txt}10%    {res} 5.152859       5.045959       {txt}Obs         {res}         71
+{txt}25%    {res} 5.330411       5.048722       {txt}Sum of wgt. {res}         71
+
+{txt}50%    {res} 5.500159                      {txt}Mean          {res} 5.503436
+                        {txt}Largest       Std. dev.     {res}  .250606
+{txt}75%    {res} 5.730885       5.877747
+{txt}90%    {res} 5.799877       5.887527       {txt}Variance      {res} .0628033
+{txt}95%    {res} 5.877747       5.888899       {txt}Skewness      {res}-.2883846
+{txt}99%    {res} 5.981781       5.981781       {txt}Kurtosis      {res} 2.335487
+
+       {txt}Natural log of (seas. adj.) money supply - nfa
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 4.863767       4.863767
+{txt} 5%    {res} 5.068297        4.98123
+{txt}10%    {res} 5.147848       5.048286       {txt}Obs         {res}         70
+{txt}25%    {res} 5.333659       5.068297       {txt}Sum of wgt. {res}         70
+
+{txt}50%    {res} 5.504184                      {txt}Mean          {res} 5.497762
+                        {txt}Largest       Std. dev.     {res} .2435783
+{txt}75%    {res} 5.725021       5.818233
+{txt}90%    {res} 5.797846       5.824545       {txt}Variance      {res} .0593304
+{txt}95%    {res} 5.818233       5.834051       {txt}Skewness      {res}-.4196165
+{txt}99%    {res} 5.860116       5.860116       {txt}Kurtosis      {res} 2.363412
+
+              {txt}Natural log of gdp (const. price)
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 12.36778       12.36778
+{txt} 5%    {res} 12.54557         12.431
+{txt}10%    {res} 12.63912       12.49907       {txt}Obs         {res}         72
+{txt}25%    {res}  12.8291       12.54557       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res} 13.12399                      {txt}Mean          {res} 13.11414
+                        {txt}Largest       Std. dev.     {res} .3638293
+{txt}75%    {res} 13.37858        13.7012
+{txt}90%    {res}  13.5981        13.7336       {txt}Variance      {res} .1323718
+{txt}95%    {res}  13.7012       13.79896       {txt}Skewness      {res} .0067427
+{txt}99%    {res} 13.87152       13.87152       {txt}Kurtosis      {res} 2.154611
+
+               {txt}Natural log of gdp (seas. adj.)
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 12.52446       12.52446
+{txt} 5%    {res} 12.56998       12.54414
+{txt}10%    {res} 12.63519       12.56444       {txt}Obs         {res}         70
+{txt}25%    {res} 12.82789       12.56998       {txt}Sum of wgt. {res}         70
+
+{txt}50%    {res} 13.13333                      {txt}Mean          {res} 13.10975
+                        {txt}Largest       Std. dev.     {res}  .327964
+{txt}75%    {res} 13.37803        13.5953
+{txt}90%    {res} 13.54181       13.62313       {txt}Variance      {res} .1075604
+{txt}95%    {res}  13.5953       13.64023       {txt}Skewness      {res}-.1570892
+{txt}99%    {res} 13.64045       13.64045       {txt}Kurtosis      {res} 1.856195
+
+          {txt}Natural log of nominal XR (e VND = 1 USD)
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res} 9.581766       9.581766
+{txt} 5%    {res} 9.615405       9.586102
+{txt}10%    {res} 9.637567       9.593901       {txt}Obs         {res}         72
+{txt}25%    {res} 9.669693       9.615405       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res} 9.806517                      {txt}Mean          {res} 9.818679
+                        {txt}Largest       Std. dev.     {res} .1589759
+{txt}75%    {res} 9.960104       10.03234
+{txt}90%    {res} 10.02946       10.03438       {txt}Variance      {res} .0252733
+{txt}95%    {res} 10.03234       10.03452       {txt}Skewness      {res} .0539772
+{txt}99%    {res} 10.05634       10.05634       {txt}Kurtosis      {res} 1.328684
+
+                    {txt}deposit rate 3 month
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}     3.89           3.89
+{txt} 5%    {res}     4.72           4.62
+{txt}10%    {res}      4.8           4.68       {txt}Obs         {res}         72
+{txt}25%    {res}     5.22           4.72       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}    6.805                      {txt}Mean          {res} 7.469167
+                        {txt}Largest       Std. dev.     {res} 2.903572
+{txt}75%    {res}    7.765             14
+{txt}90%    {res}    12.29             14       {txt}Variance      {res} 8.430729
+{txt}95%    {res}       14             14       {txt}Skewness      {res} 1.372395
+{txt}99%    {res}    16.99          16.99       {txt}Kurtosis      {res} 4.191009
+
+                  {txt}XR Positive partial sums
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}        0              0
+{txt} 5%    {res}  .033639       .0043354
+{txt}10%    {res} .0558004       .0121346       {txt}Obs         {res}         72
+{txt}25%    {res} .0885935        .033639       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res} .2492747                      {txt}Mean          {res} .2663756
+                        {txt}Largest       Std. dev.     {res} .1852426
+{txt}75%    {res} .4303551       .5236998
+{txt}90%    {res} .5175648       .5253706       {txt}Variance      {res} .0343148
+{txt}95%    {res} .5236998       .5274124       {txt}Skewness      {res} .0845513
+{txt}99%    {res}  .549366        .549366       {txt}Kurtosis      {res} 1.350583
+
+                  {txt}XR Negative partial sums
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}-.0747948      -.0747948
+{txt} 5%    {res}-.0747948      -.0747948
+{txt}10%    {res}-.0698719      -.0747948       {txt}Obs         {res}         72
+{txt}25%    {res}-.0532598      -.0747948       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}-.0245237                      {txt}Mean          {res}-.0294632
+                        {txt}Largest       Std. dev.     {res} .0270562
+{txt}75%    {res}-.0006666              0
+{txt}90%    {res}        0              0       {txt}Variance      {res}  .000732
+{txt}95%    {res}        0              0       {txt}Skewness      {res}-.2652751
+{txt}99%    {res}        0              0       {txt}Kurtosis      {res} 1.591315
+
+                         {txt}dln_ner_pos
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}        0              0
+{txt} 5%    {res}        0              0
+{txt}10%    {res}        0              0       {txt}Obs         {res}         72
+{txt}25%    {res} .0002069              0       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res} .0030389                      {txt}Mean          {res} .0076301
+                        {txt}Largest       Std. dev.     {res} .0115865
+{txt}75%    {res} .0084882       .0298643
+{txt}90%    {res} .0219536       .0302467       {txt}Variance      {res} .0001342
+{txt}95%    {res} .0298643       .0368814       {txt}Skewness      {res} 2.658255
+{txt}99%    {res} .0681467       .0681467       {txt}Kurtosis      {res} 12.14598
+
+                         {txt}dln_ner_neg
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}-.0138702      -.0138702
+{txt} 5%    {res}-.0079088      -.0119238
+{txt}10%    {res}-.0041752      -.0083942       {txt}Obs         {res}         72
+{txt}25%    {res}        0      -.0079088       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}        0                      {txt}Mean          {res}-.0010388
+                        {txt}Largest       Std. dev.     {res} .0027646
+{txt}75%    {res}        0              0
+{txt}90%    {res}        0              0       {txt}Variance      {res} 7.64e-06
+{txt}95%    {res}        0              0       {txt}Skewness      {res}-3.041776
+{txt}99%    {res}        0              0       {txt}Kurtosis      {res}  11.9697
+
+                  {txt}GDP Positive partial sums
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}        0              0
+{txt} 5%    {res}  .226963              0
+{txt}10%    {res} .6382313        .226963       {txt}Obs         {res}         72
+{txt}25%    {res} 1.768125        .226963       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res} 3.730537                      {txt}Mean          {res}  3.89891
+                        {txt}Largest       Std. dev.     {res} 2.469149
+{txt}75%    {res} 5.953393       8.039481
+{txt}90%    {res} 7.461193       8.039481       {txt}Variance      {res} 6.096697
+{txt}95%    {res} 8.039481       8.303411       {txt}Skewness      {res} .1543325
+{txt}99%    {res} 8.375775       8.375775       {txt}Kurtosis      {res}  1.84002
+
+                  {txt}GDP Negative partial sums
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}-7.342743      -7.342743
+{txt} 5%    {res}-6.836126      -7.342743
+{txt}10%    {res}-6.330399      -7.342743       {txt}Obs         {res}         72
+{txt}25%    {res}-5.365569      -6.836126       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}-3.153055                      {txt}Mean          {res}-3.452943
+                        {txt}Largest       Std. dev.     {res} 2.143187
+{txt}75%    {res}-1.682573      -.3495607
+{txt}90%    {res}-.6880054      -.3003902       {txt}Variance      {res} 4.593249
+{txt}95%    {res}-.3495607      -.3003902       {txt}Skewness      {res}-.2025257
+{txt}99%    {res}        0              0       {txt}Kurtosis      {res} 1.853193
+
+                        {txt}dln_gdpc_pos
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}        0              0
+{txt} 5%    {res}        0              0
+{txt}10%    {res}        0              0       {txt}Obs         {res}         72
+{txt}25%    {res}        0              0       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res} .0739069                      {txt}Mean          {res} .1163302
+                        {txt}Largest       Std. dev.     {res} .1087329
+{txt}75%    {res} .2266598       .2556658
+{txt}90%    {res} .2393179       .2557735       {txt}Variance      {res} .0118228
+{txt}95%    {res} .2556658       .2639303       {txt}Skewness      {res}  .052676
+{txt}99%    {res} .2680197       .2680197       {txt}Kurtosis      {res} 1.146289
+
+                        {txt}dln_gdpc_neg
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}-.5066166      -.5066166
+{txt} 5%    {res}-.4744921      -.5057278
+{txt}10%    {res}-.4283762      -.4903374       {txt}Obs         {res}         72
+{txt}25%    {res}-.1743255      -.4744921       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}        0                      {txt}Mean          {res}-.1019825
+                        {txt}Largest       Std. dev.     {res} .1768845
+{txt}75%    {res}        0              0
+{txt}90%    {res}        0              0       {txt}Variance      {res} .0312881
+{txt}95%    {res}        0              0       {txt}Skewness      {res}-1.294272
+{txt}99%    {res}        0              0       {txt}Kurtosis      {res} 2.890079
+
+                {txt}GDP SA Positive partial sums
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}        0              0
+{txt} 5%    {res} .0455265       .0196791
+{txt}10%    {res}  .117568       .0399837       {txt}Obs         {res}         72
+{txt}25%    {res} .3152862       .0455265       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res} .6278944                      {txt}Mean          {res} .6013324
+                        {txt}Largest       Std. dev.     {res} .3361333
+{txt}75%    {res} .8775849       1.119281
+{txt}90%    {res} 1.046173       1.119499       {txt}Variance      {res} .1129856
+{txt}95%    {res} 1.119281       1.119499       {txt}Skewness      {res}-.1619386
+{txt}99%    {res} 1.119499       1.119499       {txt}Kurtosis      {res} 1.851045
+
+                {txt}GDP SA Negative partial sums
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}-.0035105      -.0035105
+{txt} 5%    {res}-.0035105      -.0035105
+{txt}10%    {res}-.0020866      -.0035105       {txt}Obs         {res}         72
+{txt}25%    {res}-.0020866      -.0035105       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}-.0020866                      {txt}Mean          {res}-.0012977
+                        {txt}Largest       Std. dev.     {res} .0012373
+{txt}75%    {res}        0              0
+{txt}90%    {res}        0              0       {txt}Variance      {res} 1.53e-06
+{txt}95%    {res}        0              0       {txt}Skewness      {res}-.1656421
+{txt}99%    {res}        0              0       {txt}Kurtosis      {res} 1.653443
+
+                       {txt}dln_gdpc_sa_pos
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}        0              0
+{txt} 5%    {res}        0              0
+{txt}10%    {res} .0077019              0       {txt}Obs         {res}         72
+{txt}25%    {res}  .012188              0       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res} .0167904                      {txt}Mean          {res} .0155486
+                        {txt}Largest       Std. dev.     {res} .0067313
+{txt}75%    {res} .0201588       .0270605
+{txt}90%    {res} .0223227       .0278358       {txt}Variance      {res} .0000453
+{txt}95%    {res} .0270605       .0281782       {txt}Skewness      {res}  -.66028
+{txt}99%    {res} .0284977       .0284977       {txt}Kurtosis      {res} 3.412316
+
+                       {txt}dln_gdpc_sa_neg
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}-.0020866      -.0020866
+{txt} 5%    {res}        0      -.0014238
+{txt}10%    {res}        0              0       {txt}Obs         {res}         72
+{txt}25%    {res}        0              0       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}        0                      {txt}Mean          {res}-.0000488
+                        {txt}Largest       Std. dev.     {res} .0002957
+{txt}75%    {res}        0              0
+{txt}90%    {res}        0              0       {txt}Variance      {res} 8.75e-08
+{txt}95%    {res}        0              0       {txt}Skewness      {res}-6.061404
+{txt}99%    {res}        0              0       {txt}Kurtosis      {res} 38.87396
+
+                  {txt}IR Positive partial sums
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}        0              0
+{txt} 5%    {res}     1.59           1.35
+{txt}10%    {res}     3.09           1.35       {txt}Obs         {res}         72
+{txt}25%    {res}     4.33           1.59       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}   16.675                      {txt}Mean          {res} 14.21542
+                        {txt}Largest       Std. dev.     {res} 9.349146
+{txt}75%    {res}    23.84           24.4
+{txt}90%    {res}    24.37           24.4       {txt}Variance      {res} 87.40654
+{txt}95%    {res}     24.4           24.4       {txt}Skewness      {res}-.1758106
+{txt}99%    {res}     24.4           24.4       {txt}Kurtosis      {res} 1.230454
+
+                  {txt}IR Negative partial sums
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}   -23.67         -23.67
+{txt} 5%    {res}   -23.48         -23.61
+{txt}10%    {res}   -23.46         -23.54       {txt}Obs         {res}         72
+{txt}25%    {res}  -21.595         -23.48       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}   -11.85                      {txt}Mean          {res}-10.63625
+                        {txt}Largest       Std. dev.     {res} 9.543772
+{txt}75%    {res}    -1.35           -.28
+{txt}90%    {res}     -.28           -.28       {txt}Variance      {res} 91.08358
+{txt}95%    {res}     -.28              0       {txt}Skewness      {res}-.2024961
+{txt}99%    {res}        0              0       {txt}Kurtosis      {res} 1.347219
+
+                          {txt}dir3_pos
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}        0              0
+{txt} 5%    {res}        0              0
+{txt}10%    {res}        0              0       {txt}Obs         {res}         72
+{txt}25%    {res}        0              0       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}        0                      {txt}Mean          {res} .3388889
+                        {txt}Largest       Std. dev.     {res} .7761272
+{txt}75%    {res}      .26           1.84
+{txt}90%    {res}     1.19           1.86       {txt}Variance      {res} .6023734
+{txt}95%    {res}     1.84           3.19       {txt}Skewness      {res} 3.536384
+{txt}99%    {res}     4.68           4.68       {txt}Kurtosis      {res} 17.31324
+
+                          {txt}dir3_neg
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}    -5.98          -5.98
+{txt} 5%    {res}    -2.97          -4.13
+{txt}10%    {res}     -.64             -3       {txt}Obs         {res}         72
+{txt}25%    {res}    -.145          -2.97       {txt}Sum of wgt. {res}         72
+
+{txt}50%    {res}        0                      {txt}Mean          {res}  -.32875
+                        {txt}Largest       Std. dev.     {res} .9820099
+{txt}75%    {res}        0              0
+{txt}90%    {res}        0              0       {txt}Variance      {res} .9643435
+{txt}95%    {res}        0              0       {txt}Skewness      {res}-4.101381
+{txt}99%    {res}        0              0       {txt}Kurtosis      {res} 20.46271
+{txt}
+{com}. 
+. // Save the data
+. save ///
+> "C:\Users\jamel\Dropbox\stata\vn\data_crdata1.dta", ///
+> replace
+{txt}{p 0 4 2}
+file {bf}
+C:\Users\jamel\Dropbox\stata\vn\data_crdata1.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\jamel\Dropbox\stata\vn\crdata1.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}26 Aug 2023, 19:50:57
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

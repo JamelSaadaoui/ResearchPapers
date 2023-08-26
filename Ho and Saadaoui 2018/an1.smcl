@@ -1,0 +1,1789 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\jamel\Dropbox\stata\vn\an1.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}26 Aug 2023, 19:50:57
+{txt}
+{com}. 
+. set seed 029350                                 // Random seed 
+{txt}
+{com}. 
+. capture ssc install dynardl                      // Install dynamac
+{txt}
+{com}. 
+. capture net from http://www.marco-sunder.de/stata/
+{txt}
+{com}. capture net install nardl.pkg                   // Install nardl
+{txt}
+{com}. 
+. capture ssc install vselect                    // Install vselect
+{txt}
+{com}. 
+. regress ln_m2dc ln_ner ln_gdpc_sa ir3
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}        70
+{txt}{hline 13}{c +}{hline 34}   F(3, 66)        = {res}    36.93
+{txt}       Model {c |} {res} 2.60956367         3  .869854556   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 1.55458747        66  .023554356   {txt}R-squared       ={res}    0.6267
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.6097
+{txt}       Total {c |} {res} 4.16415114        69  .060350017   {txt}Root MSE        =   {res} .15347
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}     ln_m2dc{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}ln_ner {c |}{col 14}{res}{space 2}-2.813329{col 26}{space 2} .4191433{col 37}{space 1}   -6.71{col 46}{space 3}0.000{col 54}{space 4}-3.650176{col 67}{space 3}-1.976482
+{txt}{space 2}ln_gdpc_sa {c |}{col 14}{res}{space 2} 1.724516{col 26}{space 2}  .199948{col 37}{space 1}    8.62{col 46}{space 3}0.000{col 54}{space 4} 1.325307{col 67}{space 3} 2.123725
+{txt}{space 9}ir3 {c |}{col 14}{res}{space 2} .0116072{col 26}{space 2} .0063737{col 37}{space 1}    1.82{col 46}{space 3}0.073{col 54}{space 4}-.0011183{col 67}{space 3} .0243326
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 10.40595{col 26}{space 2} 1.763294{col 37}{space 1}    5.90{col 46}{space 3}0.000{col 54}{space 4} 6.885421{col 67}{space 3} 13.92648
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. foreach v in ln_m2dc ln_ner ln_gdpc_sa ir3 ln_ner_pos ln_ner_neg {c -(}
+{txt}  2{com}.         
+.                 des `v'
+{txt}  3{com}. 
+.         pperron `v', lags(3)
+{txt}  4{com}.         dfgls `v', maxlag(4)
+{txt}  5{com}.                                 
+.                 
+. {c )-}
+
+{txt}Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:ln_m2dc        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Natural log of money supply - nfa{p_end}
+
+{txt}Phillips–Perron test for unit root{col 43}Number of obs   = {res}{ralign 2:70}
+{txt}Variable: {res}ln_m2dc{txt}{col 43}Newey–West lags = {res}{ralign 2:3}
+
+{txt}H0: Random walk without drift, d = 0
+
+{col 40}Dickey–Fuller
+{col 20}Test{col 30}{hline 8} critical value {hline 9}
+              statistic           1%           5%          10%
+{hline 62}
+ Z(rho)     {res}     -6.086      -19.260      -13.460      -10.820
+{txt} Z(t)       {res}     -1.785       -3.552       -2.914       -2.592
+{txt}{hline 62}
+MacKinnon approximate {it:p}-value for Z(t) = {res}0.3878{txt}.
+
+DF-GLS test for unit root{col 45}Number of obs = {res}{ralign 2:66}
+{txt}Variable: {res}ln_m2dc
+{txt}Lag selection: User specified{col 45}{lalign 13:Maximum lag} = {res}{ralign 2:4}
+
+{txt}{col 30}{hline 8} Critical value {hline 9}
+ [lags]{col 14}DF-GLS tau           1%           5%          10%
+{hline 62}
+      4{col 11}{res}       -1.552       -3.690       -3.008       -2.720
+      {txt}3{col 11}{res}       -1.206       -3.690       -3.040       -2.750
+      {txt}2{col 11}{res}       -1.446       -3.690       -3.070       -2.777
+      {txt}1{col 11}{res}       -1.946       -3.690       -3.096       -2.801
+{txt}{hline 62}
+Opt lag (Ng–Perron seq t) = {res}{ralign 1:4}{txt} with RMSE = {res}{ralign 8:.1154699}
+{txt}Min SIC  = {res}-4.025855{txt} at lag {res}{ralign 1:2}{txt} with RMSE = {res}{ralign 8:.1214628}
+{txt}Min MAIC = {res}-4.099412{txt} at lag {res}{ralign 1:4}{txt} with RMSE = {res}{ralign 8:.1154699}
+
+{txt}Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:ln_ner         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Natural log of nominal XR (e VND = 1 USD){p_end}
+
+{txt}Phillips–Perron test for unit root{col 43}Number of obs   = {res}{ralign 2:71}
+{txt}Variable: {res}ln_ner{txt}{col 43}Newey–West lags = {res}{ralign 2:3}
+
+{txt}H0: Random walk without drift, d = 0
+
+{col 40}Dickey–Fuller
+{col 20}Test{col 30}{hline 8} critical value {hline 9}
+              statistic           1%           5%          10%
+{hline 62}
+ Z(rho)     {res}     -0.276      -19.278      -13.468      -10.826
+{txt} Z(t)       {res}     -0.363       -3.551       -2.913       -2.592
+{txt}{hline 62}
+MacKinnon approximate {it:p}-value for Z(t) = {res}0.9161{txt}.
+
+DF-GLS test for unit root{col 45}Number of obs = {res}{ralign 2:67}
+{txt}Variable: {res}ln_ner
+{txt}Lag selection: User specified{col 45}{lalign 13:Maximum lag} = {res}{ralign 2:4}
+
+{txt}{col 30}{hline 8} Critical value {hline 9}
+ [lags]{col 14}DF-GLS tau           1%           5%          10%
+{hline 62}
+      4{col 11}{res}       -2.151       -3.686       -3.006       -2.718
+      {txt}3{col 11}{res}       -1.942       -3.686       -3.038       -2.748
+      {txt}2{col 11}{res}       -1.694       -3.686       -3.067       -2.774
+      {txt}1{col 11}{res}       -1.347       -3.686       -3.093       -2.797
+{txt}{hline 62}
+Opt lag (Ng–Perron seq t) = {res}{ralign 1:2}{txt} with RMSE = {res}{ralign 8:.0122416}
+{txt}Min SIC  = {res}-8.620442{txt} at lag {res}{ralign 1:1}{txt} with RMSE = {res}{ralign 8:.0126136}
+{txt}Min MAIC = {res}-8.658715{txt} at lag {res}{ralign 1:1}{txt} with RMSE = {res}{ralign 8:.0126136}
+
+{txt}Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:ln_gdpc_sa     }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Natural log of gdp (seas. adj.){p_end}
+
+{txt}Phillips–Perron test for unit root{col 43}Number of obs   = {res}{ralign 2:69}
+{txt}Variable: {res}ln_gdpc_sa{txt}{col 43}Newey–West lags = {res}{ralign 2:3}
+
+{txt}H0: Random walk without drift, d = 0
+
+{col 40}Dickey–Fuller
+{col 20}Test{col 30}{hline 8} critical value {hline 9}
+              statistic           1%           5%          10%
+{hline 62}
+ Z(rho)     {res}     -0.307      -19.242      -13.452      -10.814
+{txt} Z(t)       {res}     -2.410       -3.553       -2.915       -2.592
+{txt}{hline 62}
+MacKinnon approximate {it:p}-value for Z(t) = {res}0.1389{txt}.
+
+DF-GLS test for unit root{col 45}Number of obs = {res}{ralign 2:65}
+{txt}Variable: {res}ln_gdpc_sa
+{txt}Lag selection: User specified{col 45}{lalign 13:Maximum lag} = {res}{ralign 2:4}
+
+{txt}{col 30}{hline 8} Critical value {hline 9}
+ [lags]{col 14}DF-GLS tau           1%           5%          10%
+{hline 62}
+      4{col 11}{res}       -1.751       -3.694       -3.009       -2.721
+      {txt}3{col 11}{res}       -0.697       -3.694       -3.043       -2.752
+      {txt}2{col 11}{res}       -0.614       -3.694       -3.073       -2.780
+      {txt}1{col 11}{res}       -0.984       -3.694       -3.099       -2.804
+{txt}{hline 62}
+Opt lag (Ng–Perron seq t) = {res}{ralign 1:4}{txt} with RMSE = {res}{ralign 8:.0046056}
+{txt}Min SIC  = {res}-10.43985{txt} at lag {res}{ralign 1:4}{txt} with RMSE = {res}{ralign 8:.0046056}
+{txt}Min MAIC = {res}-10.52782{txt} at lag {res}{ralign 1:4}{txt} with RMSE = {res}{ralign 8:.0046056}
+
+{txt}Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:ir3            }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}deposit rate 3 month{p_end}
+
+{txt}Phillips–Perron test for unit root{col 43}Number of obs   = {res}{ralign 2:71}
+{txt}Variable: {res}ir3{txt}{col 43}Newey–West lags = {res}{ralign 2:3}
+
+{txt}H0: Random walk without drift, d = 0
+
+{col 40}Dickey–Fuller
+{col 20}Test{col 30}{hline 8} critical value {hline 9}
+              statistic           1%           5%          10%
+{hline 62}
+ Z(rho)     {res}     -9.419      -19.278      -13.468      -10.826
+{txt} Z(t)       {res}     -2.232       -3.551       -2.913       -2.592
+{txt}{hline 62}
+MacKinnon approximate {it:p}-value for Z(t) = {res}0.1947{txt}.
+
+DF-GLS test for unit root{col 45}Number of obs = {res}{ralign 2:67}
+{txt}Variable: {res}ir3
+{txt}Lag selection: User specified{col 45}{lalign 13:Maximum lag} = {res}{ralign 2:4}
+
+{txt}{col 30}{hline 8} Critical value {hline 9}
+ [lags]{col 14}DF-GLS tau           1%           5%          10%
+{hline 62}
+      4{col 11}{res}       -1.457       -3.686       -3.006       -2.718
+      {txt}3{col 11}{res}       -1.448       -3.686       -3.038       -2.748
+      {txt}2{col 11}{res}       -1.690       -3.686       -3.067       -2.774
+      {txt}1{col 11}{res}       -2.461       -3.686       -3.093       -2.797
+{txt}{hline 62}
+Opt lag (Ng–Perron seq t) = {res}{ralign 1:2}{txt} with RMSE = {res}{ralign 8:1.197077}
+{txt}Min SIC  = {res} .5480354{txt} at lag {res}{ralign 1:2}{txt} with RMSE = {res}{ralign 8:1.197077}
+{txt}Min MAIC = {res} .5219949{txt} at lag {res}{ralign 1:3}{txt} with RMSE = {res}{ralign 8:1.191143}
+
+{txt}Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:ln_ner_pos     }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}XR Positive partial sums{p_end}
+
+{txt}Phillips–Perron test for unit root{col 43}Number of obs   = {res}{ralign 2:71}
+{txt}Variable: {res}ln_ner_pos{txt}{col 43}Newey–West lags = {res}{ralign 2:3}
+
+{txt}H0: Random walk without drift, d = 0
+
+{col 40}Dickey–Fuller
+{col 20}Test{col 30}{hline 8} critical value {hline 9}
+              statistic           1%           5%          10%
+{hline 62}
+ Z(rho)     {res}     -0.067      -19.278      -13.468      -10.826
+{txt} Z(t)       {res}     -0.105       -3.551       -2.913       -2.592
+{txt}{hline 62}
+MacKinnon approximate {it:p}-value for Z(t) = {res}0.9490{txt}.
+
+DF-GLS test for unit root{col 45}Number of obs = {res}{ralign 2:67}
+{txt}Variable: {res}ln_ner_pos
+{txt}Lag selection: User specified{col 45}{lalign 13:Maximum lag} = {res}{ralign 2:4}
+
+{txt}{col 30}{hline 8} Critical value {hline 9}
+ [lags]{col 14}DF-GLS tau           1%           5%          10%
+{hline 62}
+      4{col 11}{res}       -2.106       -3.686       -3.006       -2.718
+      {txt}3{col 11}{res}       -1.877       -3.686       -3.038       -2.748
+      {txt}2{col 11}{res}       -1.643       -3.686       -3.067       -2.774
+      {txt}1{col 11}{res}       -1.245       -3.686       -3.093       -2.797
+{txt}{hline 62}
+Opt lag (Ng–Perron seq t) = {res}{ralign 1:2}{txt} with RMSE = {res}{ralign 8:.0110768}
+{txt}Min SIC  = {res}-8.817534{txt} at lag {res}{ralign 1:2}{txt} with RMSE = {res}{ralign 8:.0110768}
+{txt}Min MAIC = {res}-8.858347{txt} at lag {res}{ralign 1:2}{txt} with RMSE = {res}{ralign 8:.0110768}
+
+{txt}Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:ln_ner_neg     }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}XR Negative partial sums{p_end}
+
+{txt}Phillips–Perron test for unit root{col 43}Number of obs   = {res}{ralign 2:71}
+{txt}Variable: {res}ln_ner_neg{txt}{col 43}Newey–West lags = {res}{ralign 2:3}
+
+{txt}H0: Random walk without drift, d = 0
+
+{col 40}Dickey–Fuller
+{col 20}Test{col 30}{hline 8} critical value {hline 9}
+              statistic           1%           5%          10%
+{hline 62}
+ Z(rho)     {res}      0.450      -19.278      -13.468      -10.826
+{txt} Z(t)       {res}      0.492       -3.551       -2.913       -2.592
+{txt}{hline 62}
+MacKinnon approximate {it:p}-value for Z(t) = {res}0.9846{txt}.
+
+DF-GLS test for unit root{col 45}Number of obs = {res}{ralign 2:67}
+{txt}Variable: {res}ln_ner_neg
+{txt}Lag selection: User specified{col 45}{lalign 13:Maximum lag} = {res}{ralign 2:4}
+
+{txt}{col 30}{hline 8} Critical value {hline 9}
+ [lags]{col 14}DF-GLS tau           1%           5%          10%
+{hline 62}
+      4{col 11}{res}       -1.839       -3.686       -3.006       -2.718
+      {txt}3{col 11}{res}       -1.768       -3.686       -3.038       -2.748
+      {txt}2{col 11}{res}       -1.411       -3.686       -3.067       -2.774
+      {txt}1{col 11}{res}       -1.459       -3.686       -3.093       -2.797
+{txt}{hline 62}
+Opt lag (Ng–Perron seq t) = {res}{ralign 1:3}{txt} with RMSE = {res}{ralign 8:.0027084}
+{txt}Min SIC  = {res}-11.64125{txt} at lag {res}{ralign 1:1}{txt} with RMSE = {res}{ralign 8:.0027854}
+{txt}Min MAIC = {res}-11.66921{txt} at lag {res}{ralign 1:1}{txt} with RMSE = {res}{ralign 8:.0027854}
+{txt}
+{com}. 
+. foreach v in ln_m2dc ln_ner ln_gdpc_sa ir3 ln_ner_pos ln_ner_neg {c -(}
+{txt}  2{com}.         
+.                 des `v'
+{txt}  3{com}.                 
+.         pperron D.`v', lags(3)
+{txt}  4{com}.         dfgls D.`v', maxlag(4)
+{txt}  5{com}.                                 
+.                 
+. {c )-}
+
+{txt}Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:ln_m2dc        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Natural log of money supply - nfa{p_end}
+
+{txt}Phillips–Perron test for unit root{col 43}Number of obs   = {res}{ralign 2:69}
+{txt}Variable: {res}D.ln_m2dc{txt}{col 43}Newey–West lags = {res}{ralign 2:3}
+
+{txt}H0: Random walk without drift, d = 0
+
+{col 40}Dickey–Fuller
+{col 20}Test{col 30}{hline 8} critical value {hline 9}
+              statistic           1%           5%          10%
+{hline 62}
+ Z(rho)     {res}    -74.485      -19.242      -13.452      -10.814
+{txt} Z(t)       {res}    -11.887       -3.553       -2.915       -2.592
+{txt}{hline 62}
+MacKinnon approximate {it:p}-value for Z(t) = {res}0.0000{txt}.
+
+DF-GLS test for unit root{col 45}Number of obs = {res}{ralign 2:65}
+{txt}Variable: {res}D.ln_m2dc
+{txt}Lag selection: User specified{col 45}{lalign 13:Maximum lag} = {res}{ralign 2:4}
+
+{txt}{col 30}{hline 8} Critical value {hline 9}
+ [lags]{col 14}DF-GLS tau           1%           5%          10%
+{hline 62}
+      4{col 11}{res}       -2.904       -3.694       -3.009       -2.721
+      {txt}3{col 11}{res}       -3.579       -3.694       -3.043       -2.752
+      {txt}2{col 11}{res}       -6.304       -3.694       -3.073       -2.780
+      {txt}1{col 11}{res}       -8.073       -3.694       -3.099       -2.804
+{txt}{hline 62}
+Opt lag (Ng–Perron seq t) = {res}{ralign 1:3}{txt} with RMSE = {res}{ralign 8:.1214793}
+{txt}Min SIC  = {res}-3.981121{txt} at lag {res}{ralign 1:1}{txt} with RMSE = {res}{ralign 8:.1281208}
+{txt}Min MAIC = {res}-1.107426{txt} at lag {res}{ralign 1:4}{txt} with RMSE = {res}{ralign 8:.1207792}
+
+{txt}Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:ln_ner         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Natural log of nominal XR (e VND = 1 USD){p_end}
+
+{txt}Phillips–Perron test for unit root{col 43}Number of obs   = {res}{ralign 2:70}
+{txt}Variable: {res}D.ln_ner{txt}{col 43}Newey–West lags = {res}{ralign 2:3}
+
+{txt}H0: Random walk without drift, d = 0
+
+{col 40}Dickey–Fuller
+{col 20}Test{col 30}{hline 8} critical value {hline 9}
+              statistic           1%           5%          10%
+{hline 62}
+ Z(rho)     {res}    -79.616      -19.260      -13.460      -10.820
+{txt} Z(t)       {res}     -8.292       -3.552       -2.914       -2.592
+{txt}{hline 62}
+MacKinnon approximate {it:p}-value for Z(t) = {res}0.0000{txt}.
+
+DF-GLS test for unit root{col 45}Number of obs = {res}{ralign 2:66}
+{txt}Variable: {res}D.ln_ner
+{txt}Lag selection: User specified{col 45}{lalign 13:Maximum lag} = {res}{ralign 2:4}
+
+{txt}{col 30}{hline 8} Critical value {hline 9}
+ [lags]{col 14}DF-GLS tau           1%           5%          10%
+{hline 62}
+      4{col 11}{res}       -2.344       -3.690       -3.008       -2.720
+      {txt}3{col 11}{res}       -2.898       -3.690       -3.040       -2.750
+      {txt}2{col 11}{res}       -3.436       -3.690       -3.070       -2.777
+      {txt}1{col 11}{res}       -4.470       -3.690       -3.096       -2.801
+{txt}{hline 62}
+Opt lag (Ng–Perron seq t) = {res}{ralign 1:1}{txt} with RMSE = {res}{ralign 8:.0126344}
+{txt}Min SIC  = {res}-8.615698{txt} at lag {res}{ralign 1:1}{txt} with RMSE = {res}{ralign 8:.0126344}
+{txt}Min MAIC = {res}-8.039165{txt} at lag {res}{ralign 1:4}{txt} with RMSE = {res}{ralign 8:.0123826}
+
+{txt}Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:ln_gdpc_sa     }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Natural log of gdp (seas. adj.){p_end}
+
+{txt}Phillips–Perron test for unit root{col 43}Number of obs   = {res}{ralign 2:68}
+{txt}Variable: {res}D.ln_gdpc_sa{txt}{col 43}Newey–West lags = {res}{ralign 2:3}
+
+{txt}H0: Random walk without drift, d = 0
+
+{col 40}Dickey–Fuller
+{col 20}Test{col 30}{hline 8} critical value {hline 9}
+              statistic           1%           5%          10%
+{hline 62}
+ Z(rho)     {res}    -50.534      -19.224      -13.444      -10.808
+{txt} Z(t)       {res}     -6.846       -3.555       -2.916       -2.593
+{txt}{hline 62}
+MacKinnon approximate {it:p}-value for Z(t) = {res}0.0000{txt}.
+
+DF-GLS test for unit root{col 45}Number of obs = {res}{ralign 2:64}
+{txt}Variable: {res}D.ln_gdpc_sa
+{txt}Lag selection: User specified{col 45}{lalign 13:Maximum lag} = {res}{ralign 2:4}
+
+{txt}{col 30}{hline 8} Critical value {hline 9}
+ [lags]{col 14}DF-GLS tau           1%           5%          10%
+{hline 62}
+      4{col 11}{res}       -1.624       -3.698       -3.011       -2.723
+      {txt}3{col 11}{res}       -1.831       -3.698       -3.045       -2.755
+      {txt}2{col 11}{res}       -5.028       -3.698       -3.076       -2.783
+      {txt}1{col 11}{res}       -7.344       -3.698       -3.103       -2.807
+{txt}{hline 62}
+Opt lag (Ng–Perron seq t) = {res}{ralign 1:3}{txt} with RMSE = {res}{ralign 8:.0048188}
+{txt}Min SIC  = {res}-10.41054{txt} at lag {res}{ralign 1:3}{txt} with RMSE = {res}{ralign 8:.0048188}
+{txt}Min MAIC = {res}-10.05598{txt} at lag {res}{ralign 1:4}{txt} with RMSE = {res}{ralign 8:.0048124}
+
+{txt}Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:ir3            }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}deposit rate 3 month{p_end}
+
+{txt}Phillips–Perron test for unit root{col 43}Number of obs   = {res}{ralign 2:70}
+{txt}Variable: {res}D.ir3{txt}{col 43}Newey–West lags = {res}{ralign 2:3}
+
+{txt}H0: Random walk without drift, d = 0
+
+{col 40}Dickey–Fuller
+{col 20}Test{col 30}{hline 8} critical value {hline 9}
+              statistic           1%           5%          10%
+{hline 62}
+ Z(rho)     {res}    -42.026      -19.260      -13.460      -10.820
+{txt} Z(t)       {res}     -5.964       -3.552       -2.914       -2.592
+{txt}{hline 62}
+MacKinnon approximate {it:p}-value for Z(t) = {res}0.0000{txt}.
+
+DF-GLS test for unit root{col 45}Number of obs = {res}{ralign 2:66}
+{txt}Variable: {res}D.ir3
+{txt}Lag selection: User specified{col 45}{lalign 13:Maximum lag} = {res}{ralign 2:4}
+
+{txt}{col 30}{hline 8} Critical value {hline 9}
+ [lags]{col 14}DF-GLS tau           1%           5%          10%
+{hline 62}
+      4{col 11}{res}       -4.002       -3.690       -3.008       -2.720
+      {txt}3{col 11}{res}       -4.378       -3.690       -3.040       -2.750
+      {txt}2{col 11}{res}       -5.582       -3.690       -3.070       -2.777
+      {txt}1{col 11}{res}       -6.515       -3.690       -3.096       -2.801
+{txt}{hline 62}
+Opt lag (Ng–Perron seq t) = {res}{ralign 1:1}{txt} with RMSE = {res}{ralign 8:1.252827}
+{txt}Min SIC  = {res} .5777647{txt} at lag {res}{ralign 1:1}{txt} with RMSE = {res}{ralign 8:1.252827}
+{txt}Min MAIC = {res} 2.487253{txt} at lag {res}{ralign 1:1}{txt} with RMSE = {res}{ralign 8:1.252827}
+
+{txt}Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:ln_ner_pos     }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}XR Positive partial sums{p_end}
+
+{txt}Phillips–Perron test for unit root{col 43}Number of obs   = {res}{ralign 2:70}
+{txt}Variable: {res}D.ln_ner_pos{txt}{col 43}Newey–West lags = {res}{ralign 2:3}
+
+{txt}H0: Random walk without drift, d = 0
+
+{col 40}Dickey–Fuller
+{col 20}Test{col 30}{hline 8} critical value {hline 9}
+              statistic           1%           5%          10%
+{hline 62}
+ Z(rho)     {res}    -73.890      -19.260      -13.460      -10.820
+{txt} Z(t)       {res}     -7.681       -3.552       -2.914       -2.592
+{txt}{hline 62}
+MacKinnon approximate {it:p}-value for Z(t) = {res}0.0000{txt}.
+
+DF-GLS test for unit root{col 45}Number of obs = {res}{ralign 2:66}
+{txt}Variable: {res}D.ln_ner_pos
+{txt}Lag selection: User specified{col 45}{lalign 13:Maximum lag} = {res}{ralign 2:4}
+
+{txt}{col 30}{hline 8} Critical value {hline 9}
+ [lags]{col 14}DF-GLS tau           1%           5%          10%
+{hline 62}
+      4{col 11}{res}       -2.058       -3.690       -3.008       -2.720
+      {txt}3{col 11}{res}       -2.659       -3.690       -3.040       -2.750
+      {txt}2{col 11}{res}       -3.164       -3.690       -3.070       -2.777
+      {txt}1{col 11}{res}       -4.022       -3.690       -3.096       -2.801
+{txt}{hline 62}
+Opt lag (Ng–Perron seq t) = {res}{ralign 1:1}{txt} with RMSE = {res}{ralign 8:.0113865}
+{txt}Min SIC  = {res}-8.823686{txt} at lag {res}{ralign 1:1}{txt} with RMSE = {res}{ralign 8:.0113865}
+{txt}Min MAIC = {res}-8.477135{txt} at lag {res}{ralign 1:4}{txt} with RMSE = {res}{ralign 8:.011073}
+
+{txt}Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:ln_ner_neg     }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}XR Negative partial sums{p_end}
+
+{txt}Phillips–Perron test for unit root{col 43}Number of obs   = {res}{ralign 2:70}
+{txt}Variable: {res}D.ln_ner_neg{txt}{col 43}Newey–West lags = {res}{ralign 2:3}
+
+{txt}H0: Random walk without drift, d = 0
+
+{col 40}Dickey–Fuller
+{col 20}Test{col 30}{hline 8} critical value {hline 9}
+              statistic           1%           5%          10%
+{hline 62}
+ Z(rho)     {res}    -70.540      -19.260      -13.460      -10.820
+{txt} Z(t)       {res}     -8.105       -3.552       -2.914       -2.592
+{txt}{hline 62}
+MacKinnon approximate {it:p}-value for Z(t) = {res}0.0000{txt}.
+
+DF-GLS test for unit root{col 45}Number of obs = {res}{ralign 2:66}
+{txt}Variable: {res}D.ln_ner_neg
+{txt}Lag selection: User specified{col 45}{lalign 13:Maximum lag} = {res}{ralign 2:4}
+
+{txt}{col 30}{hline 8} Critical value {hline 9}
+ [lags]{col 14}DF-GLS tau           1%           5%          10%
+{hline 62}
+      4{col 11}{res}       -3.199       -3.690       -3.008       -2.720
+      {txt}3{col 11}{res}       -3.429       -3.690       -3.040       -2.750
+      {txt}2{col 11}{res}       -3.900       -3.690       -3.070       -2.777
+      {txt}1{col 11}{res}       -5.934       -3.690       -3.096       -2.801
+{txt}{hline 62}
+Opt lag (Ng–Perron seq t) = 0, use option {bf:maxlag(0)}
+Min SIC  = {res}-11.60374{txt} at lag {res}{ralign 2:1}{txt} with RMSE = {res}{ralign 8:.002836}
+{txt}Min MAIC = {res}-10.18061{txt} at lag {res}{ralign 2:2}{txt} with RMSE = {res}{ralign 8:.0027894}
+{txt}
+{com}. 
+. // Create lags and lagdiffs
+. 
+. foreach v in ln_m2dc ln_ner ln_ner_pos ln_ner_neg ln_gdpc ln_gdpc_sa ///
+>              ln_gdpc_pos ln_gdpc_neg ir3 ir3_pos ir3_neg {c -(}
+{txt}  2{com}.             forvalue num=1/11 {c -(}
+{txt}  3{com}.              capture gen L`num'_`v' = L`num'.`v'
+{txt}  4{com}. {c )-}
+{txt}  5{com}. {c )-}
+{txt}
+{com}. 
+. foreach v in ln_m2dc ln_ner ln_ner_pos ln_ner_neg ln_gdpc ln_gdpc_sa ///
+>              ln_gdpc_pos ln_gdpc_neg ir3 ir3_pos ir3_neg {c -(}
+{txt}  2{com}.                 forvalue num=1/11 {c -(}      
+{txt}  3{com}.              capture gen D_`v' = D.`v'
+{txt}  4{com}.              capture gen D_L`num'_`v' = D.L`num'_`v'
+{txt}  5{com}. {c )-}
+{txt}  6{com}. {c )-}
+{txt}
+{com}. 
+. // ARDL with optimal lags structure
+. 
+. *varsoc ln_m2dc ln_ner ln_gdpc
+. 
+. /* forvalue x=1/3 {c -(}
+> forvalue y=0/3 {c -(}
+> forvalue z=0/3 {c -(}
+>          regress D.ln_m2dc L.ln_m2dc D.l(1/`x').ln_m2dc ///
+>          L.ln_gdpc D.l(0/`y').ln_gdpc ///
+>          L.ln_ner D.l(0/`z').ln_ner
+>                  estat ic                               
+> {c )-}                                                                                 
+> {c )-}
+> {c )-} */
+. 
+. regress D.ln_m2dc L.ln_m2dc D.l(1/6).ln_m2dc ///
+> L.ln_ner D.l(0/6).ln_ner ///
+> L.ln_gdpc_sa D.l(0/6).ln_gdpc_sa ///
+> L.ir3 D.l(0/6).ir3
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}        63
+{txt}{hline 13}{c +}{hline 34}   F(31, 31)       = {res}     3.54
+{txt}       Model {c |} {res} .905482143        31  .029209101   {txt}Prob > F        ={res}    0.0004
+{txt}    Residual {c |} {res} .255922751        31  .008255573   {txt}R-squared       ={res}    0.7796
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.5593
+{txt}       Total {c |} {res} 1.16140489        62  .018732337   {txt}Root MSE        =   {res} .09086
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}   D.ln_m2dc{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}ln_m2dc {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.8800807{col 26}{space 2} .2088155{col 37}{space 1}   -4.21{col 46}{space 3}0.000{col 54}{space 4}-1.305963{col 67}{space 3}-.4541987
+{txt}{space 9}LD. {c |}{col 14}{res}{space 2}-.1658458{col 26}{space 2} .2034191{col 37}{space 1}   -0.82{col 46}{space 3}0.421{col 54}{space 4}-.5807219{col 67}{space 3} .2490302
+{txt}{space 8}L2D. {c |}{col 14}{res}{space 2}-.4441932{col 26}{space 2} .2042421{col 37}{space 1}   -2.17{col 46}{space 3}0.037{col 54}{space 4}-.8607478{col 67}{space 3}-.0276386
+{txt}{space 8}L3D. {c |}{col 14}{res}{space 2}-.5758611{col 26}{space 2} .2155573{col 37}{space 1}   -2.67{col 46}{space 3}0.012{col 54}{space 4}-1.015493{col 67}{space 3}-.1362291
+{txt}{space 8}L4D. {c |}{col 14}{res}{space 2}-.4008936{col 26}{space 2} .2057947{col 37}{space 1}   -1.95{col 46}{space 3}0.061{col 54}{space 4}-.8206146{col 67}{space 3} .0188274
+{txt}{space 8}L5D. {c |}{col 14}{res}{space 2}-.2233519{col 26}{space 2} .1828104{col 37}{space 1}   -1.22{col 46}{space 3}0.231{col 54}{space 4}-.5961961{col 67}{space 3} .1494922
+{txt}{space 8}L6D. {c |}{col 14}{res}{space 2}-.1718924{col 26}{space 2} .1517499{col 37}{space 1}   -1.13{col 46}{space 3}0.266{col 54}{space 4}-.4813883{col 67}{space 3} .1376034
+{txt}{space 12} {c |}
+{space 6}ln_ner {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} -3.55421{col 26}{space 2} .7482271{col 37}{space 1}   -4.75{col 46}{space 3}0.000{col 54}{space 4} -5.08023{col 67}{space 3}-2.028191
+{txt}{space 9}D1. {c |}{col 14}{res}{space 2}  -.13263{col 26}{space 2} 1.271984{col 37}{space 1}   -0.10{col 46}{space 3}0.918{col 54}{space 4}-2.726858{col 67}{space 3} 2.461598
+{txt}{space 9}LD. {c |}{col 14}{res}{space 2} 1.818965{col 26}{space 2} 1.274795{col 37}{space 1}    1.43{col 46}{space 3}0.164{col 54}{space 4}-.7809958{col 67}{space 3} 4.418926
+{txt}{space 8}L2D. {c |}{col 14}{res}{space 2} 4.410274{col 26}{space 2}   1.3526{col 37}{space 1}    3.26{col 46}{space 3}0.003{col 54}{space 4} 1.651628{col 67}{space 3} 7.168919
+{txt}{space 8}L3D. {c |}{col 14}{res}{space 2} 5.322594{col 26}{space 2} 1.437318{col 37}{space 1}    3.70{col 46}{space 3}0.001{col 54}{space 4} 2.391164{col 67}{space 3} 8.254024
+{txt}{space 8}L4D. {c |}{col 14}{res}{space 2}  4.51352{col 26}{space 2} 1.506152{col 37}{space 1}    3.00{col 46}{space 3}0.005{col 54}{space 4} 1.441704{col 67}{space 3} 7.585336
+{txt}{space 8}L5D. {c |}{col 14}{res}{space 2} 3.815433{col 26}{space 2} 1.795671{col 37}{space 1}    2.12{col 46}{space 3}0.042{col 54}{space 4} .1531373{col 67}{space 3} 7.477728
+{txt}{space 8}L6D. {c |}{col 14}{res}{space 2} 5.632414{col 26}{space 2} 1.708652{col 37}{space 1}    3.30{col 46}{space 3}0.002{col 54}{space 4} 2.147595{col 67}{space 3} 9.117233
+{txt}{space 12} {c |}
+{space 2}ln_gdpc_sa {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} 2.080632{col 26}{space 2}  .440316{col 37}{space 1}    4.73{col 46}{space 3}0.000{col 54}{space 4} 1.182601{col 67}{space 3} 2.978662
+{txt}{space 9}D1. {c |}{col 14}{res}{space 2} 9.643934{col 26}{space 2} 3.672282{col 37}{space 1}    2.63{col 46}{space 3}0.013{col 54}{space 4} 2.154265{col 67}{space 3}  17.1336
+{txt}{space 9}LD. {c |}{col 14}{res}{space 2} 1.280126{col 26}{space 2} 3.692096{col 37}{space 1}    0.35{col 46}{space 3}0.731{col 54}{space 4}-6.249953{col 67}{space 3} 8.810205
+{txt}{space 8}L2D. {c |}{col 14}{res}{space 2} 5.817702{col 26}{space 2} 3.737898{col 37}{space 1}    1.56{col 46}{space 3}0.130{col 54}{space 4}-1.805792{col 67}{space 3}  13.4412
+{txt}{space 8}L3D. {c |}{col 14}{res}{space 2} 8.533557{col 26}{space 2} 3.562204{col 37}{space 1}    2.40{col 46}{space 3}0.023{col 54}{space 4} 1.268394{col 67}{space 3} 15.79872
+{txt}{space 8}L4D. {c |}{col 14}{res}{space 2} 3.095188{col 26}{space 2} 4.533143{col 37}{space 1}    0.68{col 46}{space 3}0.500{col 54}{space 4}-6.150218{col 67}{space 3} 12.34059
+{txt}{space 8}L5D. {c |}{col 14}{res}{space 2}  2.04359{col 26}{space 2} 4.516149{col 37}{space 1}    0.45{col 46}{space 3}0.654{col 54}{space 4}-7.167156{col 67}{space 3} 11.25434
+{txt}{space 8}L6D. {c |}{col 14}{res}{space 2} 6.168285{col 26}{space 2} 4.241717{col 37}{space 1}    1.45{col 46}{space 3}0.156{col 54}{space 4}-2.482754{col 67}{space 3} 14.81932
+{txt}{space 12} {c |}
+{space 9}ir3 {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.0435768{col 26}{space 2} .0121486{col 37}{space 1}   -3.59{col 46}{space 3}0.001{col 54}{space 4} -.068354{col 67}{space 3}-.0187995
+{txt}{space 9}D1. {c |}{col 14}{res}{space 2}  -.01527{col 26}{space 2} .0158777{col 37}{space 1}   -0.96{col 46}{space 3}0.344{col 54}{space 4}-.0476528{col 67}{space 3} .0171128
+{txt}{space 9}LD. {c |}{col 14}{res}{space 2} .0235664{col 26}{space 2} .0186609{col 37}{space 1}    1.26{col 46}{space 3}0.216{col 54}{space 4}-.0144928{col 67}{space 3} .0616256
+{txt}{space 8}L2D. {c |}{col 14}{res}{space 2}  .019443{col 26}{space 2} .0159414{col 37}{space 1}    1.22{col 46}{space 3}0.232{col 54}{space 4}-.0130696{col 67}{space 3} .0519556
+{txt}{space 8}L3D. {c |}{col 14}{res}{space 2} .0080345{col 26}{space 2} .0177148{col 37}{space 1}    0.45{col 46}{space 3}0.653{col 54}{space 4}-.0280951{col 67}{space 3} .0441642
+{txt}{space 8}L4D. {c |}{col 14}{res}{space 2} .0096507{col 26}{space 2} .0177436{col 37}{space 1}    0.54{col 46}{space 3}0.590{col 54}{space 4}-.0265377{col 67}{space 3}  .045839
+{txt}{space 8}L5D. {c |}{col 14}{res}{space 2} .0094691{col 26}{space 2} .0154371{col 37}{space 1}    0.61{col 46}{space 3}0.544{col 54}{space 4} -.022015{col 67}{space 3} .0409533
+{txt}{space 8}L6D. {c |}{col 14}{res}{space 2} .0053411{col 26}{space 2} .0136372{col 37}{space 1}    0.39{col 46}{space 3}0.698{col 54}{space 4}-.0224722{col 67}{space 3} .0331544
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} 12.04298{col 26}{space 2} 2.751835{col 37}{space 1}    4.38{col 46}{space 3}0.000{col 54}{space 4} 6.430577{col 67}{space 3} 17.65539
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. estat ic                                        // AIC / BIC
+
+{txt}Akaike's information criterion and Bayesian information criterion
+
+{hline 13}{c TT}{hline 63}
+       Model {c |}          N   ll(null)  ll(model)      df        AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:.}{col 14}{c |}{res}{col 16}        63{col 28} 36.40226{col 39} 84.04632{col 50}    32{col 58}-104.0926{col 69}-35.51234
+{txt}{hline 13}{c BT}{hline 63}
+{p 0 6 0 77}Note: BIC uses N = number of observations. See {helpb bic_note:{bind:[R] IC note}}.{p_end}
+
+{com}. 
+. vselect D_ln_m2dc ///
+> L1_ln_m2dc L1_ln_ner L1_ln_gdpc_sa L1_ir3 ///
+> D_L1_ln_m2dc D_L2_ln_m2dc D_L3_ln_m2dc D_L4_ln_m2dc ///
+> D_L5_ln_m2dc D_L6_ln_m2dc ///
+> D_ln_ner D_L1_ln_ner D_L2_ln_ner D_L3_ln_ner D_L4_ln_ner ///
+> D_L5_ln_ner D_L6_ln_ner ///
+> D_ln_gdpc_sa D_L1_ln_gdpc_sa D_L2_ln_gdpc_sa D_L3_ln_gdpc_sa ///
+> D_L4_ln_gdpc_sa D_L5_ln_gdpc_sa D_L6_ln_gdpc_sa  ///
+> D_ir3 D_L1_ir3 D_L2_ir3 D_L3_ir3 D_L4_ir3 D_L5_ir3 D_L6_ir3  ///
+> , backward aic                                  //-> Note 1
+{txt}{p 0 4 2}9{txt} observations containing missing predictor values{p_end}
+
+BACKWARD variable selection
+Information Criteria: AIC
+
+{hline 78}
+Stage 0 reg D_ln_m2dc L1_ln_m2dc L1_ln_ner L1_ln_gdpc_sa L1_ir3 D_L1_ln_m2dc D_L2_ln_m2dc D_L3_ln_m2dc D_L4_ln_m2dc D_L5_ln_m2dc D_L6_ln_m2dc D_ln_ner D_L1_ln_ner D_L2_ln_ner D_L3_ln_ner D_L4_ln_ner D_L5_ln_ner D_L6_ln_ner D_ln_gdpc_sa D_L1_ln_gdpc_sa D_L2_ln_gdpc_sa D_L3_ln_gdpc_sa D_L4_ln_gdpc_sa D_L5_ln_gdpc_sa D_L6_ln_gdpc_sa D_ir3 D_L1_ir3 D_L2_ir3 D_L3_ir3 D_L4_ir3 D_L5_ir3 D_L6_ir3 : AIC -104.0926
+{hline 78}
+AIC {col 7}-77.55444 :              remove L1_ln_m2dc
+AIC {col 7}-71.63837 :              remove  L1_ln_ner
+AIC {col 7}-71.91605 :              remove L1_ln_gdpc_sa
+AIC {col 7}-84.22146 :              remove     L1_ir3
+AIC {col 7}-104.7561 :              remove D_L1_ln_m2dc
+AIC {col 7}-97.14659 :              remove D_L2_ln_m2dc
+AIC {col 7}-93.03934 :              remove D_L3_ln_m2dc
+AIC {col 7}-98.81734 :              remove D_L4_ln_m2dc
+AIC {col 7}-103.1298 :              remove D_L5_ln_m2dc
+AIC {col 7}-103.5376 :              remove D_L6_ln_m2dc
+AIC {col 7}-106.0706 :              remove   D_ln_ner
+AIC {col 7}-102.0853 :              remove D_L1_ln_ner
+AIC {col 7}-87.51592 :              remove D_L2_ln_ner
+AIC {col 7}-83.01683 :              remove D_L3_ln_ner
+AIC {col 7}-90.06539 :              remove D_L4_ln_ner
+AIC {col 7}-97.52711 :              remove D_L5_ln_ner
+AIC {col 7}-87.16152 :              remove D_L6_ln_ner
+AIC {col 7}-93.43754 :              remove D_ln_gdpc_sa
+AIC {col 7}-105.8488 :              remove D_L1_ln_gdpc_sa
+AIC {col 7}-101.3526 :              remove D_L2_ln_gdpc_sa
+AIC {col 7}-95.3923  :              remove D_L3_ln_gdpc_sa
+AIC {col 7}-105.1523 :              remove D_L4_ln_gdpc_sa
+AIC {col 7}-105.6779 :              remove D_L5_ln_gdpc_sa
+AIC {col 7}-101.9353 :              remove D_L6_ln_gdpc_sa
+AIC {col 7}-104.2405 :              remove      D_ir3
+AIC {col 7}-102.9321 :              remove   D_L1_ir3
+AIC {col 7}-103.1398 :              remove   D_L2_ir3
+AIC {col 7}-105.676  :              remove   D_L3_ir3
+AIC {col 7}-105.4943 :              remove   D_L4_ir3
+AIC {col 7}-105.3326 :              remove   D_L5_ir3
+AIC {col 7}-105.7817 :              remove   D_L6_ir3
+{hline 78}
+Stage 1 reg D_ln_m2dc L1_ln_m2dc L1_ln_ner L1_ln_gdpc_sa L1_ir3 D_L1_ln_m2dc D_L2_ln_m2dc D_L3_ln_m2dc D_L4_ln_m2dc D_L5_ln_m2dc D_L6_ln_m2dc D_L1_ln_ner D_L2_ln_ner D_L3_ln_ner D_L4_ln_ner D_L5_ln_ner D_L6_ln_ner D_ln_gdpc_sa D_L1_ln_gdpc_sa D_L2_ln_gdpc_sa D_L3_ln_gdpc_sa D_L4_ln_gdpc_sa D_L5_ln_gdpc_sa D_L6_ln_gdpc_sa D_ir3 D_L1_ir3 D_L2_ir3 D_L3_ir3 D_L4_ir3 D_L5_ir3 D_L6_ir3 : AIC -106.0706
+{hline 78}
+AIC {col 7}-79.22423 :              remove L1_ln_m2dc
+AIC {col 7}-70.94449 :              remove  L1_ln_ner
+AIC {col 7}-72.23235 :              remove L1_ln_gdpc_sa
+AIC {col 7}-86.18357 :              remove     L1_ir3
+AIC {col 7}-106.6656 :              remove D_L1_ln_m2dc
+AIC {col 7}-99.09495 :              remove D_L2_ln_m2dc
+AIC {col 7}-94.92238 :              remove D_L3_ln_m2dc
+AIC {col 7}-100.7218 :              remove D_L4_ln_m2dc
+AIC {col 7}-105.1169 :              remove D_L5_ln_m2dc
+AIC {col 7}-105.5351 :              remove D_L6_ln_m2dc
+AIC {col 7}-104.083  :              remove D_L1_ln_ner
+AIC {col 7}-88.33913 :              remove D_L2_ln_ner
+AIC {col 7}-84.95827 :              remove D_L3_ln_ner
+AIC {col 7}-92.0649  :              remove D_L4_ln_ner
+AIC {col 7}-98.83024 :              remove D_L5_ln_ner
+AIC {col 7}-89.16117 :              remove D_L6_ln_ner
+AIC {col 7}-94.64688 :              remove D_ln_gdpc_sa
+AIC {col 7}-107.8153 :              remove D_L1_ln_gdpc_sa
+AIC {col 7}-103.2068 :              remove D_L2_ln_gdpc_sa
+AIC {col 7}-96.65168 :              remove D_L3_ln_gdpc_sa
+AIC {col 7}-107.1078 :              remove D_L4_ln_gdpc_sa
+AIC {col 7}-107.6629 :              remove D_L5_ln_gdpc_sa
+AIC {col 7}-103.6387 :              remove D_L6_ln_gdpc_sa
+AIC {col 7}-105.9651 :              remove      D_ir3
+AIC {col 7}-104.9321 :              remove   D_L1_ir3
+AIC {col 7}-105.1018 :              remove   D_L2_ir3
+AIC {col 7}-107.6601 :              remove   D_L3_ir3
+AIC {col 7}-107.4256 :              remove   D_L4_ir3
+AIC {col 7}-107.3311 :              remove   D_L5_ir3
+AIC {col 7}-107.7792 :              remove   D_L6_ir3
+{hline 78}
+Stage 2 reg D_ln_m2dc L1_ln_m2dc L1_ln_ner L1_ln_gdpc_sa L1_ir3 D_L1_ln_m2dc D_L2_ln_m2dc D_L3_ln_m2dc D_L4_ln_m2dc D_L5_ln_m2dc D_L6_ln_m2dc D_L1_ln_ner D_L2_ln_ner D_L3_ln_ner D_L4_ln_ner D_L5_ln_ner D_L6_ln_ner D_ln_gdpc_sa D_L2_ln_gdpc_sa D_L3_ln_gdpc_sa D_L4_ln_gdpc_sa D_L5_ln_gdpc_sa D_L6_ln_gdpc_sa D_ir3 D_L1_ir3 D_L2_ir3 D_L3_ir3 D_L4_ir3 D_L5_ir3 D_L6_ir3 : AIC -107.8153
+{hline 78}
+AIC {col 7}-81.19799 :              remove L1_ln_m2dc
+AIC {col 7}-72.91263 :              remove  L1_ln_ner
+AIC {col 7}-74.22243 :              remove L1_ln_gdpc_sa
+AIC {col 7}-85.77488 :              remove     L1_ir3
+AIC {col 7}-108.429  :              remove D_L1_ln_m2dc
+AIC {col 7}-100.9712 :              remove D_L2_ln_m2dc
+AIC {col 7}-96.89098 :              remove D_L3_ln_m2dc
+AIC {col 7}-102.5479 :              remove D_L4_ln_m2dc
+AIC {col 7}-107.095  :              remove D_L5_ln_m2dc
+AIC {col 7}-107.2438 :              remove D_L6_ln_m2dc
+AIC {col 7}-106.0821 :              remove D_L1_ln_ner
+AIC {col 7}-89.80874 :              remove D_L2_ln_ner
+AIC {col 7}-85.9916  :              remove D_L3_ln_ner
+AIC {col 7}-94.0378  :              remove D_L4_ln_ner
+AIC {col 7}-100.2254 :              remove D_L5_ln_ner
+AIC {col 7}-87.77063 :              remove D_L6_ln_ner
+AIC {col 7}-96.63979 :              remove D_ln_gdpc_sa
+AIC {col 7}-105.2043 :              remove D_L2_ln_gdpc_sa
+AIC {col 7}-98.35108 :              remove D_L3_ln_gdpc_sa
+AIC {col 7}-108.8434 :              remove D_L4_ln_gdpc_sa
+AIC {col 7}-108.6345 :              remove D_L5_ln_gdpc_sa
+AIC {col 7}-104.1824 :              remove D_L6_ln_gdpc_sa
+AIC {col 7}-107.455  :              remove      D_ir3
+AIC {col 7}-106.1012 :              remove   D_L1_ir3
+AIC {col 7}-107.088  :              remove   D_L2_ir3
+AIC {col 7}-109.5425 :              remove   D_L3_ir3
+AIC {col 7}-109.1032 :              remove   D_L4_ir3
+AIC {col 7}-109.3035 :              remove   D_L5_ir3
+AIC {col 7}-109.4829 :              remove   D_L6_ir3
+{hline 78}
+Stage 3 reg D_ln_m2dc L1_ln_m2dc L1_ln_ner L1_ln_gdpc_sa L1_ir3 D_L1_ln_m2dc D_L2_ln_m2dc D_L3_ln_m2dc D_L4_ln_m2dc D_L5_ln_m2dc D_L6_ln_m2dc D_L1_ln_ner D_L2_ln_ner D_L3_ln_ner D_L4_ln_ner D_L5_ln_ner D_L6_ln_ner D_ln_gdpc_sa D_L2_ln_gdpc_sa D_L3_ln_gdpc_sa D_L4_ln_gdpc_sa D_L5_ln_gdpc_sa D_L6_ln_gdpc_sa D_ir3 D_L1_ir3 D_L2_ir3 D_L4_ir3 D_L5_ir3 D_L6_ir3 : AIC -109.5425
+{hline 78}
+AIC {col 7}-83.19132 :              remove L1_ln_m2dc
+AIC {col 7}-74.72314 :              remove  L1_ln_ner
+AIC {col 7}-76.14171 :              remove L1_ln_gdpc_sa
+AIC {col 7}-86.24709 :              remove     L1_ir3
+AIC {col 7}-110.2557 :              remove D_L1_ln_m2dc
+AIC {col 7}-102.9337 :              remove D_L2_ln_m2dc
+AIC {col 7}-98.62457 :              remove D_L3_ln_m2dc
+AIC {col 7}-104.5015 :              remove D_L4_ln_m2dc
+AIC {col 7}-109.059  :              remove D_L5_ln_m2dc
+AIC {col 7}-109.2411 :              remove D_L6_ln_m2dc
+AIC {col 7}-108.0117 :              remove D_L1_ln_ner
+AIC {col 7}-91.67721 :              remove D_L2_ln_ner
+AIC {col 7}-86.56719 :              remove D_L3_ln_ner
+AIC {col 7}-95.8711  :              remove D_L4_ln_ner
+AIC {col 7}-102.0802 :              remove D_L5_ln_ner
+AIC {col 7}-89.5463  :              remove D_L6_ln_ner
+AIC {col 7}-97.95337 :              remove D_ln_gdpc_sa
+AIC {col 7}-107.0715 :              remove D_L2_ln_gdpc_sa
+AIC {col 7}-99.15841 :              remove D_L3_ln_gdpc_sa
+AIC {col 7}-110.6517 :              remove D_L4_ln_gdpc_sa
+AIC {col 7}-110.1666 :              remove D_L5_ln_gdpc_sa
+AIC {col 7}-105.0768 :              remove D_L6_ln_gdpc_sa
+AIC {col 7}-108.6134 :              remove      D_ir3
+AIC {col 7}-108.1009 :              remove   D_L1_ir3
+AIC {col 7}-108.725  :              remove   D_L2_ir3
+AIC {col 7}-110.7243 :              remove   D_L4_ir3
+AIC {col 7}-111.1843 :              remove   D_L5_ir3
+AIC {col 7}-111.3219 :              remove   D_L6_ir3
+{hline 78}
+Stage 4 reg D_ln_m2dc L1_ln_m2dc L1_ln_ner L1_ln_gdpc_sa L1_ir3 D_L1_ln_m2dc D_L2_ln_m2dc D_L3_ln_m2dc D_L4_ln_m2dc D_L5_ln_m2dc D_L6_ln_m2dc D_L1_ln_ner D_L2_ln_ner D_L3_ln_ner D_L4_ln_ner D_L5_ln_ner D_L6_ln_ner D_ln_gdpc_sa D_L2_ln_gdpc_sa D_L3_ln_gdpc_sa D_L4_ln_gdpc_sa D_L5_ln_gdpc_sa D_L6_ln_gdpc_sa D_ir3 D_L1_ir3 D_L2_ir3 D_L4_ir3 D_L5_ir3  : AIC -111.3219
+{hline 78}
+AIC {col 7}-83.46694 :              remove L1_ln_m2dc
+AIC {col 7}-75.01098 :              remove  L1_ln_ner
+AIC {col 7}-75.82709 :              remove L1_ln_gdpc_sa
+AIC {col 7}-88.22892 :              remove     L1_ir3
+AIC {col 7}-111.9725 :              remove D_L1_ln_m2dc
+AIC {col 7}-104.3087 :              remove D_L2_ln_m2dc
+AIC {col 7}-100.2784 :              remove D_L3_ln_m2dc
+AIC {col 7}-106.4967 :              remove D_L4_ln_m2dc
+AIC {col 7}-110.5217 :              remove D_L5_ln_m2dc
+AIC {col 7}-111.2346 :              remove D_L6_ln_m2dc
+AIC {col 7}-109.6691 :              remove D_L1_ln_ner
+AIC {col 7}-92.50975 :              remove D_L2_ln_ner
+AIC {col 7}-87.88497 :              remove D_L3_ln_ner
+AIC {col 7}-97.6601  :              remove D_L4_ln_ner
+AIC {col 7}-103.9992 :              remove D_L5_ln_ner
+AIC {col 7}-91.2055  :              remove D_L6_ln_ner
+AIC {col 7}-99.92886 :              remove D_ln_gdpc_sa
+AIC {col 7}-108.9129 :              remove D_L2_ln_gdpc_sa
+AIC {col 7}-101.1154 :              remove D_L3_ln_gdpc_sa
+AIC {col 7}-112.5121 :              remove D_L4_ln_gdpc_sa
+AIC {col 7}-112.0817 :              remove D_L5_ln_gdpc_sa
+AIC {col 7}-105.6136 :              remove D_L6_ln_gdpc_sa
+AIC {col 7}-110.6012 :              remove      D_ir3
+AIC {col 7}-110.0891 :              remove   D_L1_ir3
+AIC {col 7}-110.3933 :              remove   D_L2_ir3
+AIC {col 7}-112.7235 :              remove   D_L4_ir3
+AIC {col 7}-112.4036 :              remove   D_L5_ir3
+{hline 78}
+Stage 5 reg D_ln_m2dc L1_ln_m2dc L1_ln_ner L1_ln_gdpc_sa L1_ir3 D_L1_ln_m2dc D_L2_ln_m2dc D_L3_ln_m2dc D_L4_ln_m2dc D_L5_ln_m2dc D_L6_ln_m2dc D_L1_ln_ner D_L2_ln_ner D_L3_ln_ner D_L4_ln_ner D_L5_ln_ner D_L6_ln_ner D_ln_gdpc_sa D_L2_ln_gdpc_sa D_L3_ln_gdpc_sa D_L4_ln_gdpc_sa D_L5_ln_gdpc_sa D_L6_ln_gdpc_sa D_ir3 D_L1_ir3 D_L2_ir3  D_L5_ir3  : AIC -112.7235
+{hline 78}
+AIC {col 7}-85.46297 :              remove L1_ln_m2dc
+AIC {col 7}-76.33193 :              remove  L1_ln_ner
+AIC {col 7}-77.39337 :              remove L1_ln_gdpc_sa
+AIC {col 7}-90.15189 :              remove     L1_ir3
+AIC {col 7}-113.0682 :              remove D_L1_ln_m2dc
+AIC {col 7}-105.7792 :              remove D_L2_ln_m2dc
+AIC {col 7}-102.1872 :              remove D_L3_ln_m2dc
+AIC {col 7}-108.4947 :              remove D_L4_ln_m2dc
+AIC {col 7}-111.79   :              remove D_L5_ln_m2dc
+AIC {col 7}-113.1109 :              remove D_L6_ln_m2dc
+AIC {col 7}-110.1364 :              remove D_L1_ln_ner
+AIC {col 7}-94.0384  :              remove D_L2_ln_ner
+AIC {col 7}-89.84507 :              remove D_L3_ln_ner
+AIC {col 7}-97.61401 :              remove D_L4_ln_ner
+AIC {col 7}-105.3404 :              remove D_L5_ln_ner
+AIC {col 7}-91.93677 :              remove D_L6_ln_ner
+AIC {col 7}-100.8856 :              remove D_ln_gdpc_sa
+AIC {col 7}-110.7332 :              remove D_L2_ln_gdpc_sa
+AIC {col 7}-100.9883 :              remove D_L3_ln_gdpc_sa
+AIC {col 7}-112.7026 :              remove D_L4_ln_gdpc_sa
+AIC {col 7}-112.9301 :              remove D_L5_ln_gdpc_sa
+AIC {col 7}-106.7488 :              remove D_L6_ln_gdpc_sa
+AIC {col 7}-111.8321 :              remove      D_ir3
+AIC {col 7}-112.0495 :              remove   D_L1_ir3
+AIC {col 7}-112.1904 :              remove   D_L2_ir3
+AIC {col 7}-113.151  :              remove   D_L5_ir3
+{hline 78}
+Stage 6 reg D_ln_m2dc L1_ln_m2dc L1_ln_ner L1_ln_gdpc_sa L1_ir3 D_L1_ln_m2dc D_L2_ln_m2dc D_L3_ln_m2dc D_L4_ln_m2dc D_L5_ln_m2dc D_L6_ln_m2dc D_L1_ln_ner D_L2_ln_ner D_L3_ln_ner D_L4_ln_ner D_L5_ln_ner D_L6_ln_ner D_ln_gdpc_sa D_L2_ln_gdpc_sa D_L3_ln_gdpc_sa D_L4_ln_gdpc_sa D_L5_ln_gdpc_sa D_L6_ln_gdpc_sa D_ir3 D_L1_ir3 D_L2_ir3   : AIC  -113.151
+{hline 78}
+AIC {col 7}-86.09656 :              remove L1_ln_m2dc
+AIC {col 7}-75.64416 :              remove  L1_ln_ner
+AIC {col 7}-76.98732 :              remove L1_ln_gdpc_sa
+AIC {col 7}-89.13126 :              remove     L1_ir3
+AIC {col 7}-113.0648 :              remove D_L1_ln_m2dc
+AIC {col 7}-104.7671 :              remove D_L2_ln_m2dc
+AIC {col 7}-100.4553 :              remove D_L3_ln_m2dc
+AIC {col 7}-107.6866 :              remove D_L4_ln_m2dc
+AIC {col 7}-111.8832 :              remove D_L5_ln_m2dc
+AIC {col 7}-112.3657 :              remove D_L6_ln_m2dc
+AIC {col 7}-110.9981 :              remove D_L1_ln_ner
+AIC {col 7}-92.15805 :              remove D_L2_ln_ner
+AIC {col 7}-88.88967 :              remove D_L3_ln_ner
+AIC {col 7}-97.26675 :              remove D_L4_ln_ner
+AIC {col 7}-103.5395 :              remove D_L5_ln_ner
+AIC {col 7}-89.85083 :              remove D_L6_ln_ner
+AIC {col 7}-100.3926 :              remove D_ln_gdpc_sa
+AIC {col 7}-111.3021 :              remove D_L2_ln_gdpc_sa
+AIC {col 7}-101.2654 :              remove D_L3_ln_gdpc_sa
+AIC {col 7}-112.6513 :              remove D_L4_ln_gdpc_sa
+AIC {col 7}-111.8765 :              remove D_L5_ln_gdpc_sa
+AIC {col 7}-104.5982 :              remove D_L6_ln_gdpc_sa
+AIC {col 7}-112.0733 :              remove      D_ir3
+AIC {col 7}-112.3327 :              remove   D_L1_ir3
+AIC {col 7}-113.6298 :              remove   D_L2_ir3
+{hline 78}
+Stage 7 reg D_ln_m2dc L1_ln_m2dc L1_ln_ner L1_ln_gdpc_sa L1_ir3 D_L1_ln_m2dc D_L2_ln_m2dc D_L3_ln_m2dc D_L4_ln_m2dc D_L5_ln_m2dc D_L6_ln_m2dc D_L1_ln_ner D_L2_ln_ner D_L3_ln_ner D_L4_ln_ner D_L5_ln_ner D_L6_ln_ner D_ln_gdpc_sa D_L2_ln_gdpc_sa D_L3_ln_gdpc_sa D_L4_ln_gdpc_sa D_L5_ln_gdpc_sa D_L6_ln_gdpc_sa D_ir3 D_L1_ir3    : AIC -113.6298
+{hline 78}
+AIC {col 7}-82.99804 :              remove L1_ln_m2dc
+AIC {col 7}-74.23496 :              remove  L1_ln_ner
+AIC {col 7}-74.58676 :              remove L1_ln_gdpc_sa
+AIC {col 7}-91.00208 :              remove     L1_ir3
+AIC {col 7}-114.1412 :              remove D_L1_ln_m2dc
+AIC {col 7}-106.7579 :              remove D_L2_ln_m2dc
+AIC {col 7}-101.7948 :              remove D_L3_ln_m2dc
+AIC {col 7}-109.5922 :              remove D_L4_ln_m2dc
+AIC {col 7}-113.582  :              remove D_L5_ln_m2dc
+AIC {col 7}-113.4399 :              remove D_L6_ln_m2dc
+AIC {col 7}-111.2256 :              remove D_L1_ln_ner
+AIC {col 7}-89.59988 :              remove D_L2_ln_ner
+AIC {col 7}-88.19744 :              remove D_L3_ln_ner
+AIC {col 7}-99.02124 :              remove D_L4_ln_ner
+AIC {col 7}-103.6853 :              remove D_L5_ln_ner
+AIC {col 7}-83.93989 :              remove D_L6_ln_ner
+AIC {col 7}-101.3185 :              remove D_ln_gdpc_sa
+AIC {col 7}-110.0671 :              remove D_L2_ln_gdpc_sa
+AIC {col 7}-99.11476 :              remove D_L3_ln_gdpc_sa
+AIC {col 7}-112.8006 :              remove D_L4_ln_gdpc_sa
+AIC {col 7}-110.6018 :              remove D_L5_ln_gdpc_sa
+AIC {col 7}-105.5624 :              remove D_L6_ln_gdpc_sa
+AIC {col 7}-110.8676 :              remove      D_ir3
+AIC {col 7}-111.5226 :              remove   D_L1_ir3
+{hline 78}
+Stage 8 reg D_ln_m2dc L1_ln_m2dc L1_ln_ner L1_ln_gdpc_sa L1_ir3 D_L2_ln_m2dc D_L3_ln_m2dc D_L4_ln_m2dc D_L5_ln_m2dc D_L6_ln_m2dc D_L1_ln_ner D_L2_ln_ner D_L3_ln_ner D_L4_ln_ner D_L5_ln_ner D_L6_ln_ner D_ln_gdpc_sa D_L2_ln_gdpc_sa D_L3_ln_gdpc_sa D_L4_ln_gdpc_sa D_L5_ln_gdpc_sa D_L6_ln_gdpc_sa D_ir3 D_L1_ir3    : AIC -114.1412
+{hline 78}
+AIC {col 7}-51.04485 :              remove L1_ln_m2dc
+AIC {col 7}-65.18543 :              remove  L1_ln_ner
+AIC {col 7}-59.80219 :              remove L1_ln_gdpc_sa
+AIC {col 7}-91.12461 :              remove     L1_ir3
+AIC {col 7}-107.8041 :              remove D_L2_ln_m2dc
+AIC {col 7}-103.1704 :              remove D_L3_ln_m2dc
+AIC {col 7}-111.4987 :              remove D_L4_ln_m2dc
+AIC {col 7}-114.6351 :              remove D_L5_ln_m2dc
+AIC {col 7}-114.2846 :              remove D_L6_ln_m2dc
+AIC {col 7}-110.4153 :              remove D_L1_ln_ner
+AIC {col 7}-84.13775 :              remove D_L2_ln_ner
+AIC {col 7}-88.63132 :              remove D_L3_ln_ner
+AIC {col 7}-99.13324 :              remove D_L4_ln_ner
+AIC {col 7}-101.6503 :              remove D_L5_ln_ner
+AIC {col 7}-81.04535 :              remove D_L6_ln_ner
+AIC {col 7}-101.0728 :              remove D_ln_gdpc_sa
+AIC {col 7}-109.933  :              remove D_L2_ln_gdpc_sa
+AIC {col 7}-98.87307 :              remove D_L3_ln_gdpc_sa
+AIC {col 7}-112.9738 :              remove D_L4_ln_gdpc_sa
+AIC {col 7}-109.7729 :              remove D_L5_ln_gdpc_sa
+AIC {col 7}-103.9057 :              remove D_L6_ln_gdpc_sa
+AIC {col 7}-112.7305 :              remove      D_ir3
+AIC {col 7}-113.1518 :              remove   D_L1_ir3
+{hline 78}
+Stage 9 reg D_ln_m2dc L1_ln_m2dc L1_ln_ner L1_ln_gdpc_sa L1_ir3 D_L2_ln_m2dc D_L3_ln_m2dc D_L4_ln_m2dc D_L6_ln_m2dc D_L1_ln_ner D_L2_ln_ner D_L3_ln_ner D_L4_ln_ner D_L5_ln_ner D_L6_ln_ner D_ln_gdpc_sa D_L2_ln_gdpc_sa D_L3_ln_gdpc_sa D_L4_ln_gdpc_sa D_L5_ln_gdpc_sa D_L6_ln_gdpc_sa D_ir3 D_L1_ir3    : AIC -114.6351
+{hline 78}
+AIC {col 7}-52.77026 :              remove L1_ln_m2dc
+AIC {col 7}-67.16554 :              remove  L1_ln_ner
+AIC {col 7}-61.71317 :              remove L1_ln_gdpc_sa
+AIC {col 7}-91.83805 :              remove     L1_ir3
+AIC {col 7}-109.8029 :              remove D_L2_ln_m2dc
+AIC {col 7}-103.8067 :              remove D_L3_ln_m2dc
+AIC {col 7}-113.4443 :              remove D_L4_ln_m2dc
+AIC {col 7}-115.9991 :              remove D_L6_ln_m2dc
+AIC {col 7}-111.8668 :              remove D_L1_ln_ner
+AIC {col 7}-85.7551  :              remove D_L2_ln_ner
+AIC {col 7}-90.00513 :              remove D_L3_ln_ner
+AIC {col 7}-101.0529 :              remove D_L4_ln_ner
+AIC {col 7}-103.6336 :              remove D_L5_ln_ner
+AIC {col 7}-83.02337 :              remove D_L6_ln_ner
+AIC {col 7}-101.422  :              remove D_ln_gdpc_sa
+AIC {col 7}-111.6541 :              remove D_L2_ln_gdpc_sa
+AIC {col 7}-100.4499 :              remove D_L3_ln_gdpc_sa
+AIC {col 7}-114.5545 :              remove D_L4_ln_gdpc_sa
+AIC {col 7}-111.5599 :              remove D_L5_ln_gdpc_sa
+AIC {col 7}-104.8965 :              remove D_L6_ln_gdpc_sa
+AIC {col 7}-113.294  :              remove      D_ir3
+AIC {col 7}-114.2069 :              remove   D_L1_ir3
+{hline 78}
+Stage 10 reg D_ln_m2dc L1_ln_m2dc L1_ln_ner L1_ln_gdpc_sa L1_ir3 D_L2_ln_m2dc D_L3_ln_m2dc D_L4_ln_m2dc  D_L1_ln_ner D_L2_ln_ner D_L3_ln_ner D_L4_ln_ner D_L5_ln_ner D_L6_ln_ner D_ln_gdpc_sa D_L2_ln_gdpc_sa D_L3_ln_gdpc_sa D_L4_ln_gdpc_sa D_L5_ln_gdpc_sa D_L6_ln_gdpc_sa D_ir3 D_L1_ir3    : AIC -115.9991
+{hline 78}
+AIC {col 7}-54.74934 :              remove L1_ln_m2dc
+AIC {col 7}-68.95238 :              remove  L1_ln_ner
+AIC {col 7}-63.64631 :              remove L1_ln_gdpc_sa
+AIC {col 7}-93.81835 :              remove     L1_ir3
+AIC {col 7}-110.9785 :              remove D_L2_ln_m2dc
+AIC {col 7}-105.6543 :              remove D_L3_ln_m2dc
+AIC {col 7}-115.1915 :              remove D_L4_ln_m2dc
+AIC {col 7}-113.7543 :              remove D_L1_ln_ner
+AIC {col 7}-87.74594 :              remove D_L2_ln_ner
+AIC {col 7}-90.64757 :              remove D_L3_ln_ner
+AIC {col 7}-102.3877 :              remove D_L4_ln_ner
+AIC {col 7}-105.6087 :              remove D_L5_ln_ner
+AIC {col 7}-85.00484 :              remove D_L6_ln_ner
+AIC {col 7}-102.9253 :              remove D_ln_gdpc_sa
+AIC {col 7}-113.146  :              remove D_L2_ln_gdpc_sa
+AIC {col 7}-102.2496 :              remove D_L3_ln_gdpc_sa
+AIC {col 7}-116.38   :              remove D_L4_ln_gdpc_sa
+AIC {col 7}-113.2745 :              remove D_L5_ln_gdpc_sa
+AIC {col 7}-106.8567 :              remove D_L6_ln_gdpc_sa
+AIC {col 7}-114.2625 :              remove      D_ir3
+AIC {col 7}-115.5681 :              remove   D_L1_ir3
+{hline 78}
+Stage 11 reg D_ln_m2dc L1_ln_m2dc L1_ln_ner L1_ln_gdpc_sa L1_ir3 D_L2_ln_m2dc D_L3_ln_m2dc D_L4_ln_m2dc  D_L1_ln_ner D_L2_ln_ner D_L3_ln_ner D_L4_ln_ner D_L5_ln_ner D_L6_ln_ner D_ln_gdpc_sa D_L2_ln_gdpc_sa D_L3_ln_gdpc_sa D_L5_ln_gdpc_sa D_L6_ln_gdpc_sa D_ir3 D_L1_ir3    : AIC   -116.38
+{hline 78}
+AIC {col 7}-53.53323 :              remove L1_ln_m2dc
+AIC {col 7}-70.82489 :              remove  L1_ln_ner
+AIC {col 7}-64.87282 :              remove L1_ln_gdpc_sa
+AIC {col 7}-95.54491 :              remove     L1_ir3
+AIC {col 7}-112.4326 :              remove D_L2_ln_m2dc
+AIC {col 7}-106.3674 :              remove D_L3_ln_m2dc
+AIC {col 7}-115.7542 :              remove D_L4_ln_m2dc
+AIC {col 7}-115.1596 :              remove D_L1_ln_ner
+AIC {col 7}-89.72434 :              remove D_L2_ln_ner
+AIC {col 7}-92.51979 :              remove D_L3_ln_ner
+AIC {col 7}-104.0645 :              remove D_L4_ln_ner
+AIC {col 7}-107.4921 :              remove D_L5_ln_ner
+AIC {col 7}-86.41258 :              remove D_L6_ln_ner
+AIC {col 7}-95.62336 :              remove D_ln_gdpc_sa
+AIC {col 7}-114.5079 :              remove D_L2_ln_gdpc_sa
+AIC {col 7}-104.0904 :              remove D_L3_ln_gdpc_sa
+AIC {col 7}-114.7732 :              remove D_L5_ln_gdpc_sa
+AIC {col 7}-108.1023 :              remove D_L6_ln_gdpc_sa
+AIC {col 7}-114.9769 :              remove      D_ir3
+AIC {col 7}-114.6124 :              remove   D_L1_ir3
+
+Final Model
+
+      Source {c |}       SS           df       MS      Number of obs   ={res}        63
+{txt}{hline 13}{c +}{hline 34}   F(20, 42)       = {res}     6.07
+{txt}       Model {c |} {res} .862822688        20  .043141134   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} .298582206        42    .0071091   {txt}R-squared       ={res}    0.7429
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.6205
+{txt}       Total {c |} {res} 1.16140489        62  .018732337   {txt}Root MSE        =   {res} .08432
+
+{txt}{hline 16}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}      D_ln_m2dc{col 17}{c |} Coefficient{col 29}  Std. err.{col 41}      t{col 49}   P>|t|{col 57}     [95% con{col 70}f. interval]
+{hline 16}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}L1_ln_m2dc {c |}{col 17}{res}{space 2}-.9399298{col 29}{space 2}  .108128{col 40}{space 1}   -8.69{col 49}{space 3}0.000{col 57}{space 4}-1.158141{col 70}{space 3}-.7217188
+{txt}{space 6}L1_ln_ner {c |}{col 17}{res}{space 2}-3.520291{col 29}{space 2} .5116097{col 40}{space 1}   -6.88{col 49}{space 3}0.000{col 57}{space 4}-4.552762{col 70}{space 3}-2.487821
+{txt}{space 2}L1_ln_gdpc_sa {c |}{col 17}{res}{space 2} 2.081169{col 29}{space 2} .2776166{col 40}{space 1}    7.50{col 49}{space 3}0.000{col 57}{space 4} 1.520915{col 70}{space 3} 2.641422
+{txt}{space 9}L1_ir3 {c |}{col 17}{res}{space 2}-.0297403{col 29}{space 2}  .006943{col 40}{space 1}   -4.28{col 49}{space 3}0.000{col 57}{space 4}-.0437519{col 70}{space 3}-.0157287
+{txt}{space 3}D_L2_ln_m2dc {c |}{col 17}{res}{space 2} -.238586{col 29}{space 2} .1170032{col 40}{space 1}   -2.04{col 49}{space 3}0.048{col 57}{space 4}-.4747081{col 70}{space 3} -.002464
+{txt}{space 3}D_L3_ln_m2dc {c |}{col 17}{res}{space 2}-.3721134{col 29}{space 2} .1252771{col 40}{space 1}   -2.97{col 49}{space 3}0.005{col 57}{space 4}-.6249327{col 70}{space 3} -.119294
+{txt}{space 3}D_L4_ln_m2dc {c |}{col 17}{res}{space 2}-.1547837{col 29}{space 2} .1157711{col 40}{space 1}   -1.34{col 49}{space 3}0.188{col 57}{space 4}-.3884191{col 70}{space 3} .0788518
+{txt}{space 4}D_L1_ln_ner {c |}{col 17}{res}{space 2} 1.467151{col 29}{space 2} .9885345{col 40}{space 1}    1.48{col 49}{space 3}0.145{col 57}{space 4}-.5277928{col 70}{space 3} 3.462094
+{txt}{space 4}D_L2_ln_ner {c |}{col 17}{res}{space 2} 4.785169{col 29}{space 2} .9729364{col 40}{space 1}    4.92{col 49}{space 3}0.000{col 57}{space 4} 2.821704{col 70}{space 3} 6.748634
+{txt}{space 4}D_L3_ln_ner {c |}{col 17}{res}{space 2} 5.556295{col 29}{space 2} 1.203443{col 40}{space 1}    4.62{col 49}{space 3}0.000{col 57}{space 4} 3.127648{col 70}{space 3} 7.984942
+{txt}{space 4}D_L4_ln_ner {c |}{col 17}{res}{space 2} 3.842144{col 29}{space 2} 1.173759{col 40}{space 1}    3.27{col 49}{space 3}0.002{col 57}{space 4} 1.473402{col 70}{space 3} 6.210885
+{txt}{space 4}D_L5_ln_ner {c |}{col 17}{res}{space 2} 3.354277{col 29}{space 2} 1.191622{col 40}{space 1}    2.81{col 49}{space 3}0.007{col 57}{space 4} .9494863{col 70}{space 3} 5.759067
+{txt}{space 4}D_L6_ln_ner {c |}{col 17}{res}{space 2} 6.111676{col 29}{space 2}  1.15994{col 40}{space 1}    5.27{col 49}{space 3}0.000{col 57}{space 4} 3.770822{col 70}{space 3}  8.45253
+{txt}{space 3}D_ln_gdpc_sa {c |}{col 17}{res}{space 2} 10.75291{col 29}{space 2} 2.515475{col 40}{space 1}    4.27{col 49}{space 3}0.000{col 57}{space 4} 5.676473{col 70}{space 3} 15.82934
+{txt}D_L2_ln_gdpc_sa {c |}{col 17}{res}{space 2}  4.41585{col 29}{space 2} 2.706349{col 40}{space 1}    1.63{col 49}{space 3}0.110{col 57}{space 4}-1.045784{col 70}{space 3} 9.877484
+{txt}D_L3_ln_gdpc_sa {c |}{col 17}{res}{space 2} 8.014275{col 29}{space 2}   2.4508{col 40}{space 1}    3.27{col 49}{space 3}0.002{col 57}{space 4}  3.06836{col 70}{space 3} 12.96019
+{txt}D_L5_ln_gdpc_sa {c |}{col 17}{res}{space 2} 4.217324{col 29}{space 2} 2.680889{col 40}{space 1}    1.57{col 49}{space 3}0.123{col 57}{space 4} -1.19293{col 70}{space 3} 9.627577
+{txt}D_L6_ln_gdpc_sa {c |}{col 17}{res}{space 2} 8.437523{col 29}{space 2} 3.092854{col 40}{space 1}    2.73{col 49}{space 3}0.009{col 57}{space 4} 2.195892{col 70}{space 3} 14.67915
+{txt}{space 10}D_ir3 {c |}{col 17}{res}{space 2}-.0175784{col 29}{space 2} .0115134{col 40}{space 1}   -1.53{col 49}{space 3}0.134{col 57}{space 4}-.0408134{col 70}{space 3} .0056565
+{txt}{space 7}D_L1_ir3 {c |}{col 17}{res}{space 2} .0185064{col 29}{space 2} .0115031{col 40}{space 1}    1.61{col 49}{space 3}0.115{col 57}{space 4}-.0047078{col 70}{space 3} .0417206
+{txt}{space 10}_cons {c |}{col 17}{res}{space 2} 11.92504{col 29}{space 2}  2.03418{col 40}{space 1}    5.86{col 49}{space 3}0.000{col 57}{space 4} 7.819902{col 70}{space 3} 16.03018
+{txt}{hline 16}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. estat ic                                        // AIC / BIC
+
+{txt}Akaike's information criterion and Bayesian information criterion
+
+{hline 13}{c TT}{hline 63}
+       Model {c |}          N   ll(null)  ll(model)      df        AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:.}{col 14}{c |}{res}{col 16}        63{col 28} 36.40226{col 39} 79.18998{col 50}    21{col 58}  -116.38{col 69}-71.37413
+{txt}{hline 13}{c BT}{hline 63}
+{p 0 6 0 77}Note: BIC uses N = number of observations. See {helpb bic_note:{bind:[R] IC note}}.{p_end}
+
+{com}. 
+. test L1_ln_m2dc L1_ln_ner L1_ln_gdpc L1_ir3
+
+{p 0 7}{space 1}{text:( 1)}{space 1} {res}L1_ln_m2dc = 0{p_end}
+{p 0 7}{space 1}{text:( 2)}{space 1} L1_ln_ner = 0{p_end}
+{p 0 7}{space 1}{text:( 3)}{space 1} L1_ln_gdpc_sa = 0{p_end}
+{p 0 7}{space 1}{text:( 4)}{space 1} L1_ir3 = 0{p_end}
+
+{txt}       F(  4,    42) ={res}   20.13
+{txt}{col 13}Prob > F ={res}    0.0000
+{txt}
+{com}. 
+. // F-stat = 20.13 ; ECM's t-stat = -8.13
+. 
+. pssbounds, fstat(20.13) obs(63) case(3) k(4) tstat(-8.69) // Note 1
+
+{txt}PESARAN, SHIN AND SMITH (2001) COINTEGRATION TEST
+Obs:{res} 63
+{txt}No. Regressors (k):{res} 4
+{txt}Case:{res} 3
+{txt}{hline 60}
+{col 34}F-test
+{hline 60}
+{col 20}<{hline 5} I(0) {hline 10} I(1) {hline 5}>
+10% critical value{res}{col 21}     2.574{col 37}     3.682
+{txt}5% critical value {res}{col 21}     3.068{col 37}     4.274
+{txt}1% critical value {res}{col 21}     4.188{col 37}     5.694
+
+{txt}F-stat. ={res}    20.130
+{txt}{hline 60}
+{col 34}t-test
+{hline 60}
+{col 20}<{hline 5} I(0) {hline 10} I(1) {hline 5}>
+10% critical value{res}{col 21}    -2.570{col 37}    -3.660
+{txt}5% critical value {res}{col 21}    -2.860{col 37}    -3.990
+{txt}1% critical value {res}{col 21}    -3.430{col 37}    -4.600
+
+{txt}t-stat. ={res}    -8.690
+{txt}{hline 60}
+F-statistic note: 
+
+t-statistic note: Small-sample critical values not provided
+for Case III. Asymptotic critical values used.
+
+{com}. 
+. estimates store ardl_66_vselect
+{txt}
+{com}. estimates stats ardl_66_vselect                           // Note 2
+
+{txt}Akaike's information criterion and Bayesian information criterion
+
+{hline 13}{c TT}{hline 63}
+       Model {c |}          N   ll(null)  ll(model)      df        AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:{stata estimates replay ardl_66_vselect:ardl_66_vs~t}}{col 14}{c |}{res}{col 16}        63{col 28} 36.40226{col 39} 79.18998{col 50}    21{col 58}  -116.38{col 69}-71.37413
+{txt}{hline 13}{c BT}{hline 63}
+{p 0 6 0 77}Note: BIC uses N = number of observations. See {helpb bic_note:{bind:[R] IC note}}.{p_end}
+
+{com}. 
+. // Cusum tests
+. 
+. estat sbcusum, generate(cusumrec_ardl) name(cusumrec_ardl, replace)
+{res}
+{txt}Cumulative sum test for parameter stability
+
+{txt:Sample}: {res:2002q3} {txt}thru {res:2018q1}{col 45}Number of obs = {res}{ralign 2:63}
+{txt}H0: No structural break
+
+{col 20}Test{col 30}{hline 8} Critical value {hline 9}
+{col 7}Type{col 15}statistic           1%           5%          10%
+{hline 62}
+ Recursive{col 13}{res}     0.4274       1.1430       0.9479       0.8499
+{txt}{hline 62}
+
+{com}. capture graph export cusumrec_ardl.png, replace
+{txt}
+{com}. capture graph export cusumrec_ardl.pdf, replace
+{txt}
+{com}. *graph close cusumrec
+. 
+. estat sbcusum, ols generate(cusumols_ardl) name(cusumols_ardl, replace)
+{res}
+{txt}Cumulative sum test for parameter stability
+
+{txt:Sample}: {res:2002q3} {txt}thru {res:2018q1}{col 45}Number of obs = {res}{ralign 2:63}
+{txt}H0: No structural break
+
+{col 20}Test{col 30}{hline 8} Critical value {hline 9}
+{col 7}Type{col 15}statistic           1%           5%          10%
+{hline 62}
+ OLS{col 13}{res}     0.4654       1.6276       1.3581       1.2238
+{txt}{hline 62}
+
+{com}. capture graph export cusumols_ardl.png, replace
+{txt}
+{com}. capture graph export cusumols_ardl.pdf, replace
+{txt}
+{com}. *graph close cusumols
+. 
+. 
+. // Dynamic Simulations of ARDL Models
+. 
+. set matsize 5000
+{txt}{bf:set matsize} ignored.
+{p 4 4 2}
+Matrix sizes are no longer limited by
+{bf:c(matsize)} in modern Statas.
+Matrix sizes are now limited by edition of Stata.
+See {help limits} for more details.
+{p_end}
+
+{com}. 
+. dynardl ln_m2dc ln_ner ln_gdpc_sa ir3, ///
+> lags(1, 1, 1, 1) diffs(., ., 1, 1) lagdiffs(2/4, 1/6, 2 3 5 6, 1) ///
+> shockvar(ln_ner) shockval(-1) ///
+> time(10) range(60) graph ec rarea sims(1000)
+-----------------------------------------------
+
+{res}Option ec specified, dependent variable to be run in differences
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}        63
+{txt}{hline 13}{c +}{hline 34}   F(20, 42)       = {res}     6.07
+{txt}       Model {c |} {res}  .86282268        20  .043141134   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} .298582213        42    .0071091   {txt}R-squared       ={res}    0.7429
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.6205
+{txt}       Total {c |} {res} 1.16140489        62  .018732337   {txt}Root MSE        =   {res} .08432
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}      dln_m2dc{col 16}{c |} Coefficient{col 28}  Std. err.{col 40}      t{col 48}   P>|t|{col 56}     [95% con{col 69}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 4}L1_ln_m2dc {c |}{col 16}{res}{space 2}-.9399298{col 28}{space 2}  .108128{col 39}{space 1}   -8.69{col 48}{space 3}0.000{col 56}{space 4}-1.158141{col 69}{space 3}-.7217188
+{txt}{space 3}L2D_ln_m2dc {c |}{col 16}{res}{space 2} -.238586{col 28}{space 2} .1170032{col 39}{space 1}   -2.04{col 48}{space 3}0.048{col 56}{space 4}-.4747081{col 69}{space 3} -.002464
+{txt}{space 3}L3D_ln_m2dc {c |}{col 16}{res}{space 2}-.3721134{col 28}{space 2} .1252771{col 39}{space 1}   -2.97{col 48}{space 3}0.005{col 56}{space 4}-.6249327{col 69}{space 3} -.119294
+{txt}{space 3}L4D_ln_m2dc {c |}{col 16}{res}{space 2}-.1547836{col 28}{space 2} .1157711{col 39}{space 1}   -1.34{col 48}{space 3}0.188{col 56}{space 4}-.3884191{col 69}{space 3} .0788518
+{txt}{space 5}L1_ln_ner {c |}{col 16}{res}{space 2}-3.520291{col 28}{space 2} .5116098{col 39}{space 1}   -6.88{col 48}{space 3}0.000{col 56}{space 4}-4.552762{col 69}{space 3}-2.487821
+{txt}{space 4}L1D_ln_ner {c |}{col 16}{res}{space 2} 1.467151{col 28}{space 2} .9885345{col 39}{space 1}    1.48{col 48}{space 3}0.145{col 56}{space 4}-.5277926{col 69}{space 3} 3.462094
+{txt}{space 4}L2D_ln_ner {c |}{col 16}{res}{space 2} 4.785169{col 28}{space 2} .9729364{col 39}{space 1}    4.92{col 48}{space 3}0.000{col 56}{space 4} 2.821703{col 69}{space 3} 6.748634
+{txt}{space 4}L3D_ln_ner {c |}{col 16}{res}{space 2} 5.556295{col 28}{space 2} 1.203443{col 39}{space 1}    4.62{col 48}{space 3}0.000{col 56}{space 4} 3.127648{col 69}{space 3} 7.984942
+{txt}{space 4}L4D_ln_ner {c |}{col 16}{res}{space 2} 3.842144{col 28}{space 2} 1.173759{col 39}{space 1}    3.27{col 48}{space 3}0.002{col 56}{space 4} 1.473402{col 69}{space 3} 6.210885
+{txt}{space 4}L5D_ln_ner {c |}{col 16}{res}{space 2} 3.354277{col 28}{space 2} 1.191622{col 39}{space 1}    2.81{col 48}{space 3}0.007{col 56}{space 4} .9494863{col 69}{space 3} 5.759067
+{txt}{space 4}L6D_ln_ner {c |}{col 16}{res}{space 2} 6.111676{col 28}{space 2}  1.15994{col 39}{space 1}    5.27{col 48}{space 3}0.000{col 56}{space 4} 3.770822{col 69}{space 3}  8.45253
+{txt}{space 2}D_ln_gdpc_sa {c |}{col 16}{res}{space 2} 10.75291{col 28}{space 2} 2.515475{col 39}{space 1}    4.27{col 48}{space 3}0.000{col 56}{space 4} 5.676473{col 69}{space 3} 15.82934
+{txt}{space 9}D_ir3 {c |}{col 16}{res}{space 2}-.0175784{col 28}{space 2} .0115134{col 39}{space 1}   -1.53{col 48}{space 3}0.134{col 56}{space 4}-.0408134{col 69}{space 3} .0056565
+{txt}{space 1}L1_ln_gdpc_sa {c |}{col 16}{res}{space 2} 2.081169{col 28}{space 2} .2776166{col 39}{space 1}    7.50{col 48}{space 3}0.000{col 56}{space 4} 1.520915{col 69}{space 3} 2.641422
+{txt}{space 8}L1_ir3 {c |}{col 16}{res}{space 2}-.0297403{col 28}{space 2}  .006943{col 39}{space 1}   -4.28{col 48}{space 3}0.000{col 56}{space 4}-.0437519{col 69}{space 3}-.0157287
+{txt}L2D_ln_gdpc_sa {c |}{col 16}{res}{space 2}  4.41585{col 28}{space 2} 2.706349{col 39}{space 1}    1.63{col 48}{space 3}0.110{col 56}{space 4}-1.045784{col 69}{space 3} 9.877484
+{txt}L3D_ln_gdpc_sa {c |}{col 16}{res}{space 2} 8.014275{col 28}{space 2}   2.4508{col 39}{space 1}    3.27{col 48}{space 3}0.002{col 56}{space 4}  3.06836{col 69}{space 3} 12.96019
+{txt}L5D_ln_gdpc_sa {c |}{col 16}{res}{space 2} 4.217324{col 28}{space 2} 2.680889{col 39}{space 1}    1.57{col 48}{space 3}0.123{col 56}{space 4} -1.19293{col 69}{space 3} 9.627577
+{txt}L6D_ln_gdpc_sa {c |}{col 16}{res}{space 2} 8.437523{col 28}{space 2} 3.092854{col 39}{space 1}    2.73{col 48}{space 3}0.009{col 56}{space 4} 2.195891{col 69}{space 3} 14.67915
+{txt}{space 7}L1D_ir3 {c |}{col 16}{res}{space 2} .0185064{col 28}{space 2} .0115031{col 39}{space 1}    1.61{col 48}{space 3}0.115{col 56}{space 4}-.0047078{col 69}{space 3} .0417206
+{txt}{space 9}_cons {c |}{col 16}{res}{space 2} 11.92504{col 28}{space 2}  2.03418{col 39}{space 1}    5.86{col 48}{space 3}0.000{col 56}{space 4} 7.819902{col 69}{space 3} 16.03018
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}Please wait:
+dynardl is currently creating 1000 simulations across 60 time points ({res}60{txt})
+{hline 4}{c +}{hline 3} 1 {hline 3}{c +}{hline 3} 2 {hline 3}{c +}{hline 3} 3 {hline 3}{c +}{hline 3} 4 {hline 3}{c +}{hline 3} 5 
+.................................................    50
+..............................{p 0 4 2}
+file {bf}
+dynardl_results.dta{rm}
+saved
+{p_end}
+
+{com}. pssbounds                                       // Note 3
+
+{txt}PESARAN, SHIN AND SMITH (2001) COINTEGRATION TEST
+Obs:{res} 63
+{txt}No. Regressors (k):{res} 3
+{txt}Case:{res} 3
+{txt}{hline 60}
+{col 34}F-test
+{hline 60}
+{col 20}<{hline 5} I(0) {hline 10} I(1) {hline 5}>
+10% critical value{res}{col 21}     2.843{col 37}     3.923
+{txt}5% critical value {res}{col 21}     3.435{col 37}     4.583
+{txt}1% critical value {res}{col 21}     4.690{col 37}     6.143
+
+{txt}F-stat. ={res}    20.132
+{txt}{hline 60}
+{col 34}t-test
+{hline 60}
+{col 20}<{hline 5} I(0) {hline 10} I(1) {hline 5}>
+10% critical value{res}{col 21}    -2.570{col 37}    -3.460
+{txt}5% critical value {res}{col 21}    -2.860{col 37}    -3.780
+{txt}1% critical value {res}{col 21}    -3.430{col 37}    -4.370
+
+{txt}t-stat. ={res}    -8.693
+{txt}{hline 60}
+F-statistic note: 
+
+t-statistic note: Small-sample critical values not provided
+for Case III. Asymptotic critical values used.
+
+{com}. 
+. // Long run multipliers 
+. 
+. scalar  Lner = - _b[L1_ln_ner] / _b[L1_ln_m2dc]
+{txt}
+{com}. display Lner
+{res}-3.7452704
+{txt}
+{com}. testnl (-1) * _b[L1_ln_ner] / _b[L1_ln_m2dc] = 0
+
+{col 3}{txt}(1){res}{col 8}{bind:(-1) * _b[L1_ln_ner] / _b[L1_ln_m2dc] = 0}
+
+{txt}{ralign 22:chi2({res:1})} =  {res}    117.76
+{txt}{ralign 22:Prob > chi2} =  {res}      0.0000{txt}
+
+{com}. 
+. scalar  Lgdp = - _b[L1_ln_gdpc_sa] / _b[L1_ln_m2dc]
+{txt}
+{com}. display Lgdp
+{res}2.2141744
+{txt}
+{com}. testnl (-1) * _b[L1_ln_gdpc_sa] / _b[L1_ln_m2dc] = 0
+
+{col 3}{txt}(1){res}{col 8}{bind:(-1) * _b[L1_ln_gdpc_sa] / _b[L1_ln_m2dc] = 0}
+
+{txt}{ralign 22:chi2({res:1})} =  {res}    189.76
+{txt}{ralign 22:Prob > chi2} =  {res}      0.0000{txt}
+
+{com}. 
+. scalar  Lir3 = - _b[L1_ir3] / _b[L1_ln_m2dc]
+{txt}
+{com}. display Lir3
+{res}-.03164101
+{txt}
+{com}. testnl (-1) * _b[L1_ir3] / _b[L1_ln_m2dc] = 0
+
+{col 3}{txt}(1){res}{col 8}{bind:(-1) * _b[L1_ir3] / _b[L1_ln_m2dc] = 0}
+
+{txt}{ralign 22:chi2({res:1})} =  {res}     18.73
+{txt}{ralign 22:Prob > chi2} =  {res}      0.0000{txt}
+
+{com}. 
+. graph rename ardl_66_dyn, replace
+{txt}(note: graph ardl_66_dyn not found)
+
+{com}. capture graph export ardl_66_dyn.png, replace
+{txt}
+{com}. capture graph export ardl_66_dyn.pdf, replace
+{txt}
+{com}. 
+. local switches ///
+> "excel cttop(D.ln_m2dc) pvalue adjr2 e(rmse) addnote(Notes:)"
+{txt}
+{com}. 
+. *ssc install outreg2
+. 
+. outreg2 [ardl_*] using "HOA_strat", replace `switches'
+{txt}{browse `"HOA_strat.xml"'}
+{browse `"C:\Users\jamel\Dropbox\stata\vn"' :dir}{com} : {txt}{stata `"seeout using "HOA_strat.txt""':seeout}
+
+{com}. 
+. /* shellout HOA_strat */
+. 
+. // Static asymmetric
+. 
+. /* regress ln_m2dc ln_ner_neg ln_ner_pos ln_gdpc_sa
+> test ln_ner_neg = ln_ner_pos */
+. 
+. // NARDL with one exogenous variable
+. 
+. *varsoc ln_m2dc ln_ner_pos ln_ner_neg, exog(ln_gdpc_pos ln_gdpc_neg)
+. 
+. nardl ln_m2dc ln_ner, deterministic(ln_gdpc_sa ir3) p(2) q(12) ///
+> horizon(60) residuals plot bootstrap(100) level(95)      
+
+{txt}Regression results (variables renamed):
+
+      Source {c |}       SS           df       MS      Number of obs   ={res}        58
+{txt}{hline 13}{c +}{hline 34}   F(30, 27)       = {res}     4.55
+{txt}       Model {c |} {res}  .93388481        30  .031129494   {txt}Prob > F        ={res}    0.0001
+{txt}    Residual {c |} {res} .184573329        27  .006836049   {txt}R-squared       ={res}    0.8350
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.6516
+{txt}       Total {c |} {res} 1.11845814        57  .019622073   {txt}Root MSE        =   {res} .08268
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}         _dy{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 10}_y {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-1.164169{col 26}{space 2} .2034369{col 37}{space 1}   -5.72{col 46}{space 3}0.000{col 54}{space 4}-1.581587{col 67}{space 3}-.7467513
+{txt}{space 12} {c |}
+{space 8}_x1p {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-8.597912{col 26}{space 2}  1.67666{col 37}{space 1}   -5.13{col 46}{space 3}0.000{col 54}{space 4}-12.03813{col 67}{space 3} -5.15769
+{txt}{space 12} {c |}
+{space 8}_x1n {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-18.26391{col 26}{space 2} 6.960597{col 37}{space 1}   -2.62{col 46}{space 3}0.014{col 54}{space 4}-32.54588{col 67}{space 3}-3.981949
+{txt}{space 12} {c |}
+{space 9}_dy {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .1898109{col 26}{space 2} .1604568{col 37}{space 1}    1.18{col 46}{space 3}0.247{col 54}{space 4}-.1394192{col 67}{space 3} .5190409
+{txt}{space 12} {c |}
+{space 7}_dx1p {c |}
+{space 9}--. {c |}{col 14}{res}{space 2}-3.142543{col 26}{space 2} 1.433318{col 37}{space 1}   -2.19{col 46}{space 3}0.037{col 54}{space 4}-6.083469{col 67}{space 3}-.2016179
+{txt}{space 9}L1. {c |}{col 14}{res}{space 2} 4.533001{col 26}{space 2} 1.832248{col 37}{space 1}    2.47{col 46}{space 3}0.020{col 54}{space 4} .7735392{col 67}{space 3} 8.292462
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2} 7.521244{col 26}{space 2} 1.610107{col 37}{space 1}    4.67{col 46}{space 3}0.000{col 54}{space 4} 4.217576{col 67}{space 3} 10.82491
+{txt}{space 9}L3. {c |}{col 14}{res}{space 2} 7.848989{col 26}{space 2} 1.571864{col 37}{space 1}    4.99{col 46}{space 3}0.000{col 54}{space 4}  4.62379{col 67}{space 3} 11.07419
+{txt}{space 9}L4. {c |}{col 14}{res}{space 2} 7.662005{col 26}{space 2} 1.839526{col 37}{space 1}    4.17{col 46}{space 3}0.000{col 54}{space 4} 3.887611{col 67}{space 3}  11.4364
+{txt}{space 9}L5. {c |}{col 14}{res}{space 2} 5.545502{col 26}{space 2}  1.84218{col 37}{space 1}    3.01{col 46}{space 3}0.006{col 54}{space 4} 1.765661{col 67}{space 3} 9.325343
+{txt}{space 9}L6. {c |}{col 14}{res}{space 2} 4.412504{col 26}{space 2} 1.602512{col 37}{space 1}    2.75{col 46}{space 3}0.010{col 54}{space 4} 1.124421{col 67}{space 3} 7.700588
+{txt}{space 9}L7. {c |}{col 14}{res}{space 2} 1.785235{col 26}{space 2} 1.545078{col 37}{space 1}    1.16{col 46}{space 3}0.258{col 54}{space 4}-1.385002{col 67}{space 3} 4.955473
+{txt}{space 9}L8. {c |}{col 14}{res}{space 2} 6.663423{col 26}{space 2} 1.602891{col 37}{space 1}    4.16{col 46}{space 3}0.000{col 54}{space 4} 3.374563{col 67}{space 3} 9.952283
+{txt}{space 9}L9. {c |}{col 14}{res}{space 2} 3.637716{col 26}{space 2} 1.638236{col 37}{space 1}    2.22{col 46}{space 3}0.035{col 54}{space 4} .2763347{col 67}{space 3} 6.999098
+{txt}{space 8}L10. {c |}{col 14}{res}{space 2} 4.992515{col 26}{space 2} 1.692822{col 37}{space 1}    2.95{col 46}{space 3}0.007{col 54}{space 4} 1.519131{col 67}{space 3} 8.465899
+{txt}{space 8}L11. {c |}{col 14}{res}{space 2} 3.652353{col 26}{space 2} 1.892582{col 37}{space 1}    1.93{col 46}{space 3}0.064{col 54}{space 4}-.2309055{col 67}{space 3} 7.535611
+{txt}{space 12} {c |}
+{space 7}_dx1n {c |}
+{space 9}--. {c |}{col 14}{res}{space 2} .9695902{col 26}{space 2} 5.447782{col 37}{space 1}    0.18{col 46}{space 3}0.860{col 54}{space 4}-10.20834{col 67}{space 3} 12.14752
+{txt}{space 9}L1. {c |}{col 14}{res}{space 2} 13.84718{col 26}{space 2} 7.910875{col 37}{space 1}    1.75{col 46}{space 3}0.091{col 54}{space 4}-2.384596{col 67}{space 3} 30.07895
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2} 15.22867{col 26}{space 2} 9.118471{col 37}{space 1}    1.67{col 46}{space 3}0.106{col 54}{space 4}-3.480889{col 67}{space 3} 33.93822
+{txt}{space 9}L3. {c |}{col 14}{res}{space 2} 12.46338{col 26}{space 2} 8.366676{col 37}{space 1}    1.49{col 46}{space 3}0.148{col 54}{space 4}-4.703622{col 67}{space 3} 29.63038
+{txt}{space 9}L4. {c |}{col 14}{res}{space 2} 17.46486{col 26}{space 2} 7.161407{col 37}{space 1}    2.44{col 46}{space 3}0.022{col 54}{space 4} 2.770866{col 67}{space 3} 32.15885
+{txt}{space 9}L5. {c |}{col 14}{res}{space 2} 21.02399{col 26}{space 2} 7.429246{col 37}{space 1}    2.83{col 46}{space 3}0.009{col 54}{space 4} 5.780435{col 67}{space 3} 36.26754
+{txt}{space 9}L6. {c |}{col 14}{res}{space 2} 35.38689{col 26}{space 2} 6.476554{col 37}{space 1}    5.46{col 46}{space 3}0.000{col 54}{space 4}  22.0981{col 67}{space 3} 48.67569
+{txt}{space 9}L7. {c |}{col 14}{res}{space 2} 22.27315{col 26}{space 2} 7.142259{col 37}{space 1}    3.12{col 46}{space 3}0.004{col 54}{space 4} 7.618448{col 67}{space 3} 36.92786
+{txt}{space 9}L8. {c |}{col 14}{res}{space 2} 10.16344{col 26}{space 2} 6.691305{col 37}{space 1}    1.52{col 46}{space 3}0.140{col 54}{space 4}-3.565986{col 67}{space 3} 23.89286
+{txt}{space 9}L9. {c |}{col 14}{res}{space 2} 8.170202{col 26}{space 2} 6.203316{col 37}{space 1}    1.32{col 46}{space 3}0.199{col 54}{space 4}-4.557951{col 67}{space 3} 20.89835
+{txt}{space 8}L10. {c |}{col 14}{res}{space 2}  13.5923{col 26}{space 2} 7.488542{col 37}{space 1}    1.82{col 46}{space 3}0.081{col 54}{space 4}-1.772921{col 67}{space 3} 28.95752
+{txt}{space 8}L11. {c |}{col 14}{res}{space 2} 6.029218{col 26}{space 2} 5.670988{col 37}{space 1}    1.06{col 46}{space 3}0.297{col 54}{space 4}-5.606688{col 67}{space 3} 17.66512
+{txt}{space 12} {c |}
+{space 2}ln_gdpc_sa {c |}{col 14}{res}{space 2} 3.743659{col 26}{space 2} .6700687{col 37}{space 1}    5.59{col 46}{space 3}0.000{col 54}{space 4} 2.368791{col 67}{space 3} 5.118526
+{txt}{space 9}ir3 {c |}{col 14}{res}{space 2}-.0404725{col 26}{space 2} .0135651{col 37}{space 1}   -2.98{col 46}{space 3}0.006{col 54}{space 4}-.0683057{col 67}{space 3}-.0126394
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-40.95347{col 26}{space 2}  7.52065{col 37}{space 1}   -5.45{col 46}{space 3}0.000{col 54}{space 4}-56.38456{col 67}{space 3}-25.52237
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}Asymmetry statistics:
+{hline 13}{c TT}{hline 32}{c TT}{hline 31}
+             {c |}            Long-run effect [+] {c |}            Long-run effect [-]
+  Exog. var. {c |}       coef.     F-stat     P>F {c |}       coef.     F-stat     P>F
+{hline 13}{c +}{hline 32}{c BT}{hline 31}
+      ln_ner {c |}{res}      -7.385       86.5   0.000        15.688      8.649   0.007        
+{txt}{hline 13}{c +}{hline 32}{c TT}{hline 31}
+             {c |}             Long-run asymmetry {c |}            Short-run asymmetry
+             {c |}                 F-stat     P>F {c |}                 F-stat     P>F
+{hline 13}{c +}{hline 32}{c BT}{hline 31}
+      ln_ner {c |}              {res}    3.109   0.089                    7.893   0.009
+{txt}{hline 13}{c BT}{hline 64}
+Note: Long-run effect [-] refers to a permanent change in exog. var. by -1
+{res}{txt}Bootstrapping (one dot per 10 replications): {res}..........
+{txt}
+{com}. graph rename nardl_212, replace
+{txt}(note: graph nardl_212 not found)
+
+{com}. capture graph export nardl_212.png, replace
+{txt}
+{com}. capture graph export nardl_212.pdf, replace
+{txt}
+{com}. graph close nardl_212                            //-> Note 4
+{txt}
+{com}. 
+. graph use "C:\Users\jamel\Dropbox\stata\vn\_nardlplot1.gph"
+{res}{txt}
+{com}. graph rename dyn_multi_nardl_412, replace
+{txt}(note: graph dyn_multi_nardl_412 not found)
+
+{com}. capture graph export nardl_212_dyn.png, replace
+{txt}
+{com}. capture graph export nardl_212_dyn.pdf, replace
+{txt}
+{com}. 
+. // Restricting some coefficients to zero (for re-named variables): 
+. 
+. // NARDL with long-run coefficients (SR & LR asymmetry)
+. 
+. /* constraint 1 L2._dy L3._dy L4._dy L5._dy L6._dy L7._dy L8._dy L9._dy L10._dy L11._dy
+> constraint 2 L._dx1n L2._dx1n L3._dx1n L4._dx1n L5._dx1n L6._dx1n L7._dx1n L8._dx1n L9._dx1n L10._dx1n L11._dx1n
+> constraint 3 L._dx1p L2._dx1p L3._dx1p L4._dx1p L5._dx1p L6._dx1p L7._dx1p L8._dx1p L9._dx1p L10._dx1p L11._dx1p
+> constraint 4 _dx2n L._dx2n L2._dx2n L3._dx2n L4._dx2n L5._dx2n L6._dx2n L7._dx2n L8._dx2n L9._dx2n L10._dx2n L11._dx2n
+> constraint 5 _dx2p L._dx2p L2._dx2p L3._dx2p L4._dx2p L5._dx2p L6._dx2p L7._dx2p L8._dx2p L9._dx2p L10._dx2p L11._dx2p
+> constraint 6 L._dx3n L2._dx3n L3._dx3n L4._dx3n L5._dx3n L6._dx3n L7._dx3n L8._dx3n L9._dx3n L10._dx3n L11._dx3n
+> constraint 7 L._dx3p L2._dx3p L3._dx3p L4._dx3p L5._dx3p L6._dx3p L7._dx3p L8._dx3p L9._dx3p L10._dx3p L11._dx3p
+> constraint 8 L1._x2p = L1._x2n
+> constraint 9 L1._x3p = L1._x3n
+> 
+> nardl ln_m2dc ln_ner ln_gdpc_sa ir3, p(12) q(12) ///
+> horizon(60) constraint(1 4/9) plot bootstrap(100) level(95)
+> 
+> test (L._y L._x1p L._x1n L._x2p L._x2n L._x3p L._x3n)
+> 
+> pssbounds, fstat(7.66) obs(59) case(3) k(4) tstat(-5.91) */
+. 
+. /* nardl ln_m2dc ln_ner, deterministic(ln_gdpc_sa ir3) p(3) q(12) ///
+> horizon(60) residuals plot bootstrap(100) level(95) */
+. 
+. // In levels
+. 
+. /* nardl m2dc ner, deterministic(gdpc_sa ir3) p(2) q(12) ///
+> horizon(60) plot */   
+. 
+. 
+. // NARDL with regress
+. 
+. vselect D_ln_m2dc L1_ln_m2dc L1_ln_ner_pos L1_ln_ner_neg ///
+> ln_gdpc_sa ir3 ///
+> D_L1_ln_m2dc ///
+> D_ln_ner_pos D_L1_ln_ner_pos D_L2_ln_ner_pos D_L3_ln_ner_pos ///
+> D_L4_ln_ner_pos D_L5_ln_ner_pos D_L6_ln_ner_pos D_L7_ln_ner_pos ///
+> D_L8_ln_ner_pos D_L9_ln_ner_pos D_L10_ln_ner_pos D_L11_ln_ner_pos ///
+> D_ln_ner_neg D_L1_ln_ner_neg D_L2_ln_ner_neg D_L3_ln_ner_neg ///
+> D_L4_ln_ner_neg D_L5_ln_ner_neg D_L6_ln_ner_neg D_L7_ln_ner_neg ///
+> D_L8_ln_ner_neg D_L9_ln_ner_neg D_L10_ln_ner_neg D_L11_ln_ner_neg ///
+> , backward aic
+{txt}{p 0 4 2}14{txt} observations containing missing predictor values{p_end}
+
+BACKWARD variable selection
+Information Criteria: AIC
+
+{hline 78}
+Stage 0 reg D_ln_m2dc L1_ln_m2dc L1_ln_ner_pos L1_ln_ner_neg ln_gdpc_sa ir3 D_L1_ln_m2dc D_ln_ner_pos D_L1_ln_ner_pos D_L2_ln_ner_pos D_L3_ln_ner_pos D_L4_ln_ner_pos D_L5_ln_ner_pos D_L6_ln_ner_pos D_L7_ln_ner_pos D_L8_ln_ner_pos D_L9_ln_ner_pos D_L10_ln_ner_pos D_L11_ln_ner_pos D_ln_ner_neg D_L1_ln_ner_neg D_L2_ln_ner_neg D_L3_ln_ner_neg D_L4_ln_ner_neg D_L5_ln_ner_neg D_L6_ln_ner_neg D_L7_ln_ner_neg D_L8_ln_ner_neg D_L9_ln_ner_neg D_L10_ln_ner_neg D_L11_ln_ner_neg : AIC -106.9119
+{hline 78}
+AIC {col 7}-62.84344 :              remove L1_ln_m2dc
+AIC {col 7}-69.47009 :              remove L1_ln_ner_pos
+AIC {col 7}-95.7383  :              remove L1_ln_ner_neg
+AIC {col 7}-64.35084 :              remove ln_gdpc_sa
+AIC {col 7}-92.38478 :              remove        ir3
+AIC {col 7}-105.9812 :              remove D_L1_ln_m2dc
+AIC {col 7}-99.40857 :              remove D_ln_ner_pos
+AIC {col 7}-97.06121 :              remove D_L1_ln_ner_pos
+AIC {col 7}-74.55744 :              remove D_L2_ln_ner_pos
+AIC {col 7}-70.97163 :              remove D_L3_ln_ner_pos
+AIC {col 7}-80.12929 :              remove D_L4_ln_ner_pos
+AIC {col 7}-92.12677 :              remove D_L5_ln_ner_pos
+AIC {col 7}-94.5576  :              remove D_L6_ln_ner_pos
+AIC {col 7}-106.1127 :              remove D_L7_ln_ner_pos
+AIC {col 7}-80.21728 :              remove D_L8_ln_ner_pos
+AIC {col 7}-99.18359 :              remove D_L9_ln_ner_pos
+AIC {col 7}-92.71507 :              remove D_L10_ln_ner_pos
+AIC {col 7}-101.4175 :              remove D_L11_ln_ner_pos
+AIC {col 7}-108.8439 :              remove D_ln_ner_neg
+AIC {col 7}-102.6776 :              remove D_L1_ln_ner_neg
+AIC {col 7}-103.21   :              remove D_L2_ln_ner_neg
+AIC {col 7}-104.3309 :              remove D_L3_ln_ner_neg
+AIC {col 7}-97.36538 :              remove D_L4_ln_ner_neg
+AIC {col 7}-93.8465  :              remove D_L5_ln_ner_neg
+AIC {col 7}-65.72263 :              remove D_L6_ln_ner_neg
+AIC {col 7}-91.06981 :              remove D_L7_ln_ner_neg
+AIC {col 7}-104.1564 :              remove D_L8_ln_ner_neg
+AIC {col 7}-105.3004 :              remove D_L9_ln_ner_neg
+AIC {col 7}-102.2344 :              remove D_L10_ln_ner_neg
+AIC {col 7}-106.5333 :              remove D_L11_ln_ner_neg
+{hline 78}
+Stage 1 reg D_ln_m2dc L1_ln_m2dc L1_ln_ner_pos L1_ln_ner_neg ln_gdpc_sa ir3 D_L1_ln_m2dc D_ln_ner_pos D_L1_ln_ner_pos D_L2_ln_ner_pos D_L3_ln_ner_pos D_L4_ln_ner_pos D_L5_ln_ner_pos D_L6_ln_ner_pos D_L7_ln_ner_pos D_L8_ln_ner_pos D_L9_ln_ner_pos D_L10_ln_ner_pos D_L11_ln_ner_pos D_L1_ln_ner_neg D_L2_ln_ner_neg D_L3_ln_ner_neg D_L4_ln_ner_neg D_L5_ln_ner_neg D_L6_ln_ner_neg D_L7_ln_ner_neg D_L8_ln_ner_neg D_L9_ln_ner_neg D_L10_ln_ner_neg D_L11_ln_ner_neg : AIC -108.8439
+{hline 78}
+AIC {col 7}-62.42866 :              remove L1_ln_m2dc
+AIC {col 7}-69.72799 :              remove L1_ln_ner_pos
+AIC {col 7}-96.14096 :              remove L1_ln_ner_neg
+AIC {col 7}-66.11665 :              remove ln_gdpc_sa
+AIC {col 7}-94.21959 :              remove        ir3
+AIC {col 7}-107.9179 :              remove D_L1_ln_m2dc
+AIC {col 7}-100.7127 :              remove D_ln_ner_pos
+AIC {col 7}-99.05989 :              remove D_L1_ln_ner_pos
+AIC {col 7}-76.52544 :              remove D_L2_ln_ner_pos
+AIC {col 7}-72.34794 :              remove D_L3_ln_ner_pos
+AIC {col 7}-80.83675 :              remove D_L4_ln_ner_pos
+AIC {col 7}-94.05042 :              remove D_L5_ln_ner_pos
+AIC {col 7}-96.10249 :              remove D_L6_ln_ner_pos
+AIC {col 7}-107.5417 :              remove D_L7_ln_ner_pos
+AIC {col 7}-82.06833 :              remove D_L8_ln_ner_pos
+AIC {col 7}-101.1105 :              remove D_L9_ln_ner_pos
+AIC {col 7}-94.20211 :              remove D_L10_ln_ner_pos
+AIC {col 7}-103.4174 :              remove D_L11_ln_ner_pos
+AIC {col 7}-104.2891 :              remove D_L1_ln_ner_neg
+AIC {col 7}-105.0859 :              remove D_L2_ln_ner_neg
+AIC {col 7}-105.5032 :              remove D_L3_ln_ner_neg
+AIC {col 7}-98.85275 :              remove D_L4_ln_ner_neg
+AIC {col 7}-95.07503 :              remove D_L5_ln_ner_neg
+AIC {col 7}-67.71725 :              remove D_L6_ln_ner_neg
+AIC {col 7}-92.3686  :              remove D_L7_ln_ner_neg
+AIC {col 7}-106.1421 :              remove D_L8_ln_ner_neg
+AIC {col 7}-106.9962 :              remove D_L9_ln_ner_neg
+AIC {col 7}-104.2266 :              remove D_L10_ln_ner_neg
+AIC {col 7}-108.2982 :              remove D_L11_ln_ner_neg
+
+Final Model
+
+      Source {c |}       SS           df       MS      Number of obs   ={res}        58
+{txt}{hline 13}{c +}{hline 34}   F(29, 28)       = {res}     4.88
+{txt}       Model {c |} {res} .933668268        29  .032195458   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} .184789871        28  .006599638   {txt}R-squared       ={res}    0.8348
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.6637
+{txt}       Total {c |} {res} 1.11845814        57  .019622073   {txt}Root MSE        =   {res} .08124
+
+{txt}{hline 17}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}       D_ln_m2dc{col 18}{c |} Coefficient{col 30}  Std. err.{col 42}      t{col 50}   P>|t|{col 58}     [95% con{col 71}f. interval]
+{hline 17}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}L1_ln_m2dc {c |}{col 18}{res}{space 2}-1.172834{col 30}{space 2}   .19408{col 41}{space 1}   -6.04{col 50}{space 3}0.000{col 58}{space 4}-1.570389{col 71}{space 3}-.7752792
+{txt}{space 3}L1_ln_ner_pos {c |}{col 18}{res}{space 2}-8.660109{col 30}{space 2} 1.611232{col 41}{space 1}   -5.37{col 50}{space 3}0.000{col 58}{space 4}-11.96057{col 71}{space 3}-5.359649
+{txt}{space 3}L1_ln_ner_neg {c |}{col 18}{res}{space 2}-18.61978{col 30}{space 2} 6.550929{col 41}{space 1}   -2.84{col 50}{space 3}0.008{col 58}{space 4}-32.03875{col 71}{space 3}-5.200812
+{txt}{space 6}ln_gdpc_sa {c |}{col 18}{res}{space 2} 3.750203{col 30}{space 2} .6573882{col 41}{space 1}    5.70{col 50}{space 3}0.000{col 58}{space 4} 2.403605{col 71}{space 3} 5.096802
+{txt}{space 13}ir3 {c |}{col 18}{res}{space 2}-.0405872{col 30}{space 2} .0133134{col 41}{space 1}   -3.05{col 50}{space 3}0.005{col 58}{space 4}-.0678584{col 71}{space 3}-.0133159
+{txt}{space 4}D_L1_ln_m2dc {c |}{col 18}{res}{space 2} .1897654{col 30}{space 2} .1576576{col 41}{space 1}    1.20{col 50}{space 3}0.239{col 58}{space 4}-.1331815{col 71}{space 3} .5127124
+{txt}{space 4}D_ln_ner_pos {c |}{col 18}{res}{space 2}-3.054201{col 30}{space 2} 1.321173{col 41}{space 1}   -2.31{col 50}{space 3}0.028{col 58}{space 4}-5.760502{col 71}{space 3}-.3479011
+{txt}{space 1}D_L1_ln_ner_pos {c |}{col 18}{res}{space 2} 4.513152{col 30}{space 2} 1.796949{col 41}{space 1}    2.51{col 50}{space 3}0.018{col 58}{space 4} .8322695{col 71}{space 3} 8.194034
+{txt}{space 1}D_L2_ln_ner_pos {c |}{col 18}{res}{space 2} 7.520395{col 30}{space 2} 1.582014{col 41}{space 1}    4.75{col 50}{space 3}0.000{col 58}{space 4} 4.279785{col 71}{space 3}   10.761
+{txt}{space 1}D_L3_ln_ner_pos {c |}{col 18}{res}{space 2} 7.880727{col 30}{space 2} 1.534474{col 41}{space 1}    5.14{col 50}{space 3}0.000{col 58}{space 4}   4.7375{col 71}{space 3} 11.02395
+{txt}{space 1}D_L4_ln_ner_pos {c |}{col 18}{res}{space 2} 7.725121{col 30}{space 2} 1.773533{col 41}{space 1}    4.36{col 50}{space 3}0.000{col 58}{space 4} 4.092203{col 71}{space 3} 11.35804
+{txt}{space 1}D_L5_ln_ner_pos {c |}{col 18}{res}{space 2} 5.549852{col 30}{space 2} 1.809886{col 41}{space 1}    3.07{col 50}{space 3}0.005{col 58}{space 4} 1.842468{col 71}{space 3} 9.257237
+{txt}{space 1}D_L6_ln_ner_pos {c |}{col 18}{res}{space 2} 4.447719{col 30}{space 2} 1.562511{col 41}{space 1}    2.85{col 50}{space 3}0.008{col 58}{space 4}  1.24706{col 71}{space 3} 7.648378
+{txt}{space 1}D_L7_ln_ner_pos {c |}{col 18}{res}{space 2} 1.863662{col 30}{space 2} 1.455077{col 41}{space 1}    1.28{col 50}{space 3}0.211{col 58}{space 4}-1.116929{col 71}{space 3} 4.844252
+{txt}{space 1}D_L8_ln_ner_pos {c |}{col 18}{res}{space 2} 6.674349{col 30}{space 2} 1.573775{col 41}{space 1}    4.24{col 50}{space 3}0.000{col 58}{space 4} 3.450617{col 71}{space 3} 9.898081
+{txt}{space 1}D_L9_ln_ner_pos {c |}{col 18}{res}{space 2} 3.640691{col 30}{space 2} 1.609575{col 41}{space 1}    2.26{col 50}{space 3}0.032{col 58}{space 4} .3436264{col 71}{space 3} 6.937756
+{txt}D_L10_ln_ner_pos {c |}{col 18}{res}{space 2} 5.031381{col 30}{space 2} 1.649396{col 41}{space 1}    3.05{col 50}{space 3}0.005{col 58}{space 4} 1.652747{col 71}{space 3} 8.410015
+{txt}D_L11_ln_ner_pos {c |}{col 18}{res}{space 2} 3.622235{col 30}{space 2} 1.852121{col 41}{space 1}    1.96{col 50}{space 3}0.061{col 58}{space 4}-.1716622{col 71}{space 3} 7.416132
+{txt}{space 1}D_L1_ln_ner_neg {c |}{col 18}{res}{space 2} 14.06138{col 30}{space 2} 7.682406{col 41}{space 1}    1.83{col 50}{space 3}0.078{col 58}{space 4}-1.675319{col 71}{space 3} 29.79807
+{txt}{space 1}D_L2_ln_ner_neg {c |}{col 18}{res}{space 2} 15.30097{col 30}{space 2} 8.950515{col 41}{space 1}    1.71{col 50}{space 3}0.098{col 58}{space 4}-3.033328{col 71}{space 3} 33.63527
+{txt}{space 1}D_L3_ln_ner_neg {c |}{col 18}{res}{space 2} 12.90422{col 30}{space 2} 7.852217{col 41}{space 1}    1.64{col 50}{space 3}0.111{col 58}{space 4}-3.180313{col 71}{space 3} 28.98876
+{txt}{space 1}D_L4_ln_ner_neg {c |}{col 18}{res}{space 2} 17.65145{col 30}{space 2} 6.960675{col 41}{space 1}    2.54{col 50}{space 3}0.017{col 58}{space 4} 3.393156{col 71}{space 3} 31.90975
+{txt}{space 1}D_L5_ln_ner_neg {c |}{col 18}{res}{space 2} 21.25578{col 30}{space 2} 7.186618{col 41}{space 1}    2.96{col 50}{space 3}0.006{col 58}{space 4}  6.53466{col 71}{space 3}  35.9769
+{txt}{space 1}D_L6_ln_ner_neg {c |}{col 18}{res}{space 2} 35.36466{col 30}{space 2} 6.362396{col 41}{space 1}    5.56{col 50}{space 3}0.000{col 58}{space 4} 22.33189{col 71}{space 3} 48.39744
+{txt}{space 1}D_L7_ln_ner_neg {c |}{col 18}{res}{space 2} 22.46976{col 30}{space 2} 6.933225{col 41}{space 1}    3.24{col 50}{space 3}0.003{col 58}{space 4} 8.267694{col 71}{space 3} 36.67183
+{txt}{space 1}D_L8_ln_ner_neg {c |}{col 18}{res}{space 2} 10.09037{col 30}{space 2} 6.562198{col 41}{space 1}    1.54{col 50}{space 3}0.135{col 58}{space 4}-3.351684{col 71}{space 3} 23.53242
+{txt}{space 1}D_L9_ln_ner_neg {c |}{col 18}{res}{space 2} 8.342842{col 30}{space 2}  6.02013{col 41}{space 1}    1.39{col 50}{space 3}0.177{col 58}{space 4}-3.988835{col 71}{space 3} 20.67452
+{txt}D_L10_ln_ner_neg {c |}{col 18}{res}{space 2} 13.41531{col 30}{space 2} 7.292749{col 41}{space 1}    1.84{col 50}{space 3}0.076{col 58}{space 4}-1.523211{col 71}{space 3} 28.35383
+{txt}D_L11_ln_ner_neg {c |}{col 18}{res}{space 2} 6.177613{col 30}{space 2} 5.511512{col 41}{space 1}    1.12{col 50}{space 3}0.272{col 58}{space 4}-5.112207{col 71}{space 3} 17.46743
+{txt}{space 11}_cons {c |}{col 18}{res}{space 2} -40.9861{col 30}{space 2} 7.387265{col 41}{space 1}   -5.55{col 50}{space 3}0.000{col 58}{space 4}-56.11823{col 71}{space 3}-25.85398
+{txt}{hline 17}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. regress D.ln_m2dc /// 
+> L.ln_m2dc /// 
+> L.ln_ner_pos L.ln_ner_neg ///
+> ln_gdpc_sa ir3 ///
+> D.l(1).ln_m2dc ///
+> D.ln_ner_pos ///
+> D.ln_ner_neg ///
+> D.l(1/11).ln_ner_pos ///
+> D.l(1/11).ln_ner_neg
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}        58
+{txt}{hline 13}{c +}{hline 34}   F(30, 27)       = {res}     4.55
+{txt}       Model {c |} {res}  .93388481        30  .031129494   {txt}Prob > F        ={res}    0.0001
+{txt}    Residual {c |} {res} .184573329        27  .006836049   {txt}R-squared       ={res}    0.8350
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.6516
+{txt}       Total {c |} {res} 1.11845814        57  .019622073   {txt}Root MSE        =   {res} .08268
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}   D.ln_m2dc{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}ln_m2dc {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-1.164169{col 26}{space 2} .2034369{col 37}{space 1}   -5.72{col 46}{space 3}0.000{col 54}{space 4}-1.581587{col 67}{space 3}-.7467513
+{txt}{space 12} {c |}
+{space 2}ln_ner_pos {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-8.597912{col 26}{space 2}  1.67666{col 37}{space 1}   -5.13{col 46}{space 3}0.000{col 54}{space 4}-12.03813{col 67}{space 3} -5.15769
+{txt}{space 12} {c |}
+{space 2}ln_ner_neg {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-18.26391{col 26}{space 2} 6.960597{col 37}{space 1}   -2.62{col 46}{space 3}0.014{col 54}{space 4}-32.54588{col 67}{space 3}-3.981949
+{txt}{space 12} {c |}
+{space 2}ln_gdpc_sa {c |}{col 14}{res}{space 2} 3.743659{col 26}{space 2} .6700687{col 37}{space 1}    5.59{col 46}{space 3}0.000{col 54}{space 4} 2.368791{col 67}{space 3} 5.118526
+{txt}{space 9}ir3 {c |}{col 14}{res}{space 2}-.0404725{col 26}{space 2} .0135651{col 37}{space 1}   -2.98{col 46}{space 3}0.006{col 54}{space 4}-.0683057{col 67}{space 3}-.0126394
+{txt}{space 12} {c |}
+{space 5}ln_m2dc {c |}
+{space 9}LD. {c |}{col 14}{res}{space 2} .1898109{col 26}{space 2} .1604568{col 37}{space 1}    1.18{col 46}{space 3}0.247{col 54}{space 4}-.1394192{col 67}{space 3} .5190409
+{txt}{space 12} {c |}
+{space 2}ln_ner_pos {c |}
+{space 9}D1. {c |}{col 14}{res}{space 2}-3.142543{col 26}{space 2} 1.433318{col 37}{space 1}   -2.19{col 46}{space 3}0.037{col 54}{space 4}-6.083469{col 67}{space 3}-.2016179
+{txt}{space 12} {c |}
+{space 2}ln_ner_neg {c |}
+{space 9}D1. {c |}{col 14}{res}{space 2} .9695902{col 26}{space 2} 5.447782{col 37}{space 1}    0.18{col 46}{space 3}0.860{col 54}{space 4}-10.20834{col 67}{space 3} 12.14752
+{txt}{space 12} {c |}
+{space 2}ln_ner_pos {c |}
+{space 9}LD. {c |}{col 14}{res}{space 2} 4.533001{col 26}{space 2} 1.832248{col 37}{space 1}    2.47{col 46}{space 3}0.020{col 54}{space 4} .7735392{col 67}{space 3} 8.292462
+{txt}{space 8}L2D. {c |}{col 14}{res}{space 2} 7.521244{col 26}{space 2} 1.610107{col 37}{space 1}    4.67{col 46}{space 3}0.000{col 54}{space 4} 4.217576{col 67}{space 3} 10.82491
+{txt}{space 8}L3D. {c |}{col 14}{res}{space 2} 7.848989{col 26}{space 2} 1.571864{col 37}{space 1}    4.99{col 46}{space 3}0.000{col 54}{space 4}  4.62379{col 67}{space 3} 11.07419
+{txt}{space 8}L4D. {c |}{col 14}{res}{space 2} 7.662005{col 26}{space 2} 1.839526{col 37}{space 1}    4.17{col 46}{space 3}0.000{col 54}{space 4} 3.887611{col 67}{space 3}  11.4364
+{txt}{space 8}L5D. {c |}{col 14}{res}{space 2} 5.545502{col 26}{space 2}  1.84218{col 37}{space 1}    3.01{col 46}{space 3}0.006{col 54}{space 4} 1.765661{col 67}{space 3} 9.325343
+{txt}{space 8}L6D. {c |}{col 14}{res}{space 2} 4.412504{col 26}{space 2} 1.602512{col 37}{space 1}    2.75{col 46}{space 3}0.010{col 54}{space 4} 1.124421{col 67}{space 3} 7.700588
+{txt}{space 8}L7D. {c |}{col 14}{res}{space 2} 1.785235{col 26}{space 2} 1.545078{col 37}{space 1}    1.16{col 46}{space 3}0.258{col 54}{space 4}-1.385002{col 67}{space 3} 4.955473
+{txt}{space 8}L8D. {c |}{col 14}{res}{space 2} 6.663423{col 26}{space 2} 1.602891{col 37}{space 1}    4.16{col 46}{space 3}0.000{col 54}{space 4} 3.374563{col 67}{space 3} 9.952283
+{txt}{space 8}L9D. {c |}{col 14}{res}{space 2} 3.637716{col 26}{space 2} 1.638236{col 37}{space 1}    2.22{col 46}{space 3}0.035{col 54}{space 4} .2763347{col 67}{space 3} 6.999098
+{txt}{space 7}L10D. {c |}{col 14}{res}{space 2} 4.992515{col 26}{space 2} 1.692822{col 37}{space 1}    2.95{col 46}{space 3}0.007{col 54}{space 4} 1.519131{col 67}{space 3} 8.465899
+{txt}{space 7}L11D. {c |}{col 14}{res}{space 2} 3.652353{col 26}{space 2} 1.892582{col 37}{space 1}    1.93{col 46}{space 3}0.064{col 54}{space 4}-.2309055{col 67}{space 3} 7.535611
+{txt}{space 12} {c |}
+{space 2}ln_ner_neg {c |}
+{space 9}LD. {c |}{col 14}{res}{space 2} 13.84718{col 26}{space 2} 7.910875{col 37}{space 1}    1.75{col 46}{space 3}0.091{col 54}{space 4}-2.384596{col 67}{space 3} 30.07895
+{txt}{space 8}L2D. {c |}{col 14}{res}{space 2} 15.22867{col 26}{space 2} 9.118471{col 37}{space 1}    1.67{col 46}{space 3}0.106{col 54}{space 4}-3.480889{col 67}{space 3} 33.93822
+{txt}{space 8}L3D. {c |}{col 14}{res}{space 2} 12.46338{col 26}{space 2} 8.366676{col 37}{space 1}    1.49{col 46}{space 3}0.148{col 54}{space 4}-4.703622{col 67}{space 3} 29.63038
+{txt}{space 8}L4D. {c |}{col 14}{res}{space 2} 17.46486{col 26}{space 2} 7.161407{col 37}{space 1}    2.44{col 46}{space 3}0.022{col 54}{space 4} 2.770866{col 67}{space 3} 32.15885
+{txt}{space 8}L5D. {c |}{col 14}{res}{space 2} 21.02399{col 26}{space 2} 7.429246{col 37}{space 1}    2.83{col 46}{space 3}0.009{col 54}{space 4} 5.780435{col 67}{space 3} 36.26754
+{txt}{space 8}L6D. {c |}{col 14}{res}{space 2} 35.38689{col 26}{space 2} 6.476554{col 37}{space 1}    5.46{col 46}{space 3}0.000{col 54}{space 4}  22.0981{col 67}{space 3} 48.67569
+{txt}{space 8}L7D. {c |}{col 14}{res}{space 2} 22.27315{col 26}{space 2} 7.142259{col 37}{space 1}    3.12{col 46}{space 3}0.004{col 54}{space 4} 7.618448{col 67}{space 3} 36.92786
+{txt}{space 8}L8D. {c |}{col 14}{res}{space 2} 10.16344{col 26}{space 2} 6.691305{col 37}{space 1}    1.52{col 46}{space 3}0.140{col 54}{space 4}-3.565986{col 67}{space 3} 23.89286
+{txt}{space 8}L9D. {c |}{col 14}{res}{space 2} 8.170202{col 26}{space 2} 6.203316{col 37}{space 1}    1.32{col 46}{space 3}0.199{col 54}{space 4}-4.557951{col 67}{space 3} 20.89835
+{txt}{space 7}L10D. {c |}{col 14}{res}{space 2}  13.5923{col 26}{space 2} 7.488542{col 37}{space 1}    1.82{col 46}{space 3}0.081{col 54}{space 4}-1.772921{col 67}{space 3} 28.95752
+{txt}{space 7}L11D. {c |}{col 14}{res}{space 2} 6.029218{col 26}{space 2} 5.670988{col 37}{space 1}    1.06{col 46}{space 3}0.297{col 54}{space 4}-5.606688{col 67}{space 3} 17.66512
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}-40.95347{col 26}{space 2}  7.52065{col 37}{space 1}   -5.45{col 46}{space 3}0.000{col 54}{space 4}-56.38456{col 67}{space 3}-25.52237
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. regress D_ln_m2dc L1_ln_m2dc L1_ln_ner_pos L1_ln_ner_neg ///
+> ln_gdpc_sa ir3 ///
+> D_L1_ln_m2dc ///
+> D_ln_ner_pos D_L1_ln_ner_pos D_L2_ln_ner_pos D_L3_ln_ner_pos ///
+> D_L4_ln_ner_pos D_L5_ln_ner_pos D_L6_ln_ner_pos D_L7_ln_ner_pos ///
+> D_L8_ln_ner_pos D_L9_ln_ner_pos D_L10_ln_ner_pos D_L11_ln_ner_pos ///
+> D_ln_ner_neg D_L1_ln_ner_neg D_L2_ln_ner_neg D_L3_ln_ner_neg ///
+> D_L4_ln_ner_neg D_L5_ln_ner_neg D_L6_ln_ner_neg D_L7_ln_ner_neg ///
+> D_L8_ln_ner_neg D_L9_ln_ner_neg D_L10_ln_ner_neg D_L11_ln_ner_neg
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}        58
+{txt}{hline 13}{c +}{hline 34}   F(30, 27)       = {res}     4.55
+{txt}       Model {c |} {res}  .93388481        30  .031129494   {txt}Prob > F        ={res}    0.0001
+{txt}    Residual {c |} {res} .184573329        27  .006836049   {txt}R-squared       ={res}    0.8350
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.6516
+{txt}       Total {c |} {res} 1.11845814        57  .019622073   {txt}Root MSE        =   {res} .08268
+
+{txt}{hline 17}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}       D_ln_m2dc{col 18}{c |} Coefficient{col 30}  Std. err.{col 42}      t{col 50}   P>|t|{col 58}     [95% con{col 71}f. interval]
+{hline 17}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}L1_ln_m2dc {c |}{col 18}{res}{space 2}-1.164169{col 30}{space 2} .2034369{col 41}{space 1}   -5.72{col 50}{space 3}0.000{col 58}{space 4}-1.581587{col 71}{space 3}-.7467513
+{txt}{space 3}L1_ln_ner_pos {c |}{col 18}{res}{space 2}-8.597912{col 30}{space 2}  1.67666{col 41}{space 1}   -5.13{col 50}{space 3}0.000{col 58}{space 4}-12.03813{col 71}{space 3} -5.15769
+{txt}{space 3}L1_ln_ner_neg {c |}{col 18}{res}{space 2}-18.26391{col 30}{space 2} 6.960597{col 41}{space 1}   -2.62{col 50}{space 3}0.014{col 58}{space 4}-32.54588{col 71}{space 3}-3.981949
+{txt}{space 6}ln_gdpc_sa {c |}{col 18}{res}{space 2} 3.743659{col 30}{space 2} .6700687{col 41}{space 1}    5.59{col 50}{space 3}0.000{col 58}{space 4} 2.368791{col 71}{space 3} 5.118526
+{txt}{space 13}ir3 {c |}{col 18}{res}{space 2}-.0404725{col 30}{space 2} .0135651{col 41}{space 1}   -2.98{col 50}{space 3}0.006{col 58}{space 4}-.0683057{col 71}{space 3}-.0126394
+{txt}{space 4}D_L1_ln_m2dc {c |}{col 18}{res}{space 2} .1898109{col 30}{space 2} .1604568{col 41}{space 1}    1.18{col 50}{space 3}0.247{col 58}{space 4}-.1394192{col 71}{space 3} .5190409
+{txt}{space 4}D_ln_ner_pos {c |}{col 18}{res}{space 2}-3.142543{col 30}{space 2} 1.433318{col 41}{space 1}   -2.19{col 50}{space 3}0.037{col 58}{space 4}-6.083469{col 71}{space 3}-.2016179
+{txt}{space 1}D_L1_ln_ner_pos {c |}{col 18}{res}{space 2} 4.533001{col 30}{space 2} 1.832248{col 41}{space 1}    2.47{col 50}{space 3}0.020{col 58}{space 4} .7735392{col 71}{space 3} 8.292462
+{txt}{space 1}D_L2_ln_ner_pos {c |}{col 18}{res}{space 2} 7.521244{col 30}{space 2} 1.610107{col 41}{space 1}    4.67{col 50}{space 3}0.000{col 58}{space 4} 4.217576{col 71}{space 3} 10.82491
+{txt}{space 1}D_L3_ln_ner_pos {c |}{col 18}{res}{space 2} 7.848989{col 30}{space 2} 1.571864{col 41}{space 1}    4.99{col 50}{space 3}0.000{col 58}{space 4}  4.62379{col 71}{space 3} 11.07419
+{txt}{space 1}D_L4_ln_ner_pos {c |}{col 18}{res}{space 2} 7.662005{col 30}{space 2} 1.839526{col 41}{space 1}    4.17{col 50}{space 3}0.000{col 58}{space 4} 3.887611{col 71}{space 3}  11.4364
+{txt}{space 1}D_L5_ln_ner_pos {c |}{col 18}{res}{space 2} 5.545502{col 30}{space 2}  1.84218{col 41}{space 1}    3.01{col 50}{space 3}0.006{col 58}{space 4} 1.765661{col 71}{space 3} 9.325343
+{txt}{space 1}D_L6_ln_ner_pos {c |}{col 18}{res}{space 2} 4.412504{col 30}{space 2} 1.602512{col 41}{space 1}    2.75{col 50}{space 3}0.010{col 58}{space 4} 1.124421{col 71}{space 3} 7.700588
+{txt}{space 1}D_L7_ln_ner_pos {c |}{col 18}{res}{space 2} 1.785235{col 30}{space 2} 1.545078{col 41}{space 1}    1.16{col 50}{space 3}0.258{col 58}{space 4}-1.385002{col 71}{space 3} 4.955473
+{txt}{space 1}D_L8_ln_ner_pos {c |}{col 18}{res}{space 2} 6.663423{col 30}{space 2} 1.602891{col 41}{space 1}    4.16{col 50}{space 3}0.000{col 58}{space 4} 3.374563{col 71}{space 3} 9.952283
+{txt}{space 1}D_L9_ln_ner_pos {c |}{col 18}{res}{space 2} 3.637716{col 30}{space 2} 1.638236{col 41}{space 1}    2.22{col 50}{space 3}0.035{col 58}{space 4} .2763347{col 71}{space 3} 6.999098
+{txt}D_L10_ln_ner_pos {c |}{col 18}{res}{space 2} 4.992515{col 30}{space 2} 1.692822{col 41}{space 1}    2.95{col 50}{space 3}0.007{col 58}{space 4} 1.519131{col 71}{space 3} 8.465899
+{txt}D_L11_ln_ner_pos {c |}{col 18}{res}{space 2} 3.652353{col 30}{space 2} 1.892582{col 41}{space 1}    1.93{col 50}{space 3}0.064{col 58}{space 4}-.2309055{col 71}{space 3} 7.535611
+{txt}{space 4}D_ln_ner_neg {c |}{col 18}{res}{space 2} .9695902{col 30}{space 2} 5.447782{col 41}{space 1}    0.18{col 50}{space 3}0.860{col 58}{space 4}-10.20834{col 71}{space 3} 12.14752
+{txt}{space 1}D_L1_ln_ner_neg {c |}{col 18}{res}{space 2} 13.84718{col 30}{space 2} 7.910875{col 41}{space 1}    1.75{col 50}{space 3}0.091{col 58}{space 4}-2.384596{col 71}{space 3} 30.07895
+{txt}{space 1}D_L2_ln_ner_neg {c |}{col 18}{res}{space 2} 15.22867{col 30}{space 2} 9.118471{col 41}{space 1}    1.67{col 50}{space 3}0.106{col 58}{space 4}-3.480889{col 71}{space 3} 33.93822
+{txt}{space 1}D_L3_ln_ner_neg {c |}{col 18}{res}{space 2} 12.46338{col 30}{space 2} 8.366676{col 41}{space 1}    1.49{col 50}{space 3}0.148{col 58}{space 4}-4.703622{col 71}{space 3} 29.63038
+{txt}{space 1}D_L4_ln_ner_neg {c |}{col 18}{res}{space 2} 17.46486{col 30}{space 2} 7.161407{col 41}{space 1}    2.44{col 50}{space 3}0.022{col 58}{space 4} 2.770866{col 71}{space 3} 32.15885
+{txt}{space 1}D_L5_ln_ner_neg {c |}{col 18}{res}{space 2} 21.02399{col 30}{space 2} 7.429246{col 41}{space 1}    2.83{col 50}{space 3}0.009{col 58}{space 4} 5.780435{col 71}{space 3} 36.26754
+{txt}{space 1}D_L6_ln_ner_neg {c |}{col 18}{res}{space 2} 35.38689{col 30}{space 2} 6.476554{col 41}{space 1}    5.46{col 50}{space 3}0.000{col 58}{space 4}  22.0981{col 71}{space 3} 48.67569
+{txt}{space 1}D_L7_ln_ner_neg {c |}{col 18}{res}{space 2} 22.27315{col 30}{space 2} 7.142259{col 41}{space 1}    3.12{col 50}{space 3}0.004{col 58}{space 4} 7.618448{col 71}{space 3} 36.92786
+{txt}{space 1}D_L8_ln_ner_neg {c |}{col 18}{res}{space 2} 10.16344{col 30}{space 2} 6.691305{col 41}{space 1}    1.52{col 50}{space 3}0.140{col 58}{space 4}-3.565986{col 71}{space 3} 23.89286
+{txt}{space 1}D_L9_ln_ner_neg {c |}{col 18}{res}{space 2} 8.170202{col 30}{space 2} 6.203316{col 41}{space 1}    1.32{col 50}{space 3}0.199{col 58}{space 4}-4.557951{col 71}{space 3} 20.89835
+{txt}D_L10_ln_ner_neg {c |}{col 18}{res}{space 2}  13.5923{col 30}{space 2} 7.488542{col 41}{space 1}    1.82{col 50}{space 3}0.081{col 58}{space 4}-1.772921{col 71}{space 3} 28.95752
+{txt}D_L11_ln_ner_neg {c |}{col 18}{res}{space 2} 6.029218{col 30}{space 2} 5.670988{col 41}{space 1}    1.06{col 50}{space 3}0.297{col 58}{space 4}-5.606688{col 71}{space 3} 17.66512
+{txt}{space 11}_cons {c |}{col 18}{res}{space 2}-40.95347{col 30}{space 2}  7.52065{col 41}{space 1}   -5.45{col 50}{space 3}0.000{col 58}{space 4}-56.38456{col 71}{space 3}-25.52237
+{txt}{hline 17}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. scalar  Lgdp = - _b[ln_gdpc_sa] / _b[L1_ln_m2dc]
+{txt}
+{com}. display Lgdp
+{res}3.2157341
+{txt}
+{com}. testnl (-1) * _b[ln_gdpc_sa] / _b[L1_ln_m2dc] = 0
+
+{col 3}{txt}(1){res}{col 8}{bind:(-1) * _b[ln_gdpc_sa] / _b[L1_ln_m2dc] = 0}
+
+{txt}{ralign 22:chi2({res:1})} =  {res}    143.49
+{txt}{ralign 22:Prob > chi2} =  {res}      0.0000{txt}
+
+{com}. 
+. scalar  Lir3 = - _b[ir3] / _b[L1_ln_m2dc]
+{txt}
+{com}. display Lir3
+{res}-.03476517
+{txt}
+{com}. testnl (-1) * _b[ir3] / _b[L1_ln_m2dc] = 0
+
+{col 3}{txt}(1){res}{col 8}{bind:(-1) * _b[ir3] / _b[L1_ln_m2dc] = 0}
+
+{txt}{ralign 22:chi2({res:1})} =  {res}     10.66
+{txt}{ralign 22:Prob > chi2} =  {res}      0.0011{txt}
+
+{com}. 
+. estimates store nardl_212
+{txt}
+{com}. estimates stats nardl_212
+
+{txt}Akaike's information criterion and Bayesian information criterion
+
+{hline 13}{c TT}{hline 63}
+       Model {c |}          N   ll(null)  ll(model)      df        AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:{stata estimates replay nardl_212:nardl_212}}{col 14}{c |}{res}{col 16}        58{col 28} 32.20783{col 39} 84.45596{col 50}    31{col 58}-106.9119{col 69}-43.03818
+{txt}{hline 13}{c BT}{hline 63}
+{p 0 6 0 77}Note: BIC uses N = number of observations. See {helpb bic_note:{bind:[R] IC note}}.{p_end}
+
+{com}. 
+. test L1_ln_m2dc /// 
+> L1_ln_ner_pos L1_ln_ner_neg
+
+{p 0 7}{space 1}{text:( 1)}{space 1} {res}L1_ln_m2dc = 0{p_end}
+{p 0 7}{space 1}{text:( 2)}{space 1} L1_ln_ner_pos = 0{p_end}
+{p 0 7}{space 1}{text:( 3)}{space 1} L1_ln_ner_neg = 0{p_end}
+
+{txt}       F(  3,    27) ={res}   11.27
+{txt}{col 13}Prob > F ={res}    0.0001
+{txt}
+{com}. 
+. // F-stat = 11.27 ; ECM's t-stat = -5.72
+. pssbounds, fstat(11.27) obs(58) case(3) k(3) tstat(-5.72)
+
+{txt}PESARAN, SHIN AND SMITH (2001) COINTEGRATION TEST
+Obs:{res} 58
+{txt}No. Regressors (k):{res} 3
+{txt}Case:{res} 3
+{txt}{hline 60}
+{col 34}F-test
+{hline 60}
+{col 20}<{hline 5} I(0) {hline 10} I(1) {hline 5}>
+10% critical value{res}{col 21}     2.838{col 37}     3.923
+{txt}5% critical value {res}{col 21}     3.415{col 37}     4.615
+{txt}1% critical value {res}{col 21}     4.748{col 37}     6.188
+
+{txt}F-stat. ={res}    11.270
+{txt}{hline 60}
+{col 34}t-test
+{hline 60}
+{col 20}<{hline 5} I(0) {hline 10} I(1) {hline 5}>
+10% critical value{res}{col 21}    -2.570{col 37}    -3.460
+{txt}5% critical value {res}{col 21}    -2.860{col 37}    -3.780
+{txt}1% critical value {res}{col 21}    -3.430{col 37}    -4.370
+
+{txt}t-stat. ={res}    -5.720
+{txt}{hline 60}
+F-statistic note: 
+
+t-statistic note: Small-sample critical values not provided
+for Case III. Asymptotic critical values used.
+
+{com}. 
+. local switches ///
+> "excel cttop(D.ln_m2dc) pvalue adjr2 e(rmse) addnote(Notes:)"
+{txt}
+{com}. 
+. outreg2 [nardl_*] using "HOA1_strat", replace `switches'
+{txt}{browse `"HOA1_strat.xml"'}
+{browse `"C:\Users\jamel\Dropbox\stata\vn"' :dir}{com} : {txt}{stata `"seeout using "HOA1_strat.txt""':seeout}
+
+{com}. 
+. /* shellout HOA1_strat */
+. 
+. // Cusum tests
+. 
+. estat sbcusum, generate(cusumrec_nardl) name(cusumrec_nardl, replace)
+{res}
+{txt}Cumulative sum test for parameter stability
+
+{txt:Sample}: {res:2003q4} {txt}thru {res:2018q1}{col 45}Number of obs = {res}{ralign 2:58}
+{txt}H0: No structural break
+
+{col 20}Test{col 30}{hline 8} Critical value {hline 9}
+{col 7}Type{col 15}statistic           1%           5%          10%
+{hline 62}
+ Recursive{col 13}{res}     0.5915       1.1430       0.9479       0.8499
+{txt}{hline 62}
+
+{com}. capture graph export cusumrec_nardl.png, replace
+{txt}
+{com}. capture graph export cusumrec_nardl.pdf, replace
+{txt}
+{com}. *graph close cusumrec
+. 
+. estat sbcusum, ols generate(cusumols_nardl) name(cusumols_nardl, replace)
+{res}
+{txt}Cumulative sum test for parameter stability
+
+{txt:Sample}: {res:2003q4} {txt}thru {res:2018q1}{col 45}Number of obs = {res}{ralign 2:58}
+{txt}H0: No structural break
+
+{col 20}Test{col 30}{hline 8} Critical value {hline 9}
+{col 7}Type{col 15}statistic           1%           5%          10%
+{hline 62}
+ OLS{col 13}{res}     0.3613       1.6276       1.3581       1.2238
+{txt}{hline 62}
+
+{com}. capture graph export cusumols_nardl.png, replace
+{txt}
+{com}. capture graph export cusumols_nardl.pdf, replace
+{txt}
+{com}. *graph close cusumols
+. 
+. 
+. // Save the data
+. save ///
+> "C:\Users\jamel\Dropbox\stata\vn\data_an1.dta", ///
+> replace
+{txt}{p 0 4 2}
+file {bf}
+C:\Users\jamel\Dropbox\stata\vn\data_an1.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\jamel\Dropbox\stata\vn\an1.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}26 Aug 2023, 19:51:44
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

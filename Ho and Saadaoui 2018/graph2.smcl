@@ -1,0 +1,574 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\jamel\Dropbox\stata\vn\graph2.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}26 Aug 2023, 19:51:54
+{txt}
+{com}. 
+. use "C:\Users\jamel\Dropbox\stata\vn\data_an1.dta", clear
+{txt}
+{com}. 
+. set scheme sj
+{txt}
+{com}. 
+. nardl ln_m2dc ln_ner, deterministic(ln_gdpc_sa ir3) p(2) q(12) ///
+> horizon(60) residuals plot bootstrap(100) level(95)
+
+{txt}Regression results (variables renamed):
+
+      Source {c |}       SS           df       MS      Number of obs   ={res}        58
+{txt}{hline 13}{c +}{hline 34}   F(30, 27)       = {res}     4.55
+{txt}       Model {c |} {res}  .93388481        30  .031129494   {txt}Prob > F        ={res}    0.0001
+{txt}    Residual {c |} {res} .184573329        27  .006836049   {txt}R-squared       ={res}    0.8350
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.6516
+{txt}       Total {c |} {res} 1.11845814        57  .019622073   {txt}Root MSE        =   {res} .08268
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}         _dy{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 10}_y {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-1.164169{col 26}{space 2} .2034369{col 37}{space 1}   -5.72{col 46}{space 3}0.000{col 54}{space 4}-1.581587{col 67}{space 3}-.7467513
+{txt}{space 12} {c |}
+{space 8}_x1p {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-8.597912{col 26}{space 2}  1.67666{col 37}{space 1}   -5.13{col 46}{space 3}0.000{col 54}{space 4}-12.03813{col 67}{space 3} -5.15769
+{txt}{space 12} {c |}
+{space 8}_x1n {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-18.26391{col 26}{space 2} 6.960597{col 37}{space 1}   -2.62{col 46}{space 3}0.014{col 54}{space 4}-32.54588{col 67}{space 3}-3.981949
+{txt}{space 12} {c |}
+{space 9}_dy {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .1898109{col 26}{space 2} .1604568{col 37}{space 1}    1.18{col 46}{space 3}0.247{col 54}{space 4}-.1394192{col 67}{space 3} .5190409
+{txt}{space 12} {c |}
+{space 7}_dx1p {c |}
+{space 9}--. {c |}{col 14}{res}{space 2}-3.142543{col 26}{space 2} 1.433318{col 37}{space 1}   -2.19{col 46}{space 3}0.037{col 54}{space 4}-6.083469{col 67}{space 3}-.2016179
+{txt}{space 9}L1. {c |}{col 14}{res}{space 2} 4.533001{col 26}{space 2} 1.832248{col 37}{space 1}    2.47{col 46}{space 3}0.020{col 54}{space 4} .7735392{col 67}{space 3} 8.292462
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2} 7.521244{col 26}{space 2} 1.610107{col 37}{space 1}    4.67{col 46}{space 3}0.000{col 54}{space 4} 4.217576{col 67}{space 3} 10.82491
+{txt}{space 9}L3. {c |}{col 14}{res}{space 2} 7.848989{col 26}{space 2} 1.571864{col 37}{space 1}    4.99{col 46}{space 3}0.000{col 54}{space 4}  4.62379{col 67}{space 3} 11.07419
+{txt}{space 9}L4. {c |}{col 14}{res}{space 2} 7.662005{col 26}{space 2} 1.839526{col 37}{space 1}    4.17{col 46}{space 3}0.000{col 54}{space 4} 3.887611{col 67}{space 3}  11.4364
+{txt}{space 9}L5. {c |}{col 14}{res}{space 2} 5.545502{col 26}{space 2}  1.84218{col 37}{space 1}    3.01{col 46}{space 3}0.006{col 54}{space 4} 1.765661{col 67}{space 3} 9.325343
+{txt}{space 9}L6. {c |}{col 14}{res}{space 2} 4.412504{col 26}{space 2} 1.602512{col 37}{space 1}    2.75{col 46}{space 3}0.010{col 54}{space 4} 1.124421{col 67}{space 3} 7.700588
+{txt}{space 9}L7. {c |}{col 14}{res}{space 2} 1.785235{col 26}{space 2} 1.545078{col 37}{space 1}    1.16{col 46}{space 3}0.258{col 54}{space 4}-1.385002{col 67}{space 3} 4.955473
+{txt}{space 9}L8. {c |}{col 14}{res}{space 2} 6.663423{col 26}{space 2} 1.602891{col 37}{space 1}    4.16{col 46}{space 3}0.000{col 54}{space 4} 3.374563{col 67}{space 3} 9.952283
+{txt}{space 9}L9. {c |}{col 14}{res}{space 2} 3.637716{col 26}{space 2} 1.638236{col 37}{space 1}    2.22{col 46}{space 3}0.035{col 54}{space 4} .2763347{col 67}{space 3} 6.999098
+{txt}{space 8}L10. {c |}{col 14}{res}{space 2} 4.992515{col 26}{space 2} 1.692822{col 37}{space 1}    2.95{col 46}{space 3}0.007{col 54}{space 4} 1.519131{col 67}{space 3} 8.465899
+{txt}{space 8}L11. {c |}{col 14}{res}{space 2} 3.652353{col 26}{space 2} 1.892582{col 37}{space 1}    1.93{col 46}{space 3}0.064{col 54}{space 4}-.2309055{col 67}{space 3} 7.535611
+{txt}{space 12} {c |}
+{space 7}_dx1n {c |}
+{space 9}--. {c |}{col 14}{res}{space 2} .9695902{col 26}{space 2} 5.447782{col 37}{space 1}    0.18{col 46}{space 3}0.860{col 54}{space 4}-10.20834{col 67}{space 3} 12.14752
+{txt}{space 9}L1. {c |}{col 14}{res}{space 2} 13.84718{col 26}{space 2} 7.910875{col 37}{space 1}    1.75{col 46}{space 3}0.091{col 54}{space 4}-2.384596{col 67}{space 3} 30.07895
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2} 15.22867{col 26}{space 2} 9.118471{col 37}{space 1}    1.67{col 46}{space 3}0.106{col 54}{space 4}-3.480889{col 67}{space 3} 33.93822
+{txt}{space 9}L3. {c |}{col 14}{res}{space 2} 12.46338{col 26}{space 2} 8.366676{col 37}{space 1}    1.49{col 46}{space 3}0.148{col 54}{space 4}-4.703622{col 67}{space 3} 29.63038
+{txt}{space 9}L4. {c |}{col 14}{res}{space 2} 17.46486{col 26}{space 2} 7.161407{col 37}{space 1}    2.44{col 46}{space 3}0.022{col 54}{space 4} 2.770866{col 67}{space 3} 32.15885
+{txt}{space 9}L5. {c |}{col 14}{res}{space 2} 21.02399{col 26}{space 2} 7.429246{col 37}{space 1}    2.83{col 46}{space 3}0.009{col 54}{space 4} 5.780435{col 67}{space 3} 36.26754
+{txt}{space 9}L6. {c |}{col 14}{res}{space 2} 35.38689{col 26}{space 2} 6.476554{col 37}{space 1}    5.46{col 46}{space 3}0.000{col 54}{space 4}  22.0981{col 67}{space 3} 48.67569
+{txt}{space 9}L7. {c |}{col 14}{res}{space 2} 22.27315{col 26}{space 2} 7.142259{col 37}{space 1}    3.12{col 46}{space 3}0.004{col 54}{space 4} 7.618448{col 67}{space 3} 36.92786
+{txt}{space 9}L8. {c |}{col 14}{res}{space 2} 10.16344{col 26}{space 2} 6.691305{col 37}{space 1}    1.52{col 46}{space 3}0.140{col 54}{space 4}-3.565986{col 67}{space 3} 23.89286
+{txt}{space 9}L9. {c |}{col 14}{res}{space 2} 8.170202{col 26}{space 2} 6.203316{col 37}{space 1}    1.32{col 46}{space 3}0.199{col 54}{space 4}-4.557951{col 67}{space 3} 20.89835
+{txt}{space 8}L10. {c |}{col 14}{res}{space 2}  13.5923{col 26}{space 2} 7.488542{col 37}{space 1}    1.82{col 46}{space 3}0.081{col 54}{space 4}-1.772921{col 67}{space 3} 28.95752
+{txt}{space 8}L11. {c |}{col 14}{res}{space 2} 6.029218{col 26}{space 2} 5.670988{col 37}{space 1}    1.06{col 46}{space 3}0.297{col 54}{space 4}-5.606688{col 67}{space 3} 17.66512
+{txt}{space 12} {c |}
+{space 2}ln_gdpc_sa {c |}{col 14}{res}{space 2} 3.743659{col 26}{space 2} .6700687{col 37}{space 1}    5.59{col 46}{space 3}0.000{col 54}{space 4} 2.368791{col 67}{space 3} 5.118526
+{txt}{space 9}ir3 {c |}{col 14}{res}{space 2}-.0404725{col 26}{space 2} .0135651{col 37}{space 1}   -2.98{col 46}{space 3}0.006{col 54}{space 4}-.0683057{col 67}{space 3}-.0126394
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-40.95347{col 26}{space 2}  7.52065{col 37}{space 1}   -5.45{col 46}{space 3}0.000{col 54}{space 4}-56.38456{col 67}{space 3}-25.52237
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}Asymmetry statistics:
+{hline 13}{c TT}{hline 32}{c TT}{hline 31}
+             {c |}            Long-run effect [+] {c |}            Long-run effect [-]
+  Exog. var. {c |}       coef.     F-stat     P>F {c |}       coef.     F-stat     P>F
+{hline 13}{c +}{hline 32}{c BT}{hline 31}
+      ln_ner {c |}{res}      -7.385       86.5   0.000        15.688      8.649   0.007        
+{txt}{hline 13}{c +}{hline 32}{c TT}{hline 31}
+             {c |}             Long-run asymmetry {c |}            Short-run asymmetry
+             {c |}                 F-stat     P>F {c |}                 F-stat     P>F
+{hline 13}{c +}{hline 32}{c BT}{hline 31}
+      ln_ner {c |}              {res}    3.109   0.089                    7.893   0.009
+{txt}{hline 13}{c BT}{hline 64}
+Note: Long-run effect [-] refers to a permanent change in exog. var. by -1
+{res}{txt}Bootstrapping (one dot per 10 replications): {res}..........
+{txt}
+{com}. 
+. matrix list e(nardl_cdm)
+{res}
+{txt}e(nardl_cdm)[61,3]
+        horizon         x1p         x1n
+ c1 {res}          0  -3.1425433  -.96959016
+{txt} c2 {res}          1  -4.1454912   4.3918743
+{txt} c3 {res}          2  -.58647682      3.3319
+{txt} c4 {res}          3    .0228979   5.0523456
+{txt} c5 {res}          4   -.8240001   .29617504
+{txt} c6 {res}          5  -3.0778853  -3.7114689
+{txt} c7 {res}          6  -4.1079254  -17.274364
+{txt} c8 {res}          7  -6.3337944  -3.7477029
+{txt} c9 {res}          8  -1.3171693   11.283242
+{txt}c10 {res}          9  -3.7917471   11.094388
+{txt}c11 {res}         10  -3.4526106   2.8144125
+{txt}c12 {res}         11   -4.314375   10.201027
+{txt}c13 {res}         12  -8.0531967   17.991279
+{txt}c14 {res}         13  -7.9854937   16.788974
+{txt}c15 {res}         14  -7.2740888   15.279471
+{txt}c16 {res}         15   -7.268698   15.468975
+{txt}c17 {res}         16  -7.4035921   15.760354
+{txt}c18 {res}         17  -7.4080743   15.731856
+{txt}c19 {res}         18  -7.3825848   15.675818
+{txt}c20 {res}         19  -7.3810805   15.679791
+{txt}c21 {res}         20  -7.3858801   15.690529
+{txt}c22 {res}         21  -7.3862887    15.69005
+{txt}c23 {res}         22  -7.3853881      15.688
+{txt}c24 {res}         23  -7.3852875   15.688038
+{txt}c25 {res}         24  -7.3854558   15.688428
+{txt}c26 {res}         25  -7.3854793   15.688431
+{txt}c27 {res}         26  -7.3854479   15.688357
+{txt}c28 {res}         27  -7.3854427   15.688355
+{txt}c29 {res}         28  -7.3854485   15.688369
+{txt}c30 {res}         29  -7.3854496   15.688369
+{txt}c31 {res}         30  -7.3854486   15.688367
+{txt}c32 {res}         31  -7.3854483   15.688367
+{txt}c33 {res}         32  -7.3854485   15.688367
+{txt}c34 {res}         33  -7.3854486   15.688367
+{txt}c35 {res}         34  -7.3854485   15.688367
+{txt}c36 {res}         35  -7.3854485   15.688367
+{txt}c37 {res}         36  -7.3854485   15.688367
+{txt}c38 {res}         37  -7.3854485   15.688367
+{txt}c39 {res}         38  -7.3854485   15.688367
+{txt}c40 {res}         39  -7.3854485   15.688367
+{txt}c41 {res}         40  -7.3854485   15.688367
+{txt}c42 {res}         41  -7.3854485   15.688367
+{txt}c43 {res}         42  -7.3854485   15.688367
+{txt}c44 {res}         43  -7.3854485   15.688367
+{txt}c45 {res}         44  -7.3854485   15.688367
+{txt}c46 {res}         45  -7.3854485   15.688367
+{txt}c47 {res}         46  -7.3854485   15.688367
+{txt}c48 {res}         47  -7.3854485   15.688367
+{txt}c49 {res}         48  -7.3854485   15.688367
+{txt}c50 {res}         49  -7.3854485   15.688367
+{txt}c51 {res}         50  -7.3854485   15.688367
+{txt}c52 {res}         51  -7.3854485   15.688367
+{txt}c53 {res}         52  -7.3854485   15.688367
+{txt}c54 {res}         53  -7.3854485   15.688367
+{txt}c55 {res}         54  -7.3854485   15.688367
+{txt}c56 {res}         55  -7.3854485   15.688367
+{txt}c57 {res}         56  -7.3854485   15.688367
+{txt}c58 {res}         57  -7.3854485   15.688367
+{txt}c59 {res}         58  -7.3854485   15.688367
+{txt}c60 {res}         59  -7.3854485   15.688367
+{txt}c61 {res}         60  -7.3854485   15.688367
+{reset}
+{com}. 
+. matrix nardl_var=e(nardl_cdm)
+{txt}
+{com}. svmat double nardl_var, name(x)                 //-> Note 1
+{txt}
+{com}. list x1 in 1/5
+{txt}
+     {c TLC}{hline 4}{c TRC}
+     {c |} {res}x1 {txt}{c |}
+     {c LT}{hline 4}{c RT}
+  1. {c |} {res} 0 {txt}{c |}
+  2. {c |} {res} 1 {txt}{c |}
+  3. {c |} {res} 2 {txt}{c |}
+  4. {c |} {res} 3 {txt}{c |}
+  5. {c |} {res} 4 {txt}{c |}
+     {c BLC}{hline 4}{c BRC}
+
+{com}. list x2 in 1/5
+{txt}
+     {c TLC}{hline 12}{c TRC}
+     {c |} {res}        x2 {txt}{c |}
+     {c LT}{hline 12}{c RT}
+  1. {c |} {res}-3.1425433 {txt}{c |}
+  2. {c |} {res}-4.1454912 {txt}{c |}
+  3. {c |} {res}-.58647682 {txt}{c |}
+  4. {c |} {res}  .0228979 {txt}{c |}
+  5. {c |} {res} -.8240001 {txt}{c |}
+     {c BLC}{hline 12}{c BRC}
+
+{com}. list x3 in 1/5
+{txt}
+     {c TLC}{hline 12}{c TRC}
+     {c |} {res}        x3 {txt}{c |}
+     {c LT}{hline 12}{c RT}
+  1. {c |} {res}-.96959016 {txt}{c |}
+  2. {c |} {res} 4.3918743 {txt}{c |}
+  3. {c |} {res}    3.3319 {txt}{c |}
+  4. {c |} {res} 5.0523456 {txt}{c |}
+  5. {c |} {res} .29617504 {txt}{c |}
+     {c BLC}{hline 12}{c BRC}
+
+{com}. /* list x4 in 1/5
+> list x5 in 1/5 */                               // With 2 exo. regressors
+. 
+. matrix list e(nardl_asym)
+{res}
+{txt}e(nardl_asym)[61,2]
+        horizon          x1
+ c1 {res}          0  -4.1121335
+{txt} c2 {res}          1   .24638317
+{txt} c3 {res}          2   2.7454232
+{txt} c4 {res}          3   5.0752435
+{txt} c5 {res}          4  -.52782506
+{txt} c6 {res}          5  -6.7893542
+{txt} c7 {res}          6   -21.38229
+{txt} c8 {res}          7  -10.081497
+{txt} c9 {res}          8   9.9660725
+{txt}c10 {res}          9   7.3026406
+{txt}c11 {res}         10  -.63819805
+{txt}c12 {res}         11   5.8866525
+{txt}c13 {res}         12   9.9380825
+{txt}c14 {res}         13   8.8034802
+{txt}c15 {res}         14   8.0053818
+{txt}c16 {res}         15   8.2002771
+{txt}c17 {res}         16   8.3567623
+{txt}c18 {res}         17   8.3237816
+{txt}c19 {res}         18   8.2932333
+{txt}c20 {res}         19   8.2987101
+{txt}c21 {res}         20   8.3046489
+{txt}c22 {res}         21   8.3037616
+{txt}c23 {res}         22   8.3026116
+{txt}c24 {res}         23   8.3027506
+{txt}c25 {res}         24   8.3029724
+{txt}c26 {res}         25   8.3029517
+{txt}c27 {res}         26   8.3029091
+{txt}c28 {res}         27   8.3029119
+{txt}c29 {res}         28   8.3029201
+{txt}c30 {res}         29   8.3029198
+{txt}c31 {res}         30   8.3029182
+{txt}c32 {res}         31   8.3029182
+{txt}c33 {res}         32   8.3029185
+{txt}c34 {res}         33   8.3029185
+{txt}c35 {res}         34   8.3029185
+{txt}c36 {res}         35   8.3029185
+{txt}c37 {res}         36   8.3029185
+{txt}c38 {res}         37   8.3029185
+{txt}c39 {res}         38   8.3029185
+{txt}c40 {res}         39   8.3029185
+{txt}c41 {res}         40   8.3029185
+{txt}c42 {res}         41   8.3029185
+{txt}c43 {res}         42   8.3029185
+{txt}c44 {res}         43   8.3029185
+{txt}c45 {res}         44   8.3029185
+{txt}c46 {res}         45   8.3029185
+{txt}c47 {res}         46   8.3029185
+{txt}c48 {res}         47   8.3029185
+{txt}c49 {res}         48   8.3029185
+{txt}c50 {res}         49   8.3029185
+{txt}c51 {res}         50   8.3029185
+{txt}c52 {res}         51   8.3029185
+{txt}c53 {res}         52   8.3029185
+{txt}c54 {res}         53   8.3029185
+{txt}c55 {res}         54   8.3029185
+{txt}c56 {res}         55   8.3029185
+{txt}c57 {res}         56   8.3029185
+{txt}c58 {res}         57   8.3029185
+{txt}c59 {res}         58   8.3029185
+{txt}c60 {res}         59   8.3029185
+{txt}c61 {res}         60   8.3029185
+{reset}
+{com}. 
+. matrix nardl_asym=e(nardl_asym)
+{txt}
+{com}. svmat double nardl_asym, name(asym)
+{txt}
+{com}. list asym1 in 1/5
+{txt}
+     {c TLC}{hline 7}{c TRC}
+     {c |} {res}asym1 {txt}{c |}
+     {c LT}{hline 7}{c RT}
+  1. {c |} {res}    0 {txt}{c |}
+  2. {c |} {res}    1 {txt}{c |}
+  3. {c |} {res}    2 {txt}{c |}
+  4. {c |} {res}    3 {txt}{c |}
+  5. {c |} {res}    4 {txt}{c |}
+     {c BLC}{hline 7}{c BRC}
+
+{com}. list asym2 in 1/5
+{txt}
+     {c TLC}{hline 12}{c TRC}
+     {c |} {res}     asym2 {txt}{c |}
+     {c LT}{hline 12}{c RT}
+  1. {c |} {res}-4.1121335 {txt}{c |}
+  2. {c |} {res} .24638317 {txt}{c |}
+  3. {c |} {res} 2.7454232 {txt}{c |}
+  4. {c |} {res} 5.0752435 {txt}{c |}
+  5. {c |} {res}-.52782506 {txt}{c |}
+     {c BLC}{hline 12}{c BRC}
+
+{com}. /* list asym3 in 1/5 */                         // With 2 exo. regressors
+. 
+. matrix list e(nardl_asym_qu)
+{res}
+{txt}e(nardl_asym_qu)[61,2]
+        horizon          x1
+ r1 {res}          0   5.3457088
+{txt} r2 {res}          1   10.304838
+{txt} r3 {res}          2   12.709196
+{txt} r4 {res}          3   11.653408
+{txt} r5 {res}          4   4.9515486
+{txt} r6 {res}          5   3.4673467
+{txt} r7 {res}          6  -9.1004839
+{txt} r8 {res}          7   -.7931627
+{txt} r9 {res}          8   20.193363
+{txt}r10 {res}          9   14.392494
+{txt}r11 {res}         10   8.5885487
+{txt}r12 {res}         11   12.547771
+{txt}r13 {res}         12   16.918217
+{txt}r14 {res}         13   14.695004
+{txt}r15 {res}         14   12.530212
+{txt}r16 {res}         15    12.90101
+{txt}r17 {res}         16   13.591054
+{txt}r18 {res}         17   13.674464
+{txt}r19 {res}         18   13.209177
+{txt}r20 {res}         19    12.88382
+{txt}r21 {res}         20   13.196642
+{txt}r22 {res}         21   13.398747
+{txt}r23 {res}         22   13.276225
+{txt}r24 {res}         23     13.1738
+{txt}r25 {res}         24   13.212199
+{txt}r26 {res}         25   13.260931
+{txt}r27 {res}         26   13.251125
+{txt}r28 {res}         27   13.229075
+{txt}r29 {res}         28    13.23029
+{txt}r30 {res}         29   13.239837
+{txt}r31 {res}         30   13.240599
+{txt}r32 {res}         31    13.23664
+{txt}r33 {res}         32   13.235785
+{txt}r34 {res}         33   13.237354
+{txt}r35 {res}         34   13.237928
+{txt}r36 {res}         35   13.237338
+{txt}r37 {res}         36   13.237014
+{txt}r38 {res}         37   13.237222
+{txt}r39 {res}         38   13.237388
+{txt}r40 {res}         39   13.237322
+{txt}r41 {res}         40   13.237242
+{txt}r42 {res}         41    13.23726
+{txt}r43 {res}         42   13.237296
+{txt}r44 {res}         43   13.237293
+{txt}r45 {res}         44   13.237277
+{txt}r46 {res}         45   13.237276
+{txt}r47 {res}         46   13.237283
+{txt}r48 {res}         47   13.237285
+{txt}r49 {res}         48   13.237282
+{txt}r50 {res}         49   13.237281
+{txt}r51 {res}         50   13.237282
+{txt}r52 {res}         51   13.237282
+{txt}r53 {res}         52   13.237282
+{txt}r54 {res}         53   13.237282
+{txt}r55 {res}         54   13.237282
+{txt}r56 {res}         55   13.237282
+{txt}r57 {res}         56   13.237282
+{txt}r58 {res}         57   13.237282
+{txt}r59 {res}         58   13.237282
+{txt}r60 {res}         59   13.237282
+{txt}r61 {res}         60   13.237282
+{reset}
+{com}. 
+. matrix asym_qu=e(nardl_asym_qu)
+{txt}
+{com}. svmat double asym_qu, name(upperbound)
+{txt}
+{com}. list upperbound1 in 1/5
+{txt}
+     {c TLC}{hline 10}{c TRC}
+     {c |} {res}upperb~1 {txt}{c |}
+     {c LT}{hline 10}{c RT}
+  1. {c |} {res}       0 {txt}{c |}
+  2. {c |} {res}       1 {txt}{c |}
+  3. {c |} {res}       2 {txt}{c |}
+  4. {c |} {res}       3 {txt}{c |}
+  5. {c |} {res}       4 {txt}{c |}
+     {c BLC}{hline 10}{c BRC}
+
+{com}. list upperbound2 in 1/5
+{txt}
+     {c TLC}{hline 11}{c TRC}
+     {c |} {res}upperbo~2 {txt}{c |}
+     {c LT}{hline 11}{c RT}
+  1. {c |} {res}5.3457088 {txt}{c |}
+  2. {c |} {res}10.304838 {txt}{c |}
+  3. {c |} {res}12.709196 {txt}{c |}
+  4. {c |} {res}11.653408 {txt}{c |}
+  5. {c |} {res}4.9515486 {txt}{c |}
+     {c BLC}{hline 11}{c BRC}
+
+{com}. /* list upperbound3 in 1/5 */                   // With 2 exo. regressors
+. 
+. matrix list e(nardl_asym_ql)
+{res}
+{txt}e(nardl_asym_ql)[61,2]
+        horizon          x1
+ r1 {res}          0  -13.183072
+{txt} r2 {res}          1  -7.3138127
+{txt} r3 {res}          2   -6.627636
+{txt} r4 {res}          3  -3.0944698
+{txt} r5 {res}          4   -11.00325
+{txt} r6 {res}          5  -14.878404
+{txt} r7 {res}          6  -28.717188
+{txt} r8 {res}          7  -19.396708
+{txt} r9 {res}          8   1.5738168
+{txt}r10 {res}          9  -2.9133592
+{txt}r11 {res}         10  -10.282166
+{txt}r12 {res}         11  -4.5091472
+{txt}r13 {res}         12   2.2864425
+{txt}r14 {res}         13   2.0546193
+{txt}r15 {res}         14   2.3919187
+{txt}r16 {res}         15   1.7345891
+{txt}r17 {res}         16   1.7891936
+{txt}r18 {res}         17   1.9293809
+{txt}r19 {res}         18   1.9619831
+{txt}r20 {res}         19   1.9387244
+{txt}r21 {res}         20   1.9232368
+{txt}r22 {res}         21   1.9238023
+{txt}r23 {res}         22   1.9277337
+{txt}r24 {res}         23   1.9288815
+{txt}r25 {res}         24   1.9283056
+{txt}r26 {res}         25   1.9278398
+{txt}r27 {res}         26   1.9278268
+{txt}r28 {res}         27   1.9279352
+{txt}r29 {res}         28   1.9279739
+{txt}r30 {res}         29   1.9279603
+{txt}r31 {res}         30   1.9279464
+{txt}r32 {res}         31   1.9279453
+{txt}r33 {res}         32   1.9279482
+{txt}r34 {res}         33   1.9279494
+{txt}r35 {res}         34   1.9279492
+{txt}r36 {res}         35   1.9279487
+{txt}r37 {res}         36   1.9279487
+{txt}r38 {res}         37   1.9279487
+{txt}r39 {res}         38   1.9279488
+{txt}r40 {res}         39   1.9279488
+{txt}r41 {res}         40   1.9279488
+{txt}r42 {res}         41   1.9279488
+{txt}r43 {res}         42   1.9279488
+{txt}r44 {res}         43   1.9279488
+{txt}r45 {res}         44   1.9279488
+{txt}r46 {res}         45   1.9279488
+{txt}r47 {res}         46   1.9279488
+{txt}r48 {res}         47   1.9279488
+{txt}r49 {res}         48   1.9279488
+{txt}r50 {res}         49   1.9279488
+{txt}r51 {res}         50   1.9279488
+{txt}r52 {res}         51   1.9279488
+{txt}r53 {res}         52   1.9279488
+{txt}r54 {res}         53   1.9279488
+{txt}r55 {res}         54   1.9279488
+{txt}r56 {res}         55   1.9279488
+{txt}r57 {res}         56   1.9279488
+{txt}r58 {res}         57   1.9279488
+{txt}r59 {res}         58   1.9279488
+{txt}r60 {res}         59   1.9279488
+{txt}r61 {res}         60   1.9279488
+{reset}
+{com}. 
+. matrix asym_ql=e(nardl_asym_ql)
+{txt}
+{com}. svmat double asym_ql, name(lowerbound)
+{txt}
+{com}. list lowerbound1 in 1/5
+{txt}
+     {c TLC}{hline 10}{c TRC}
+     {c |} {res}lowerb~1 {txt}{c |}
+     {c LT}{hline 10}{c RT}
+  1. {c |} {res}       0 {txt}{c |}
+  2. {c |} {res}       1 {txt}{c |}
+  3. {c |} {res}       2 {txt}{c |}
+  4. {c |} {res}       3 {txt}{c |}
+  5. {c |} {res}       4 {txt}{c |}
+     {c BLC}{hline 10}{c BRC}
+
+{com}. list lowerbound2 in 1/5
+{txt}
+     {c TLC}{hline 12}{c TRC}
+     {c |} {res}lowerbou~2 {txt}{c |}
+     {c LT}{hline 12}{c RT}
+  1. {c |} {res}-13.183072 {txt}{c |}
+  2. {c |} {res}-7.3138127 {txt}{c |}
+  3. {c |} {res} -6.627636 {txt}{c |}
+  4. {c |} {res}-3.0944698 {txt}{c |}
+  5. {c |} {res} -11.00325 {txt}{c |}
+     {c BLC}{hline 12}{c BRC}
+
+{com}. /* list lowerbound3 in 1/5 */                   // With 2 exo. regressors
+. 
+. /* twoway rarea asym_ql1 asym_qu1 horizon, col("210 220 235") || ///
+> scatter x1p horizon, c(l) ms(i) lpattern(dash) lc("0 160 60") || ///
+> || scatter x1n horizon, c(l) ms(i) lpattern(longdash) lc("160 0 60") || ///
+> || scatter asym1 horizon, c(l) ms(i) lpattern(solid) lc("0 0 160") || ///
+> , title("Cumulative effect of LN_NER on LN_M2DC") ///
+> note(`"Note: 95% bootstrap CI is based on 100 replications"') ///
+> xlabel(,grid) ylabel(,grid) legend(region(lwidth(none)) ///
+> cols(2) order("2 3 4 1") label(1 "CI for asymmetry")) */
+. 
+. label variable x2 "Positive change"
+{txt}
+{com}. label variable x3 "Negative change"
+{txt}
+{com}. label variable asym2 "Asymmetry"
+{txt}
+{com}. 
+. // twoway rarea lowerbound2 upperbound2 lowerbound1, color(gs12)|| ///
+. // scatter x2 x1, c(l) ms(i) lpattern(dash) || ///
+. // || scatter x4 x1, c(l) ms(i) lpattern(longdash) || /// 
+. // || scatter asym2 asym1, c(l) ms(i) lpattern(solid) || ///
+. // , title("Cumulative effect of LN_NER on LN_M2DC") ///
+. // note(`"Note: 95% bootstrap CI is based on 100 replications"') ///
+. // xlabel(,grid) ylabel(,grid) legend(region(lwidth(none)) ///
+. // cols(2) order("2 3 4 1") label(1 "CI for asymmetry"))
+. 
+. twoway rarea lowerbound2 upperbound2 lowerbound1, color(gs12)|| ///
+> scatter x2 x1, c(l) ms(i) lpattern(shortdash) || ///
+> || scatter x3 x1, c(l) ms(i) lpattern(longdash) || /// 
+> || scatter asym2 asym1, c(l) ms(i) lpattern(solid) || ///
+> , title(Asymmetric effect of NER on M2D) ///
+> legend( label(1 "CI asymmetry") label(2 "Pos. change") ///
+> label(3 "Neg. change") label(4 "Asymmetry") position(3) rows(4) ) ///
+> ytitle("Predicted Value") xtitle("Time") xlabel(,grid) ylabel(,grid)
+{res}{txt}
+{com}. 
+. graph rename dyn_nardl_aic_sj, replace
+{txt}(note: graph dyn_nardl_aic_sj not found)
+
+{com}. capture graph export dyn_nardl_aic_sj.png, replace
+{txt}
+{com}. capture graph export dyn_nardl_aic_sj.pdf, replace
+{txt}
+{com}. 
+. graph combine dyn_ardl_aic_sj dyn_nardl_aic_sj, ///
+> xcommon cols(1) imargin(zero)
+{res}{txt}
+{com}. graph rename dyn_ardl_nardl_aic_sj, replace
+{txt}(note: graph dyn_ardl_nardl_aic_sj not found)
+
+{com}. capture graph export dyn_ardl_nardl_aic_sj.png, replace
+{txt}
+{com}. capture graph export dyn_ardl_nardl_aic_sj.pdf, replace
+{txt}
+{com}. graph export dyn_ardl_nardl_aic_sj.svg, width(4000) replace
+{txt}{p 0 4 2}
+file {bf}
+dyn_ardl_nardl_aic_sj.svg{rm}
+saved as
+SVG
+format
+{p_end}
+
+{com}. 
+. 
+. // Save the data
+. save ///
+> "C:\Users\jamel\Dropbox\stata\vn\data_graph2.dta", ///
+> replace
+{txt}{p 0 4 2}
+file {bf}
+C:\Users\jamel\Dropbox\stata\vn\data_graph2.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\jamel\Dropbox\stata\vn\graph2.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}26 Aug 2023, 19:52:23
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
