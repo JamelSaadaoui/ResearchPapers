@@ -35,6 +35,8 @@ capture ssc install xtmg
 capture ssc install ltimbimata
 capture ssc install xtdolshm
 capture ssc install outreg2
+capture net install xtdcce2 , ///
+ from("https://janditzen.github.io/xtdcce2/")
 
 *Generate variable in logarithm
 
@@ -181,8 +183,6 @@ cttop(D.logfeer) addnote(Notes:)
 
 xtmg logreer logfeer, cce robust
 
-predict iip_resid, residuals
-
 outreg2 using tables\results_ccemg_1, /// 
 excel pvalue replace ///
 cttop() addnote(Notes:)
@@ -223,10 +223,38 @@ outreg2 using tables\results_dols_2, ///
 excel pvalue replace ///
 cttop() addnote(Notes:)
 
+// JAN DITZEN (2021) DCCE PMG
+
+xtcse2 logreer logfeer
+
+xtdcce2 d.logreer d.logfeer, lr(L.logreer logfeer) ///
+p(L.logreer logfeer) cross(_all) cr_lags(0)  exponent
+
+/*
+// variables partialled out = 78 (26 cons, (2*26) 
+   logreer_cs logfeer_cs in T)
+// variables in mean group regression = 28 
+ ((26) D.logfeer + (2) Cross Sectional Averaged Variables: 
+   logreer logfeer)
+*/
+
+xtdcce2 d.logreer d.logfeer, lr(L.logreer logfeer) ///
+p(L.logreer logfeer) cross(_all) cr_lags(2)  exponent
+
+/*
+// variables partialled out = 78 (26 cons, (6*26) 
+   logreer_cs logfeer_cs in T, T+1 and T+2)
+// variables in mean group regression = 28 
+ ((26) D.logfeer + (2) Cross Sectional Averaged Variables: 
+   logreer logfeer)
+*/
+ 
+xtcd2, pesaran cdw contour(abs) reps(50)
+ 
 // Save the data
 save data\xrdynamics.dta, replace
 
-log close xrdynamics
+*log close xrdynamics
 exit
 
 Description
