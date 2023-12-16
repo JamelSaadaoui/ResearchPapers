@@ -2,7 +2,7 @@
       name:  xrdynamics
        log:  C:\Users\jamel\Documents\GitHub\ResearchPapers\Saadaoui 2015\xrdynamics.log
   log type:  text
- opened on:  16 Dec 2023, 07:57:07
+ opened on:  16 Dec 2023, 13:02:05
 
 . 
 . *Import the data from Excel
@@ -11,26 +11,6 @@
 . import excel EXCEL_0215a.xlsx, /// 
 > sheet("data_fin") firstrow clear // Note 1
 (7 vars, 754 obs)
-
-. 
-. *Install User-Written Stata Programs
-. 
-. capture ssc install pescadf // Note 2
-
-. capture ssc install xtwest
-
-. capture ssc install xtpmg
-
-. capture ssc install xtmg
-
-. capture ssc install ltimbimata
-
-. capture ssc install xtdolshm
-
-. capture ssc install outreg2
-
-. capture net install xtdcce2 , ///
->  from("https://janditzen.github.io/xtdcce2/")
 
 . 
 . *Generate variable in logarithm
@@ -77,7 +57,23 @@ Distribution of T_i:   min      5%     25%       50%       75%     95%     max
        26    100.00         |  XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 . 
-. *UNIT ROOT TEST
+. ****************************************************************
+. 
+. **#Install User-Written Stata Programs
+. 
+. /*
+> capture ssc install pescadf // Note 2
+> capture ssc install xtwest
+> capture ssc install xtpmg
+> capture ssc install xtmg
+> capture ssc install ltimbimata
+> capture ssc install xtdolshm
+> capture ssc install outreg2
+> capture net install xtdcce2 , ///
+>  from("https://janditzen.github.io/xtdcce2/")
+> */
+. 
+. **#UNIT ROOT TEST
 . *CADF test (Pesaran, 2007)
 . 
 . pescadf  logfeer, lags(1) trend
@@ -174,7 +170,7 @@ Average AIC selected lead length: 0
 . *xtwest logreer logfeer, lags (0 2) bootstrap(100)
 . *xtwest logfeer logreer, lags (0 2) bootstrap(100)
 . 
-. // ESTIMATION OF THE ERROR-CORRECTION MODEL THANKS TO
+. **# ESTIMATION OF THE ERROR-CORRECTION MODEL THANKS TO
 . // THE PMG (CPMG) ESTIMATOR
 . // PESARAN et al. (1999)
 . 
@@ -414,8 +410,11 @@ cn_26        |
 . 
 . // Residual testing (start)
 . 
-. // https://www.statalist.org/forums/forum/general-stata-discussion/general/1333633-residual-
-> testing-for-pooled-mean-group-estimator
+. /*
+> https://www.statalist.org/forums/forum/
+> general-stata-discussion/general/1333633-
+> residual-testing-for-pooled-mean-group-estimator
+> */
 . 
 . capture drop yhat
 
@@ -1104,7 +1103,7 @@ tables\results_cpmg_2.xml
 dir : seeout
 
 . 
-. // STUDY SHORT RUN DYNAMICS
+. **# STUDY SHORT RUN DYNAMICS
 . 
 . xtpmg d.logreer d.logfeer, ///
 > lr(l.logreer logfeer) ec(ec) replace pmg full
@@ -2399,7 +2398,7 @@ tables\results_cpmg_2_SR.xml
 dir : seeout
 
 . 
-. // PESARAN (2006) COMMON CORRELATED EFFECTS 
+. **# PESARAN (2006) COMMON CORRELATED EFFECTS 
 . // MEAN GROUP ESTIMATOR
 . 
 . xtmg logreer logfeer, cce robust
@@ -2469,7 +2468,7 @@ tables\results_ccemg_2.xml
 dir : seeout
 
 . 
-. // PESARAN & SMITH (1995) 
+. **# PESARAN & SMITH (1995) 
 . // MEAN GROUP ESTIMATOR
 . 
 . // smg = static mg estimator
@@ -2532,7 +2531,7 @@ tables\results_smg_2.xml
 dir : seeout
 
 . 
-. // KAO & CHIANG (2000) DOLS ESTIMATOR
+. **# KAO & CHIANG (2000) DOLS ESTIMATOR
 . 
 . xtdolshm logreer logfeer, nla(2) nle(2)
 
@@ -2580,7 +2579,7 @@ tables\results_dols_2.xml
 dir : seeout
 
 . 
-. // JAN DITZEN (2021) DCCE PMG
+. **# JAN DITZEN (2021) DCCE PMG
 . 
 . xtcse2 logreer logfeer
 Cross-Sectional Dependence Exponent Estimation and Test
@@ -2603,10 +2602,10 @@ Testing for weak cross-sectional dependence (CSD)
 ------------------------------------------------------------------------
                |    CD            CDw           CDw+          CD*
 ---------------+--------------------------------------------------------
-logreer        |     3.25        0.92        620.60         -1.09
-               |  (0.001)     (0.356)       (0.000)       (0.275)
-logfeer        |     5.94       -0.63        548.47          3.09
-               |  (0.000)     (0.528)       (0.000)       (0.002)
+logreer        |     3.25       -1.47        618.20         -1.09
+               |  (0.001)     (0.141)       (0.000)       (0.275)
+logfeer        |     5.94       -0.65        548.45          3.09
+               |  (0.000)     (0.515)       (0.000)       (0.002)
 ------------------------------------------------------------------------
 p-values in parenthesis.
 References
@@ -2618,7 +2617,7 @@ Variables are centered around zero.
 
 . 
 . xtdcce2 d.logreer d.logfeer, lr(L.logreer logfeer) ///
-> p(L.logreer logfeer) cross(_all) cr_lags(0)  exponent
+> p(L.logreer logfeer) cross(_all) cr_lags(0) exponent
 (Dynamic) Common Correlated Effects Estimator - Pooled Mean Group (CS-ECM)
 
 Panel Variable (i): cn                           Number of obs     =        728
@@ -2663,7 +2662,7 @@ Estimation of Cross-Sectional Exponent (alpha)
 --------------------------------------------------------------
        variable|     alpha   Std. Err.    [95% Conf. Interval]
 ---------------+----------------------------------------------
-      residuals|  .5653449   .0228405     .5205782    .6101115
+      residuals|  .5653449   .0241805      .517952    .6127377
 --------------------------------------------------------------
 0.5 <= alpha < 1 implies strong cross sectional dependence.
 SE and CI bootstrapped with 100 repetitions.
@@ -2678,8 +2677,11 @@ SE and CI bootstrapped with 100 repetitions.
 >    logreer logfeer)
 > */
 . 
+. ***************
+. 
 . xtdcce2 d.logreer d.logfeer, lr(L.logreer logfeer) ///
-> p(L.logreer logfeer) cross(_all) cr_lags(2)  exponent
+>  p(L.logreer logfeer) cross(_all) ///
+>  cr_lags(2) exponent
 (Dynamic) Common Correlated Effects Estimator - Pooled Mean Group (CS-ECM)
 
 Panel Variable (i): cn                           Number of obs     =        676
@@ -2724,24 +2726,29 @@ Estimation of Cross-Sectional Exponent (alpha)
 --------------------------------------------------------------
        variable|     alpha   Std. Err.    [95% Conf. Interval]
 ---------------+----------------------------------------------
-      residuals|  .5791701   .0216867      .536665    .6216753
+      residuals|  .5791701   .0214874     .5370555    .6212847
 --------------------------------------------------------------
 0.5 <= alpha < 1 implies strong cross sectional dependence.
 SE and CI bootstrapped with 100 repetitions.
 
 
 . 
+. *cap drop res
+. 
+. *predict res, residuals
+. 
 . /*
-> // variables partialled out = 78 (26 cons, (6*26) 
+> // variables partialled out = 182 (26 cons, (6*26) 
 >    logreer_cs logfeer_cs in T, T+1 and T+2)
 > // variables in mean group regression = 28 
 >  ((26) D.logfeer + (2) Cross Sectional Averaged Variables: 
 >    logreer logfeer)
 > */
-.  
-. xtcd2, pesaran cdw contour(abs) reps(50)
+. 
+. *cap graph drop res
+. 
+. xtcd2, pesaran cdw reps(50)
 Residuals calculated using  predict, residuals from xtdcce2.
-
 
 Testing for weak cross-sectional dependence (CSD)
    H0: weak cross-section dependence
@@ -2749,15 +2756,42 @@ Testing for weak cross-sectional dependence (CSD)
 --------------------------------------------
                |    CD            CDw
 ---------------+----------------------------
-residuals      |    -0.70       -0.83
-               |  (0.484)     (0.408)
+residuals      |    -0.70       -1.07
+               |  (0.484)     (0.285)
 --------------------------------------------
 p-values in parenthesis.
 References
   CD:        Pesaran (2015, 2021)
   CDw:       Juodis, Reese (2021)
 
-.  
+. 
+. 
+. ***************
+. 
+. /*
+> xtdcce2 d.logreer d.logfeer, lr(L.logreer logfeer) ///
+> p(L.logreer logfeer) cross(_all) cr_lags(2) exponent ///
+> absorb(cn)
+> 
+> *cap drop res_fe
+> 
+> *predict res_fe, residuals
+> 
+> /*
+> // variables partialled out = 156 ((6*26) 
+>    logreer_cs logfeer_cs in T, T+1 and T+2)
+>    absorb(cn): individual FE no longer partialled out
+> // variables in mean group regression = 28 
+>  ((26) D.logfeer + (2) Cross Sectional Averaged Variables: 
+>    logreer logfeer)
+> */
+> 
+> *cap graph drop res_fe
+> 
+> xtcd2, pesaran cdw reps(50) ///
+>  seed(9045)
+> */
+.   
 . // Save the data
 . save data\xrdynamics.dta, replace
 file data\xrdynamics.dta saved

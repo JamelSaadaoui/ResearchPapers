@@ -1,5 +1,5 @@
 ***********************************************************
-******** Co-integration analysis for XR dynamics **********
+**#***** Co-integration analysis for XR dynamics **********
 ***********************************************************
 ***********************************************************
 
@@ -26,18 +26,6 @@ log using xrdynamics, name(xrdynamics) text replace
 import excel EXCEL_0215a.xlsx, /// 
 sheet("data_fin") firstrow clear // Note 1
 
-*Install User-Written Stata Programs
-
-capture ssc install pescadf // Note 2
-capture ssc install xtwest
-capture ssc install xtpmg
-capture ssc install xtmg
-capture ssc install ltimbimata
-capture ssc install xtdolshm
-capture ssc install outreg2
-capture net install xtdcce2 , ///
- from("https://janditzen.github.io/xtdcce2/")
-
 *Generate variable in logarithm
 
 generate logreer = ln(reer)
@@ -54,7 +42,23 @@ order cn datayear, first
 xtset cn datayear, yearly
 xtdescribe
 
-*UNIT ROOT TEST
+****************************************************************
+
+**#Install User-Written Stata Programs
+
+/*
+capture ssc install pescadf // Note 2
+capture ssc install xtwest
+capture ssc install xtpmg
+capture ssc install xtmg
+capture ssc install ltimbimata
+capture ssc install xtdolshm
+capture ssc install outreg2
+capture net install xtdcce2 , ///
+ from("https://janditzen.github.io/xtdcce2/")
+*/
+
+**#UNIT ROOT TEST
 *CADF test (Pesaran, 2007)
 
 pescadf  logfeer, lags(1) trend
@@ -73,7 +77,7 @@ xtwest logfeer logreer, lags (0 2)
 *xtwest logreer logfeer, lags (0 2) bootstrap(100)
 *xtwest logfeer logreer, lags (0 2) bootstrap(100)
 
-// ESTIMATION OF THE ERROR-CORRECTION MODEL THANKS TO
+**# ESTIMATION OF THE ERROR-CORRECTION MODEL THANKS TO
 // THE PMG (CPMG) ESTIMATOR
 // PESARAN et al. (1999)
 
@@ -82,7 +86,11 @@ lr(l.logreer logfeer) ec(ec) replace pmg full
 
 // Residual testing (start)
 
-// https://www.statalist.org/forums/forum/general-stata-discussion/general/1333633-residual-testing-for-pooled-mean-group-estimator
+/*
+https://www.statalist.org/forums/forum/
+general-stata-discussion/general/1333633-
+residual-testing-for-pooled-mean-group-estimator
+*/
 
 capture drop yhat
 gen yhat = .
@@ -146,7 +154,7 @@ outreg2 using tables\results_cpmg_2, ///
 excel pvalue replace ///
 cttop(D.logfeer) addnote(Notes:)
 
-// STUDY SHORT RUN DYNAMICS
+**# STUDY SHORT RUN DYNAMICS
 
 xtpmg d.logreer d.logfeer, ///
 lr(l.logreer logfeer) ec(ec) replace pmg full
@@ -178,7 +186,7 @@ outreg2 using tables\results_cpmg_2_SR, ///
 excel pvalue replace ///
 cttop(D.logfeer) addnote(Notes:)
 
-// PESARAN (2006) COMMON CORRELATED EFFECTS 
+**# PESARAN (2006) COMMON CORRELATED EFFECTS 
 // MEAN GROUP ESTIMATOR
 
 xtmg logreer logfeer, cce robust
@@ -194,7 +202,7 @@ outreg2 using tables\results_ccemg_2, ///
 excel pvalue replace ///
 cttop() addnote(Notes:)
 
-// PESARAN & SMITH (1995) 
+**# PESARAN & SMITH (1995) 
 // MEAN GROUP ESTIMATOR
 
 // smg = static mg estimator
@@ -211,7 +219,7 @@ outreg2 using tables\results_smg_2, ///
 excel pvalue replace ///
 cttop() addnote(Notes:)
 
-// KAO & CHIANG (2000) DOLS ESTIMATOR
+**# KAO & CHIANG (2000) DOLS ESTIMATOR
 
 xtdolshm logreer logfeer, nla(2) nle(2)
 outreg2 using tables\results_dols_1, ///
@@ -223,12 +231,12 @@ outreg2 using tables\results_dols_2, ///
 excel pvalue replace ///
 cttop() addnote(Notes:)
 
-// JAN DITZEN (2021) DCCE PMG
+**# JAN DITZEN (2021) DCCE PMG
 
 xtcse2 logreer logfeer
 
 xtdcce2 d.logreer d.logfeer, lr(L.logreer logfeer) ///
-p(L.logreer logfeer) cross(_all) cr_lags(0)  exponent
+p(L.logreer logfeer) cross(_all) cr_lags(0) exponent
 
 /*
 // variables partialled out = 78 (26 cons, (2*26) 
@@ -238,19 +246,55 @@ p(L.logreer logfeer) cross(_all) cr_lags(0)  exponent
    logreer logfeer)
 */
 
+***************
+
 xtdcce2 d.logreer d.logfeer, lr(L.logreer logfeer) ///
-p(L.logreer logfeer) cross(_all) cr_lags(2)  exponent
+ p(L.logreer logfeer) cross(_all) ///
+ cr_lags(2) exponent
+
+*cap drop res
+
+*predict res, residuals
 
 /*
-// variables partialled out = 78 (26 cons, (6*26) 
+// variables partialled out = 182 (26 cons, (6*26) 
    logreer_cs logfeer_cs in T, T+1 and T+2)
 // variables in mean group regression = 28 
  ((26) D.logfeer + (2) Cross Sectional Averaged Variables: 
    logreer logfeer)
 */
- 
-xtcd2, pesaran cdw contour(abs) reps(50)
- 
+
+*cap graph drop res
+
+xtcd2, pesaran cdw reps(50)
+
+
+***************
+
+/*
+xtdcce2 d.logreer d.logfeer, lr(L.logreer logfeer) ///
+p(L.logreer logfeer) cross(_all) cr_lags(2) exponent ///
+absorb(cn)
+
+*cap drop res_fe
+
+*predict res_fe, residuals
+
+/*
+// variables partialled out = 156 ((6*26) 
+   logreer_cs logfeer_cs in T, T+1 and T+2)
+   absorb(cn): individual FE no longer partialled out
+// variables in mean group regression = 28 
+ ((26) D.logfeer + (2) Cross Sectional Averaged Variables: 
+   logreer logfeer)
+*/
+
+*cap graph drop res_fe
+
+xtcd2, pesaran cdw reps(50) ///
+ seed(9045)
+*/
+  
 // Save the data
 save data\xrdynamics.dta, replace
 
