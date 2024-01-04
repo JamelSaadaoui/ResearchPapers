@@ -1,8 +1,9 @@
 ----------------------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\jamel\Dropbox\stata\gcasean\archive\logs\endo_threshold_gcasean.log
+       log:  C:\Users\jamel\Documents\GitHub\ResearchPapers\Ho and Saadaoui 2022\logs\endo_thr
+> eshold_gcasean.log
   log type:  text
- opened on:   4 Jan 2024, 11:56:01
+ opened on:   4 Jan 2024, 12:52:28
 
 . 
 . use data\data_asean_final.dta, clear
@@ -95,7 +96,7 @@ Distribution of T_i:   min      5%     25%       50%       75%     95%     max
 
 Contains data from data\data_asean_final.dta
  Observations:           189                  
-    Variables:            17                  4 Jan 2024 11:56
+    Variables:            17                  4 Jan 2024 12:52
 ----------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
@@ -877,10 +878,10 @@ endo_thres_gcasean stored in memory
 
         name:  endo_thres_gcasean
       format:  live
-     created:  4 Jan 2024 11:56:21
-      scheme:  stcolor
-        size:  4.5 x 7.5
-    dta file:  data\data_asean_final.dta dated 4 Jan 2024 11:56
+     created:  4 Jan 2024 12:52:41
+      scheme:  sj
+        size:  2.6 x 3.575
+    dta file:  data\data_asean_final.dta dated 4 Jan 2024 12:52
      command:  twoway line enr_lrofgamma enr_gamma if __000001, title("Confidence Interval
                Construction for the Threshold Model") xtitle("Gamma") sort
                yline(7.352276694155739, lcolor(green)) name(enr_dethgrp, replace)
@@ -1136,10 +1137,10 @@ endo_thres_lv_pop stored in memory
 
         name:  endo_thres_lv_pop
       format:  live
-     created:  4 Jan 2024 11:56:30
-      scheme:  stcolor
-        size:  4.5 x 7.5
-    dta file:  data\data_asean_final.dta dated 4 Jan 2024 11:56
+     created:  4 Jan 2024 12:52:53
+      scheme:  sj
+        size:  2.6 x 3.575
+    dta file:  data\data_asean_final.dta dated 4 Jan 2024 12:52
      command:  twoway line enr_lrofgamma enr_gamma if __000001, title("Confidence Interval
                Construction for the Threshold Model") xtitle("Gamma") sort
                yline(7.352276694155739, lcolor(green)) name(enr_dethgrp, replace)
@@ -2125,7 +2126,7 @@ Threshold effect test (bootstrap = 100):
 -------------------------------------------------------------------------------
  Threshold |       RSS        MSE      Fstat    Prob   Crit10    Crit5    Crit1
 -----------+-------------------------------------------------------------------
-    Single |  789.8846     4.8758      26.17  0.0000  10.9410  12.7196  13.3163
+    Single |  789.8846     4.8758      26.17  0.0000  10.0781  12.0211  12.9501
 -------------------------------------------------------------------------------
 
 Fixed-effects (within) regression               Number of obs     =        189
@@ -2192,7 +2193,7 @@ Threshold effect test (bootstrap = 300):
 -------------------------------------------------------------------------------
  Threshold |       RSS        MSE      Fstat    Prob   Crit10    Crit5    Crit1
 -----------+-------------------------------------------------------------------
-    Single |  516.1395     3.1860      21.43  0.0233  14.7713  16.9722  24.0218
+    Single |  516.1395     3.1860      21.43  0.0167  13.6579  15.7688  26.6586
 -------------------------------------------------------------------------------
 note: time_1998 omitted because of collinearity
 
@@ -3331,7 +3332,8 @@ file data\data_endothres_gcasean.dta saved
 . 
 . log close
       name:  <unnamed>
-       log:  C:\Users\jamel\Dropbox\stata\gcasean\archive\logs\endo_threshold_gcasean.log
+       log:  C:\Users\jamel\Documents\GitHub\ResearchPapers\Ho and Saadaoui 2022\logs\endo_thr
+> eshold_gcasean.log
   log type:  text
- closed on:   4 Jan 2024, 11:57:21
+ closed on:   4 Jan 2024, 12:53:50
 ----------------------------------------------------------------------------------------------

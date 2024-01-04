@@ -1,8 +1,9 @@
 ----------------------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\jamel\Dropbox\stata\gcasean\archive\logs\causality.log
+       log:  C:\Users\jamel\Documents\GitHub\ResearchPapers\Ho and Saadaoui 2022\logs\causalit
+> y.log
   log type:  text
- opened on:   4 Jan 2024, 11:57:21
+ opened on:   4 Jan 2024, 12:53:50
 
 . 
 . // Use data in Stata format
@@ -110,8 +111,8 @@ Dumitrescu & Hurlin (2012) Granger non-causality test results:
 --------------------------------------------------------------
 Optimal number of lags (AIC): 7 (lags tested: 1 to 7).
 W-bar =         17.5818
-Z-bar =          7.4825   (p-value* = 0.0960, 95% critical value = 9.7075)
-Z-bar tilde =    0.7936   (p-value* = 0.1760, 95% critical value = 1.2158)
+Z-bar =          7.4825   (p-value* = 0.1210, 95% critical value = 10.7331)
+Z-bar tilde =    0.7936   (p-value* = 0.1820, 95% critical value = 1.4104)
 --------------------------------------------------------------
 H0: gdpgpc does not Granger-cause creditgdp.
 H1: gdpgpc does Granger-cause creditgdp for at least one panel (cn).
@@ -126,7 +127,8 @@ file data\causality.dta saved
 . 
 . log close
       name:  <unnamed>
-       log:  C:\Users\jamel\Dropbox\stata\gcasean\archive\logs\causality.log
+       log:  C:\Users\jamel\Documents\GitHub\ResearchPapers\Ho and Saadaoui 2022\logs\causalit
+> y.log
   log type:  text
- closed on:   4 Jan 2024, 11:59:37
+ closed on:   4 Jan 2024, 12:56:16
 ----------------------------------------------------------------------------------------------

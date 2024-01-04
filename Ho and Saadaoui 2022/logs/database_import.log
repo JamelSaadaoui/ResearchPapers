@@ -1,8 +1,9 @@
 ----------------------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\jamel\Dropbox\stata\gcasean\archive\logs\database_import.log
+       log:  C:\Users\jamel\Documents\GitHub\ResearchPapers\Ho and Saadaoui 2022\logs\database
+> _import.log
   log type:  text
- opened on:   4 Jan 2024, 11:56:00
+ opened on:   4 Jan 2024, 12:52:26
 
 . 
 . // Import data from Excel
@@ -599,7 +600,8 @@ file data\data_asean_final.dta saved
 . 
 . log close
       name:  <unnamed>
-       log:  C:\Users\jamel\Dropbox\stata\gcasean\archive\logs\database_import.log
+       log:  C:\Users\jamel\Documents\GitHub\ResearchPapers\Ho and Saadaoui 2022\logs\database
+> _import.log
   log type:  text
- closed on:   4 Jan 2024, 11:56:01
+ closed on:   4 Jan 2024, 12:52:28
 ----------------------------------------------------------------------------------------------

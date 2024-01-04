@@ -18,7 +18,13 @@ do endo_thresh
 do causality  
                                
 // Put results in Excel
-do results_putexcel                          
+do results_putexcel
+
+// Import database (M2) 
+do database_import_m2
+                           
+// Threshold regressions (M2) 
+do endo_thresh_m2                          
 
 save final_dataset.dta, replace
 

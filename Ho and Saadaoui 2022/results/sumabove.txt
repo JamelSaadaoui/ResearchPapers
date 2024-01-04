@@ -18,3 +18,4 @@ debtcrisislv	81	0	0	0	0
 debtrestruclv	81	0	0	0	0
 allyearsbankingcrisislv	81	0.0864	0.283	0	1
 					
+Number of cn	7	7	7	7	7
