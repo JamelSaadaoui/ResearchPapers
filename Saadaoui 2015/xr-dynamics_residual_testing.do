@@ -108,6 +108,12 @@ xtcdf residuals
 
 // Residual testing (end)
 
+// Implied path
+
+gen path = logreer + yhat
+
+xtline logreer path if country == "BRA"
+
 outreg2 using tables\results_pmg_1, ///
 excel pvalue replace ///
 cttop(D.logreer) addnote(Notes:) // Note 2
@@ -133,14 +139,55 @@ replace yhat = temp if cn == `cn'
 drop temp
 }
 
-capture drop residuals_cs
-gen residuals_cs = d.logreer - yhat
-
-xtline d.logreer yhat
-
 xtcdf residuals_cs
 
 // Residual testing (end)
+
+// Prediction of long run val. (Discussion with Kamila and Hiro)
+
+/*
+// Common constant
+
+generate cst = 1
+
+xtpmg d.logreer d.logfeer, ///
+lr(l.logreer logfeer cst) ec(ect) replace pmg full nocons
+
+cap drop ecT
+generate ecT = l.logreer - (_b[logfeer])*logfeer - 1.156936 
+
+cap drop check
+gen check = ect-ecT // equal to zero
+
+cap drop logreer_star
+gen logreer_star = (_b[logfeer])*logfeer + 1.156936
+
+xtline logreer logreer_star if country == "CHN"
+xtline logreer logreer_star if country == "ARG"
+xtline logreer logreer_star if country == "USA"
+
+// Filter
+
+tsfilter hp cycle_logfeer = logfeer, trend(trend_logfeer)
+
+xtline logfeer trend_logfeer cycle_logfeer ///
+ if country == "CHN"
+ 
+xtline logfeer trend_logfeer cycle_logfeer ///
+ if country == "ARG"
+ 
+xtline logfeer trend_logfeer cycle_logfeer ///
+ if country == "USA" 
+
+cap drop logreer_star_hp
+gen logreer_star_hp = (_b[logfeer])*trend_logfeer + 1.156936
+
+xtline logreer logreer_star_hp if country == "CHN"
+xtline logreer logreer_star_hp if country == "ARG"
+xtline logreer logreer_star_hp if country == "USA"
+
+//
+ */
 
 outreg2 using tables\results_cpmg_1, ///
 excel pvalue replace ///
