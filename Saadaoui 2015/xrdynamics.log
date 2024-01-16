@@ -1,8 +1,8 @@
-----------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
       name:  xrdynamics
        log:  C:\Users\jamel\Documents\GitHub\ResearchPapers\Saadaoui 2015\xrdynamics.log
   log type:  text
- opened on:  12 Jan 2024, 09:31:28
+ opened on:  14 Jan 2024, 13:38:04
 
 . 
 . *Import the data from Excel
@@ -59,79 +59,253 @@ Distribution of T_i:   min      5%     25%       50%       75%     95%     max
 . 
 end of do-file
 
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
+. do "C:\Users\jamel\AppData\Local\Temp\STD6e94_000000.tmp"
 
-. xtline logreer logreer_star if country == "CHN"
-variable logreer_star not found
-r(111);
+. xtpmg d.logreer d.logfeer, ///
+> lr(l.logreer logfeer) ec(ec) replace pmg full
 
+Iteration 0:  Log likelihood =  1163.0971  
+Iteration 1:  Log likelihood =  1169.4094  
+Iteration 2:  Log likelihood =  1169.8599  
+Iteration 3:  Log likelihood =  1169.8599  
+
+Pooled Mean Group Regression
+(Estimate results saved as PMG)
+
+Panel Variable (i): cn                          Number of obs      =       728
+Time Variable (t): datayear                     Number of groups   =        26
+                                                Obs per group: min =        28
+                                                               avg =      28.0
+                                                               max =        28
+
+                                                Log Likelihood     =   1169.86
+------------------------------------------------------------------------------
+   D.logreer | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ec           |
+     logfeer |   .6430313   .0622934    10.32   0.000     .5209384    .7651242
+-------------+----------------------------------------------------------------
+cn_1         |
+          ec |  -.2360765   .1256905    -1.88   0.060    -.4824253    .0102724
+             |
+     logfeer |
+         D1. |   .2837422   .1530462     1.85   0.064     -.016223    .5837073
+             |
+       _cons |   .4211581   .2346993     1.79   0.073    -.0388441    .8811603
+-------------+----------------------------------------------------------------
+cn_2         |
+          ec |  -.1191844   .0680656    -1.75   0.080    -.2525906    .0142217
+             |
+     logfeer |
+         D1. |  -.0153552   .0596062    -0.26   0.797    -.1321811    .1014707
+             |
+       _cons |   .1921652   .1208895     1.59   0.112    -.0447739    .4291043
+-------------+----------------------------------------------------------------
+cn_3         |
+          ec |  -.1979727   .0907916    -2.18   0.029     -.375921   -.0200245
+             |
+     logfeer |
+         D1. |   .0567338   .1818382     0.31   0.755    -.2996625    .4131302
+             |
+       _cons |   .3288789   .1706062     1.93   0.054    -.0055031    .6632608
+-------------+----------------------------------------------------------------
+cn_4         |
+          ec |  -.3145524   .0566905    -5.55   0.000    -.4256638    -.203441
+             |
+     logfeer |
+         D1. |  -.0091134     .08086    -0.11   0.910    -.1675961    .1493692
+             |
+       _cons |    .533818   .1333882     4.00   0.000      .272382     .795254
+-------------+----------------------------------------------------------------
+cn_5         |
+          ec |   -.513033   .0995045    -5.16   0.000    -.7080582   -.3180078
+             |
+     logfeer |
+         D1. |  -.2949917   .1135371    -2.60   0.009    -.5175204   -.0724631
+             |
+       _cons |   .8703244   .1971559     4.41   0.000     .4839059    1.256743
+-------------+----------------------------------------------------------------
+cn_6         |
+          ec |   .0525849   .0835738     0.63   0.529    -.1112168    .2163866
+             |
+     logfeer |
+         D1. |  -.0130016   .0934529    -0.14   0.889    -.1961659    .1701627
+             |
+       _cons |  -.0678677   .1345755    -0.50   0.614    -.3316309    .1958956
+-------------+----------------------------------------------------------------
+cn_7         |
+          ec |  -.1052722   .0598197    -1.76   0.078    -.2225166    .0119721
+             |
+     logfeer |
+         D1. |   .0164521   .1439855     0.11   0.909    -.2657543    .2986585
+             |
+       _cons |   .1710435     .10105     1.69   0.091     -.027011    .3690979
+-------------+----------------------------------------------------------------
+cn_8         |
+          ec |  -.0032133   .0671926    -0.05   0.962    -.1349084    .1284817
+             |
+     logfeer |
+         D1. |   .0024626   .0834395     0.03   0.976    -.1610759    .1660011
+             |
+       _cons |   .0066175   .1074026     0.06   0.951    -.2038877    .2171226
+-------------+----------------------------------------------------------------
+cn_9         |
+          ec |  -.0923703   .0887319    -1.04   0.298    -.2662816    .0815411
+             |
+     logfeer |
+         D1. |    .318432   .1178131     2.70   0.007     .0875226    .5493414
+             |
+       _cons |   .1524593   .1490816     1.02   0.306    -.1397353    .4446539
+-------------+----------------------------------------------------------------
+cn_10        |
+          ec |  -.0146074   .0440294    -0.33   0.740    -.1009033    .0716886
+             |
+     logfeer |
+         D1. |    .051184   .0582314     0.88   0.379    -.0629475    .1653155
+             |
+       _cons |   .0176248   .0714408     0.25   0.805    -.1223966    .1576463
+-------------+----------------------------------------------------------------
+cn_11        |
+          ec |  -.2046411   .0858242    -2.38   0.017    -.3728535   -.0364288
+             |
+     logfeer |
+         D1. |   .0541601   .1030799     0.53   0.599    -.1478729     .256193
+             |
+       _cons |   .3312871   .1429321     2.32   0.020     .0511453     .611429
+-------------+----------------------------------------------------------------
+cn_12        |
+          ec |  -.2574793   .0893237    -2.88   0.004    -.4325506   -.0824081
+             |
+     logfeer |
+         D1. |   .5602566   .1418017     3.95   0.000     .2823304    .8381828
+             |
+       _cons |   .4039731   .1395593     2.89   0.004     .1304419    .6775043
+-------------+----------------------------------------------------------------
+cn_13        |
+          ec |  -.1948842   .1234303    -1.58   0.114    -.4368031    .0470347
+             |
+     logfeer |
+         D1. |   .4906867   .1499483     3.27   0.001     .1967936    .7845799
+             |
+       _cons |   .3111683   .2029033     1.53   0.125    -.0865149    .7088515
+-------------+----------------------------------------------------------------
+cn_14        |
+          ec |   -.236722   .1307998    -1.81   0.070    -.4930849     .019641
+             |
+     logfeer |
+         D1. |   .3728104   .1414064     2.64   0.008     .0956589     .649962
+             |
+       _cons |   .3797279   .2195656     1.73   0.084    -.0506128    .8100686
+-------------+----------------------------------------------------------------
+cn_15        |
+          ec |  -.1163081   .1048748    -1.11   0.267    -.3218589    .0892427
+             |
+     logfeer |
+         D1. |   .8996652    .146454     6.14   0.000     .6126207     1.18671
+             |
+       _cons |   .2006476   .1822086     1.10   0.271    -.1564747    .5577699
+-------------+----------------------------------------------------------------
+cn_16        |
+          ec |  -.5017237   .1774268    -2.83   0.005    -.8494738   -.1539735
+             |
+     logfeer |
+         D1. |   .3937592   .2768535     1.42   0.155    -.1488637     .936382
+             |
+       _cons |   .8162058   .3196179     2.55   0.011     .1897662    1.442645
+-------------+----------------------------------------------------------------
+cn_17        |
+          ec |  -.2376875   .1104648    -2.15   0.031    -.4541945   -.0211804
+             |
+     logfeer |
+         D1. |   .6258089   .1541457     4.06   0.000      .323689    .9279288
+             |
+       _cons |   .3970974     .20681     1.92   0.055    -.0082428    .8024375
+-------------+----------------------------------------------------------------
+cn_18        |
+          ec |  -.1774995   .0537494    -3.30   0.001    -.2828463   -.0721526
+             |
+     logfeer |
+         D1. |   .6212611   .0709335     8.76   0.000      .482234    .7602881
+             |
+       _cons |   .2892848   .0835627     3.46   0.001      .125505    .4530646
+-------------+----------------------------------------------------------------
+cn_19        |
+          ec |  -.3694693   .1925893    -1.92   0.055    -.7469373    .0079987
+             |
+     logfeer |
+         D1. |   .1974048   .1313046     1.50   0.133    -.0599474     .454757
+             |
+       _cons |   .5947906   .3356861     1.77   0.076     -.063142    1.252723
+-------------+----------------------------------------------------------------
+cn_20        |
+          ec |  -.3694692   .1241473    -2.98   0.003    -.6127933    -.126145
+             |
+     logfeer |
+         D1. |    .263648    .102102     2.58   0.010     .0635317    .4637642
+             |
+       _cons |    .614332   .2334219     2.63   0.008     .1568335    1.071831
+-------------+----------------------------------------------------------------
+cn_21        |
+          ec |  -.0199662   .0205926    -0.97   0.332     -.060327    .0203945
+             |
+     logfeer |
+         D1. |   .1022261   .0361437     2.83   0.005     .0313857    .1730665
+             |
+       _cons |   .0234627    .034934     0.67   0.502    -.0450066     .091932
+-------------+----------------------------------------------------------------
+cn_22        |
+          ec |   .0301417   .0382111     0.79   0.430    -.0447506     .105034
+             |
+     logfeer |
+         D1. |  -.1216504   .0832579    -1.46   0.144    -.2848329    .0415322
+             |
+       _cons |   -.050522   .0631094    -0.80   0.423    -.1742141    .0731701
+-------------+----------------------------------------------------------------
+cn_23        |
+          ec |  -.2091442   .0912423    -2.29   0.022    -.3879758   -.0303126
+             |
+     logfeer |
+         D1. |  -.0042693   .0892268    -0.05   0.962    -.1791506     .170612
+             |
+       _cons |   .3388096   .1492231     2.27   0.023     .0463377    .6312816
+-------------+----------------------------------------------------------------
+cn_24        |
+          ec |  -.2422344   .1200855    -2.02   0.044    -.4775976   -.0068712
+             |
+     logfeer |
+         D1. |   .4628208   .0910136     5.09   0.000     .2844374    .6412042
+             |
+       _cons |   .4033607   .2060189     1.96   0.050     -.000429    .8071504
+-------------+----------------------------------------------------------------
+cn_25        |
+          ec |  -.4078112   .1267222    -3.22   0.001    -.6561821   -.1594403
+             |
+     logfeer |
+         D1. |   .1487307   .1284598     1.16   0.247     -.103046    .4005073
+             |
+       _cons |   .7002477   .2437276     2.87   0.004     .2225504    1.177945
+-------------+----------------------------------------------------------------
+cn_26        |
+          ec |  -.1143588    .072319    -1.58   0.114    -.2561014    .0273838
+             |
+     logfeer |
+         D1. |   .2979958   .1304101     2.29   0.022     .0423966    .5535949
+             |
+       _cons |   .1882795   .1264749     1.49   0.137    -.0596068    .4361658
+------------------------------------------------------------------------------
+
+. 
 end of do-file
 
-r(111);
+. xtline ec
 
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
+. do "C:\Users\jamel\AppData\Local\Temp\STD6e94_000000.tmp"
 
 . // Common constant
 . 
-. gen cst == 1
-== invalid name
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. gen cst == 1
-== invalid name
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. gen cst == 1
-== invalid name
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. generate cst == 1
-== invalid name
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtpmg d.logreer d.logfeer, ///
-> lr(l.logreer logfeer cst) ec(ect) replace pmg full nocons
-variable cst not found
-(error in option lr())
-r(111);
-
-end of do-file
-
-r(111);
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
 . generate cst = 1
 
 . 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
 . xtpmg d.logreer d.logfeer, ///
 > lr(l.logreer logfeer cst) ec(ect) replace pmg full nocons
 
@@ -322,162 +496,8 @@ cn_26        |
 (26 missing values generated)
 
 . 
-. cap drop check
-
-. gen check = ect-ecT // equal to zero
-(26 missing values generated)
-
-. 
-. cap drop logreer_star
-
-. gen logreer_star = (_b[logfeer])*logfeer + 1.156936
-
-. 
 end of do-file
 
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logreer logreer_star if country == "CHN"
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logreer logreer_star if country == "USA"
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logreer logreer_star if country == "ARG"
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logreer logreer_star if country == "USA"
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. // Filter
-. 
-. tsfilter hp cycle_logfeer = logfeer, trend(trend_logfeer)
-
-. 
-. xtline logfeer trend_logfeer cycle_logfeer if country == "CHN"
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logfeer trend_logfeer cycle_logfeer ///
->  if country == "CHN", legend(pos(9)) 
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logfeer trend_logfeer cycle_logfeer ///
->  if country == "CHN", legend(off) 
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logfeer trend_logfeer cycle_logfeer ///
->  if country == "CHN", legend(row(1)) 
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logfeer trend_logfeer cycle_logfeer ///
->  if country == "CHN", legend(pos(9)) 
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logfeer trend_logfeer cycle_logfeer ///
->  if country == "ARG"
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logfeer trend_logfeer cycle_logfeer ///
->  if country == "USA" 
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. 
-. xtline logfeer trend_logfeer cycle_logfeer ///
->  if country == "CHN"
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logfeer trend_logfeer cycle_logfeer ///
->  if country == "ARG"
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logfeer trend_logfeer cycle_logfeer ///
->  if country == "USA" 
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. cap drop logreer_star_hp
-
-. gen logreer_star_hp = (_b[logfeer])*trend_logfeer + 1.156936
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logreer logreer_star_hp if country == "CHN"
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logreer logreer_star_hp if country == "ARG"
-
-. 
-end of do-file
-
-. do "C:\Users\jamel\AppData\Local\Temp\STD208c_000000.tmp"
-
-. xtline logreer logreer_star_hp if country == "USA"
-
-. 
-end of do-file
-
-. xtline logreer logreer_star_hp
+. xtline ect
 
 . exit, clear

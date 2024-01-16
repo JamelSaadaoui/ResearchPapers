@@ -162,7 +162,7 @@ gen check = ect-ecT // equal to zero
 cap drop logreer_star
 gen logreer_star = (_b[logfeer])*logfeer + 1.156936
 
-xtline logreer logreer_star if country == "CHN"
+xtline logreer logreer_star if country == "FRA"
 xtline logreer logreer_star if country == "ARG"
 xtline logreer logreer_star if country == "USA"
 
@@ -171,7 +171,7 @@ xtline logreer logreer_star if country == "USA"
 tsfilter hp cycle_logfeer = logfeer, trend(trend_logfeer)
 
 xtline logfeer trend_logfeer cycle_logfeer ///
- if country == "CHN"
+ if country == "FRA"
  
 xtline logfeer trend_logfeer cycle_logfeer ///
  if country == "ARG"
@@ -182,9 +182,11 @@ xtline logfeer trend_logfeer cycle_logfeer ///
 cap drop logreer_star_hp
 gen logreer_star_hp = (_b[logfeer])*trend_logfeer + 1.156936
 
-xtline logreer logreer_star_hp if country == "CHN"
+set scheme stgcolor_alt
+
+xtline logreer logreer_star_hp if country == "FRA"
 xtline logreer logreer_star_hp if country == "ARG"
-xtline logreer logreer_star_hp if country == "USA"
+xtline logreer logreer_star_hp
 
 //
  */
