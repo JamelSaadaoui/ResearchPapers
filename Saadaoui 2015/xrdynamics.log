@@ -2855,3 +2855,4 @@ file data\xrdynamics.dta saved
 end of do-file
 
 
+. exit, clear
