@@ -38,6 +38,9 @@ gen Dc = d.c
 
 xtline Dc yhat if cn==24, name(yhat, replace)
 
+forval cn = 1/24 {
+xtline Dc yhat if cn==`cn', name(ecm_`cn', replace)
+}
 
 xtpmg d.c d.pi d.y if year>=1962, ///
 lr(l.c pi y) ec(ec) replace pmg full nocons
@@ -48,6 +51,8 @@ generate cst = 1
 
 xtpmg d.c d.pi d.y if year>=1962, ///
 lr(l.c pi y cst) ec(ect) replace pmg full nocons
+
+test _b[cst]==0
 
 cap drop ecT
 generate ecT = l.c - (_b[pi])*pi - (_b[y])*y - (_b[cst])*cst
@@ -70,6 +75,10 @@ gen c_star = (_b[pi])*pi + (_b[y])*y + (_b[cst])*cst
 
 xtline c c_star if cn==24, name(yhatLR, replace)
 
+forval cn = 1/24 {
+xtline c c_star if cn==`cn', name(pmg_`cn', replace)
+}
+
 // XTMG
 
 xtmg c pi y
@@ -77,6 +86,10 @@ xtmg c pi y
 cap drop yhatLR2
 predict yhatLR2
 xtline c yhatLR2 if cn==24, name(yhatLR2, replace)
+
+forval cn = 1/24 {
+xtline c yhatLR2 if cn==`cn', name(mg_`cn', replace)
+}
 
 exit
 
