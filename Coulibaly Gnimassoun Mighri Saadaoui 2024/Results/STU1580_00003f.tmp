@@ -1,0 +1,34 @@
+	(1)
+VARIABLES	OLS
+	
+LagRES_GDP_EWN	0.220
+	(0.223)
+curdepepisodes	8.382
+	(7.559)
+RESdepEp	-0.103
+	(0.358)
+GDPpcgrowth	-0.495*
+	(0.300)
+Govcons	-0.996***
+	(0.302)
+FINopen	38.378***
+	(5.384)
+TOPEN	-0.211***
+	(0.053)
+DCPSB_GDP	-0.403**
+	(0.166)
+democ	0.440
+	(0.545)
+Privcons	0.110
+	(0.109)
+GFCF_GDP	-0.701***
+	(0.243)
+Bmoneygrowth	-0.007
+	(0.142)
+Constant	40.776***
+	(14.795)
+	
+Observations	456
+R-squared	0.290
+Robust standard errors in parentheses	
+*** p<0.01, ** p<0.05, * p<0.1	

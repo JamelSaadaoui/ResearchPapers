@@ -1,0 +1,41 @@
+		(1)	(2)	(3)
+VARIABLES	LABELS	OLS	DK	2SLS
+				
+ldebtgdp	Lagged debt-to-GDP ratio	0.853***	0.781***	0.781***
+		(0.043)	(0.045)	(0.060)
+LagRES_GDP_EWN	Lagged FX Reserves (% GDP)	-0.100**	-0.104*	-0.097
+		(0.041)	(0.062)	(0.075)
+curdepepisodes	High depreciation episodes (HDE)	6.335***	7.547**	7.592***
+		(1.790)	(2.816)	(2.008)
+RESdepEp	Interaction HDE-Lagged FX Reserves	-0.133**	-0.142**	-0.145**
+		(0.057)	(0.065)	(0.059)
+GDPpcgrowth	GDP per capita growth	-0.771***	-0.756***	-0.756***
+		(0.111)	(0.144)	(0.130)
+Govcons	Government consumption exp. (% GDP)	0.377***	0.436**	0.439**
+		(0.122)	(0.179)	(0.223)
+FINopen	Financial openness	0.127***	0.052	0.050
+		(0.047)	(0.051)	(0.066)
+TOPEN	Trade openness	-0.031*	-0.111**	-0.111***
+		(0.017)	(0.041)	(0.040)
+DCPSB_GDP	Financial development	0.043	0.148	0.148*
+		(0.030)	(0.101)	(0.088)
+democ	Democracy index	0.265*	-0.009	-0.003
+		(0.142)	(0.362)	(0.324)
+Privcons	Households consumption exp. (% GDP)	0.023	-0.049	-0.048
+		(0.044)	(0.088)	(0.092)
+GFCF_GDP	Gross fixed capital formation (% GDP)	0.112	0.038	0.037
+		(0.073)	(0.118)	(0.110)
+Bmoneygrowth	Broad money growth	0.037	0.062	0.062
+		(0.059)	(0.066)	(0.064)
+Constant	Constant	-2.303	13.057	
+		(5.644)	(11.951)	
+				
+Observations		1,034	1,034	1,034
+R-squared		0.882		0.776
+Number of groups			45	
+Cross-sectional dependence			Yes	No
+Country FE			Yes	Yes
+Number of id				45
+Hansen J stat P-value				0.738
+Robust standard errors in parentheses				
+*** p<0.01, ** p<0.05, * p<0.1				

@@ -1,0 +1,39 @@
+		(1)	(2)	(3)	(4)	(5)
+VARIABLES	LABELS	OLS	OLS	OLS	DK	DK
+						
+LagRES_GDP_EWN	Lagged FX Reserves (% GDP)	-0.591***	-0.643***	-0.641***	-0.591***	-0.565***
+		(0.081)	(0.083)	(0.079)	(0.086)	(0.106)
+curdepepisodes	High depreciation episodes (HDE)	17.343***	15.351***	14.508***	17.343***	16.214***
+		(3.959)	(3.992)	(3.897)	(3.678)	(3.267)
+RESdepEp	Interaction HDE-Lagged FX Reserves	-0.610***	-0.578***	-0.539***	-0.610***	-0.334***
+		(0.156)	(0.157)	(0.147)	(0.117)	(0.074)
+GDPpcgrowth	GDP per capita growth	-0.837***	-0.930***	-0.979***	-0.837***	-0.748***
+		(0.287)	(0.290)	(0.289)	(0.272)	(0.270)
+Govcons	Government consumption exp. (% GDP)	2.248***	2.161***	2.147***	2.248***	0.722
+		(0.300)	(0.301)	(0.286)	(0.576)	(0.549)
+FINopen	Financial openness	1.192***	1.227***	1.125***	1.192***	0.708***
+		(0.121)	(0.120)	(0.118)	(0.242)	(0.107)
+TOPEN	Trade openness	-0.142***	-0.135***	-0.086**	-0.142**	-0.156
+		(0.040)	(0.040)	(0.039)	(0.070)	(0.105)
+DCPSB_GDP	Financial development	-0.248***	-0.324***	-0.320***	-0.248	-0.601**
+		(0.081)	(0.082)	(0.082)	(0.165)	(0.267)
+democ	Democracy index	2.689***	2.567***	2.677***	2.689***	-1.055
+		(0.471)	(0.472)	(0.461)	(0.715)	(1.095)
+Privcons	Households consumption exp. (% GDP)	0.231**	0.182*	0.252***	0.231*	0.178
+		(0.098)	(0.099)	(0.095)	(0.116)	(0.248)
+GFCF_GDP	Gross fixed capital formation (% GDP)	-0.158	-0.207	-0.309*	-0.158	-0.286
+		(0.186)	(0.189)	(0.187)	(0.310)	(0.362)
+Bmoneygrowth	Broad money growth	0.576***	0.525***	0.476***	0.576**	0.335*
+		(0.176)	(0.181)	(0.181)	(0.236)	(0.170)
+x1	CFA zone/Peg currency system		-9.154***	-15.035***		
+			(2.724)	(2.502)		
+Constant	Constant	-2.218	10.267	8.391	-2.218	72.001**
+		(13.729)	(14.507)	(13.635)	(17.892)	(28.770)
+						
+Observations		1,070	1,070	1,070	1,070	1,070
+R-squared		0.267	0.274	0.290	0.267	
+Number of groups					45	45
+Cross-sectional dependence					Yes	Yes
+Country FE					No	Yes
+Robust standard errors in parentheses						
+*** p<0.01, ** p<0.05, * p<0.1						
