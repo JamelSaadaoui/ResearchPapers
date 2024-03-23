@@ -7,6 +7,7 @@
  ## Coverage
 |Author|Title|Journal|Date|
 |:----|:----|:----|:----|
+|[Coulibaly Gnimassoun Mighri Saadaoui 2024]([https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Cai%20Mignon%20Saadaoui%202022](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Coulibaly%20Gnimassoun%20Mighri%20Saadaoui%202024)) |["International reserves, currency depreciation and public debt: New evidence of buffer effects in Africa"](https://doi.org/10.1016/j.ememar.2024.101130) | Emerging Markets Review | March 2024 |
 |[Cai Mignon Saadaoui 2022](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Cai%20Mignon%20Saadaoui%202022) |["Not all political relation shocks are alike: Assessing the impacts of US–China tensions on the oil market"](https://www.sciencedirect.com/science/article/pii/S0140988322003498) | Energy Economics | October 2022 |
 |[Ho Saadaoui 2022](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Ho%20and%20Saadaoui%202022) | ["Bank credit and economic growth: A dynamic threshold panel model for ASEAN countries"](https://doi.org/10.1016/j.inteco.2022.03.001) | International Economics | Aug 2022 |
 |[Ho Saadaoui 2021](https://github.com/JamelSaadaoui/ResearchPapers/blob/main/Ho%20and%20Saadaoui%202018) | ["Symmetric and asymmetric effects of exchange rates on money demand: empirical evidence from Vietnam"](https://doi.org/10.1080/00036846.2021.1888864) | Applied Economics | Feb 2021 |
