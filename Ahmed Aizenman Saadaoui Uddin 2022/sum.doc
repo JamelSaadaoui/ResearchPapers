@@ -1,0 +1,26 @@
+{\rtf1\fs24
+\trowd\trgaph75\trleft-75\intbl\trqc\clbrdrt\brdrs\cellx2160\clbrdrt\brdrs\cellx2736\clbrdrt\brdrs\cellx3744\clbrdrt\brdrs\cellx4608\clbrdrt\brdrs\cellx5616\clbrdrt\brdrs\cellx6480
+\ql \cell\qc (1)\cell\qc (2)\cell\qc (3)\cell\qc (4)\cell\qc (5)\cell\row
+\trowd\trgaph75\trleft-75\trqc\cellx2160\cellx2736\cellx3744\cellx4608\cellx5616\cellx6480
+\trowd\trgaph75\trleft-75\trqc\clbrdrb\brdrs\cellx2160\clbrdrb\brdrs\cellx2736\clbrdrb\brdrs\cellx3744\clbrdrb\brdrs\cellx4608\clbrdrb\brdrs\cellx5616\clbrdrb\brdrs\cellx6480
+\ql VARIABLES\cell\qc N\cell\qc mean\cell\qc sd\cell\qc min\cell\qc max\cell\row
+\trowd\trgaph75\trleft-75\trqc\cellx2160\cellx2736\cellx3744\cellx4608\cellx5616\cellx6480
+\ql \cell\qc \cell\qc \cell\qc \cell\qc \cell\qc \cell\row
+\ql dFX\cell\qc 124\cell\qc 16.57\cell\qc 57.14\cell\qc -33.99\cell\qc 606.8\cell\row
+\ql RESGDP2020\cell\qc 124\cell\qc 29.79\cell\qc 26.42\cell\qc 0.148\cell\qc 144.1\cell\row
+\ql RATE20q4\cell\qc 107\cell\qc 3.583\cell\qc 5.072\cell\qc -0.750\cell\qc 38\cell\row
+\ql dRATE22q2_21q2\cell\qc 96\cell\qc 1.612\cell\qc 3.106\cell\qc -5\cell\qc 15.85\cell\row
+\ql RGDP_PK_2019\cell\qc 124\cell\qc 24.96\cell\qc 32.06\cell\qc 0.789\cell\qc 143.5\cell\row
+\ql RPCPI_2019\cell\qc 116\cell\qc 128.2\cell\qc 52.57\cell\qc 84.46\cell\qc 433.6\cell\row
+\ql CAB_2019\cell\qc 120\cell\qc -1.937\cell\qc 8.564\cell\qc -34.36\cell\qc 33.90\cell\row
+\ql NIIP_19\cell\qc 120\cell\qc -9.697\cell\qc 153.2\cell\qc -271.2\cell\qc 914.8\cell\row
+\ql kaopen_2019\cell\qc 116\cell\qc 0.404\cell\qc 1.510\cell\qc -1.927\cell\qc 2.311\cell\row
+\ql ers_2019\cell\qc 116\cell\qc 0.605\cell\qc 0.286\cell\qc 0.0605\cell\qc 1\cell\row
+\ql FI_2019\cell\qc 119\cell\qc 0.467\cell\qc 0.197\cell\qc 0.0786\cell\qc 0.935\cell\row
+\ql OPEN_2019\cell\qc 115\cell\qc 90.44\cell\qc 56.20\cell\qc 26.45\cell\qc 353.8\cell\row
+\ql FUELX_2019\cell\qc 105\cell\qc 15.46\cell\qc 25.06\cell\qc 0\cell\qc 95.24\cell\row
+\ql FUELM_2019\cell\qc 108\cell\qc 13.84\cell\qc 7.211\cell\qc 0.528\cell\qc 33.96\cell\row
+\ql DEBT_2019\cell\qc 80\cell\qc 57.43\cell\qc 39.22\cell\qc 3.278\cell\qc 250.5\cell\row
+\trowd\trgaph75\trleft-75\trqc\trbrdrb\brdrs\clbrdrb\brdrs\cellx2160\clbrdrb\brdrs\cellx2736\clbrdrb\brdrs\cellx3744\clbrdrb\brdrs\cellx4608\clbrdrb\brdrs\cellx5616\clbrdrb\brdrs\cellx6480
+\ql \cell\qc \cell\qc \cell\qc \cell\qc \cell\qc \cell\row
+}

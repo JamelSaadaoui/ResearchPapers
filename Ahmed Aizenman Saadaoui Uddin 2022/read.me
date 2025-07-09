@@ -1,0 +1,41 @@
+On the effectiveness of foreign exchange reserves during the 2021-22 U.S. monetary tightening cycle
+Rashad Ahmed (a), Joshua Aizenman (b), Jamel Saadaoui (c), Gazi Salah Uddin (d)
+
+July 9th, 2025
+
+(a) Office of the Comptroller of the Currency, U.S. Dept. of the Treasury, United States
+(b) Dockson Chair in Economics and International Relations, University of Southern California, University Park, Los Angeles, CA 90089-0043, United States
+(c) University of Strasbourg, University of Lorraine, BETA, CNRS, Strasbourg, 67000, France
+(d) Department of Management & Engineering, Linköping University, Linköping SE-581 83, Sweden
+
+
+The estimations have been conducted with Stata/Now 19.5.
+
+Corresponding author for the archive: Jamel Saadaoui, jamelsaadaoui@gmail.com.
+
+***
+There is unique folder that replicate all the results in the paper.
+
+***
+The file "1-data_exploration.do" import the data using an API and the package DBnomics which has to be installed (ssc install dbnomics).
+It creates the file "cross-section-data-alt.dta" among other files.
+
+
+***
+The file "2-covariates.do" import the data using an API and the package DBnomics which has to be installed (ssc install dbnomics).
+It creates the file with all the other covariates "cross-section-data-22-alt-EL.dta" among other files.
+This file will be used for the estimations.
+
+***
+The file "3-estimates-EL-6.do" produces the estimates and the figures in the paper.
+It creates the file with all the other covariates "cross-section-data-22-alt-EL.dta" among other files.
+This file will be used for the estimations.
+
+
+***
+The file "4-3D plots EL.nb" is a Mathematica Notebook that reproduces the Figures in the Appendix.
+
+
+***
+
+We would like to thank Barbara Rossi and Yiru Wang for sharing their Stata codes.

@@ -1,0 +1,447 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  svarSn
+       log:  C:\Users\jamel\Dropbox\Latex\PROJECTS\24-09-commo-geopolitical-risks\Data and command\GPR\Sn\svarSn.log
+  log type:  text
+ opened on:  23 Oct 2024, 09:21:03
+
+. 
+. **#  ***** Analysing geopolitical risks on commo price *********
+. 
+. set scheme Cleanplots
+
+. graph set window fontface "Arial Narrow"
+
+. 
+. cls
+
+. clear
+
+. 
+. version 18.5
+
+. set more off
+
+. 
+. // Please change the path with your own folder
+. 
+. /*
+> cd "C:\Users\jamel\Dropbox\latex\PROJECTS"
+> cd "24-09-commo-geopolitical-risks"
+> cd "Data and command"
+> */
+. 
+. import excel data.xlsx,/*
+> */ sheet("Feuil1") firstrow clear
+(12 vars, 476 obs)
+
+. 
+. generate period = tm(1985m1) + _n-1
+
+. format %tm period
+
+. 
+. tsset period
+
+Time variable: period, 1985m1 to 2024m8
+        Delta: 1 month
+
+. 
+. des
+
+Contains data
+ Observations:           476                  
+    Variables:            13                  
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+GPR             double  %10.0g                GPR
+GPRT            double  %10.0g                GPRT
+GPRA            double  %10.0g                GPRA
+GECON           double  %10.0g                GECON
+GINF            double  %10.0g                GINF
+GRATE           double  %10.0g                GRATE
+Al              double  %10.0g                Al
+Cu              double  %10.0g                Cu
+Sn              double  %10.0g                Sn
+Ni              double  %10.0g                Ni
+Zn              double  %10.0g                Zn
+Pt              double  %10.0g                Pt
+period          float   %tm                   
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: period
+     Note: Dataset has changed since last saved.
+
+. 
+. *ssc install labvars
+. 
+. labvars GPR GPRT GPRA GECON GINF GRATE Al Cu Sn Ni Zn Pt ///
+>  "Geopolitical Risks" "Geopolitical Threats" ///
+>  "Geopolitical Acts" "Global Economic Conditions" ///
+>  "Global Inflation" "Global Interest Rates" ///
+>  "Aluminium Price" "Copper Price" ///
+>  "Tin Price" "Nickel Price" ///
+>  "Zinc Price" "Platinium Price"
+
+.  
+. tsline GPR GPRA GPRT, name(GPR, replace) 
+
+. tsline GECON d.GINF, name(ECO, replace) 
+
+. tsline Al Cu Sn Ni Zn Pt, name(CMO, replace) 
+
+. 
+. foreach i in GPR ECO CMO {
+  2.  gr dis `i' 
+  3.  gr export `i'.png, as(png) width(4000) replace
+  4.  }
+file GPR.png saved as PNG format
+file ECO.png saved as PNG format
+file CMO.png saved as PNG format
+
+. 
+. /* Source: 
+>  GECON: Review of Economics and Statistics, 104(4), July 2022, 828-844.
+>  GPR: American Economic Review, 112(4), 1194-1225.
+>  CMO: World Bank Commodity Price Data (The Pink Sheet)
+>  */
+. 
+. gen LGPR = log(GPR)
+
+. gen LGPRA = log(GPRA)
+
+. gen LGPRT = log(GPRT) 
+
+. gen LGINF = log(GINF) 
+(1 missing value generated)
+
+. gen LSn = log(Sn)
+
+.  
+. order period, first
+
+. 
+. save dataset.dta, replace
+file dataset.dta saved
+
+.            
+. matrix A = (1,0,0,0\.,1,0,0\.,.,1,0\.,.,.,1)
+
+. matlist A
+
+             |        c1         c2         c3         c4 
+-------------+-------------------------------------------
+          r1 |         1          0          0          0 
+          r2 |         .          1          0          0 
+          r3 |         .          .          1          0 
+          r4 |         .          .          .          1 
+
+. 
+. matrix B = (.,0,0,0\0,.,0,0\0,0,.,0\0,0,0,.) 
+
+. matlist B
+
+             |        c1         c2         c3         c4 
+-------------+-------------------------------------------
+          r1 |         .                                  
+          r2 |         0          .                       
+          r3 |         0          0          .            
+          r4 |         0          0          0          . 
+
+. 
+. varsoc LGPR GECON LGINF LSn, maxlag(12)
+
+Lag-order selection criteria
+
+   Sample: 1986m1 thru 2024m7                              Number of obs = 463
+  +---------------------------------------------------------------------------+
+  | Lag |    LL      LR      df    p     FPE       AIC      HQIC      SBIC    |
+  |-----+---------------------------------------------------------------------|
+  |   0 | -1013.46                     .000952   4.39508   4.40915   4.43083  |
+  |   1 |  2769.84  7566.6   16  0.000 8.2e-11  -11.8784   -11.808  -11.6996  |
+  |   2 |  2935.23  330.78   16  0.000 4.3e-11  -12.5237   -12.397* -12.2019* |
+  |   3 |  2952.58  34.703   16  0.004 4.3e-11* -12.5295* -12.3466  -12.0648  |
+  |   4 |  2966.75  28.344   16  0.029 4.3e-11  -12.5216  -12.2824  -11.9139  |
+  |   5 |  2982.36  31.207   16  0.013 4.3e-11  -12.5199  -12.2244  -11.7692  |
+  |   6 |  2992.92  21.119   16  0.174 4.4e-11  -12.4964  -12.1446  -11.6027  |
+  |   7 |  3001.03  16.235   16  0.437 4.6e-11  -12.4624  -12.0542  -11.4257  |
+  |   8 |  3015.87  29.664   16  0.020 4.6e-11  -12.4573  -11.9929  -11.2777  |
+  |   9 |   3021.1  10.468   16  0.841 4.8e-11  -12.4108  -11.8901  -11.0882  |
+  |  10 |  3025.39  8.5873   16  0.929 5.0e-11  -12.3602  -11.7833  -10.8946  |
+  |  11 |  3044.51  38.224   16  0.001 5.0e-11  -12.3737  -11.7404  -10.7651  |
+  |  12 |  3058.38  27.747*  16  0.034 5.0e-11  -12.3645  -11.6749  -10.6129  |
+  +---------------------------------------------------------------------------+
+   * optimal lag
+   Endogenous: LGPR GECON LGINF LSn
+    Exogenous: _cons
+
+. 
+. svar LGPR GECON LGINF LSn, aeq(A) beq(B) ///
+> lags(1/12) 
+Estimating short-run parameters
+
+Iteration 0:  Log likelihood = -2173.7865  
+Iteration 1:  Log likelihood = -628.39369  
+Iteration 2:  Log likelihood =  110.95332  
+Iteration 3:  Log likelihood =  757.10683  
+Iteration 4:  Log likelihood =  2104.6594  
+Iteration 5:  Log likelihood =  2544.5397  
+Iteration 6:  Log likelihood =  2976.9442  
+Iteration 7:  Log likelihood =  3052.2481  
+Iteration 8:  Log likelihood =  3058.3621  
+Iteration 9:  Log likelihood =  3058.3789  
+Iteration 10: Log likelihood =  3058.3789  
+
+Structural vector autoregression
+
+ ( 1)  [/A]1_1 = 1
+ ( 2)  [/A]1_2 = 0
+ ( 3)  [/A]1_3 = 0
+ ( 4)  [/A]1_4 = 0
+ ( 5)  [/A]2_2 = 1
+ ( 6)  [/A]2_3 = 0
+ ( 7)  [/A]2_4 = 0
+ ( 8)  [/A]3_3 = 1
+ ( 9)  [/A]3_4 = 0
+ (10)  [/A]4_4 = 1
+ (11)  [/B]1_2 = 0
+ (12)  [/B]1_3 = 0
+ (13)  [/B]1_4 = 0
+ (14)  [/B]2_1 = 0
+ (15)  [/B]2_3 = 0
+ (16)  [/B]2_4 = 0
+ (17)  [/B]3_1 = 0
+ (18)  [/B]3_2 = 0
+ (19)  [/B]3_4 = 0
+ (20)  [/B]4_1 = 0
+ (21)  [/B]4_2 = 0
+ (22)  [/B]4_3 = 0
+
+Sample: 1986m1 thru 2024m7                      Number of obs     =        463
+Exactly identified model                        Log likelihood    =   3058.379
+
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+/A           |
+         1_1 |          1  (constrained)
+         2_1 |   .1777624   .0706952     2.51   0.012     .0392023    .3163224
+         3_1 |  -.0007431   .0003229    -2.30   0.021     -.001376   -.0001102
+         4_1 |  -.0033283   .0116248    -0.29   0.775    -.0261125    .0194559
+         1_2 |          0  (constrained)
+         2_2 |          1  (constrained)
+         3_2 |   -.000986   .0002108    -4.68   0.000    -.0013993   -.0005728
+         4_2 |  -.0269253   .0077235    -3.49   0.000     -.042063   -.0117876
+         1_3 |          0  (constrained)
+         2_3 |          0  (constrained)
+         3_3 |          1  (constrained)
+         4_3 |  -4.853339   1.663562    -2.92   0.004     -8.11386   -1.592818
+         1_4 |          0  (constrained)
+         2_4 |          0  (constrained)
+         3_4 |          0  (constrained)
+         4_4 |          1  (constrained)
+-------------+----------------------------------------------------------------
+/B           |
+         1_1 |   .2056382   .0067577    30.43   0.000     .1923934     .218883
+         2_1 |          0  (constrained)
+         3_1 |          0  (constrained)
+         4_1 |          0  (constrained)
+         1_2 |          0  (constrained)
+         2_2 |   .3128126   .0102797    30.43   0.000     .2926649    .3329604
+         3_2 |          0  (constrained)
+         4_2 |          0  (constrained)
+         1_3 |          0  (constrained)
+         2_3 |          0  (constrained)
+         3_3 |   .0014192   .0000466    30.43   0.000     .0013278    .0015106
+         4_3 |          0  (constrained)
+         1_4 |          0  (constrained)
+         2_4 |          0  (constrained)
+         3_4 |          0  (constrained)
+         4_4 |   .0508002   .0016694    30.43   0.000     .0475282    .0540721
+------------------------------------------------------------------------------
+
+. 
+. /* compute the inv(B)*A matrix */
+. matrix A=e(A)
+
+. matrix B=e(B)
+
+. matrix BA = inv(B)*A
+
+. /* compute reduced form epsilon_t residuals */
+. var LGPR GECON LGINF LSn
+
+Vector autoregression
+
+Sample: 1985m3 thru 2024m7                      Number of obs     =        473
+Log likelihood =   2998.516                     AIC               =   -12.5265
+FPE            =   4.27e-11                     HQIC              =  -12.40199
+Det(Sigma_ml)  =   3.66e-11                     SBIC              =  -12.20995
+
+Equation           Parms      RMSE     R-sq      chi2     P>chi2
+----------------------------------------------------------------
+LGPR                  9     .218471   0.5925   687.8273   0.0000
+GECON                 9     .337646   0.4771   431.5854   0.0000
+LGINF                 9     .001626   1.0000   3.79e+07   0.0000
+LSn                   9     .055651   0.9928   65447.45   0.0000
+----------------------------------------------------------------
+
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+LGPR         |
+        LGPR |
+         L1. |   .7317487   .0463984    15.77   0.000     .6408095    .8226879
+         L2. |   .0460518   .0462515     1.00   0.319    -.0445995    .1367031
+             |
+       GECON |
+         L1. |   .0113019   .0303994     0.37   0.710    -.0482797    .0708835
+         L2. |   -.020408     .02965    -0.69   0.491    -.0785209    .0377048
+             |
+       LGINF |
+         L1. |   1.080334   4.684696     0.23   0.818    -8.101501    10.26217
+         L2. |  -1.074012   4.664612    -0.23   0.818    -10.21648     8.06846
+             |
+         LSn |
+         L1. |  -.0536744   .1756025    -0.31   0.760     -.397849    .2905003
+         L2. |    .053398   .1745596     0.31   0.760    -.2887326    .3955285
+             |
+       _cons |   .9816827   .2116748     4.64   0.000     .5668077    1.396558
+-------------+----------------------------------------------------------------
+GECON        |
+        LGPR |
+         L1. |   .0885937   .0717085     1.24   0.217    -.0519524    .2291398
+         L2. |   -.095741   .0714815    -1.34   0.180    -.2358421      .04436
+             |
+       GECON |
+         L1. |    .683807    .046982    14.55   0.000     .5917239    .7758901
+         L2. |  -.0365654   .0458238    -0.80   0.425    -.1263785    .0532477
+             |
+       LGINF |
+         L1. |  -18.09387   7.240174    -2.50   0.012    -32.28435   -3.903386
+         L2. |   17.94011   7.209135     2.49   0.013     3.810466    32.06975
+             |
+         LSn |
+         L1. |   .4719192   .2713928     1.74   0.082    -.0600009    1.003839
+         L2. |  -.4652278    .269781    -1.72   0.085    -.9939888    .0635332
+             |
+       _cons |   .7305802   .3271423     2.23   0.026      .089393    1.371767
+-------------+----------------------------------------------------------------
+LGINF        |
+        LGPR |
+         L1. |  -.0000415   .0003454    -0.12   0.904    -.0007185    .0006355
+         L2. |  -.0001079   .0003443    -0.31   0.754    -.0007828    .0005669
+             |
+       GECON |
+         L1. |   .0006086   .0002263     2.69   0.007      .000165    .0010521
+         L2. |   -.000731   .0002207    -3.31   0.001    -.0011636   -.0002984
+             |
+       LGINF |
+         L1. |   1.654699    .034874    47.45   0.000     1.586347    1.723051
+         L2. |   -.656251   .0347245   -18.90   0.000    -.7243097   -.5881923
+             |
+         LSn |
+         L1. |   .0010816   .0013072     0.83   0.408    -.0014805    .0036438
+         L2. |  -.0007723   .0012995    -0.59   0.552    -.0033192    .0017746
+             |
+       _cons |   .0060251   .0015758     3.82   0.000     .0029366    .0091135
+-------------+----------------------------------------------------------------
+LSn          |
+        LGPR |
+         L1. |   .0195878    .011819     1.66   0.097    -.0035771    .0427527
+         L2. |  -.0200993   .0117816    -1.71   0.088    -.0431909    .0029923
+             |
+       GECON |
+         L1. |   .0127468   .0077436     1.65   0.100    -.0024304     .027924
+         L2. |   .0001047   .0075527     0.01   0.989    -.0146983    .0149078
+             |
+       LGINF |
+         L1. |  -1.706379   1.193331    -1.43   0.153    -4.045264    .6325064
+         L2. |   1.720199   1.188215     1.45   0.148    -.6086587    4.049058
+             |
+         LSn |
+         L1. |   1.307616   .0447312    29.23   0.000     1.219945    1.395288
+         L2. |  -.3186699   .0444655    -7.17   0.000    -.4058207   -.2315191
+             |
+       _cons |   .0503517   .0539198     0.93   0.350    -.0553292    .1560327
+------------------------------------------------------------------------------
+
+. capture drop epsilon*
+
+. predict double epsilon1,residual eq(#1)
+(2 missing values generated)
+
+. predict double epsilon2,residual eq(#2)
+(2 missing values generated)
+
+. predict double epsilon3,residual eq(#3)
+(3 missing values generated)
+
+. predict double epsilon4,residual eq(#4)
+(2 missing values generated)
+
+. /* store the epsilon* variables in the epsilon matrix */
+. mkmat epsilon*, matrix(epsilon) 
+
+. /* compute e_t matrix of structural shocks */
+. matrix e = (BA*epsilon')'
+
+. /* store columns of e as variables e1, e2, and e3 */  
+. svmat double e
+
+. 
+. label variable epsilon1 "Reduced-form shocks Sn - GPR"
+
+. label variable e1 "Structural shocks Sn - GPR"
+
+. 
+. **# Plot the shocks
+. twoway (tsline e1) ///
+>  (tsline epsilon1, yaxis(1)), ///
+>  name(G1Sn, replace) legend(position(6)) ///
+>  graphregion(margin(r+5))
+
+.  
+. graph export "G1Sn.png", as(png) width(4000) replace
+file G1Sn.png saved as PNG format
+
+. 
+. irf set comparemodels.irf, replace
+(file comparemodels.irf created)
+(file comparemodels.irf now active)
+
+. quietly lpirf GECON LGINF LSn, step(50) lags(1/12) ///
+>   exog(L(0/12).e1) vce(robust)
+
+. irf create lpmodel 
+(file comparemodels.irf updated)
+
+. 
+. /*
+> quietly var GECON LGINF LSn, lags(1/12) ///
+>   exog(L(0/12).e1)
+> irf create varmodel, step(50)
+> */
+. 
+. irf graph dm, impulse(e1) response(LSn) ///
+>   irf(lpmodel) level(95) ///
+>   xlabel(0(12)48,grid) name(G2Sn, replace) ///
+>   xsize(4)
+
+.         
+. graph export "G2Sn.png", as(png) width(4000) replace
+file G2Sn.png saved as PNG format
+
+. 
+. save datasetSn.dta, replace
+file datasetSn.dta saved
+
+. 
+. ****************************************************************
+. 
+. log close _all
+      name:  svarSn
+       log:  C:\Users\jamel\Dropbox\Latex\PROJECTS\24-09-commo-geopolitical-risks\Data and command\GPR\Sn\svarSn.log
+  log type:  text
+ closed on:  23 Oct 2024, 09:21:22
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
