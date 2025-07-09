@@ -15,7 +15,7 @@ clear
 *cd "${Estimates}"
 
 capture log close _all                                
-log using estimates.log, name(estimates) text replace
+log using estimates.smcl, name(estimates) smcl replace
 
 use   cross-section-data-22-alt-EL.dta, clear
 

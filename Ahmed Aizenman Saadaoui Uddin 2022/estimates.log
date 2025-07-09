@@ -1,67 +1,81 @@
-----------------------------------------------------------------------------------------------
-      name:  estimates
-       log:  C:\Users\jamel\Dropbox\Latex\PROJECTS\22-12-reer-tot-res-pm\Archive\Data\estimate
-> s.log
-  log type:  text
- opened on:   9 Jul 2025, 10:49:24
-
-. 
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}estimates
+       {txt}log:  {res}C:\Users\jamel\Dropbox\Latex\PROJECTS\22-12-reer-tot-res-pm\Archive\estimates.log
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 9 Jul 2025, 16:15:36
+{txt}
+{com}. 
 . use   cross-section-data-22-alt-EL.dta, clear
-
+{txt}
+{com}. 
 . 
-. 
-. **# Fig. 2. Cross-country distribution of FX depreciation from May 2021 to September 2022. N
-> ote: FX depreciation on the y-axis corresponds to the percent depreciation against the US do
-> llar.
+. **# Fig. 2. Cross-country distribution of FX depreciation from May 2021 to September 2022. Note: FX depreciation on the y-axis corresponds to the percent depreciation against the US dollar.
 . 
 . set scheme stcolor
-
-. 
+{txt}
+{com}. 
 . graph bar dFX if dFX>0 & dFX<100,                                               ///
 >       over(country, label(angle(90)                                             ///
->           labsize(vsmall))                                                                  
->     ///
+>           labsize(vsmall))                                                                      ///
 >           gap(25) sort(1) descending)                                           ///
 >           ytitle(FX Depreciation (%)) xsize(8)
+{res}{txt}
+{com}.           graph rename fx_depre, replace
+{txt}(note: graph fx_depre not found)
 
-.           graph rename fx_depre, replace
-
-. 
+{com}. 
 . graph export fx_depre.png, replace
-(file fx_depre.png not found)
-file fx_depre.png saved as PNG format
+{txt}{p 0 4 2}
+file {bf}
+fx_depre.png{rm}
+saved as
+PNG
+format
+{p_end}
 
-. graph export fx_depre.pdf, replace
-file fx_depre.pdf saved as PDF format
+{com}. graph export fx_depre.pdf, replace
+{txt}{p 0 4 2}
+file {bf}
+fx_depre.pdf{rm}
+saved as
+PDF
+format
+{p_end}
 
-. graph export fx_depre.tif, width(4000) replace
-(file fx_depre.tif not found)
-file fx_depre.tif saved as TIFF format
+{com}. graph export fx_depre.tif, width(4000) replace
+{txt}{p 0 4 2}
+file {bf}
+fx_depre.tif{rm}
+saved as
+TIFF
+format
+{p_end}
 
-. 
+{com}. 
 . **# Table 1. Dependent variable: FX change from May 2021 - Sep 2022 (%), depreciations only
 . 
 . reg       dFX RESGDP2020                      ///
 >               if dFX>0 & dFX<100                  ///
 >               , robust
 
-Linear regression                               Number of obs     =         84
-                                                F(1, 82)          =      12.37
-                                                Prob > F          =     0.0007
-                                                R-squared         =     0.0909
-                                                Root MSE          =     16.155
+{txt}Linear regression                               Number of obs     = {res}        84
+                                                {txt}F(1, 82)          =  {res}    12.37
+                                                {txt}Prob > F          = {res}    0.0007
+                                                {txt}R-squared         = {res}    0.0909
+                                                {txt}Root MSE          =    {res} 16.155
 
-------------------------------------------------------------------------------
-             |               Robust
-         dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-  RESGDP2020 |  -.1778438   .0505715    -3.52   0.001    -.2784465    -.077241
-       _cons |   23.36365   3.028035     7.72   0.000     17.33993    29.38738
-------------------------------------------------------------------------------
-
-. estimate  store dfx_1_EL
-
-.                   
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}         dFX{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 2}RESGDP2020 {c |}{col 14}{res}{space 2}-.1778438{col 26}{space 2} .0505715{col 37}{space 1}   -3.52{col 46}{space 3}0.001{col 54}{space 4}-.2784465{col 67}{space 3} -.077241
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 23.36365{col 26}{space 2} 3.028035{col 37}{space 1}    7.72{col 46}{space 3}0.000{col 54}{space 4} 17.33993{col 67}{space 3} 29.38738
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfx_1_EL
+{txt}
+{com}.                   
 . reg       dFX RESGDP2020 c.RATE20q4                          ///
 >           dRATE22q2_21q2                                     ///
 >           RGDP_PK_2019 RPCPI_2019 CAB_2019                   ///
@@ -70,33 +84,33 @@ Linear regression                               Number of obs     =         84
 >               if dFX>0 & dFX<100                                 ///
 >               , robust
 
-Linear regression                               Number of obs     =         52
-                                                F(11, 40)         =       1.85
-                                                Prob > F          =     0.0764
-                                                R-squared         =     0.2304
-                                                Root MSE          =      10.25
+{txt}Linear regression                               Number of obs     = {res}        52
+                                                {txt}F(11, 40)         =  {res}     1.85
+                                                {txt}Prob > F          = {res}    0.0764
+                                                {txt}R-squared         = {res}    0.2304
+                                                {txt}Root MSE          =    {res}  10.25
 
---------------------------------------------------------------------------------
-               |               Robust
-           dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
----------------+----------------------------------------------------------------
-    RESGDP2020 |  -.1733842   .0757074    -2.29   0.027    -.3263946   -.0203739
-      RATE20q4 |  -.3481243   .4323222    -0.81   0.425     -1.22188    .5256315
-dRATE22q2_21q2 |   .1886991   .4983639     0.38   0.707    -.8185319     1.19593
-  RGDP_PK_2019 |   .0332558   .0411133     0.81   0.423    -.0498372    .1163489
-    RPCPI_2019 |  -.0204263   .0421593    -0.48   0.631    -.1056335    .0647808
-      CAB_2019 |   .1520929   .2329816     0.65   0.518    -.3187805    .6229663
-       NIIP_19 |   .0016206   .0151215     0.11   0.915    -.0289411    .0321823
-      ers_2019 |  -10.30334   8.701386    -1.18   0.243     -27.8895    7.282813
-     OPEN_2019 |   .0324084    .051404     0.63   0.532     -.071483    .1362998
-    FUELX_2019 |    -.10799   .0876247    -1.23   0.225    -.2850863    .0691062
-    FUELM_2019 |  -.0215901   .2167147    -0.10   0.921     -.459587    .4164067
-         _cons |   24.99821   7.743905     3.23   0.002     9.347197    40.64923
---------------------------------------------------------------------------------
-
-. estimate  store dfx_2_EL
-
-. 
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1}           dFX{col 16}{c |} Coefficient{col 28}  std. err.{col 40}      t{col 48}   P>|t|{col 56}     [95% con{col 69}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 4}RESGDP2020 {c |}{col 16}{res}{space 2}-.1733842{col 28}{space 2} .0757074{col 39}{space 1}   -2.29{col 48}{space 3}0.027{col 56}{space 4}-.3263946{col 69}{space 3}-.0203739
+{txt}{space 6}RATE20q4 {c |}{col 16}{res}{space 2}-.3481243{col 28}{space 2} .4323222{col 39}{space 1}   -0.81{col 48}{space 3}0.425{col 56}{space 4} -1.22188{col 69}{space 3} .5256315
+{txt}dRATE22q2_21q2 {c |}{col 16}{res}{space 2} .1886991{col 28}{space 2} .4983639{col 39}{space 1}    0.38{col 48}{space 3}0.707{col 56}{space 4}-.8185319{col 69}{space 3}  1.19593
+{txt}{space 2}RGDP_PK_2019 {c |}{col 16}{res}{space 2} .0332558{col 28}{space 2} .0411133{col 39}{space 1}    0.81{col 48}{space 3}0.423{col 56}{space 4}-.0498372{col 69}{space 3} .1163489
+{txt}{space 4}RPCPI_2019 {c |}{col 16}{res}{space 2}-.0204263{col 28}{space 2} .0421593{col 39}{space 1}   -0.48{col 48}{space 3}0.631{col 56}{space 4}-.1056335{col 69}{space 3} .0647808
+{txt}{space 6}CAB_2019 {c |}{col 16}{res}{space 2} .1520929{col 28}{space 2} .2329816{col 39}{space 1}    0.65{col 48}{space 3}0.518{col 56}{space 4}-.3187805{col 69}{space 3} .6229663
+{txt}{space 7}NIIP_19 {c |}{col 16}{res}{space 2} .0016206{col 28}{space 2} .0151215{col 39}{space 1}    0.11{col 48}{space 3}0.915{col 56}{space 4}-.0289411{col 69}{space 3} .0321823
+{txt}{space 6}ers_2019 {c |}{col 16}{res}{space 2}-10.30334{col 28}{space 2} 8.701386{col 39}{space 1}   -1.18{col 48}{space 3}0.243{col 56}{space 4} -27.8895{col 69}{space 3} 7.282813
+{txt}{space 5}OPEN_2019 {c |}{col 16}{res}{space 2} .0324084{col 28}{space 2}  .051404{col 39}{space 1}    0.63{col 48}{space 3}0.532{col 56}{space 4} -.071483{col 69}{space 3} .1362998
+{txt}{space 4}FUELX_2019 {c |}{col 16}{res}{space 2}  -.10799{col 28}{space 2} .0876247{col 39}{space 1}   -1.23{col 48}{space 3}0.225{col 56}{space 4}-.2850863{col 69}{space 3} .0691062
+{txt}{space 4}FUELM_2019 {c |}{col 16}{res}{space 2}-.0215901{col 28}{space 2} .2167147{col 39}{space 1}   -0.10{col 48}{space 3}0.921{col 56}{space 4} -.459587{col 69}{space 3} .4164067
+{txt}{space 9}_cons {c |}{col 16}{res}{space 2} 24.99821{col 28}{space 2} 7.743905{col 39}{space 1}    3.23{col 48}{space 3}0.002{col 56}{space 4} 9.347197{col 69}{space 3} 40.64923
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfx_2_EL
+{txt}
+{com}. 
 . reg       dFX RESGDP2020 c.RESGDP2020#c.FI_2019                                   ///
 >           RATE20q4 c.RATE20q4#c.kaopen_2019                       ///
 >           dRATE22q2_21q2                                          ///
@@ -106,39 +120,39 @@ dRATE22q2_21q2 |   .1886991   .4983639     0.38   0.707    -.8185319     1.19593
 >               if dFX>0 & dFX<100                                      ///
 >               , robust
 
-Linear regression                               Number of obs     =         51
-                                                F(13, 37)         =       1.57
-                                                Prob > F          =     0.1392
-                                                R-squared         =     0.2716
-                                                Root MSE          =     10.317
+{txt}Linear regression                               Number of obs     = {res}        51
+                                                {txt}F(13, 37)         =  {res}     1.57
+                                                {txt}Prob > F          = {res}    0.1392
+                                                {txt}R-squared         = {res}    0.2716
+                                                {txt}Root MSE          =    {res} 10.317
 
-------------------------------------------------------------------------------------------
-                         |               Robust
-                     dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------------------+----------------------------------------------------------------
-              RESGDP2020 |  -.4474491   .1906886    -2.35   0.024    -.8338209   -.0610773
-                         |
-  c.RESGDP2020#c.FI_2019 |   .3400097   .2066278     1.65   0.108     -.078658    .7586773
-                         |
-                RATE20q4 |  -.8955765   .7172229    -1.25   0.220    -2.348808    .5576551
-                         |
-c.RATE20q4#c.kaopen_2019 |  -.4343027   .4778347    -0.91   0.369    -1.402488    .5338824
-                         |
-          dRATE22q2_21q2 |   .2441697   .5617184     0.43   0.666      -.89398    1.382319
-            RGDP_PK_2019 |   -.016332    .052036    -0.31   0.755     -.121767    .0891031
-              RPCPI_2019 |   -.034782   .0436055    -0.80   0.430    -.1231351    .0535711
-                CAB_2019 |   -.080691   .3095326    -0.26   0.796    -.7078636    .5464816
-                 NIIP_19 |   .0089255   .0162648     0.55   0.586      -.02403    .0418811
-                ers_2019 |  -4.564181   9.548932    -0.48   0.635    -23.91216    14.78379
-               OPEN_2019 |   .0339407   .0541948     0.63   0.535    -.0758684    .1437498
-              FUELX_2019 |  -.0566927   .0930288    -0.61   0.546    -.2451871    .1318016
-              FUELM_2019 |   .0711362   .3362508     0.21   0.834    -.6101725    .7524449
-                   _cons |   26.63997   9.128128     2.92   0.006     8.144622    45.13531
-------------------------------------------------------------------------------------------
-
-. estimate  store dfx_3_EL
-
-. 
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}                     dFX{col 26}{c |} Coefficient{col 38}  std. err.{col 50}      t{col 58}   P>|t|{col 66}     [95% con{col 79}f. interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 14}RESGDP2020 {c |}{col 26}{res}{space 2}-.4474491{col 38}{space 2} .1906886{col 49}{space 1}   -2.35{col 58}{space 3}0.024{col 66}{space 4}-.8338209{col 79}{space 3}-.0610773
+{txt}{space 24} {c |}
+{space 2}c.RESGDP2020#c.FI_2019 {c |}{col 26}{res}{space 2} .3400097{col 38}{space 2} .2066278{col 49}{space 1}    1.65{col 58}{space 3}0.108{col 66}{space 4} -.078658{col 79}{space 3} .7586773
+{txt}{space 24} {c |}
+{space 16}RATE20q4 {c |}{col 26}{res}{space 2}-.8955765{col 38}{space 2} .7172229{col 49}{space 1}   -1.25{col 58}{space 3}0.220{col 66}{space 4}-2.348808{col 79}{space 3} .5576551
+{txt}{space 24} {c |}
+c.RATE20q4#c.kaopen_2019 {c |}{col 26}{res}{space 2}-.4343027{col 38}{space 2} .4778347{col 49}{space 1}   -0.91{col 58}{space 3}0.369{col 66}{space 4}-1.402488{col 79}{space 3} .5338824
+{txt}{space 24} {c |}
+{space 10}dRATE22q2_21q2 {c |}{col 26}{res}{space 2} .2441697{col 38}{space 2} .5617184{col 49}{space 1}    0.43{col 58}{space 3}0.666{col 66}{space 4}  -.89398{col 79}{space 3} 1.382319
+{txt}{space 12}RGDP_PK_2019 {c |}{col 26}{res}{space 2} -.016332{col 38}{space 2}  .052036{col 49}{space 1}   -0.31{col 58}{space 3}0.755{col 66}{space 4} -.121767{col 79}{space 3} .0891031
+{txt}{space 14}RPCPI_2019 {c |}{col 26}{res}{space 2} -.034782{col 38}{space 2} .0436055{col 49}{space 1}   -0.80{col 58}{space 3}0.430{col 66}{space 4}-.1231351{col 79}{space 3} .0535711
+{txt}{space 16}CAB_2019 {c |}{col 26}{res}{space 2} -.080691{col 38}{space 2} .3095326{col 49}{space 1}   -0.26{col 58}{space 3}0.796{col 66}{space 4}-.7078636{col 79}{space 3} .5464816
+{txt}{space 17}NIIP_19 {c |}{col 26}{res}{space 2} .0089255{col 38}{space 2} .0162648{col 49}{space 1}    0.55{col 58}{space 3}0.586{col 66}{space 4}  -.02403{col 79}{space 3} .0418811
+{txt}{space 16}ers_2019 {c |}{col 26}{res}{space 2}-4.564181{col 38}{space 2} 9.548932{col 49}{space 1}   -0.48{col 58}{space 3}0.635{col 66}{space 4}-23.91216{col 79}{space 3} 14.78379
+{txt}{space 15}OPEN_2019 {c |}{col 26}{res}{space 2} .0339407{col 38}{space 2} .0541948{col 49}{space 1}    0.63{col 58}{space 3}0.535{col 66}{space 4}-.0758684{col 79}{space 3} .1437498
+{txt}{space 14}FUELX_2019 {c |}{col 26}{res}{space 2}-.0566927{col 38}{space 2} .0930288{col 49}{space 1}   -0.61{col 58}{space 3}0.546{col 66}{space 4}-.2451871{col 79}{space 3} .1318016
+{txt}{space 14}FUELM_2019 {c |}{col 26}{res}{space 2} .0711362{col 38}{space 2} .3362508{col 49}{space 1}    0.21{col 58}{space 3}0.834{col 66}{space 4}-.6101725{col 79}{space 3} .7524449
+{txt}{space 19}_cons {c |}{col 26}{res}{space 2} 26.63997{col 38}{space 2} 9.128128{col 49}{space 1}    2.92{col 58}{space 3}0.006{col 66}{space 4} 8.144622{col 79}{space 3} 45.13531
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfx_3_EL
+{txt}
+{com}. 
 . stepwise, pr(.2):                                                 ///
 > reg       dFX RESGDP2020 c.RESGDP2020#c.FI_2019                                   ///
 >           RATE20q4 c.RATE20q4#c.kaopen_2019                       ///
@@ -148,42 +162,45 @@ c.RATE20q4#c.kaopen_2019 |  -.4343027   .4778347    -0.91   0.369    -1.402488  
 >               FUELX_2019 FUELM_2019                                   ///
 >               if dFX>0 & dFX<100                                      ///
 >               , robust
-
+{res}
+{txt}{p2colset 0 23 32 2}{...}
 Wald test, begin with full model:
-p = 0.8336 >= 0.2000, removing FUELM_2019
-p = 0.7879 >= 0.2000, removing CAB_2019
-p = 0.7017 >= 0.2000, removing RGDP_PK_2019
-p = 0.7276 >= 0.2000, removing NIIP_19
-p = 0.7042 >= 0.2000, removing dRATE22q2_21q2
-p = 0.4550 >= 0.2000, removing RPCPI_2019
-p = 0.5901 >= 0.2000, removing OPEN_2019
-p = 0.5578 >= 0.2000, removing ers_2019
-p = 0.2737 >= 0.2000, removing FUELX_2019
+{p2col:p = {res:0.8336} >= 0.2000,}removing {res:FUELM_2019}{p_end}
+{p2col:p = {res:0.7879} >= 0.2000,}removing {res:CAB_2019}{p_end}
+{p2col:p = {res:0.7017} >= 0.2000,}removing {res:RGDP_PK_2019}{p_end}
+{p2col:p = {res:0.7276} >= 0.2000,}removing {res:NIIP_19}{p_end}
+{p2col:p = {res:0.7042} >= 0.2000,}removing {res:dRATE22q2_21q2}{p_end}
+{p2col:p = {res:0.4550} >= 0.2000,}removing {res:RPCPI_2019}{p_end}
+{p2col:p = {res:0.5901} >= 0.2000,}removing {res:OPEN_2019}{p_end}
+{p2col:p = {res:0.5578} >= 0.2000,}removing {res:ers_2019}{p_end}
+{p2col:p = {res:0.2737} >= 0.2000,}removing {res:FUELX_2019}{p_end}
+{p2colset 0 12 32 2}{...}
+{p2colreset}{...}
 
-Linear regression                               Number of obs     =         51
-                                                F(4, 46)          =       6.01
-                                                Prob > F          =     0.0006
-                                                R-squared         =     0.2283
-                                                Root MSE          =     9.5239
+Linear regression                               Number of obs     = {res}        51
+                                                {txt}F(4, 46)          =  {res}     6.01
+                                                {txt}Prob > F          = {res}    0.0006
+                                                {txt}R-squared         = {res}    0.2283
+                                                {txt}Root MSE          =    {res} 9.5239
 
-------------------------------------------------------------------------------------------
-                         |               Robust
-                     dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------------------+----------------------------------------------------------------
-              RESGDP2020 |  -.3517322   .1220917    -2.88   0.006    -.5974902   -.1059743
-                         |
-  c.RESGDP2020#c.FI_2019 |   .2781995   .1371434     2.03   0.048     .0021442    .5542549
-                         |
-                RATE20q4 |  -1.313967   .5022084    -2.62   0.012     -2.32486    -.303074
-                         |
-c.RATE20q4#c.kaopen_2019 |  -.4601126   .3280927    -1.40   0.168    -1.120529    .2003038
-                         |
-                   _cons |   22.58771   2.618929     8.62   0.000     17.31608    27.85934
-------------------------------------------------------------------------------------------
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}                     dFX{col 26}{c |} Coefficient{col 38}  std. err.{col 50}      t{col 58}   P>|t|{col 66}     [95% con{col 79}f. interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 14}RESGDP2020 {c |}{col 26}{res}{space 2}-.3517322{col 38}{space 2} .1220917{col 49}{space 1}   -2.88{col 58}{space 3}0.006{col 66}{space 4}-.5974902{col 79}{space 3}-.1059743
+{txt}{space 24} {c |}
+{space 2}c.RESGDP2020#c.FI_2019 {c |}{col 26}{res}{space 2} .2781995{col 38}{space 2} .1371434{col 49}{space 1}    2.03{col 58}{space 3}0.048{col 66}{space 4} .0021442{col 79}{space 3} .5542549
+{txt}{space 24} {c |}
+{space 16}RATE20q4 {c |}{col 26}{res}{space 2}-1.313967{col 38}{space 2} .5022084{col 49}{space 1}   -2.62{col 58}{space 3}0.012{col 66}{space 4} -2.32486{col 79}{space 3} -.303074
+{txt}{space 24} {c |}
+c.RATE20q4#c.kaopen_2019 {c |}{col 26}{res}{space 2}-.4601126{col 38}{space 2} .3280927{col 49}{space 1}   -1.40{col 58}{space 3}0.168{col 66}{space 4}-1.120529{col 79}{space 3} .2003038
+{txt}{space 24} {c |}
+{space 19}_cons {c |}{col 26}{res}{space 2} 22.58771{col 38}{space 2} 2.618929{col 49}{space 1}    8.62{col 58}{space 3}0.000{col 66}{space 4} 17.31608{col 79}{space 3} 27.85934
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 
-. estimate  store dfx_4_EL
-
-. 
+{com}. estimate  store dfx_4_EL
+{txt}
+{com}. 
 . reg       dFX RESGDP2020 c.RESGDP2020#c.FI_2019                                   ///
 >           RATE20q4 c.RATE20q4#c.kaopen_2019                       ///
 >           dRATE22q2_21q2                                          ///
@@ -193,40 +210,40 @@ c.RATE20q4#c.kaopen_2019 |  -.4601126   .3280927    -1.40   0.168    -1.120529  
 >               if dFX>0 & dFX<100                                      ///
 >               , robust
 
-Linear regression                               Number of obs     =         32
-                                                F(14, 17)         =       3.72
-                                                Prob > F          =     0.0060
-                                                R-squared         =     0.5225
-                                                Root MSE          =     8.6883
+{txt}Linear regression                               Number of obs     = {res}        32
+                                                {txt}F(14, 17)         =  {res}     3.72
+                                                {txt}Prob > F          = {res}    0.0060
+                                                {txt}R-squared         = {res}    0.5225
+                                                {txt}Root MSE          =    {res} 8.6883
 
-------------------------------------------------------------------------------------------
-                         |               Robust
-                     dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------------------+----------------------------------------------------------------
-              RESGDP2020 |  -1.016478   .2157639    -4.71   0.000      -1.4717   -.5612557
-                         |
-  c.RESGDP2020#c.FI_2019 |   1.419167   .3939182     3.60   0.002     .5880728    2.250262
-                         |
-                RATE20q4 |  -1.792996   .7418117    -2.42   0.027    -3.358082     -.22791
-                         |
-c.RATE20q4#c.kaopen_2019 |  -.5297627   .5057742    -1.05   0.310    -1.596853    .5373276
-                         |
-          dRATE22q2_21q2 |  -.8288065   .3839903    -2.16   0.045    -1.638955   -.0186578
-            RGDP_PK_2019 |  -1.147605   .3695399    -3.11   0.006    -1.927266   -.3679442
-              RPCPI_2019 |  -.0045063   .0487382    -0.09   0.927    -.1073349    .0983223
-                CAB_2019 |  -.7432733   .2360028    -3.15   0.006    -1.241196   -.2453509
-                 NIIP_19 |   .1140774   .0422217     2.70   0.015     .0249974    .2031574
-                ers_2019 |   .6444495   8.741662     0.07   0.942    -17.79885    19.08774
-               OPEN_2019 |  -.0068168   .0912371    -0.07   0.941    -.1993103    .1856766
-              FUELX_2019 |     .06274   .1490984     0.42   0.679      -.25183      .37731
-              FUELM_2019 |  -.2740454   .3653239    -0.75   0.463    -1.044811    .4967205
-               DEBT_2019 |   .1245039   .0769867     1.62   0.124    -.0379237    .2869316
-                   _cons |   38.53095   12.84174     3.00   0.008     11.43725    65.62465
-------------------------------------------------------------------------------------------
-
-. estimate  store dfx_5_EL
-
-. 
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}                     dFX{col 26}{c |} Coefficient{col 38}  std. err.{col 50}      t{col 58}   P>|t|{col 66}     [95% con{col 79}f. interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 14}RESGDP2020 {c |}{col 26}{res}{space 2}-1.016478{col 38}{space 2} .2157639{col 49}{space 1}   -4.71{col 58}{space 3}0.000{col 66}{space 4}  -1.4717{col 79}{space 3}-.5612557
+{txt}{space 24} {c |}
+{space 2}c.RESGDP2020#c.FI_2019 {c |}{col 26}{res}{space 2} 1.419167{col 38}{space 2} .3939182{col 49}{space 1}    3.60{col 58}{space 3}0.002{col 66}{space 4} .5880728{col 79}{space 3} 2.250262
+{txt}{space 24} {c |}
+{space 16}RATE20q4 {c |}{col 26}{res}{space 2}-1.792996{col 38}{space 2} .7418117{col 49}{space 1}   -2.42{col 58}{space 3}0.027{col 66}{space 4}-3.358082{col 79}{space 3}  -.22791
+{txt}{space 24} {c |}
+c.RATE20q4#c.kaopen_2019 {c |}{col 26}{res}{space 2}-.5297627{col 38}{space 2} .5057742{col 49}{space 1}   -1.05{col 58}{space 3}0.310{col 66}{space 4}-1.596853{col 79}{space 3} .5373276
+{txt}{space 24} {c |}
+{space 10}dRATE22q2_21q2 {c |}{col 26}{res}{space 2}-.8288065{col 38}{space 2} .3839903{col 49}{space 1}   -2.16{col 58}{space 3}0.045{col 66}{space 4}-1.638955{col 79}{space 3}-.0186578
+{txt}{space 12}RGDP_PK_2019 {c |}{col 26}{res}{space 2}-1.147605{col 38}{space 2} .3695399{col 49}{space 1}   -3.11{col 58}{space 3}0.006{col 66}{space 4}-1.927266{col 79}{space 3}-.3679442
+{txt}{space 14}RPCPI_2019 {c |}{col 26}{res}{space 2}-.0045063{col 38}{space 2} .0487382{col 49}{space 1}   -0.09{col 58}{space 3}0.927{col 66}{space 4}-.1073349{col 79}{space 3} .0983223
+{txt}{space 16}CAB_2019 {c |}{col 26}{res}{space 2}-.7432733{col 38}{space 2} .2360028{col 49}{space 1}   -3.15{col 58}{space 3}0.006{col 66}{space 4}-1.241196{col 79}{space 3}-.2453509
+{txt}{space 17}NIIP_19 {c |}{col 26}{res}{space 2} .1140774{col 38}{space 2} .0422217{col 49}{space 1}    2.70{col 58}{space 3}0.015{col 66}{space 4} .0249974{col 79}{space 3} .2031574
+{txt}{space 16}ers_2019 {c |}{col 26}{res}{space 2} .6444495{col 38}{space 2} 8.741662{col 49}{space 1}    0.07{col 58}{space 3}0.942{col 66}{space 4}-17.79885{col 79}{space 3} 19.08774
+{txt}{space 15}OPEN_2019 {c |}{col 26}{res}{space 2}-.0068168{col 38}{space 2} .0912371{col 49}{space 1}   -0.07{col 58}{space 3}0.941{col 66}{space 4}-.1993103{col 79}{space 3} .1856766
+{txt}{space 14}FUELX_2019 {c |}{col 26}{res}{space 2}   .06274{col 38}{space 2} .1490984{col 49}{space 1}    0.42{col 58}{space 3}0.679{col 66}{space 4}  -.25183{col 79}{space 3}   .37731
+{txt}{space 14}FUELM_2019 {c |}{col 26}{res}{space 2}-.2740454{col 38}{space 2} .3653239{col 49}{space 1}   -0.75{col 58}{space 3}0.463{col 66}{space 4}-1.044811{col 79}{space 3} .4967205
+{txt}{space 15}DEBT_2019 {c |}{col 26}{res}{space 2} .1245039{col 38}{space 2} .0769867{col 49}{space 1}    1.62{col 58}{space 3}0.124{col 66}{space 4}-.0379237{col 79}{space 3} .2869316
+{txt}{space 19}_cons {c |}{col 26}{res}{space 2} 38.53095{col 38}{space 2} 12.84174{col 49}{space 1}    3.00{col 58}{space 3}0.008{col 66}{space 4} 11.43725{col 79}{space 3} 65.62465
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfx_5_EL
+{txt}
+{com}. 
 . reg       dFX c.RESGDP2020##c.sum_FXI_broad_proxy_GDP_m                   ///
 >           RATE20q4                       ///
 >           dRATE22q2_21q2                                          ///
@@ -236,47 +253,46 @@ c.RATE20q4#c.kaopen_2019 |  -.5297627   .5057742    -1.05   0.310    -1.596853  
 >               if dFX>0 & dFX<100                                      ///
 >               , robust
 
-Linear regression                               Number of obs     =         47
-                                                F(13, 33)         =       3.89
-                                                Prob > F          =     0.0008
-                                                R-squared         =     0.4122
-                                                Root MSE          =     9.2626
+{txt}Linear regression                               Number of obs     = {res}        47
+                                                {txt}F(13, 33)         =  {res}     3.89
+                                                {txt}Prob > F          = {res}    0.0008
+                                                {txt}R-squared         = {res}    0.4122
+                                                {txt}Root MSE          =    {res} 9.2626
 
----------------------------------------------------------------------------------------------
-                            |               Robust
-                        dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
-----------------------------+----------------------------------------------------------------
-                 RESGDP2020 |  -.1609746    .074645    -2.16   0.038    -.3128409   -.0091082
-  sum_FXI_broad_proxy_GDP_m |  -2.051396   .7972782    -2.57   0.015     -3.67347   -.4293212
-                            |
-               c.RESGDP2020#|
-c.sum_FXI_broad_proxy_GDP_m |    .044937     .02105     2.13   0.040     .0021105    .0877635
-                            |
-                   RATE20q4 |  -.0621615   .3832676    -0.16   0.872    -.8419254    .7176023
-             dRATE22q2_21q2 |  -.1795463   .5026127    -0.36   0.723    -1.202119    .8430268
-               RGDP_PK_2019 |   .0480265   .0390839     1.23   0.228    -.0314902    .1275433
-                 RPCPI_2019 |  -.0279247   .0285101    -0.98   0.334    -.0859288    .0300795
-                   CAB_2019 |  -.1781303   .2558871    -0.70   0.491    -.6987365     .342476
-                    NIIP_19 |   .0136157   .0139101     0.98   0.335    -.0146846     .041916
-                   ers_2019 |   -16.9897    8.26161    -2.06   0.048    -33.79807   -.1813256
-                  OPEN_2019 |   .1143474   .0586671     1.95   0.060    -.0050117    .2337065
-                 FUELX_2019 |  -.1479055   .0840539    -1.76   0.088    -.3189144    .0231035
-                 FUELM_2019 |  -.0878281   .1677545    -0.52   0.604    -.4291273     .253471
-                      _cons |    23.8042   6.654842     3.58   0.001     10.26482    37.34358
----------------------------------------------------------------------------------------------
-
-. estimate  store dfx_6_EL
-
-. 
+{txt}{hline 41}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 42}{c |}{col 54}    Robust
+{col 1}                                     dFX{col 42}{c |} Coefficient{col 54}  std. err.{col 66}      t{col 74}   P>|t|{col 82}     [95% con{col 95}f. interval]
+{hline 41}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 30}RESGDP2020 {c |}{col 42}{res}{space 2}-.1609746{col 54}{space 2}  .074645{col 65}{space 1}   -2.16{col 74}{space 3}0.038{col 82}{space 4}-.3128409{col 95}{space 3}-.0091082
+{txt}{space 15}sum_FXI_broad_proxy_GDP_m {c |}{col 42}{res}{space 2}-2.051396{col 54}{space 2} .7972782{col 65}{space 1}   -2.57{col 74}{space 3}0.015{col 82}{space 4} -3.67347{col 95}{space 3}-.4293212
+{txt}{space 40} {c |}
+c.RESGDP2020#c.sum_FXI_broad_proxy_GDP_m {c |}{col 42}{res}{space 2}  .044937{col 54}{space 2}   .02105{col 65}{space 1}    2.13{col 74}{space 3}0.040{col 82}{space 4} .0021105{col 95}{space 3} .0877635
+{txt}{space 40} {c |}
+{space 32}RATE20q4 {c |}{col 42}{res}{space 2}-.0621615{col 54}{space 2} .3832676{col 65}{space 1}   -0.16{col 74}{space 3}0.872{col 82}{space 4}-.8419254{col 95}{space 3} .7176023
+{txt}{space 26}dRATE22q2_21q2 {c |}{col 42}{res}{space 2}-.1795463{col 54}{space 2} .5026127{col 65}{space 1}   -0.36{col 74}{space 3}0.723{col 82}{space 4}-1.202119{col 95}{space 3} .8430268
+{txt}{space 28}RGDP_PK_2019 {c |}{col 42}{res}{space 2} .0480265{col 54}{space 2} .0390839{col 65}{space 1}    1.23{col 74}{space 3}0.228{col 82}{space 4}-.0314902{col 95}{space 3} .1275433
+{txt}{space 30}RPCPI_2019 {c |}{col 42}{res}{space 2}-.0279247{col 54}{space 2} .0285101{col 65}{space 1}   -0.98{col 74}{space 3}0.334{col 82}{space 4}-.0859288{col 95}{space 3} .0300795
+{txt}{space 32}CAB_2019 {c |}{col 42}{res}{space 2}-.1781303{col 54}{space 2} .2558871{col 65}{space 1}   -0.70{col 74}{space 3}0.491{col 82}{space 4}-.6987365{col 95}{space 3}  .342476
+{txt}{space 33}NIIP_19 {c |}{col 42}{res}{space 2} .0136157{col 54}{space 2} .0139101{col 65}{space 1}    0.98{col 74}{space 3}0.335{col 82}{space 4}-.0146846{col 95}{space 3}  .041916
+{txt}{space 32}ers_2019 {c |}{col 42}{res}{space 2} -16.9897{col 54}{space 2}  8.26161{col 65}{space 1}   -2.06{col 74}{space 3}0.048{col 82}{space 4}-33.79807{col 95}{space 3}-.1813256
+{txt}{space 31}OPEN_2019 {c |}{col 42}{res}{space 2} .1143474{col 54}{space 2} .0586671{col 65}{space 1}    1.95{col 74}{space 3}0.060{col 82}{space 4}-.0050117{col 95}{space 3} .2337065
+{txt}{space 30}FUELX_2019 {c |}{col 42}{res}{space 2}-.1479055{col 54}{space 2} .0840539{col 65}{space 1}   -1.76{col 74}{space 3}0.088{col 82}{space 4}-.3189144{col 95}{space 3} .0231035
+{txt}{space 30}FUELM_2019 {c |}{col 42}{res}{space 2}-.0878281{col 54}{space 2} .1677545{col 65}{space 1}   -0.52{col 74}{space 3}0.604{col 82}{space 4}-.4291273{col 95}{space 3}  .253471
+{txt}{space 35}_cons {c |}{col 42}{res}{space 2}  23.8042{col 54}{space 2} 6.654842{col 65}{space 1}    3.58{col 74}{space 3}0.001{col 82}{space 4} 10.26482{col 95}{space 3} 37.34358
+{txt}{hline 41}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfx_6_EL
+{txt}
+{com}. 
 . local     switches "dec(4) word se e(rmse)"
-
-. outreg2   [dfx_*] ///
+{txt}
+{com}. outreg2   [dfx_*] ///
 >           using "dfx_depre.04.08.2023.tex", replace `switches'
-dfx_depre.04.08.2023.tex
-dfx_depre.04.08.2023.rtf
-dir : seeout
+{txt}{stata `"shellout using `"dfx_depre.04.08.2023.tex"'"':dfx_depre.04.08.2023.tex}
+{stata `"shellout using `"dfx_depre.04.08.2023.rtf"'"':dfx_depre.04.08.2023.rtf}
+{browse `"C:\Users\jamel\Dropbox\Latex\PROJECTS\22-12-reer-tot-res-pm\Archive"' :dir}{com} : {txt}{stata `"seeout using "dfx_depre.04.08.2023.txt""':seeout}
 
-. 
+{com}. 
 . **# Fig. 3. Ex ante reserves and FX depreciation from June 16–18, 2021.
 . 
 . scatter   dFXdaily RESGDP2020                                /// 
@@ -287,20 +303,36 @@ dir : seeout
 >                   mlabel(iso2c) xsize(8) ||                          ///
 >                   lfit dFXdaily RESGDP2020 if                        ///
 >                   dFXdaily>0 & RESGDP2020<80, legend(off)
-
-.                   
+{res}{txt}
+{com}.                   
 . graph export fx_depre_daily.png, replace
-(file fx_depre_daily.png not found)
-file fx_depre_daily.png saved as PNG format
+{txt}{p 0 4 2}
+file {bf}
+fx_depre_daily.png{rm}
+saved as
+PNG
+format
+{p_end}
 
-. graph export fx_depre_daily.pdf, replace
-file fx_depre_daily.pdf saved as PDF format
+{com}. graph export fx_depre_daily.pdf, replace
+{txt}{p 0 4 2}
+file {bf}
+fx_depre_daily.pdf{rm}
+saved as
+PDF
+format
+{p_end}
 
-. graph export fx_depre_daily.tif, width(4000) replace
-(file fx_depre_daily.tif not found)
-file fx_depre_daily.tif saved as TIFF format
+{com}. graph export fx_depre_daily.tif, width(4000) replace
+{txt}{p 0 4 2}
+file {bf}
+fx_depre_daily.tif{rm}
+saved as
+TIFF
+format
+{p_end}
 
-. 
+{com}. 
 . 
 . **# Table A.1: Descriptive statistics
 . 
@@ -309,127 +341,127 @@ file fx_depre_daily.tif saved as TIFF format
 >               NIIP_19 kaopen_2019 ers_2019 OPEN_2019      ///
 >               FUELX_2019 FUELM_2019 DEBT_2019
 
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-         dFX |        124    16.57482    57.13611  -33.98732    606.761
-  RESGDP2020 |        124    29.78893    26.41529   .1484797   144.0998
-    RATE20q4 |        107    3.582625     5.07166       -.75         38
-dRATE22q2_~2 |         96    1.611872    3.105604         -5      15.85
-RGDP_PK_2019 |        124    24.96479    32.06006   .7890324   143.5363
--------------+---------------------------------------------------------
-  RPCPI_2019 |        116    128.1636    52.57299   84.46202   433.5731
-    CAB_2019 |        120   -1.937033    8.564235   -34.3585   33.89913
-     NIIP_19 |        120   -9.696683    153.2332  -271.1524   914.7737
- kaopen_2019 |        116    .4042721    1.509945  -1.927032   2.310613
-    ers_2019 |        116    .6050137    .2862065   .0605321          1
--------------+---------------------------------------------------------
-   OPEN_2019 |        115    90.43583    56.20035   26.45195   353.7595
-  FUELX_2019 |        105    15.45771    25.06269          0    95.2427
-  FUELM_2019 |        108    13.84272    7.210851   .5275592   33.96311
-   DEBT_2019 |         80    57.42737     39.2169   3.277699   250.4566
-
-. outreg2   using sum.doc, replace sum(log)             ///
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 9}dFX {c |}{res}        124    16.57482    57.13611  -33.98732    606.761
+{txt}{space 2}RESGDP2020 {c |}{res}        124    29.78893    26.41529   .1484797   144.0998
+{txt}{space 4}RATE20q4 {c |}{res}        107    3.582625     5.07166       -.75         38
+{txt}dRATE22q2_~2 {c |}{res}         96    1.611872    3.105604         -5      15.85
+{txt}RGDP_PK_2019 {c |}{res}        124    24.96479    32.06006   .7890324   143.5363
+{txt}{hline 13}{c +}{hline 57}
+{space 2}RPCPI_2019 {c |}{res}        116    128.1636    52.57299   84.46202   433.5731
+{txt}{space 4}CAB_2019 {c |}{res}        120   -1.937033    8.564235   -34.3585   33.89913
+{txt}{space 5}NIIP_19 {c |}{res}        120   -9.696683    153.2332  -271.1524   914.7737
+{txt}{space 1}kaopen_2019 {c |}{res}        116    .4042721    1.509945  -1.927032   2.310613
+{txt}{space 4}ers_2019 {c |}{res}        116    .6050137    .2862065   .0605321          1
+{txt}{hline 13}{c +}{hline 57}
+{space 3}OPEN_2019 {c |}{res}        115    90.43583    56.20035   26.45195   353.7595
+{txt}{space 2}FUELX_2019 {c |}{res}        105    15.45771    25.06269          0    95.2427
+{txt}{space 2}FUELM_2019 {c |}{res}        108    13.84272    7.210851   .5275592   33.96311
+{txt}{space 3}DEBT_2019 {c |}{res}         80    57.42737     39.2169   3.277699   250.4566
+{txt}
+{com}. outreg2   using sum.doc, replace sum(log)             ///
 >           keep(dFX RESGDP2020 RATE20q4 dRATE22q2_21q2 ///
 >           RGDP_PK_2019 RPCPI_2019 CAB_2019            ///
 >               NIIP_19 kaopen_2019 ers_2019 OPEN_2019      ///
 >               FUELX_2019 FUELM_2019 DEBT_2019 FI_2019)
 
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-         cn2 |        124    114.0565    67.82681          2        225
-       iso2c |        124    116.8226    63.97675         10        225
-     imfcode |        124    541.2742    266.7914        111        968
-          FX |        124    796.2801    3076.892     .30894      23295
-         dFX |        124    16.57482    57.13611  -33.98732    606.761
--------------+---------------------------------------------------------
-  RESGDP2020 |        124    29.78893    26.41529   .1484797   144.0998
-   PRATE20q4 |         63     4.11045    6.200776       -.75         38
-dPRATE22q2~2 |         59     2.47322    3.472046         -5      15.85
-   DRATE20q4 |         96    3.497012    4.412444  -.4087037   31.87892
-dDRATE22q2~2 |         83    .9369867    2.349435   -1.94838   11.22867
--------------+---------------------------------------------------------
-    RATE20q4 |        107    3.582625     5.07166       -.75         38
-dRATE22q2_~2 |         96    1.611872    3.105604         -5      15.85
-RGDP_PK_2019 |        124    24.96479    32.06006   .7890324   143.5363
-RGDP_PK_2020 |        124    23.73926     30.6976   .7421945   144.4479
-  RPCPI_2019 |        116    128.1636    52.57299   84.46202   433.5731
--------------+---------------------------------------------------------
-  RPCPI_2020 |        112    150.6776    212.6571   83.26219   2296.151
-    CAB_2019 |        120   -1.937033    8.564235   -34.3585   33.89913
-    CAB_2020 |        120   -2.860251    8.650826  -35.43271   20.79055
-   NIIP_2019 |        120   -.0969668    1.532332  -2.711524   9.147737
-   NIIP_2020 |        120   -.0454769    2.046071  -5.168314    10.5071
--------------+---------------------------------------------------------
-     NIIP_19 |        120   -9.696683    153.2332  -271.1524   914.7737
-     NIIP_20 |        120   -4.547689    204.6071  -516.8314    1050.71
- kaopen_2019 |        116    .4042721    1.509945  -1.927032   2.310613
- kaopen_2020 |        117     .393021    1.517489  -1.927032   2.310613
-RATE20q4_100 |        107    .0358262    .0507166     -.0075        .38
--------------+---------------------------------------------------------
-dRATE22q2_~S |         96    .1118718    3.105604       -6.5      14.35
-    ers_2019 |        116    .6050137    .2862065   .0605321          1
-    ers_2020 |        116    .5450339    .3187408   .0386158          1
-     FD_2019 |        119    .3468808    .2126599   .0400039   .9190351
-     FD_2020 |        119    .3537716    .2165869   .0451483   .9478135
--------------+---------------------------------------------------------
-     FI_2019 |        119    .4670069    .1967141   .0785745   .9346398
-     FI_2020 |        119    .4694167    .1951836   .0886788   .9526684
-     FM_2019 |        119     .214326    .2552452          0   .8987359
-     FM_2020 |        119     .225451    .2669556          0   .9218208
-   OPEN_2019 |        115    90.43583    56.20035   26.45195   353.7595
--------------+---------------------------------------------------------
-   OPEN_2020 |        113     80.9007    52.78183   23.38376   350.6812
-  FUELX_2019 |        105    15.45771    25.06269          0    95.2427
-  FUELX_2020 |        100    12.62846    21.94056          0   93.11352
-  FUELM_2019 |        108    13.84272    7.210851   .5275592   33.96311
-  FUELM_2020 |        104    11.01131    6.411674   .4400495   36.51402
--------------+---------------------------------------------------------
-         idc |        124    .0887097    .2854777          0          1
-         ldc |        124    .9112903    .2854777          0          1
-         emg |        124    .2822581    .4519242          0          1
-         eap |        124    .1693548    .3765866          0          1
-         eca |        124    .1693548    .3765866          0          1
--------------+---------------------------------------------------------
-        mena |        124    .1048387    .3075883          0          1
-          sa |        124    .0564516     .231728          0          1
-          we |        124    .0564516     .231728          0          1
-          na |        124     .016129    .1264828          0          1
-         ssa |        124    .1451613    .3536924          0          1
--------------+---------------------------------------------------------
-         lac |        124    .2419355    .4299928          0          1
-         oil |        124    .0806452     .273394          0          1
-        emg2 |        124    .1774194     .383573          0          1
-          fc |        124    .0887097    .2854777          0          1
-   DEBT_2019 |         80    57.42737     39.2169   3.277699   250.4566
--------------+---------------------------------------------------------
-   DEBT_2020 |         80    68.57952    50.33535   3.644727   277.9475
-   RULE_2019 |        123    .0255854    .8811108  -1.798251   1.976262
-   RULE_2020 |        123    .0291256    .8842076   -1.85675   1.972491
- REERmis2019 |        116     99.5422    8.427775   58.93613   123.9903
- REERmis2020 |        116    99.26668    14.26507   56.82057   198.5454
--------------+---------------------------------------------------------
-   FX2021m11 |        124    796.2801    3076.892     .30894      23295
-  dFX2021m11 |        124    11.98447     45.1808  -28.09285   485.8123
-        CTOT |        118    101.0613    7.307503   89.16871   153.2879
-       dCTOT |        118    .7687191    10.67494  -17.21474   80.18513
-sum_FXI_br~m |         88    1.231484    6.425453  -28.53403   20.28403
--------------+---------------------------------------------------------
-    dFXdaily |         51    1.241234    .9826982  -.5836357   3.570823
-        sEMP |         36    .1704756    .1644101  -.3198836   .5527336
-_est_dfx_2~L |        124    .4193548    .4954553          0          1
-_est_dfx_3~L |        124    .4112903    .4940639          0          1
-_est_dfx_4~L |        124    .4112903    .4940639          0          1
--------------+---------------------------------------------------------
-_est_dfx_5~L |        124    .2580645    .4393448          0          1
-_est_dfx_6~L |        124    .3790323    .4871143          0          1
-_est_dfx_1~L |        124    .6774194    .4693602          0          1
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 9}cn2 {c |}{res}        124    114.0565    67.82681          2        225
+{txt}{space 7}iso2c {c |}{res}        124    116.8226    63.97675         10        225
+{txt}{space 5}imfcode {c |}{res}        124    541.2742    266.7914        111        968
+{txt}{space 10}FX {c |}{res}        124    796.2801    3076.892     .30894      23295
+{txt}{space 9}dFX {c |}{res}        124    16.57482    57.13611  -33.98732    606.761
+{txt}{hline 13}{c +}{hline 57}
+{space 2}RESGDP2020 {c |}{res}        124    29.78893    26.41529   .1484797   144.0998
+{txt}{space 3}PRATE20q4 {c |}{res}         63     4.11045    6.200776       -.75         38
+{txt}dPRATE22q2~2 {c |}{res}         59     2.47322    3.472046         -5      15.85
+{txt}{space 3}DRATE20q4 {c |}{res}         96    3.497012    4.412444  -.4087037   31.87892
+{txt}dDRATE22q2~2 {c |}{res}         83    .9369867    2.349435   -1.94838   11.22867
+{txt}{hline 13}{c +}{hline 57}
+{space 4}RATE20q4 {c |}{res}        107    3.582625     5.07166       -.75         38
+{txt}dRATE22q2_~2 {c |}{res}         96    1.611872    3.105604         -5      15.85
+{txt}RGDP_PK_2019 {c |}{res}        124    24.96479    32.06006   .7890324   143.5363
+{txt}RGDP_PK_2020 {c |}{res}        124    23.73926     30.6976   .7421945   144.4479
+{txt}{space 2}RPCPI_2019 {c |}{res}        116    128.1636    52.57299   84.46202   433.5731
+{txt}{hline 13}{c +}{hline 57}
+{space 2}RPCPI_2020 {c |}{res}        112    150.6776    212.6571   83.26219   2296.151
+{txt}{space 4}CAB_2019 {c |}{res}        120   -1.937033    8.564235   -34.3585   33.89913
+{txt}{space 4}CAB_2020 {c |}{res}        120   -2.860251    8.650826  -35.43271   20.79055
+{txt}{space 3}NIIP_2019 {c |}{res}        120   -.0969668    1.532332  -2.711524   9.147737
+{txt}{space 3}NIIP_2020 {c |}{res}        120   -.0454769    2.046071  -5.168314    10.5071
+{txt}{hline 13}{c +}{hline 57}
+{space 5}NIIP_19 {c |}{res}        120   -9.696683    153.2332  -271.1524   914.7737
+{txt}{space 5}NIIP_20 {c |}{res}        120   -4.547689    204.6071  -516.8314    1050.71
+{txt}{space 1}kaopen_2019 {c |}{res}        116    .4042721    1.509945  -1.927032   2.310613
+{txt}{space 1}kaopen_2020 {c |}{res}        117     .393021    1.517489  -1.927032   2.310613
+{txt}RATE20q4_100 {c |}{res}        107    .0358262    .0507166     -.0075        .38
+{txt}{hline 13}{c +}{hline 57}
+dRATE22q2_~S {c |}{res}         96    .1118718    3.105604       -6.5      14.35
+{txt}{space 4}ers_2019 {c |}{res}        116    .6050137    .2862065   .0605321          1
+{txt}{space 4}ers_2020 {c |}{res}        116    .5450339    .3187408   .0386158          1
+{txt}{space 5}FD_2019 {c |}{res}        119    .3468808    .2126599   .0400039   .9190351
+{txt}{space 5}FD_2020 {c |}{res}        119    .3537716    .2165869   .0451483   .9478135
+{txt}{hline 13}{c +}{hline 57}
+{space 5}FI_2019 {c |}{res}        119    .4670069    .1967141   .0785745   .9346398
+{txt}{space 5}FI_2020 {c |}{res}        119    .4694167    .1951836   .0886788   .9526684
+{txt}{space 5}FM_2019 {c |}{res}        119     .214326    .2552452          0   .8987359
+{txt}{space 5}FM_2020 {c |}{res}        119     .225451    .2669556          0   .9218208
+{txt}{space 3}OPEN_2019 {c |}{res}        115    90.43583    56.20035   26.45195   353.7595
+{txt}{hline 13}{c +}{hline 57}
+{space 3}OPEN_2020 {c |}{res}        113     80.9007    52.78183   23.38376   350.6812
+{txt}{space 2}FUELX_2019 {c |}{res}        105    15.45771    25.06269          0    95.2427
+{txt}{space 2}FUELX_2020 {c |}{res}        100    12.62846    21.94056          0   93.11352
+{txt}{space 2}FUELM_2019 {c |}{res}        108    13.84272    7.210851   .5275592   33.96311
+{txt}{space 2}FUELM_2020 {c |}{res}        104    11.01131    6.411674   .4400495   36.51402
+{txt}{hline 13}{c +}{hline 57}
+{space 9}idc {c |}{res}        124    .0887097    .2854777          0          1
+{txt}{space 9}ldc {c |}{res}        124    .9112903    .2854777          0          1
+{txt}{space 9}emg {c |}{res}        124    .2822581    .4519242          0          1
+{txt}{space 9}eap {c |}{res}        124    .1693548    .3765866          0          1
+{txt}{space 9}eca {c |}{res}        124    .1693548    .3765866          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 8}mena {c |}{res}        124    .1048387    .3075883          0          1
+{txt}{space 10}sa {c |}{res}        124    .0564516     .231728          0          1
+{txt}{space 10}we {c |}{res}        124    .0564516     .231728          0          1
+{txt}{space 10}na {c |}{res}        124     .016129    .1264828          0          1
+{txt}{space 9}ssa {c |}{res}        124    .1451613    .3536924          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 9}lac {c |}{res}        124    .2419355    .4299928          0          1
+{txt}{space 9}oil {c |}{res}        124    .0806452     .273394          0          1
+{txt}{space 8}emg2 {c |}{res}        124    .1774194     .383573          0          1
+{txt}{space 10}fc {c |}{res}        124    .0887097    .2854777          0          1
+{txt}{space 3}DEBT_2019 {c |}{res}         80    57.42737     39.2169   3.277699   250.4566
+{txt}{hline 13}{c +}{hline 57}
+{space 3}DEBT_2020 {c |}{res}         80    68.57952    50.33535   3.644727   277.9475
+{txt}{space 3}RULE_2019 {c |}{res}        123    .0255854    .8811108  -1.798251   1.976262
+{txt}{space 3}RULE_2020 {c |}{res}        123    .0291256    .8842076   -1.85675   1.972491
+{txt}{space 1}REERmis2019 {c |}{res}        116     99.5422    8.427775   58.93613   123.9903
+{txt}{space 1}REERmis2020 {c |}{res}        116    99.26668    14.26507   56.82057   198.5454
+{txt}{hline 13}{c +}{hline 57}
+{space 3}FX2021m11 {c |}{res}        124    796.2801    3076.892     .30894      23295
+{txt}{space 2}dFX2021m11 {c |}{res}        124    11.98447     45.1808  -28.09285   485.8123
+{txt}{space 8}CTOT {c |}{res}        118    101.0613    7.307503   89.16871   153.2879
+{txt}{space 7}dCTOT {c |}{res}        118    .7687191    10.67494  -17.21474   80.18513
+{txt}sum_FXI_br~m {c |}{res}         88    1.231484    6.425453  -28.53403   20.28403
+{txt}{hline 13}{c +}{hline 57}
+{space 4}dFXdaily {c |}{res}         51    1.241234    .9826982  -.5836357   3.570823
+{txt}{space 8}sEMP {c |}{res}         36    .1704756    .1644101  -.3198836   .5527336
+{txt}_est_dfx_2~L {c |}{res}        124    .4193548    .4954553          0          1
+{txt}_est_dfx_3~L {c |}{res}        124    .4112903    .4940639          0          1
+{txt}_est_dfx_4~L {c |}{res}        124    .4112903    .4940639          0          1
+{txt}{hline 13}{c +}{hline 57}
+_est_dfx_5~L {c |}{res}        124    .2580645    .4393448          0          1
+{txt}_est_dfx_6~L {c |}{res}        124    .3790323    .4871143          0          1
+{txt}_est_dfx_1~L {c |}{res}        124    .6774194    .4693602          0          1
 
 Following variable is string, not included:  
 country  
-sum.doc
-dir : seeout
+{txt}{stata `"shellout using `"sum.doc"'"':sum.doc}
+{browse `"C:\Users\jamel\Dropbox\Latex\PROJECTS\22-12-reer-tot-res-pm\Archive"' :dir}{com} : {txt}{stata `"seeout using "sum.txt""':seeout}
 
-. 
+{com}. 
 . **# Figure A.1: Ex-ante reserves and FX depreciation from May 2021 - Sep 2022
 . 
 . scatter   dFX RESGDP2020 if dFX>0 & dFX<100,            ///
@@ -439,8 +471,8 @@ dir : seeout
 >                   name(A, replace)              /// 
 >                   mlabel(iso2c) ||                              ///
 >                   lfit dFX RESGDP if dFX>0 & dFX<100, legend(off)
-
-.                   
+{res}{txt}
+{com}.                   
 . scatter   dFX RESGDP2020 if dFX!=0 & dFX<100,            ///
 >                   xtitle("FX Reserves/GDP, 2020 (%)")           ///
 >                   ytitle("FX Depreciation, 2021−22, (%)")       ///
@@ -448,39 +480,38 @@ dir : seeout
 >                   name(B, replace)           /// 
 >                   mlabel(iso2c) ||                              ///
 >                   lfit dFX RESGDP if dFX!=0 & dFX<100, legend(off)
-
-. 
+{res}{txt}
+{com}. 
 . graph combine A B, ///
 >  name(FXReserves_i_2020, replace)  
-
-.  
+{res}{txt}
+{com}.  
 . graph close A B Graph             
-
-.                   
-. **# Table A.3: Dependent variable: FX change from May 2021 - Sep 2022 (%), appreciations and
->  depreciations
+{txt}
+{com}.                   
+. **# Table A.3: Dependent variable: FX change from May 2021 - Sep 2022 (%), appreciations and depreciations
 . 
 . reg       dFX RESGDP2020                       ///
 >               if dFX!=0 & dFX<100                  ///
 >               , robust
 
-Linear regression                               Number of obs     =         96
-                                                F(1, 94)          =       6.52
-                                                Prob > F          =     0.0122
-                                                R-squared         =     0.0360
-                                                Root MSE          =     18.899
+{txt}Linear regression                               Number of obs     = {res}        96
+                                                {txt}F(1, 94)          =  {res}     6.52
+                                                {txt}Prob > F          = {res}    0.0122
+                                                {txt}R-squared         = {res}    0.0360
+                                                {txt}Root MSE          =    {res} 18.899
 
-------------------------------------------------------------------------------
-             |               Robust
-         dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-  RESGDP2020 |  -.1345914   .0526929    -2.55   0.012    -.2392143   -.0299685
-       _cons |   18.01016   3.224578     5.59   0.000     11.60769    24.41263
-------------------------------------------------------------------------------
-
-. estimate  store dfxapp_1_EL
-
-.                   
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}         dFX{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 2}RESGDP2020 {c |}{col 14}{res}{space 2}-.1345914{col 26}{space 2} .0526929{col 37}{space 1}   -2.55{col 46}{space 3}0.012{col 54}{space 4}-.2392143{col 67}{space 3}-.0299685
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 18.01016{col 26}{space 2} 3.224578{col 37}{space 1}    5.59{col 46}{space 3}0.000{col 54}{space 4} 11.60769{col 67}{space 3} 24.41263
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfxapp_1_EL
+{txt}
+{com}.                   
 . reg       dFX RESGDP2020 c.RATE20q4                               ///
 >           dRATE22q2_21q2                                          ///
 >           RGDP_PK_2019 RPCPI_2019 CAB_2019                        ///
@@ -489,33 +520,33 @@ Linear regression                               Number of obs     =         96
 >               if dFX!=0 & dFX<100                                      ///
 >               , robust
 
-Linear regression                               Number of obs     =         61
-                                                F(11, 49)         =       3.06
-                                                Prob > F          =     0.0035
-                                                R-squared         =     0.3077
-                                                Root MSE          =     12.923
+{txt}Linear regression                               Number of obs     = {res}        61
+                                                {txt}F(11, 49)         =  {res}     3.06
+                                                {txt}Prob > F          = {res}    0.0035
+                                                {txt}R-squared         = {res}    0.3077
+                                                {txt}Root MSE          =    {res} 12.923
 
---------------------------------------------------------------------------------
-               |               Robust
-           dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
----------------+----------------------------------------------------------------
-    RESGDP2020 |  -.1996519   .0840449    -2.38   0.021    -.3685466   -.0307573
-      RATE20q4 |  -1.616172   .8617387    -1.88   0.067    -3.347901    .1155567
-dRATE22q2_21q2 |  -.2224979   .5032654    -0.44   0.660    -1.233848    .7888517
-  RGDP_PK_2019 |   .0432843   .0474012     0.91   0.366    -.0519719    .1385405
-    RPCPI_2019 |   .0234337   .0493037     0.48   0.637    -.0756459    .1225133
-      CAB_2019 |  -.1249943   .2509956    -0.50   0.621    -.6293887    .3794002
-       NIIP_19 |   .0213761   .0183406     1.17   0.249    -.0154808     .058233
-      ers_2019 |   -4.97901   8.888844    -0.56   0.578    -22.84181    12.88379
-     OPEN_2019 |   .0042509   .0582583     0.07   0.942    -.1128236    .1213254
-    FUELX_2019 |  -.1908232   .1277522    -1.49   0.142    -.4475508    .0659045
-    FUELM_2019 |  -.0881823   .2964211    -0.30   0.767    -.6838627    .5074981
-         _cons |   22.23598   9.179288     2.42   0.019     3.789508    40.68245
---------------------------------------------------------------------------------
-
-. estimate  store dfxapp_2_EL
-
-. 
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1}           dFX{col 16}{c |} Coefficient{col 28}  std. err.{col 40}      t{col 48}   P>|t|{col 56}     [95% con{col 69}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 4}RESGDP2020 {c |}{col 16}{res}{space 2}-.1996519{col 28}{space 2} .0840449{col 39}{space 1}   -2.38{col 48}{space 3}0.021{col 56}{space 4}-.3685466{col 69}{space 3}-.0307573
+{txt}{space 6}RATE20q4 {c |}{col 16}{res}{space 2}-1.616172{col 28}{space 2} .8617387{col 39}{space 1}   -1.88{col 48}{space 3}0.067{col 56}{space 4}-3.347901{col 69}{space 3} .1155567
+{txt}dRATE22q2_21q2 {c |}{col 16}{res}{space 2}-.2224979{col 28}{space 2} .5032654{col 39}{space 1}   -0.44{col 48}{space 3}0.660{col 56}{space 4}-1.233848{col 69}{space 3} .7888517
+{txt}{space 2}RGDP_PK_2019 {c |}{col 16}{res}{space 2} .0432843{col 28}{space 2} .0474012{col 39}{space 1}    0.91{col 48}{space 3}0.366{col 56}{space 4}-.0519719{col 69}{space 3} .1385405
+{txt}{space 4}RPCPI_2019 {c |}{col 16}{res}{space 2} .0234337{col 28}{space 2} .0493037{col 39}{space 1}    0.48{col 48}{space 3}0.637{col 56}{space 4}-.0756459{col 69}{space 3} .1225133
+{txt}{space 6}CAB_2019 {c |}{col 16}{res}{space 2}-.1249943{col 28}{space 2} .2509956{col 39}{space 1}   -0.50{col 48}{space 3}0.621{col 56}{space 4}-.6293887{col 69}{space 3} .3794002
+{txt}{space 7}NIIP_19 {c |}{col 16}{res}{space 2} .0213761{col 28}{space 2} .0183406{col 39}{space 1}    1.17{col 48}{space 3}0.249{col 56}{space 4}-.0154808{col 69}{space 3}  .058233
+{txt}{space 6}ers_2019 {c |}{col 16}{res}{space 2} -4.97901{col 28}{space 2} 8.888844{col 39}{space 1}   -0.56{col 48}{space 3}0.578{col 56}{space 4}-22.84181{col 69}{space 3} 12.88379
+{txt}{space 5}OPEN_2019 {c |}{col 16}{res}{space 2} .0042509{col 28}{space 2} .0582583{col 39}{space 1}    0.07{col 48}{space 3}0.942{col 56}{space 4}-.1128236{col 69}{space 3} .1213254
+{txt}{space 4}FUELX_2019 {c |}{col 16}{res}{space 2}-.1908232{col 28}{space 2} .1277522{col 39}{space 1}   -1.49{col 48}{space 3}0.142{col 56}{space 4}-.4475508{col 69}{space 3} .0659045
+{txt}{space 4}FUELM_2019 {c |}{col 16}{res}{space 2}-.0881823{col 28}{space 2} .2964211{col 39}{space 1}   -0.30{col 48}{space 3}0.767{col 56}{space 4}-.6838627{col 69}{space 3} .5074981
+{txt}{space 9}_cons {c |}{col 16}{res}{space 2} 22.23598{col 28}{space 2} 9.179288{col 39}{space 1}    2.42{col 48}{space 3}0.019{col 56}{space 4} 3.789508{col 69}{space 3} 40.68245
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfxapp_2_EL
+{txt}
+{com}. 
 . reg       dFX RESGDP2020 c.RESGDP2020#c.FI_2019                                   ///
 >           RATE20q4 c.RATE20q4#c.kaopen_2019                       ///
 >           dRATE22q2_21q2                                          ///
@@ -525,39 +556,39 @@ dRATE22q2_21q2 |  -.2224979   .5032654    -0.44   0.660    -1.233848    .7888517
 >               if dFX!=0 & dFX<100                                      ///
 >               , robust
 
-Linear regression                               Number of obs     =         60
-                                                F(13, 46)         =       3.42
-                                                Prob > F          =     0.0010
-                                                R-squared         =     0.4283
-                                                Root MSE          =     12.114
+{txt}Linear regression                               Number of obs     = {res}        60
+                                                {txt}F(13, 46)         =  {res}     3.42
+                                                {txt}Prob > F          = {res}    0.0010
+                                                {txt}R-squared         = {res}    0.4283
+                                                {txt}Root MSE          =    {res} 12.114
 
-------------------------------------------------------------------------------------------
-                         |               Robust
-                     dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------------------+----------------------------------------------------------------
-              RESGDP2020 |  -.5558862   .2265922    -2.45   0.018    -1.011993   -.0997798
-                         |
-  c.RESGDP2020#c.FI_2019 |   .4117643   .2685742     1.53   0.132    -.1288476    .9523762
-                         |
-                RATE20q4 |   -2.26805   .6333251    -3.58   0.001    -3.542867   -.9932329
-                         |
-c.RATE20q4#c.kaopen_2019 |   -.929529   .3102093    -3.00   0.004    -1.553948   -.3051102
-                         |
-          dRATE22q2_21q2 |  -.2510336   .5161906    -0.49   0.629    -1.290071    .7880043
-            RGDP_PK_2019 |  -.0162258   .0582068    -0.28   0.782    -.1333899    .1009384
-              RPCPI_2019 |  -.0197442   .0416079    -0.47   0.637    -.1034965    .0640081
-                CAB_2019 |  -.4430001   .3161178    -1.40   0.168    -1.079312     .193312
-                 NIIP_19 |   .0262546   .0199019     1.32   0.194     -.013806    .0663151
-                ers_2019 |   1.878166   7.981025     0.24   0.815     -14.1868    17.94314
-               OPEN_2019 |   .0249562   .0556751     0.45   0.656     -.087112    .1370244
-              FUELX_2019 |  -.1550448   .1441175    -1.08   0.288    -.4451383    .1350488
-              FUELM_2019 |   .0057796    .362961     0.02   0.987     -.724823    .7363821
-                   _cons |   27.70974   9.940881     2.79   0.008     7.699784     47.7197
-------------------------------------------------------------------------------------------
-
-. estimate  store dfxapp_3_EL
-
-. 
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}                     dFX{col 26}{c |} Coefficient{col 38}  std. err.{col 50}      t{col 58}   P>|t|{col 66}     [95% con{col 79}f. interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 14}RESGDP2020 {c |}{col 26}{res}{space 2}-.5558862{col 38}{space 2} .2265922{col 49}{space 1}   -2.45{col 58}{space 3}0.018{col 66}{space 4}-1.011993{col 79}{space 3}-.0997798
+{txt}{space 24} {c |}
+{space 2}c.RESGDP2020#c.FI_2019 {c |}{col 26}{res}{space 2} .4117643{col 38}{space 2} .2685742{col 49}{space 1}    1.53{col 58}{space 3}0.132{col 66}{space 4}-.1288476{col 79}{space 3} .9523762
+{txt}{space 24} {c |}
+{space 16}RATE20q4 {c |}{col 26}{res}{space 2} -2.26805{col 38}{space 2} .6333251{col 49}{space 1}   -3.58{col 58}{space 3}0.001{col 66}{space 4}-3.542867{col 79}{space 3}-.9932329
+{txt}{space 24} {c |}
+c.RATE20q4#c.kaopen_2019 {c |}{col 26}{res}{space 2} -.929529{col 38}{space 2} .3102093{col 49}{space 1}   -3.00{col 58}{space 3}0.004{col 66}{space 4}-1.553948{col 79}{space 3}-.3051102
+{txt}{space 24} {c |}
+{space 10}dRATE22q2_21q2 {c |}{col 26}{res}{space 2}-.2510336{col 38}{space 2} .5161906{col 49}{space 1}   -0.49{col 58}{space 3}0.629{col 66}{space 4}-1.290071{col 79}{space 3} .7880043
+{txt}{space 12}RGDP_PK_2019 {c |}{col 26}{res}{space 2}-.0162258{col 38}{space 2} .0582068{col 49}{space 1}   -0.28{col 58}{space 3}0.782{col 66}{space 4}-.1333899{col 79}{space 3} .1009384
+{txt}{space 14}RPCPI_2019 {c |}{col 26}{res}{space 2}-.0197442{col 38}{space 2} .0416079{col 49}{space 1}   -0.47{col 58}{space 3}0.637{col 66}{space 4}-.1034965{col 79}{space 3} .0640081
+{txt}{space 16}CAB_2019 {c |}{col 26}{res}{space 2}-.4430001{col 38}{space 2} .3161178{col 49}{space 1}   -1.40{col 58}{space 3}0.168{col 66}{space 4}-1.079312{col 79}{space 3}  .193312
+{txt}{space 17}NIIP_19 {c |}{col 26}{res}{space 2} .0262546{col 38}{space 2} .0199019{col 49}{space 1}    1.32{col 58}{space 3}0.194{col 66}{space 4} -.013806{col 79}{space 3} .0663151
+{txt}{space 16}ers_2019 {c |}{col 26}{res}{space 2} 1.878166{col 38}{space 2} 7.981025{col 49}{space 1}    0.24{col 58}{space 3}0.815{col 66}{space 4} -14.1868{col 79}{space 3} 17.94314
+{txt}{space 15}OPEN_2019 {c |}{col 26}{res}{space 2} .0249562{col 38}{space 2} .0556751{col 49}{space 1}    0.45{col 58}{space 3}0.656{col 66}{space 4} -.087112{col 79}{space 3} .1370244
+{txt}{space 14}FUELX_2019 {c |}{col 26}{res}{space 2}-.1550448{col 38}{space 2} .1441175{col 49}{space 1}   -1.08{col 58}{space 3}0.288{col 66}{space 4}-.4451383{col 79}{space 3} .1350488
+{txt}{space 14}FUELM_2019 {c |}{col 26}{res}{space 2} .0057796{col 38}{space 2}  .362961{col 49}{space 1}    0.02{col 58}{space 3}0.987{col 66}{space 4} -.724823{col 79}{space 3} .7363821
+{txt}{space 19}_cons {c |}{col 26}{res}{space 2} 27.70974{col 38}{space 2} 9.940881{col 49}{space 1}    2.79{col 58}{space 3}0.008{col 66}{space 4} 7.699784{col 79}{space 3}  47.7197
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfxapp_3_EL
+{txt}
+{com}. 
 . stepwise, pr(.2):                                                 ///
 > reg       dFX RESGDP2020 c.RESGDP2020#c.FI_2019                                   ///
 >           RATE20q4 c.RATE20q4#c.kaopen_2019                       ///
@@ -567,42 +598,45 @@ c.RATE20q4#c.kaopen_2019 |   -.929529   .3102093    -3.00   0.004    -1.553948  
 >               FUELX_2019 FUELM_2019                                   ///
 >               if dFX!=0 & dFX<100                                      ///
 >               , robust
-
+{res}
+{txt}{p2colset 0 23 32 2}{...}
 Wald test, begin with full model:
-p = 0.9874 >= 0.2000, removing FUELM_2019
-p = 0.8096 >= 0.2000, removing ers_2019
-p = 0.7353 >= 0.2000, removing RGDP_PK_2019
-p = 0.6042 >= 0.2000, removing RPCPI_2019
-p = 0.6087 >= 0.2000, removing OPEN_2019
-p = 0.5102 >= 0.2000, removing dRATE22q2_21q2
+{p2col:p = {res:0.9874} >= 0.2000,}removing {res:FUELM_2019}{p_end}
+{p2col:p = {res:0.8096} >= 0.2000,}removing {res:ers_2019}{p_end}
+{p2col:p = {res:0.7353} >= 0.2000,}removing {res:RGDP_PK_2019}{p_end}
+{p2col:p = {res:0.6042} >= 0.2000,}removing {res:RPCPI_2019}{p_end}
+{p2col:p = {res:0.6087} >= 0.2000,}removing {res:OPEN_2019}{p_end}
+{p2col:p = {res:0.5102} >= 0.2000,}removing {res:dRATE22q2_21q2}{p_end}
+{p2colset 0 12 32 2}{...}
+{p2colreset}{...}
 
-Linear regression                               Number of obs     =         60
-                                                F(7, 52)          =       5.91
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.4164
-                                                Root MSE          =     11.513
+Linear regression                               Number of obs     = {res}        60
+                                                {txt}F(7, 52)          =  {res}     5.91
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.4164
+                                                {txt}Root MSE          =    {res} 11.513
 
-------------------------------------------------------------------------------------------
-                         |               Robust
-                     dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------------------+----------------------------------------------------------------
-              RESGDP2020 |  -.4593007   .1515503    -3.03   0.004    -.7634087   -.1551927
-                         |
-  c.RESGDP2020#c.FI_2019 |   .3293042   .1628429     2.02   0.048     .0025361    .6560724
-                         |
-                RATE20q4 |  -2.252125   .5158402    -4.37   0.000    -3.287235   -1.217016
-                         |
-c.RATE20q4#c.kaopen_2019 |  -.8119129   .3110662    -2.61   0.012    -1.436113   -.1877128
-                         |
-                CAB_2019 |  -.4243212   .2605621    -1.63   0.109    -.9471773    .0985349
-                 NIIP_19 |   .0290827   .0191813     1.52   0.136    -.0094075    .0675729
-              FUELX_2019 |  -.1827632   .1348866    -1.35   0.181    -.4534331    .0879066
-                   _cons |   26.25685   3.560176     7.38   0.000     19.11284    33.40087
-------------------------------------------------------------------------------------------
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}                     dFX{col 26}{c |} Coefficient{col 38}  std. err.{col 50}      t{col 58}   P>|t|{col 66}     [95% con{col 79}f. interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 14}RESGDP2020 {c |}{col 26}{res}{space 2}-.4593007{col 38}{space 2} .1515503{col 49}{space 1}   -3.03{col 58}{space 3}0.004{col 66}{space 4}-.7634087{col 79}{space 3}-.1551927
+{txt}{space 24} {c |}
+{space 2}c.RESGDP2020#c.FI_2019 {c |}{col 26}{res}{space 2} .3293042{col 38}{space 2} .1628429{col 49}{space 1}    2.02{col 58}{space 3}0.048{col 66}{space 4} .0025361{col 79}{space 3} .6560724
+{txt}{space 24} {c |}
+{space 16}RATE20q4 {c |}{col 26}{res}{space 2}-2.252125{col 38}{space 2} .5158402{col 49}{space 1}   -4.37{col 58}{space 3}0.000{col 66}{space 4}-3.287235{col 79}{space 3}-1.217016
+{txt}{space 24} {c |}
+c.RATE20q4#c.kaopen_2019 {c |}{col 26}{res}{space 2}-.8119129{col 38}{space 2} .3110662{col 49}{space 1}   -2.61{col 58}{space 3}0.012{col 66}{space 4}-1.436113{col 79}{space 3}-.1877128
+{txt}{space 24} {c |}
+{space 16}CAB_2019 {c |}{col 26}{res}{space 2}-.4243212{col 38}{space 2} .2605621{col 49}{space 1}   -1.63{col 58}{space 3}0.109{col 66}{space 4}-.9471773{col 79}{space 3} .0985349
+{txt}{space 17}NIIP_19 {c |}{col 26}{res}{space 2} .0290827{col 38}{space 2} .0191813{col 49}{space 1}    1.52{col 58}{space 3}0.136{col 66}{space 4}-.0094075{col 79}{space 3} .0675729
+{txt}{space 14}FUELX_2019 {c |}{col 26}{res}{space 2}-.1827632{col 38}{space 2} .1348866{col 49}{space 1}   -1.35{col 58}{space 3}0.181{col 66}{space 4}-.4534331{col 79}{space 3} .0879066
+{txt}{space 19}_cons {c |}{col 26}{res}{space 2} 26.25685{col 38}{space 2} 3.560176{col 49}{space 1}    7.38{col 58}{space 3}0.000{col 66}{space 4} 19.11284{col 79}{space 3} 33.40087
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 
-. estimate  store dfxapp_4_EL
-
-. 
+{com}. estimate  store dfxapp_4_EL
+{txt}
+{com}. 
 . reg       dFX RESGDP2020 c.RESGDP2020#c.FI_2019                                   ///
 >           RATE20q4 c.RATE20q4#c.kaopen_2019                       ///
 >           dRATE22q2_21q2                                          ///
@@ -612,40 +646,40 @@ c.RATE20q4#c.kaopen_2019 |  -.8119129   .3110662    -2.61   0.012    -1.436113  
 >               if dFX!=0 & dFX<100                                      ///
 >               , robust
 
-Linear regression                               Number of obs     =         39
-                                                F(14, 24)         =       5.00
-                                                Prob > F          =     0.0003
-                                                R-squared         =     0.5811
-                                                Root MSE          =     11.178
+{txt}Linear regression                               Number of obs     = {res}        39
+                                                {txt}F(14, 24)         =  {res}     5.00
+                                                {txt}Prob > F          = {res}    0.0003
+                                                {txt}R-squared         = {res}    0.5811
+                                                {txt}Root MSE          =    {res} 11.178
 
-------------------------------------------------------------------------------------------
-                         |               Robust
-                     dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------------------+----------------------------------------------------------------
-              RESGDP2020 |  -1.241266   .2819092    -4.40   0.000    -1.823098   -.6594336
-                         |
-  c.RESGDP2020#c.FI_2019 |   1.816195   .5050612     3.60   0.001     .7737997     2.85859
-                         |
-                RATE20q4 |  -2.789591    .712907    -3.91   0.001    -4.260958   -1.318223
-                         |
-c.RATE20q4#c.kaopen_2019 |  -1.143556   .4152074    -2.75   0.011    -2.000502   -.2866095
-                         |
-          dRATE22q2_21q2 |   -1.67041   .6459431    -2.59   0.016    -3.003571   -.3372484
-            RGDP_PK_2019 |  -.8671728   .4046555    -2.14   0.042    -1.702341   -.0320049
-              RPCPI_2019 |   .0298748    .061177     0.49   0.630    -.0963883    .1561379
-                CAB_2019 |  -1.012406   .2820716    -3.59   0.001    -1.594573   -.4302391
-                 NIIP_19 |    .083458   .0504218     1.66   0.111    -.0206074    .1875234
-                ers_2019 |   8.099636   9.467517     0.86   0.401    -11.44036    27.63963
-               OPEN_2019 |  -.0815905   .0991781    -0.82   0.419     -.286284     .123103
-              FUELX_2019 |  -.2579425   .1690745    -1.53   0.140    -.6068952    .0910101
-              FUELM_2019 |  -.5002774   .3900332    -1.28   0.212    -1.305266    .3047115
-               DEBT_2019 |   .1778713   .0753495     2.36   0.027     .0223576     .333385
-                   _cons |   37.94265   11.18081     3.39   0.002      14.8666     61.0187
-------------------------------------------------------------------------------------------
-
-. estimate  store dfxapp_5_EL
-
-. 
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}                     dFX{col 26}{c |} Coefficient{col 38}  std. err.{col 50}      t{col 58}   P>|t|{col 66}     [95% con{col 79}f. interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 14}RESGDP2020 {c |}{col 26}{res}{space 2}-1.241266{col 38}{space 2} .2819092{col 49}{space 1}   -4.40{col 58}{space 3}0.000{col 66}{space 4}-1.823098{col 79}{space 3}-.6594336
+{txt}{space 24} {c |}
+{space 2}c.RESGDP2020#c.FI_2019 {c |}{col 26}{res}{space 2} 1.816195{col 38}{space 2} .5050612{col 49}{space 1}    3.60{col 58}{space 3}0.001{col 66}{space 4} .7737997{col 79}{space 3}  2.85859
+{txt}{space 24} {c |}
+{space 16}RATE20q4 {c |}{col 26}{res}{space 2}-2.789591{col 38}{space 2}  .712907{col 49}{space 1}   -3.91{col 58}{space 3}0.001{col 66}{space 4}-4.260958{col 79}{space 3}-1.318223
+{txt}{space 24} {c |}
+c.RATE20q4#c.kaopen_2019 {c |}{col 26}{res}{space 2}-1.143556{col 38}{space 2} .4152074{col 49}{space 1}   -2.75{col 58}{space 3}0.011{col 66}{space 4}-2.000502{col 79}{space 3}-.2866095
+{txt}{space 24} {c |}
+{space 10}dRATE22q2_21q2 {c |}{col 26}{res}{space 2} -1.67041{col 38}{space 2} .6459431{col 49}{space 1}   -2.59{col 58}{space 3}0.016{col 66}{space 4}-3.003571{col 79}{space 3}-.3372484
+{txt}{space 12}RGDP_PK_2019 {c |}{col 26}{res}{space 2}-.8671728{col 38}{space 2} .4046555{col 49}{space 1}   -2.14{col 58}{space 3}0.042{col 66}{space 4}-1.702341{col 79}{space 3}-.0320049
+{txt}{space 14}RPCPI_2019 {c |}{col 26}{res}{space 2} .0298748{col 38}{space 2}  .061177{col 49}{space 1}    0.49{col 58}{space 3}0.630{col 66}{space 4}-.0963883{col 79}{space 3} .1561379
+{txt}{space 16}CAB_2019 {c |}{col 26}{res}{space 2}-1.012406{col 38}{space 2} .2820716{col 49}{space 1}   -3.59{col 58}{space 3}0.001{col 66}{space 4}-1.594573{col 79}{space 3}-.4302391
+{txt}{space 17}NIIP_19 {c |}{col 26}{res}{space 2}  .083458{col 38}{space 2} .0504218{col 49}{space 1}    1.66{col 58}{space 3}0.111{col 66}{space 4}-.0206074{col 79}{space 3} .1875234
+{txt}{space 16}ers_2019 {c |}{col 26}{res}{space 2} 8.099636{col 38}{space 2} 9.467517{col 49}{space 1}    0.86{col 58}{space 3}0.401{col 66}{space 4}-11.44036{col 79}{space 3} 27.63963
+{txt}{space 15}OPEN_2019 {c |}{col 26}{res}{space 2}-.0815905{col 38}{space 2} .0991781{col 49}{space 1}   -0.82{col 58}{space 3}0.419{col 66}{space 4} -.286284{col 79}{space 3}  .123103
+{txt}{space 14}FUELX_2019 {c |}{col 26}{res}{space 2}-.2579425{col 38}{space 2} .1690745{col 49}{space 1}   -1.53{col 58}{space 3}0.140{col 66}{space 4}-.6068952{col 79}{space 3} .0910101
+{txt}{space 14}FUELM_2019 {c |}{col 26}{res}{space 2}-.5002774{col 38}{space 2} .3900332{col 49}{space 1}   -1.28{col 58}{space 3}0.212{col 66}{space 4}-1.305266{col 79}{space 3} .3047115
+{txt}{space 15}DEBT_2019 {c |}{col 26}{res}{space 2} .1778713{col 38}{space 2} .0753495{col 49}{space 1}    2.36{col 58}{space 3}0.027{col 66}{space 4} .0223576{col 79}{space 3}  .333385
+{txt}{space 19}_cons {c |}{col 26}{res}{space 2} 37.94265{col 38}{space 2} 11.18081{col 49}{space 1}    3.39{col 58}{space 3}0.002{col 66}{space 4}  14.8666{col 79}{space 3}  61.0187
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfxapp_5_EL
+{txt}
+{com}. 
 . reg       dFX c.RESGDP2020##c.sum_FXI_broad_proxy_GDP_m                    ///
 >           RATE20q4                                                 ///
 >           dRATE22q2_21q2                                           ///
@@ -655,38 +689,37 @@ c.RATE20q4#c.kaopen_2019 |  -1.143556   .4152074    -2.75   0.011    -2.000502  
 >               if dFX!=0 & dFX<100                                      ///
 >               , robust
 
-Linear regression                               Number of obs     =         54
-                                                F(13, 40)         =       7.30
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.4704
-                                                Root MSE          =     11.758
+{txt}Linear regression                               Number of obs     = {res}        54
+                                                {txt}F(13, 40)         =  {res}     7.30
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.4704
+                                                {txt}Root MSE          =    {res} 11.758
 
----------------------------------------------------------------------------------------------
-                            |               Robust
-                        dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
-----------------------------+----------------------------------------------------------------
-                 RESGDP2020 |  -.2073329   .0837853    -2.47   0.018    -.3766694   -.0379964
-  sum_FXI_broad_proxy_GDP_m |  -2.633819   .8424255    -3.13   0.003    -4.336425   -.9312137
-                            |
-               c.RESGDP2020#|
-c.sum_FXI_broad_proxy_GDP_m |   .0533365   .0229217     2.33   0.025     .0070101    .0996628
-                            |
-                   RATE20q4 |  -.9202279   .9227574    -1.00   0.325     -2.78519    .9447343
-             dRATE22q2_21q2 |   -.373723   .4760762    -0.79   0.437    -1.335909    .5884629
-               RGDP_PK_2019 |   .0814991   .0428932     1.90   0.065    -.0051912    .1681895
-                 RPCPI_2019 |     .01012   .0461997     0.22   0.828     -.083253     .103493
-                   CAB_2019 |  -.3958527   .3028754    -1.31   0.199    -1.007987    .2162812
-                    NIIP_19 |   .0338372   .0128048     2.64   0.012     .0079577    .0597167
-                   ers_2019 |  -6.970861   9.514859    -0.73   0.468    -26.20111    12.25939
-                  OPEN_2019 |   .1096312   .0703408     1.56   0.127    -.0325328    .2517951
-                 FUELX_2019 |  -.2388445    .095387    -2.50   0.016    -.4316287   -.0460602
-                 FUELM_2019 |   .0019209   .2645108     0.01   0.994    -.5326754    .5365171
-                      _cons |   15.36546   7.672913     2.00   0.052    -.1420724      30.873
----------------------------------------------------------------------------------------------
-
-. estimate  store dfxapp_6_EL
-
-. 
+{txt}{hline 41}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 42}{c |}{col 54}    Robust
+{col 1}                                     dFX{col 42}{c |} Coefficient{col 54}  std. err.{col 66}      t{col 74}   P>|t|{col 82}     [95% con{col 95}f. interval]
+{hline 41}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 30}RESGDP2020 {c |}{col 42}{res}{space 2}-.2073329{col 54}{space 2} .0837853{col 65}{space 1}   -2.47{col 74}{space 3}0.018{col 82}{space 4}-.3766694{col 95}{space 3}-.0379964
+{txt}{space 15}sum_FXI_broad_proxy_GDP_m {c |}{col 42}{res}{space 2}-2.633819{col 54}{space 2} .8424255{col 65}{space 1}   -3.13{col 74}{space 3}0.003{col 82}{space 4}-4.336425{col 95}{space 3}-.9312137
+{txt}{space 40} {c |}
+c.RESGDP2020#c.sum_FXI_broad_proxy_GDP_m {c |}{col 42}{res}{space 2} .0533365{col 54}{space 2} .0229217{col 65}{space 1}    2.33{col 74}{space 3}0.025{col 82}{space 4} .0070101{col 95}{space 3} .0996628
+{txt}{space 40} {c |}
+{space 32}RATE20q4 {c |}{col 42}{res}{space 2}-.9202279{col 54}{space 2} .9227574{col 65}{space 1}   -1.00{col 74}{space 3}0.325{col 82}{space 4} -2.78519{col 95}{space 3} .9447343
+{txt}{space 26}dRATE22q2_21q2 {c |}{col 42}{res}{space 2} -.373723{col 54}{space 2} .4760762{col 65}{space 1}   -0.79{col 74}{space 3}0.437{col 82}{space 4}-1.335909{col 95}{space 3} .5884629
+{txt}{space 28}RGDP_PK_2019 {c |}{col 42}{res}{space 2} .0814991{col 54}{space 2} .0428932{col 65}{space 1}    1.90{col 74}{space 3}0.065{col 82}{space 4}-.0051912{col 95}{space 3} .1681895
+{txt}{space 30}RPCPI_2019 {c |}{col 42}{res}{space 2}   .01012{col 54}{space 2} .0461997{col 65}{space 1}    0.22{col 74}{space 3}0.828{col 82}{space 4} -.083253{col 95}{space 3}  .103493
+{txt}{space 32}CAB_2019 {c |}{col 42}{res}{space 2}-.3958527{col 54}{space 2} .3028754{col 65}{space 1}   -1.31{col 74}{space 3}0.199{col 82}{space 4}-1.007987{col 95}{space 3} .2162812
+{txt}{space 33}NIIP_19 {c |}{col 42}{res}{space 2} .0338372{col 54}{space 2} .0128048{col 65}{space 1}    2.64{col 74}{space 3}0.012{col 82}{space 4} .0079577{col 95}{space 3} .0597167
+{txt}{space 32}ers_2019 {c |}{col 42}{res}{space 2}-6.970861{col 54}{space 2} 9.514859{col 65}{space 1}   -0.73{col 74}{space 3}0.468{col 82}{space 4}-26.20111{col 95}{space 3} 12.25939
+{txt}{space 31}OPEN_2019 {c |}{col 42}{res}{space 2} .1096312{col 54}{space 2} .0703408{col 65}{space 1}    1.56{col 74}{space 3}0.127{col 82}{space 4}-.0325328{col 95}{space 3} .2517951
+{txt}{space 30}FUELX_2019 {c |}{col 42}{res}{space 2}-.2388445{col 54}{space 2}  .095387{col 65}{space 1}   -2.50{col 74}{space 3}0.016{col 82}{space 4}-.4316287{col 95}{space 3}-.0460602
+{txt}{space 30}FUELM_2019 {c |}{col 42}{res}{space 2} .0019209{col 54}{space 2} .2645108{col 65}{space 1}    0.01{col 74}{space 3}0.994{col 82}{space 4}-.5326754{col 95}{space 3} .5365171
+{txt}{space 35}_cons {c |}{col 42}{res}{space 2} 15.36546{col 54}{space 2} 7.672913{col 65}{space 1}    2.00{col 74}{space 3}0.052{col 82}{space 4}-.1420724{col 95}{space 3}   30.873
+{txt}{hline 41}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfxapp_6_EL
+{txt}
+{com}. 
 . **# Table A.4: Regressions with additional covariates, depreciations only
 . 
 . reg       dFX RESGDP2020 c.RESGDP2020#c.FI_2019                                   ///
@@ -694,144 +727,144 @@ c.sum_FXI_broad_proxy_GDP_m |   .0533365   .0229217     2.33   0.025     .007010
 >           dRATE22q2_21q2                                          ///
 >           RGDP_PK_2019 RPCPI_2019 CAB_2019                        ///
 >               NIIP_19 ers_2019 OPEN_2019                              ///
->               FUELX_2019 FUELM_2019                                                         
->               ///
+>               FUELX_2019 FUELM_2019                                                                       ///
 >                   dCTOT DEBT_2019 RULE_2019 REERmis2019                   ///
 >               if dFX>0 & dFX<100                                      ///
 >               , robust
 
-Linear regression                               Number of obs     =         31
-                                                F(17, 13)         =      11.81
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.7136
-                                                Root MSE          =     7.6262
+{txt}Linear regression                               Number of obs     = {res}        31
+                                                {txt}F(17, 13)         =  {res}    11.81
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.7136
+                                                {txt}Root MSE          =    {res} 7.6262
 
-------------------------------------------------------------------------------------------
-                         |               Robust
-                     dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------------------+----------------------------------------------------------------
-              RESGDP2020 |  -.9887351    .244778    -4.04   0.001    -1.517546   -.4599244
-                         |
-  c.RESGDP2020#c.FI_2019 |   1.678154   .3845045     4.36   0.001     .8474824    2.508825
-                         |
-                RATE20q4 |  -1.199344   .8897422    -1.35   0.201    -3.121515    .7228274
-                         |
-c.RATE20q4#c.kaopen_2019 |  -.7235402   .4202323    -1.72   0.109    -1.631397    .1843165
-                         |
-          dRATE22q2_21q2 |  -1.010796   .3509078    -2.88   0.013    -1.768887   -.2527062
-            RGDP_PK_2019 |  -1.097205   .5428063    -2.02   0.064    -2.269867    .0754564
-              RPCPI_2019 |   .0168084   .0559864     0.30   0.769     -.104143    .1377597
-                CAB_2019 |  -.8179505    .281504    -2.91   0.012    -1.426103   -.2097981
-                 NIIP_19 |   .0663075   .0628137     1.06   0.310    -.0693933    .2020082
-                ers_2019 |   6.237561   12.31495     0.51   0.621    -20.36727    32.84239
-               OPEN_2019 |  -.1140799   .1155221    -0.99   0.341    -.3636503    .1354906
-              FUELX_2019 |    .084576   .1247901     0.68   0.510    -.1850167    .3541687
-              FUELM_2019 |  -1.069697   .3600528    -2.97   0.011    -1.847543   -.2918497
-                   dCTOT |  -1.868834   1.034019    -1.81   0.094    -4.102695    .3650279
-               DEBT_2019 |   .0980954   .0617186     1.59   0.136    -.0352396    .2314304
-               RULE_2019 |   4.271906   3.439389     1.24   0.236    -3.158442    11.70225
-             REERmis2019 |  -.1334738   .5306284    -0.25   0.805    -1.279827    1.012879
-                   _cons |   58.53681   65.31094     0.90   0.386     -82.5589    199.6325
-------------------------------------------------------------------------------------------
-
-. estimate  store dfx_1_EL_A4
-
-. 
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}                     dFX{col 26}{c |} Coefficient{col 38}  std. err.{col 50}      t{col 58}   P>|t|{col 66}     [95% con{col 79}f. interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 14}RESGDP2020 {c |}{col 26}{res}{space 2}-.9887351{col 38}{space 2}  .244778{col 49}{space 1}   -4.04{col 58}{space 3}0.001{col 66}{space 4}-1.517546{col 79}{space 3}-.4599244
+{txt}{space 24} {c |}
+{space 2}c.RESGDP2020#c.FI_2019 {c |}{col 26}{res}{space 2} 1.678154{col 38}{space 2} .3845045{col 49}{space 1}    4.36{col 58}{space 3}0.001{col 66}{space 4} .8474824{col 79}{space 3} 2.508825
+{txt}{space 24} {c |}
+{space 16}RATE20q4 {c |}{col 26}{res}{space 2}-1.199344{col 38}{space 2} .8897422{col 49}{space 1}   -1.35{col 58}{space 3}0.201{col 66}{space 4}-3.121515{col 79}{space 3} .7228274
+{txt}{space 24} {c |}
+c.RATE20q4#c.kaopen_2019 {c |}{col 26}{res}{space 2}-.7235402{col 38}{space 2} .4202323{col 49}{space 1}   -1.72{col 58}{space 3}0.109{col 66}{space 4}-1.631397{col 79}{space 3} .1843165
+{txt}{space 24} {c |}
+{space 10}dRATE22q2_21q2 {c |}{col 26}{res}{space 2}-1.010796{col 38}{space 2} .3509078{col 49}{space 1}   -2.88{col 58}{space 3}0.013{col 66}{space 4}-1.768887{col 79}{space 3}-.2527062
+{txt}{space 12}RGDP_PK_2019 {c |}{col 26}{res}{space 2}-1.097205{col 38}{space 2} .5428063{col 49}{space 1}   -2.02{col 58}{space 3}0.064{col 66}{space 4}-2.269867{col 79}{space 3} .0754564
+{txt}{space 14}RPCPI_2019 {c |}{col 26}{res}{space 2} .0168084{col 38}{space 2} .0559864{col 49}{space 1}    0.30{col 58}{space 3}0.769{col 66}{space 4} -.104143{col 79}{space 3} .1377597
+{txt}{space 16}CAB_2019 {c |}{col 26}{res}{space 2}-.8179505{col 38}{space 2}  .281504{col 49}{space 1}   -2.91{col 58}{space 3}0.012{col 66}{space 4}-1.426103{col 79}{space 3}-.2097981
+{txt}{space 17}NIIP_19 {c |}{col 26}{res}{space 2} .0663075{col 38}{space 2} .0628137{col 49}{space 1}    1.06{col 58}{space 3}0.310{col 66}{space 4}-.0693933{col 79}{space 3} .2020082
+{txt}{space 16}ers_2019 {c |}{col 26}{res}{space 2} 6.237561{col 38}{space 2} 12.31495{col 49}{space 1}    0.51{col 58}{space 3}0.621{col 66}{space 4}-20.36727{col 79}{space 3} 32.84239
+{txt}{space 15}OPEN_2019 {c |}{col 26}{res}{space 2}-.1140799{col 38}{space 2} .1155221{col 49}{space 1}   -0.99{col 58}{space 3}0.341{col 66}{space 4}-.3636503{col 79}{space 3} .1354906
+{txt}{space 14}FUELX_2019 {c |}{col 26}{res}{space 2}  .084576{col 38}{space 2} .1247901{col 49}{space 1}    0.68{col 58}{space 3}0.510{col 66}{space 4}-.1850167{col 79}{space 3} .3541687
+{txt}{space 14}FUELM_2019 {c |}{col 26}{res}{space 2}-1.069697{col 38}{space 2} .3600528{col 49}{space 1}   -2.97{col 58}{space 3}0.011{col 66}{space 4}-1.847543{col 79}{space 3}-.2918497
+{txt}{space 19}dCTOT {c |}{col 26}{res}{space 2}-1.868834{col 38}{space 2} 1.034019{col 49}{space 1}   -1.81{col 58}{space 3}0.094{col 66}{space 4}-4.102695{col 79}{space 3} .3650279
+{txt}{space 15}DEBT_2019 {c |}{col 26}{res}{space 2} .0980954{col 38}{space 2} .0617186{col 49}{space 1}    1.59{col 58}{space 3}0.136{col 66}{space 4}-.0352396{col 79}{space 3} .2314304
+{txt}{space 15}RULE_2019 {c |}{col 26}{res}{space 2} 4.271906{col 38}{space 2} 3.439389{col 49}{space 1}    1.24{col 58}{space 3}0.236{col 66}{space 4}-3.158442{col 79}{space 3} 11.70225
+{txt}{space 13}REERmis2019 {c |}{col 26}{res}{space 2}-.1334738{col 38}{space 2} .5306284{col 49}{space 1}   -0.25{col 58}{space 3}0.805{col 66}{space 4}-1.279827{col 79}{space 3} 1.012879
+{txt}{space 19}_cons {c |}{col 26}{res}{space 2} 58.53681{col 38}{space 2} 65.31094{col 49}{space 1}    0.90{col 58}{space 3}0.386{col 66}{space 4} -82.5589{col 79}{space 3} 199.6325
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfx_1_EL_A4
+{txt}
+{com}. 
 . reg       dFX RESGDP2020 c.RESGDP2020#c.FI_2019                                   ///
 >           RATE20q4 c.RATE20q4#c.kaopen_2019                       ///
 >           dRATE22q2_21q2                                          ///
 >           RGDP_PK_2019 RPCPI_2019 CAB_2019                        ///
 >               NIIP_19 ers_2019 OPEN_2019                              ///
->               FUELX_2019 FUELM_2019                                                         
->               ///
+>               FUELX_2019 FUELM_2019                                                                       ///
 >                   dCTOT RULE_2019 REERmis2019                   ///
 >               if dFX>0 & dFX<100                                      ///
 >               , robust
 
-Linear regression                               Number of obs     =         50
-                                                F(16, 33)         =       1.99
-                                                Prob > F          =     0.0460
-                                                R-squared         =     0.3742
-                                                Root MSE          =     10.036
+{txt}Linear regression                               Number of obs     = {res}        50
+                                                {txt}F(16, 33)         =  {res}     1.99
+                                                {txt}Prob > F          = {res}    0.0460
+                                                {txt}R-squared         = {res}    0.3742
+                                                {txt}Root MSE          =    {res} 10.036
 
-------------------------------------------------------------------------------------------
-                         |               Robust
-                     dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------------------+----------------------------------------------------------------
-              RESGDP2020 |  -.3942831    .204326    -1.93   0.062    -.8099876    .0214214
-                         |
-  c.RESGDP2020#c.FI_2019 |   .3159402   .2187425     1.44   0.158    -.1290947     .760975
-                         |
-                RATE20q4 |  -.4410742   .7398136    -0.60   0.555    -1.946236    1.064088
-                         |
-c.RATE20q4#c.kaopen_2019 |  -.4284178   .3912374    -1.10   0.281    -1.224396    .3675606
-                         |
-          dRATE22q2_21q2 |   .0533981   .5926487     0.09   0.929    -1.152355    1.259151
-            RGDP_PK_2019 |  -.1115212   .1005235    -1.11   0.275    -.3160378    .0929955
-              RPCPI_2019 |  -.0286462   .0400302    -0.72   0.479    -.1100883    .0527959
-                CAB_2019 |  -.0818938   .3051351    -0.27   0.790    -.7026958    .5389083
-                 NIIP_19 |   .0026469   .0179016     0.15   0.883    -.0337742    .0390681
-                ers_2019 |   .4899788   9.727601     0.05   0.960    -19.30097    20.28093
-               OPEN_2019 |   .0090656   .0610915     0.15   0.883     -.115226    .1333572
-              FUELX_2019 |   .0744805   .1133299     0.66   0.516     -.156091     .305052
-              FUELM_2019 |  -.2001588    .357843    -0.56   0.580    -.9281959    .5278783
-                   dCTOT |  -.7679723   .6788983    -1.13   0.266    -2.149201    .6132566
-               RULE_2019 |    5.92705   3.611438     1.64   0.110    -1.420476    13.27458
-             REERmis2019 |   .2773645   .3222418     0.86   0.396    -.3782414    .9329704
-                   _cons |  -1.622862    36.9499    -0.04   0.965    -76.79801    73.55228
-------------------------------------------------------------------------------------------
-
-. estimate  store dfx_2_EL_A4
-
-. 
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}                     dFX{col 26}{c |} Coefficient{col 38}  std. err.{col 50}      t{col 58}   P>|t|{col 66}     [95% con{col 79}f. interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 14}RESGDP2020 {c |}{col 26}{res}{space 2}-.3942831{col 38}{space 2}  .204326{col 49}{space 1}   -1.93{col 58}{space 3}0.062{col 66}{space 4}-.8099876{col 79}{space 3} .0214214
+{txt}{space 24} {c |}
+{space 2}c.RESGDP2020#c.FI_2019 {c |}{col 26}{res}{space 2} .3159402{col 38}{space 2} .2187425{col 49}{space 1}    1.44{col 58}{space 3}0.158{col 66}{space 4}-.1290947{col 79}{space 3}  .760975
+{txt}{space 24} {c |}
+{space 16}RATE20q4 {c |}{col 26}{res}{space 2}-.4410742{col 38}{space 2} .7398136{col 49}{space 1}   -0.60{col 58}{space 3}0.555{col 66}{space 4}-1.946236{col 79}{space 3} 1.064088
+{txt}{space 24} {c |}
+c.RATE20q4#c.kaopen_2019 {c |}{col 26}{res}{space 2}-.4284178{col 38}{space 2} .3912374{col 49}{space 1}   -1.10{col 58}{space 3}0.281{col 66}{space 4}-1.224396{col 79}{space 3} .3675606
+{txt}{space 24} {c |}
+{space 10}dRATE22q2_21q2 {c |}{col 26}{res}{space 2} .0533981{col 38}{space 2} .5926487{col 49}{space 1}    0.09{col 58}{space 3}0.929{col 66}{space 4}-1.152355{col 79}{space 3} 1.259151
+{txt}{space 12}RGDP_PK_2019 {c |}{col 26}{res}{space 2}-.1115212{col 38}{space 2} .1005235{col 49}{space 1}   -1.11{col 58}{space 3}0.275{col 66}{space 4}-.3160378{col 79}{space 3} .0929955
+{txt}{space 14}RPCPI_2019 {c |}{col 26}{res}{space 2}-.0286462{col 38}{space 2} .0400302{col 49}{space 1}   -0.72{col 58}{space 3}0.479{col 66}{space 4}-.1100883{col 79}{space 3} .0527959
+{txt}{space 16}CAB_2019 {c |}{col 26}{res}{space 2}-.0818938{col 38}{space 2} .3051351{col 49}{space 1}   -0.27{col 58}{space 3}0.790{col 66}{space 4}-.7026958{col 79}{space 3} .5389083
+{txt}{space 17}NIIP_19 {c |}{col 26}{res}{space 2} .0026469{col 38}{space 2} .0179016{col 49}{space 1}    0.15{col 58}{space 3}0.883{col 66}{space 4}-.0337742{col 79}{space 3} .0390681
+{txt}{space 16}ers_2019 {c |}{col 26}{res}{space 2} .4899788{col 38}{space 2} 9.727601{col 49}{space 1}    0.05{col 58}{space 3}0.960{col 66}{space 4}-19.30097{col 79}{space 3} 20.28093
+{txt}{space 15}OPEN_2019 {c |}{col 26}{res}{space 2} .0090656{col 38}{space 2} .0610915{col 49}{space 1}    0.15{col 58}{space 3}0.883{col 66}{space 4} -.115226{col 79}{space 3} .1333572
+{txt}{space 14}FUELX_2019 {c |}{col 26}{res}{space 2} .0744805{col 38}{space 2} .1133299{col 49}{space 1}    0.66{col 58}{space 3}0.516{col 66}{space 4} -.156091{col 79}{space 3}  .305052
+{txt}{space 14}FUELM_2019 {c |}{col 26}{res}{space 2}-.2001588{col 38}{space 2}  .357843{col 49}{space 1}   -0.56{col 58}{space 3}0.580{col 66}{space 4}-.9281959{col 79}{space 3} .5278783
+{txt}{space 19}dCTOT {c |}{col 26}{res}{space 2}-.7679723{col 38}{space 2} .6788983{col 49}{space 1}   -1.13{col 58}{space 3}0.266{col 66}{space 4}-2.149201{col 79}{space 3} .6132566
+{txt}{space 15}RULE_2019 {c |}{col 26}{res}{space 2}  5.92705{col 38}{space 2} 3.611438{col 49}{space 1}    1.64{col 58}{space 3}0.110{col 66}{space 4}-1.420476{col 79}{space 3} 13.27458
+{txt}{space 13}REERmis2019 {c |}{col 26}{res}{space 2} .2773645{col 38}{space 2} .3222418{col 49}{space 1}    0.86{col 58}{space 3}0.396{col 66}{space 4}-.3782414{col 79}{space 3} .9329704
+{txt}{space 19}_cons {c |}{col 26}{res}{space 2}-1.622862{col 38}{space 2}  36.9499{col 49}{space 1}   -0.04{col 58}{space 3}0.965{col 66}{space 4}-76.79801{col 79}{space 3} 73.55228
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfx_2_EL_A4
+{txt}
+{com}. 
 . stepwise, pr(.2): ///
 > reg       dFX RESGDP2020 c.RESGDP2020#c.FI_2019                                   ///
 >           RATE20q4 c.RATE20q4#c.kaopen_2019                       ///
 >           dRATE22q2_21q2                                          ///
 >           RGDP_PK_2019 RPCPI_2019 CAB_2019                        ///
 >               NIIP_19 ers_2019 OPEN_2019                              ///
->               FUELX_2019 FUELM_2019                                                         
->               ///
+>               FUELX_2019 FUELM_2019                                                                       ///
 >                   dCTOT RULE_2019 REERmis2019                   ///
 >               if dFX>0 & dFX<100                                      ///
 >               , robust
-
+{res}
+{txt}{p2colset 0 23 32 2}{...}
 Wald test, begin with full model:
-p = 0.9601 >= 0.2000, removing ers_2019
-p = 0.9430 >= 0.2000, removing dRATE22q2_21q2
-p = 0.8949 >= 0.2000, removing NIIP_19
-p = 0.8444 >= 0.2000, removing OPEN_2019
-p = 0.7546 >= 0.2000, removing CAB_2019
-p = 0.5714 >= 0.2000, removing RATE20q4
-p = 0.5218 >= 0.2000, removing FUELM_2019
-p = 0.5107 >= 0.2000, removing FUELX_2019
-p = 0.3092 >= 0.2000, removing RPCPI_2019
-p = 0.3772 >= 0.2000, removing c.RATE20q4#c.kaopen_2019
-p = 0.3224 >= 0.2000, removing dCTOT
+{p2col:p = {res:0.9601} >= 0.2000,}removing {res:ers_2019}{p_end}
+{p2col:p = {res:0.9430} >= 0.2000,}removing {res:dRATE22q2_21q2}{p_end}
+{p2col:p = {res:0.8949} >= 0.2000,}removing {res:NIIP_19}{p_end}
+{p2col:p = {res:0.8444} >= 0.2000,}removing {res:OPEN_2019}{p_end}
+{p2col:p = {res:0.7546} >= 0.2000,}removing {res:CAB_2019}{p_end}
+{p2col:p = {res:0.5714} >= 0.2000,}removing {res:RATE20q4}{p_end}
+{p2col:p = {res:0.5218} >= 0.2000,}removing {res:FUELM_2019}{p_end}
+{p2col:p = {res:0.5107} >= 0.2000,}removing {res:FUELX_2019}{p_end}
+{p2col:p = {res:0.3092} >= 0.2000,}removing {res:RPCPI_2019}{p_end}
+{p2col:p = {res:0.3772} >= 0.2000,}removing {res:c.RATE20q4#c.kaopen_2019}{p_end}
+{p2col:p = {res:0.3224} >= 0.2000,}removing {res:dCTOT}{p_end}
+{p2colset 0 12 32 2}{...}
+{p2colreset}{...}
 
-Linear regression                               Number of obs     =         50
-                                                F(5, 44)          =       6.81
-                                                Prob > F          =     0.0001
-                                                R-squared         =     0.3228
-                                                Root MSE          =     9.0416
+Linear regression                               Number of obs     = {res}        50
+                                                {txt}F(5, 44)          =  {res}     6.81
+                                                {txt}Prob > F          = {res}    0.0001
+                                                {txt}R-squared         = {res}    0.3228
+                                                {txt}Root MSE          =    {res} 9.0416
 
-----------------------------------------------------------------------------------------
-                       |               Robust
-                   dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
------------------------+----------------------------------------------------------------
-            RESGDP2020 |  -.4093091   .1315434    -3.11   0.003    -.6744174   -.1442007
-                       |
-c.RESGDP2020#c.FI_2019 |   .3499296   .1587203     2.20   0.033     .0300498    .6698093
-                       |
-           REERmis2019 |   .5079404   .2286171     2.22   0.031     .0471928    .9686879
-          RGDP_PK_2019 |  -.1146601   .0691978    -1.66   0.105    -.2541191    .0247988
-             RULE_2019 |   7.075134   2.299519     3.08   0.004     2.440757    11.70951
-                 _cons |  -29.70346   22.95323    -1.29   0.202    -75.96266    16.55574
-----------------------------------------------------------------------------------------
+{txt}{hline 23}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 24}{c |}{col 36}    Robust
+{col 1}                   dFX{col 24}{c |} Coefficient{col 36}  std. err.{col 48}      t{col 56}   P>|t|{col 64}     [95% con{col 77}f. interval]
+{hline 23}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 12}RESGDP2020 {c |}{col 24}{res}{space 2}-.4093091{col 36}{space 2} .1315434{col 47}{space 1}   -3.11{col 56}{space 3}0.003{col 64}{space 4}-.6744174{col 77}{space 3}-.1442007
+{txt}{space 22} {c |}
+c.RESGDP2020#c.FI_2019 {c |}{col 24}{res}{space 2} .3499296{col 36}{space 2} .1587203{col 47}{space 1}    2.20{col 56}{space 3}0.033{col 64}{space 4} .0300498{col 77}{space 3} .6698093
+{txt}{space 22} {c |}
+{space 11}REERmis2019 {c |}{col 24}{res}{space 2} .5079404{col 36}{space 2} .2286171{col 47}{space 1}    2.22{col 56}{space 3}0.031{col 64}{space 4} .0471928{col 77}{space 3} .9686879
+{txt}{space 10}RGDP_PK_2019 {c |}{col 24}{res}{space 2}-.1146601{col 36}{space 2} .0691978{col 47}{space 1}   -1.66{col 56}{space 3}0.105{col 64}{space 4}-.2541191{col 77}{space 3} .0247988
+{txt}{space 13}RULE_2019 {c |}{col 24}{res}{space 2} 7.075134{col 36}{space 2} 2.299519{col 47}{space 1}    3.08{col 56}{space 3}0.004{col 64}{space 4} 2.440757{col 77}{space 3} 11.70951
+{txt}{space 17}_cons {c |}{col 24}{res}{space 2}-29.70346{col 36}{space 2} 22.95323{col 47}{space 1}   -1.29{col 56}{space 3}0.202{col 64}{space 4}-75.96266{col 77}{space 3} 16.55574
+{txt}{hline 23}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 
-. estimate  store dfx_3_EL_A4
-
-. 
+{com}. estimate  store dfx_3_EL_A4
+{txt}
+{com}. 
 . **# Table A.5: Regressions with country group interactions, depreciations only
 . 
 . // Country groups
@@ -844,44 +877,47 @@ c.RESGDP2020#c.FI_2019 |   .3499296   .1587203     2.20   0.033     .0300498    
 >               FUELX_2019 FUELM_2019                                  ///
 >               if dFX>0 & dFX<70                        ///
 >               , robust 
-
+{res}
+{txt}{p2colset 0 23 32 2}{...}
 Wald test, begin with full model:
-p = 0.9001 >= 0.2000, removing OPEN_2019
-p = 0.8671 >= 0.2000, removing NIIP_19
-p = 0.7121 >= 0.2000, removing ers_2019
-p = 0.5850 >= 0.2000, removing RGDP_PK_2019
-p = 0.5611 >= 0.2000, removing lac
-p = 0.4716 >= 0.2000, removing RPCPI_2019
-p = 0.4627 >= 0.2000, removing kaopen_2019
-p = 0.4402 >= 0.2000, removing FUELM_2019
-p = 0.4453 >= 0.2000, removing CAB_2019
-p = 0.4385 >= 0.2000, removing dRATE22q2_21q2
+{p2col:p = {res:0.9001} >= 0.2000,}removing {res:OPEN_2019}{p_end}
+{p2col:p = {res:0.8671} >= 0.2000,}removing {res:NIIP_19}{p_end}
+{p2col:p = {res:0.7121} >= 0.2000,}removing {res:ers_2019}{p_end}
+{p2col:p = {res:0.5850} >= 0.2000,}removing {res:RGDP_PK_2019}{p_end}
+{p2col:p = {res:0.5611} >= 0.2000,}removing {res:lac}{p_end}
+{p2col:p = {res:0.4716} >= 0.2000,}removing {res:RPCPI_2019}{p_end}
+{p2col:p = {res:0.4627} >= 0.2000,}removing {res:kaopen_2019}{p_end}
+{p2col:p = {res:0.4402} >= 0.2000,}removing {res:FUELM_2019}{p_end}
+{p2col:p = {res:0.4453} >= 0.2000,}removing {res:CAB_2019}{p_end}
+{p2col:p = {res:0.4385} >= 0.2000,}removing {res:dRATE22q2_21q2}{p_end}
+{p2colset 0 12 32 2}{...}
+{p2colreset}{...}
 
-Linear regression                               Number of obs     =         51
-                                                F(5, 45)          =      11.77
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.3772
-                                                Root MSE          =     8.6506
+Linear regression                               Number of obs     = {res}        51
+                                                {txt}F(5, 45)          =  {res}    11.77
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.3772
+                                                {txt}Root MSE          =    {res} 8.6506
 
-------------------------------------------------------------------------------------------
-                         |               Robust
-                     dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------------------+----------------------------------------------------------------
-              RESGDP2020 |  -.1511264    .029832    -5.07   0.000    -.2112112   -.0910417
-              FUELX_2019 |  -.0721325   .0516733    -1.40   0.170    -.1762078    .0319429
-                         |
-      c.RESGDP2020#c.lac |  -.4732891   .0816147    -5.80   0.000    -.6376695   -.3089086
-                         |
-                RATE20q4 |   -1.53475   .4703849    -3.26   0.002    -2.482153   -.5873457
-                         |
-c.RATE20q4#c.kaopen_2019 |  -.4722489   .3044742    -1.55   0.128    -1.085491    .1409937
-                         |
-                   _cons |   24.43794   2.549109     9.59   0.000     19.30377    29.57211
-------------------------------------------------------------------------------------------
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}                     dFX{col 26}{c |} Coefficient{col 38}  std. err.{col 50}      t{col 58}   P>|t|{col 66}     [95% con{col 79}f. interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 14}RESGDP2020 {c |}{col 26}{res}{space 2}-.1511264{col 38}{space 2}  .029832{col 49}{space 1}   -5.07{col 58}{space 3}0.000{col 66}{space 4}-.2112112{col 79}{space 3}-.0910417
+{txt}{space 14}FUELX_2019 {c |}{col 26}{res}{space 2}-.0721325{col 38}{space 2} .0516733{col 49}{space 1}   -1.40{col 58}{space 3}0.170{col 66}{space 4}-.1762078{col 79}{space 3} .0319429
+{txt}{space 24} {c |}
+{space 6}c.RESGDP2020#c.lac {c |}{col 26}{res}{space 2}-.4732891{col 38}{space 2} .0816147{col 49}{space 1}   -5.80{col 58}{space 3}0.000{col 66}{space 4}-.6376695{col 79}{space 3}-.3089086
+{txt}{space 24} {c |}
+{space 16}RATE20q4 {c |}{col 26}{res}{space 2} -1.53475{col 38}{space 2} .4703849{col 49}{space 1}   -3.26{col 58}{space 3}0.002{col 66}{space 4}-2.482153{col 79}{space 3}-.5873457
+{txt}{space 24} {c |}
+c.RATE20q4#c.kaopen_2019 {c |}{col 26}{res}{space 2}-.4722489{col 38}{space 2} .3044742{col 49}{space 1}   -1.55{col 58}{space 3}0.128{col 66}{space 4}-1.085491{col 79}{space 3} .1409937
+{txt}{space 24} {c |}
+{space 19}_cons {c |}{col 26}{res}{space 2} 24.43794{col 38}{space 2} 2.549109{col 49}{space 1}    9.59{col 58}{space 3}0.000{col 66}{space 4} 19.30377{col 79}{space 3} 29.57211
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 
-. estimate  store dfxc_1_dFX_EL_A5
-
-. 
+{com}. estimate  store dfxc_1_dFX_EL_A5
+{txt}
+{com}. 
 . /*
 > Mexico
 > Jamaica
@@ -901,44 +937,47 @@ c.RATE20q4#c.kaopen_2019 |  -.4722489   .3044742    -1.55   0.128    -1.085491  
 >               FUELX_2019 FUELM_2019                                  ///
 >               if dFX>0 & dFX<70                       ///
 >               , robust 
-
+{res}
+{txt}{p2colset 0 23 32 2}{...}
 Wald test, begin with full model:
-p = 0.9771 >= 0.2000, removing CAB_2019
-p = 0.8181 >= 0.2000, removing RGDP_PK_2019
-p = 0.8095 >= 0.2000, removing FUELX_2019
-p = 0.7450 >= 0.2000, removing dRATE22q2_21q2
-p = 0.6192 >= 0.2000, removing kaopen_2019
-p = 0.7031 >= 0.2000, removing FUELM_2019
-p = 0.4147 >= 0.2000, removing OPEN_2019
-p = 0.4091 >= 0.2000, removing ers_2019
-p = 0.2740 >= 0.2000, removing NIIP_19
-p = 0.2020 >= 0.2000, removing RPCPI_2019
+{p2col:p = {res:0.9771} >= 0.2000,}removing {res:CAB_2019}{p_end}
+{p2col:p = {res:0.8181} >= 0.2000,}removing {res:RGDP_PK_2019}{p_end}
+{p2col:p = {res:0.8095} >= 0.2000,}removing {res:FUELX_2019}{p_end}
+{p2col:p = {res:0.7450} >= 0.2000,}removing {res:dRATE22q2_21q2}{p_end}
+{p2col:p = {res:0.6192} >= 0.2000,}removing {res:kaopen_2019}{p_end}
+{p2col:p = {res:0.7031} >= 0.2000,}removing {res:FUELM_2019}{p_end}
+{p2col:p = {res:0.4147} >= 0.2000,}removing {res:OPEN_2019}{p_end}
+{p2col:p = {res:0.4091} >= 0.2000,}removing {res:ers_2019}{p_end}
+{p2col:p = {res:0.2740} >= 0.2000,}removing {res:NIIP_19}{p_end}
+{p2col:p = {res:0.2020} >= 0.2000,}removing {res:RPCPI_2019}{p_end}
+{p2colset 0 12 32 2}{...}
+{p2colreset}{...}
 
-Linear regression                               Number of obs     =         51
-                                                F(5, 45)          =      32.72
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.2918
-                                                Root MSE          =     9.2246
+Linear regression                               Number of obs     = {res}        51
+                                                {txt}F(5, 45)          =  {res}    32.72
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.2918
+                                                {txt}Root MSE          =    {res} 9.2246
 
-------------------------------------------------------------------------------------------
-                         |               Robust
-                     dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------------------+----------------------------------------------------------------
-              RESGDP2020 |  -.1210832   .0274693    -4.41   0.000    -.1764092   -.0657572
-                    mena |   27.60674   3.769213     7.32   0.000     20.01515    35.19832
-                         |
-     c.RESGDP2020#c.mena |  -.8433072   .1011495    -8.34   0.000    -1.047033   -.6395817
-                         |
-                RATE20q4 |  -1.850145   .5182298    -3.57   0.001    -2.893914    -.806377
-                         |
-c.RATE20q4#c.kaopen_2019 |  -.6783536   .3626146    -1.87   0.068    -1.408697    .0519896
-                         |
-                   _cons |   21.54891   2.522746     8.54   0.000     16.46783    26.62998
-------------------------------------------------------------------------------------------
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}                     dFX{col 26}{c |} Coefficient{col 38}  std. err.{col 50}      t{col 58}   P>|t|{col 66}     [95% con{col 79}f. interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 14}RESGDP2020 {c |}{col 26}{res}{space 2}-.1210832{col 38}{space 2} .0274693{col 49}{space 1}   -4.41{col 58}{space 3}0.000{col 66}{space 4}-.1764092{col 79}{space 3}-.0657572
+{txt}{space 20}mena {c |}{col 26}{res}{space 2} 27.60674{col 38}{space 2} 3.769213{col 49}{space 1}    7.32{col 58}{space 3}0.000{col 66}{space 4} 20.01515{col 79}{space 3} 35.19832
+{txt}{space 24} {c |}
+{space 5}c.RESGDP2020#c.mena {c |}{col 26}{res}{space 2}-.8433072{col 38}{space 2} .1011495{col 49}{space 1}   -8.34{col 58}{space 3}0.000{col 66}{space 4}-1.047033{col 79}{space 3}-.6395817
+{txt}{space 24} {c |}
+{space 16}RATE20q4 {c |}{col 26}{res}{space 2}-1.850145{col 38}{space 2} .5182298{col 49}{space 1}   -3.57{col 58}{space 3}0.001{col 66}{space 4}-2.893914{col 79}{space 3} -.806377
+{txt}{space 24} {c |}
+c.RATE20q4#c.kaopen_2019 {c |}{col 26}{res}{space 2}-.6783536{col 38}{space 2} .3626146{col 49}{space 1}   -1.87{col 58}{space 3}0.068{col 66}{space 4}-1.408697{col 79}{space 3} .0519896
+{txt}{space 24} {c |}
+{space 19}_cons {c |}{col 26}{res}{space 2} 21.54891{col 38}{space 2} 2.522746{col 49}{space 1}    8.54{col 58}{space 3}0.000{col 66}{space 4} 16.46783{col 79}{space 3} 26.62998
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 
-. estimate  store dfxc_2_dFX_EL_A5
-
-. 
+{com}. estimate  store dfxc_2_dFX_EL_A5
+{txt}
+{com}. 
 . /*
 > Kuwait
 > Israel
@@ -953,42 +992,45 @@ c.RATE20q4#c.kaopen_2019 |  -.6783536   .3626146    -1.87   0.068    -1.408697  
 >               FUELX_2019 FUELM_2019                                  ///
 >               if dFX>0 & dFX<70                       ///
 >               , robust 
-
+{res}
+{txt}{p2colset 0 23 32 2}{...}
 Wald test, begin with full model:
-p = 0.9961 >= 0.2000, removing FUELX_2019
-p = 0.9490 >= 0.2000, removing FUELM_2019
-p = 0.9086 >= 0.2000, removing kaopen_2019
-p = 0.7699 >= 0.2000, removing CAB_2019
-p = 0.6821 >= 0.2000, removing RPCPI_2019
-p = 0.5727 >= 0.2000, removing dRATE22q2_21q2
-p = 0.5112 >= 0.2000, removing NIIP_19
-p = 0.4305 >= 0.2000, removing OPEN_2019
-p = 0.4988 >= 0.2000, removing RGDP_PK_2019
-p = 0.2946 >= 0.2000, removing c.RATE20q4#c.kaopen_2019
+{p2col:p = {res:0.9961} >= 0.2000,}removing {res:FUELX_2019}{p_end}
+{p2col:p = {res:0.9490} >= 0.2000,}removing {res:FUELM_2019}{p_end}
+{p2col:p = {res:0.9086} >= 0.2000,}removing {res:kaopen_2019}{p_end}
+{p2col:p = {res:0.7699} >= 0.2000,}removing {res:CAB_2019}{p_end}
+{p2col:p = {res:0.6821} >= 0.2000,}removing {res:RPCPI_2019}{p_end}
+{p2col:p = {res:0.5727} >= 0.2000,}removing {res:dRATE22q2_21q2}{p_end}
+{p2col:p = {res:0.5112} >= 0.2000,}removing {res:NIIP_19}{p_end}
+{p2col:p = {res:0.4305} >= 0.2000,}removing {res:OPEN_2019}{p_end}
+{p2col:p = {res:0.4988} >= 0.2000,}removing {res:RGDP_PK_2019}{p_end}
+{p2col:p = {res:0.2946} >= 0.2000,}removing {res:c.RATE20q4#c.kaopen_2019}{p_end}
+{p2colset 0 12 32 2}{...}
+{p2colreset}{...}
 
-Linear regression                               Number of obs     =         51
-                                                F(5, 45)          =       8.55
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.2521
-                                                Root MSE          =     9.4794
+Linear regression                               Number of obs     = {res}        51
+                                                {txt}F(5, 45)          =  {res}     8.55
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.2521
+                                                {txt}Root MSE          =    {res} 9.4794
 
-------------------------------------------------------------------------------------
-                   |               Robust
-               dFX | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------------+----------------------------------------------------------------
-        RESGDP2020 |  -.0914229   .0268654    -3.40   0.001    -.1455325   -.0373132
-               ssa |   14.28501   3.984041     3.59   0.001     6.260738    22.30928
-                   |
-c.RESGDP2020#c.ssa |    -.29736   .0849729    -3.50   0.001    -.4685042   -.1262158
-                   |
-          RATE20q4 |  -1.140083   .3834315    -2.97   0.005    -1.912354   -.3678126
-          ers_2019 |  -12.04984   5.681469    -2.12   0.039     -23.4929     -.60677
-             _cons |    24.4649   3.770221     6.49   0.000     16.87129    32.05852
-------------------------------------------------------------------------------------
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 20}{c |}{col 32}    Robust
+{col 1}               dFX{col 20}{c |} Coefficient{col 32}  std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 8}RESGDP2020 {c |}{col 20}{res}{space 2}-.0914229{col 32}{space 2} .0268654{col 43}{space 1}   -3.40{col 52}{space 3}0.001{col 60}{space 4}-.1455325{col 73}{space 3}-.0373132
+{txt}{space 15}ssa {c |}{col 20}{res}{space 2} 14.28501{col 32}{space 2} 3.984041{col 43}{space 1}    3.59{col 52}{space 3}0.001{col 60}{space 4} 6.260738{col 73}{space 3} 22.30928
+{txt}{space 18} {c |}
+c.RESGDP2020#c.ssa {c |}{col 20}{res}{space 2}  -.29736{col 32}{space 2} .0849729{col 43}{space 1}   -3.50{col 52}{space 3}0.001{col 60}{space 4}-.4685042{col 73}{space 3}-.1262158
+{txt}{space 18} {c |}
+{space 10}RATE20q4 {c |}{col 20}{res}{space 2}-1.140083{col 32}{space 2} .3834315{col 43}{space 1}   -2.97{col 52}{space 3}0.005{col 60}{space 4}-1.912354{col 73}{space 3}-.3678126
+{txt}{space 10}ers_2019 {c |}{col 20}{res}{space 2}-12.04984{col 32}{space 2} 5.681469{col 43}{space 1}   -2.12{col 52}{space 3}0.039{col 60}{space 4} -23.4929{col 73}{space 3}  -.60677
+{txt}{space 13}_cons {c |}{col 20}{res}{space 2}  24.4649{col 32}{space 2} 3.770221{col 43}{space 1}    6.49{col 52}{space 3}0.000{col 60}{space 4} 16.87129{col 73}{space 3} 32.05852
+{txt}{hline 19}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 
-. estimate  store dfxc_3_dFX_EL_A5
-
-. /*
+{com}. estimate  store dfxc_3_dFX_EL_A5
+{txt}
+{com}. /*
 > Rwanda
 > Mauritius
 > Madagascar
@@ -998,30 +1040,29 @@ c.RESGDP2020#c.ssa |    -.29736   .0849729    -3.50   0.001    -.4685042   -.126
 > Namibia
 > */
 .                   
-. **# Table A.6: Dependent variable: FX change from November 2021 - Sep 2022 (%), depreciation
-> s only
+. **# Table A.6: Dependent variable: FX change from November 2021 - Sep 2022 (%), depreciations only
 . 
 . reg       dFX2021m11 RESGDP2020                              ///
 >               if dFX2021m11>0 & dFX2021m11< 70                   ///
 >               , robust
 
-Linear regression                               Number of obs     =         80
-                                                F(1, 78)          =      13.07
-                                                Prob > F          =     0.0005
-                                                R-squared         =     0.1037
-                                                Root MSE          =     9.4625
+{txt}Linear regression                               Number of obs     = {res}        80
+                                                {txt}F(1, 78)          =  {res}    13.07
+                                                {txt}Prob > F          = {res}    0.0005
+                                                {txt}R-squared         = {res}    0.1037
+                                                {txt}Root MSE          =    {res} 9.4625
 
-------------------------------------------------------------------------------
-             |               Robust
-  dFX2021m11 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-  RESGDP2020 |  -.1100502   .0304352    -3.62   0.001    -.1706419   -.0494584
-       _cons |   15.67334    1.80599     8.68   0.000     12.07789    19.26879
-------------------------------------------------------------------------------
-
-. estimate  store dfx_1_EL_A6
-
-. 
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}  dFX2021m11{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 2}RESGDP2020 {c |}{col 14}{res}{space 2}-.1100502{col 26}{space 2} .0304352{col 37}{space 1}   -3.62{col 46}{space 3}0.001{col 54}{space 4}-.1706419{col 67}{space 3}-.0494584
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 15.67334{col 26}{space 2}  1.80599{col 37}{space 1}    8.68{col 46}{space 3}0.000{col 54}{space 4} 12.07789{col 67}{space 3} 19.26879
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfx_1_EL_A6
+{txt}
+{com}. 
 . reg       dFX2021m11 RESGDP2020                              ///
 >           RATE20q4                                           ///
 >           dRATE22q2_21q2                                     ///
@@ -1031,33 +1072,33 @@ Linear regression                               Number of obs     =         80
 >               if dFX2021m11>0 & dFX2021m11< 70                   ///
 >               , robust
 
-Linear regression                               Number of obs     =         48
-                                                F(11, 36)         =       2.44
-                                                Prob > F          =     0.0216
-                                                R-squared         =     0.2163
-                                                Root MSE          =      8.002
+{txt}Linear regression                               Number of obs     = {res}        48
+                                                {txt}F(11, 36)         =  {res}     2.44
+                                                {txt}Prob > F          = {res}    0.0216
+                                                {txt}R-squared         = {res}    0.2163
+                                                {txt}Root MSE          =    {res}  8.002
 
---------------------------------------------------------------------------------
-               |               Robust
-    dFX2021m11 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
----------------+----------------------------------------------------------------
-    RESGDP2020 |  -.0843924   .0521399    -1.62   0.114     -.190137    .0213521
-      RATE20q4 |  -.4072222   .4289323    -0.95   0.349    -1.277137    .4626927
-dRATE22q2_21q2 |   .2026567   .3356706     0.60   0.550    -.4781148    .8834282
-  RGDP_PK_2019 |   .0194296   .0353388     0.55   0.586    -.0522408    .0911001
-    RPCPI_2019 |   .0033261   .0489703     0.07   0.946    -.0959903    .1026425
-      CAB_2019 |   .1137974   .1615207     0.70   0.486    -.2137819    .4413766
-       NIIP_19 |  -.0094104   .0088264    -1.07   0.293    -.0273112    .0084905
-      ers_2019 |  -9.284122   6.326351    -1.47   0.151    -22.11456    3.546313
-     OPEN_2019 |   .0195278   .0365871     0.53   0.597    -.0546742    .0937299
-    FUELX_2019 |  -.0114989   .0543435    -0.21   0.834    -.1217127    .0987148
-    FUELM_2019 |   .0926048   .1558404     0.59   0.556    -.2234542    .4086639
-         _cons |   14.94086   5.999339     2.49   0.018     2.773631    27.10808
---------------------------------------------------------------------------------
-
-. estimate  store dfx_2_EL_A6
-
-. 
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1}    dFX2021m11{col 16}{c |} Coefficient{col 28}  std. err.{col 40}      t{col 48}   P>|t|{col 56}     [95% con{col 69}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 4}RESGDP2020 {c |}{col 16}{res}{space 2}-.0843924{col 28}{space 2} .0521399{col 39}{space 1}   -1.62{col 48}{space 3}0.114{col 56}{space 4} -.190137{col 69}{space 3} .0213521
+{txt}{space 6}RATE20q4 {c |}{col 16}{res}{space 2}-.4072222{col 28}{space 2} .4289323{col 39}{space 1}   -0.95{col 48}{space 3}0.349{col 56}{space 4}-1.277137{col 69}{space 3} .4626927
+{txt}dRATE22q2_21q2 {c |}{col 16}{res}{space 2} .2026567{col 28}{space 2} .3356706{col 39}{space 1}    0.60{col 48}{space 3}0.550{col 56}{space 4}-.4781148{col 69}{space 3} .8834282
+{txt}{space 2}RGDP_PK_2019 {c |}{col 16}{res}{space 2} .0194296{col 28}{space 2} .0353388{col 39}{space 1}    0.55{col 48}{space 3}0.586{col 56}{space 4}-.0522408{col 69}{space 3} .0911001
+{txt}{space 4}RPCPI_2019 {c |}{col 16}{res}{space 2} .0033261{col 28}{space 2} .0489703{col 39}{space 1}    0.07{col 48}{space 3}0.946{col 56}{space 4}-.0959903{col 69}{space 3} .1026425
+{txt}{space 6}CAB_2019 {c |}{col 16}{res}{space 2} .1137974{col 28}{space 2} .1615207{col 39}{space 1}    0.70{col 48}{space 3}0.486{col 56}{space 4}-.2137819{col 69}{space 3} .4413766
+{txt}{space 7}NIIP_19 {c |}{col 16}{res}{space 2}-.0094104{col 28}{space 2} .0088264{col 39}{space 1}   -1.07{col 48}{space 3}0.293{col 56}{space 4}-.0273112{col 69}{space 3} .0084905
+{txt}{space 6}ers_2019 {c |}{col 16}{res}{space 2}-9.284122{col 28}{space 2} 6.326351{col 39}{space 1}   -1.47{col 48}{space 3}0.151{col 56}{space 4}-22.11456{col 69}{space 3} 3.546313
+{txt}{space 5}OPEN_2019 {c |}{col 16}{res}{space 2} .0195278{col 28}{space 2} .0365871{col 39}{space 1}    0.53{col 48}{space 3}0.597{col 56}{space 4}-.0546742{col 69}{space 3} .0937299
+{txt}{space 4}FUELX_2019 {c |}{col 16}{res}{space 2}-.0114989{col 28}{space 2} .0543435{col 39}{space 1}   -0.21{col 48}{space 3}0.834{col 56}{space 4}-.1217127{col 69}{space 3} .0987148
+{txt}{space 4}FUELM_2019 {c |}{col 16}{res}{space 2} .0926048{col 28}{space 2} .1558404{col 39}{space 1}    0.59{col 48}{space 3}0.556{col 56}{space 4}-.2234542{col 69}{space 3} .4086639
+{txt}{space 9}_cons {c |}{col 16}{res}{space 2} 14.94086{col 28}{space 2} 5.999339{col 39}{space 1}    2.49{col 48}{space 3}0.018{col 56}{space 4} 2.773631{col 69}{space 3} 27.10808
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfx_2_EL_A6
+{txt}
+{com}. 
 . reg       dFX2021m11 RESGDP2020 c.RESGDP2020#c.FI_2019       ///
 >           RATE20q4 c.RATE20q4#c.kaopen_2019                  ///
 >           dRATE22q2_21q2                                     ///
@@ -1067,39 +1108,39 @@ dRATE22q2_21q2 |   .2026567   .3356706     0.60   0.550    -.4781148    .8834282
 >               if dFX2021m11>0 & dFX2021m11< 70                   ///
 >               , robust
 
-Linear regression                               Number of obs     =         47
-                                                F(13, 33)         =       2.00
-                                                Prob > F          =     0.0536
-                                                R-squared         =     0.2566
-                                                Root MSE          =     8.0843
+{txt}Linear regression                               Number of obs     = {res}        47
+                                                {txt}F(13, 33)         =  {res}     2.00
+                                                {txt}Prob > F          = {res}    0.0536
+                                                {txt}R-squared         = {res}    0.2566
+                                                {txt}Root MSE          =    {res} 8.0843
 
-------------------------------------------------------------------------------------------
-                         |               Robust
-              dFX2021m11 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------------------+----------------------------------------------------------------
-              RESGDP2020 |  -.2889209   .1350891    -2.14   0.040    -.5637618     -.01408
-                         |
-  c.RESGDP2020#c.FI_2019 |   .2465875   .1527834     1.61   0.116    -.0642528    .5574277
-                         |
-                RATE20q4 |  -.7025591   .6505143    -1.08   0.288     -2.02604    .6209222
-                         |
-c.RATE20q4#c.kaopen_2019 |  -.2217271   .3955653    -0.56   0.579    -1.026511    .5830566
-                         |
-          dRATE22q2_21q2 |   .2556327   .3636083     0.70   0.487    -.4841339    .9953993
-            RGDP_PK_2019 |  -.0115872   .0420258    -0.28   0.784    -.0970894    .0739149
-              RPCPI_2019 |  -.0097059   .0498743    -0.19   0.847    -.1111759     .091764
-                CAB_2019 |  -.0960706   .2294669    -0.42   0.678    -.5629244    .3707833
-                 NIIP_19 |  -.0003951   .0094809    -0.04   0.967    -.0196841     .018894
-                ers_2019 |  -5.168709   6.017311    -0.86   0.397    -17.41102    7.073602
-               OPEN_2019 |   .0250676    .038321     0.65   0.518    -.0528971    .1030323
-              FUELX_2019 |   .0314888   .0478843     0.66   0.515    -.0659326    .1289101
-              FUELM_2019 |   .2486594   .2352324     1.06   0.298    -.2299244    .7272433
-                   _cons |   14.69091   7.259514     2.02   0.051     -.078678    29.46051
-------------------------------------------------------------------------------------------
-
-. estimate  store dfx_3_EL_A6
-
-. 
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}              dFX2021m11{col 26}{c |} Coefficient{col 38}  std. err.{col 50}      t{col 58}   P>|t|{col 66}     [95% con{col 79}f. interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 14}RESGDP2020 {c |}{col 26}{res}{space 2}-.2889209{col 38}{space 2} .1350891{col 49}{space 1}   -2.14{col 58}{space 3}0.040{col 66}{space 4}-.5637618{col 79}{space 3}  -.01408
+{txt}{space 24} {c |}
+{space 2}c.RESGDP2020#c.FI_2019 {c |}{col 26}{res}{space 2} .2465875{col 38}{space 2} .1527834{col 49}{space 1}    1.61{col 58}{space 3}0.116{col 66}{space 4}-.0642528{col 79}{space 3} .5574277
+{txt}{space 24} {c |}
+{space 16}RATE20q4 {c |}{col 26}{res}{space 2}-.7025591{col 38}{space 2} .6505143{col 49}{space 1}   -1.08{col 58}{space 3}0.288{col 66}{space 4} -2.02604{col 79}{space 3} .6209222
+{txt}{space 24} {c |}
+c.RATE20q4#c.kaopen_2019 {c |}{col 26}{res}{space 2}-.2217271{col 38}{space 2} .3955653{col 49}{space 1}   -0.56{col 58}{space 3}0.579{col 66}{space 4}-1.026511{col 79}{space 3} .5830566
+{txt}{space 24} {c |}
+{space 10}dRATE22q2_21q2 {c |}{col 26}{res}{space 2} .2556327{col 38}{space 2} .3636083{col 49}{space 1}    0.70{col 58}{space 3}0.487{col 66}{space 4}-.4841339{col 79}{space 3} .9953993
+{txt}{space 12}RGDP_PK_2019 {c |}{col 26}{res}{space 2}-.0115872{col 38}{space 2} .0420258{col 49}{space 1}   -0.28{col 58}{space 3}0.784{col 66}{space 4}-.0970894{col 79}{space 3} .0739149
+{txt}{space 14}RPCPI_2019 {c |}{col 26}{res}{space 2}-.0097059{col 38}{space 2} .0498743{col 49}{space 1}   -0.19{col 58}{space 3}0.847{col 66}{space 4}-.1111759{col 79}{space 3}  .091764
+{txt}{space 16}CAB_2019 {c |}{col 26}{res}{space 2}-.0960706{col 38}{space 2} .2294669{col 49}{space 1}   -0.42{col 58}{space 3}0.678{col 66}{space 4}-.5629244{col 79}{space 3} .3707833
+{txt}{space 17}NIIP_19 {c |}{col 26}{res}{space 2}-.0003951{col 38}{space 2} .0094809{col 49}{space 1}   -0.04{col 58}{space 3}0.967{col 66}{space 4}-.0196841{col 79}{space 3}  .018894
+{txt}{space 16}ers_2019 {c |}{col 26}{res}{space 2}-5.168709{col 38}{space 2} 6.017311{col 49}{space 1}   -0.86{col 58}{space 3}0.397{col 66}{space 4}-17.41102{col 79}{space 3} 7.073602
+{txt}{space 15}OPEN_2019 {c |}{col 26}{res}{space 2} .0250676{col 38}{space 2}  .038321{col 49}{space 1}    0.65{col 58}{space 3}0.518{col 66}{space 4}-.0528971{col 79}{space 3} .1030323
+{txt}{space 14}FUELX_2019 {c |}{col 26}{res}{space 2} .0314888{col 38}{space 2} .0478843{col 49}{space 1}    0.66{col 58}{space 3}0.515{col 66}{space 4}-.0659326{col 79}{space 3} .1289101
+{txt}{space 14}FUELM_2019 {c |}{col 26}{res}{space 2} .2486594{col 38}{space 2} .2352324{col 49}{space 1}    1.06{col 58}{space 3}0.298{col 66}{space 4}-.2299244{col 79}{space 3} .7272433
+{txt}{space 19}_cons {c |}{col 26}{res}{space 2} 14.69091{col 38}{space 2} 7.259514{col 49}{space 1}    2.02{col 58}{space 3}0.051{col 66}{space 4} -.078678{col 79}{space 3} 29.46051
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfx_3_EL_A6
+{txt}
+{com}. 
 . stepwise, pr(.2):                                            ///
 > reg       dFX2021m11 RESGDP2020 c.RESGDP2020#c.FI_2019       ///
 >           RATE20q4 c.RATE20q4##c.kaopen_2019                 ///
@@ -1109,41 +1150,44 @@ c.RATE20q4#c.kaopen_2019 |  -.2217271   .3955653    -0.56   0.579    -1.026511  
 >               FUELX_2019 FUELM_2019                              ///
 >               if dFX2021m11>0 & dFX2021m11< 70                   ///
 >               , robust
-note: RATE20q4 omitted because of estimability.
+{res}{txt}note: {bf:RATE20q4} omitted because of estimability.
 
+{p2colset 0 23 32 2}{...}
 Wald test, begin with full model:
-p = 0.9721 >= 0.2000, removing NIIP_19
-p = 0.9719 >= 0.2000, removing FUELX_2019
-p = 0.8364 >= 0.2000, removing CAB_2019
-p = 0.8398 >= 0.2000, removing c.RATE20q4#c.kaopen_2019
-p = 0.8582 >= 0.2000, removing kaopen_2019
-p = 0.8622 >= 0.2000, removing RGDP_PK_2019
-p = 0.4896 >= 0.2000, removing RPCPI_2019
-p = 0.6026 >= 0.2000, removing OPEN_2019
-p = 0.3542 >= 0.2000, removing dRATE22q2_21q2
-p = 0.4514 >= 0.2000, removing FUELM_2019
+{p2col:p = {res:0.9721} >= 0.2000,}removing {res:NIIP_19}{p_end}
+{p2col:p = {res:0.9719} >= 0.2000,}removing {res:FUELX_2019}{p_end}
+{p2col:p = {res:0.8364} >= 0.2000,}removing {res:CAB_2019}{p_end}
+{p2col:p = {res:0.8398} >= 0.2000,}removing {res:c.RATE20q4#c.kaopen_2019}{p_end}
+{p2col:p = {res:0.8582} >= 0.2000,}removing {res:kaopen_2019}{p_end}
+{p2col:p = {res:0.8622} >= 0.2000,}removing {res:RGDP_PK_2019}{p_end}
+{p2col:p = {res:0.4896} >= 0.2000,}removing {res:RPCPI_2019}{p_end}
+{p2col:p = {res:0.6026} >= 0.2000,}removing {res:OPEN_2019}{p_end}
+{p2col:p = {res:0.3542} >= 0.2000,}removing {res:dRATE22q2_21q2}{p_end}
+{p2col:p = {res:0.4514} >= 0.2000,}removing {res:FUELM_2019}{p_end}
+{p2colset 0 12 32 2}{...}
+{p2colreset}{...}
 
-Linear regression                               Number of obs     =         47
-                                                F(3, 43)          =       5.29
-                                                Prob > F          =     0.0034
-                                                R-squared         =     0.1790
-                                                Root MSE          =     7.4426
+Linear regression                               Number of obs     = {res}        47
+                                                {txt}F(3, 43)          =  {res}     5.29
+                                                {txt}Prob > F          = {res}    0.0034
+                                                {txt}R-squared         = {res}    0.1790
+                                                {txt}Root MSE          =    {res} 7.4426
 
-----------------------------------------------------------------------------------------
-                       |               Robust
-            dFX2021m11 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
------------------------+----------------------------------------------------------------
-            RESGDP2020 |  -.2229198   .0973875    -2.29   0.027    -.4193204   -.0265192
-                       |
-c.RESGDP2020#c.FI_2019 |   .1990025   .1093314     1.82   0.076    -.0214853    .4194903
-                       |
-              ers_2019 |  -8.356352   4.895978    -1.71   0.095    -18.23003    1.517329
-                 _cons |   18.27176   3.032612     6.03   0.000     12.15592    24.38761
-----------------------------------------------------------------------------------------
+{txt}{hline 23}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 24}{c |}{col 36}    Robust
+{col 1}            dFX2021m11{col 24}{c |} Coefficient{col 36}  std. err.{col 48}      t{col 56}   P>|t|{col 64}     [95% con{col 77}f. interval]
+{hline 23}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 12}RESGDP2020 {c |}{col 24}{res}{space 2}-.2229198{col 36}{space 2} .0973875{col 47}{space 1}   -2.29{col 56}{space 3}0.027{col 64}{space 4}-.4193204{col 77}{space 3}-.0265192
+{txt}{space 22} {c |}
+c.RESGDP2020#c.FI_2019 {c |}{col 24}{res}{space 2} .1990025{col 36}{space 2} .1093314{col 47}{space 1}    1.82{col 56}{space 3}0.076{col 64}{space 4}-.0214853{col 77}{space 3} .4194903
+{txt}{space 22} {c |}
+{space 14}ers_2019 {c |}{col 24}{res}{space 2}-8.356352{col 36}{space 2} 4.895978{col 47}{space 1}   -1.71{col 56}{space 3}0.095{col 64}{space 4}-18.23003{col 77}{space 3} 1.517329
+{txt}{space 17}_cons {c |}{col 24}{res}{space 2} 18.27176{col 36}{space 2} 3.032612{col 47}{space 1}    6.03{col 56}{space 3}0.000{col 64}{space 4} 12.15592{col 77}{space 3} 24.38761
+{txt}{hline 23}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 
-. estimate  store dfx_4_EL_A6
-
-. 
+{com}. estimate  store dfx_4_EL_A6
+{txt}
+{com}. 
 . reg       dFX2021m11 RESGDP2020 c.RESGDP2020#c.FI_2019       ///
 >           RATE20q4 c.RATE20q4#c.kaopen_2019                 ///
 >           dRATE22q2_21q2                                     ///
@@ -1153,72 +1197,72 @@ c.RESGDP2020#c.FI_2019 |   .1990025   .1093314     1.82   0.076    -.0214853    
 >               if dFX2021m11>0 & dFX2021m11< 70                   ///
 >               , robust
 
-Linear regression                               Number of obs     =         28
-                                                F(14, 13)         =       1.86
-                                                Prob > F          =     0.1363
-                                                R-squared         =     0.4434
-                                                Root MSE          =     8.9399
+{txt}Linear regression                               Number of obs     = {res}        28
+                                                {txt}F(14, 13)         =  {res}     1.86
+                                                {txt}Prob > F          = {res}    0.1363
+                                                {txt}R-squared         = {res}    0.4434
+                                                {txt}Root MSE          =    {res} 8.9399
 
-------------------------------------------------------------------------------------------
-                         |               Robust
-              dFX2021m11 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------------------+----------------------------------------------------------------
-              RESGDP2020 |  -.7209682   .2547244    -2.83   0.014    -1.271267   -.1706695
-                         |
-  c.RESGDP2020#c.FI_2019 |   1.083853   .3757554     2.88   0.013     .2720829    1.895623
-                         |
-                RATE20q4 |  -1.977997   1.023762    -1.93   0.075      -4.1897    .2337054
-                         |
-c.RATE20q4#c.kaopen_2019 |  -.6024071   .6037134    -1.00   0.337    -1.906651    .7018364
-                         |
-          dRATE22q2_21q2 |  -.3495859   .4785947    -0.73   0.478    -1.383527    .6843551
-            RGDP_PK_2019 |  -1.114054   .5384513    -2.07   0.059    -2.277307    .0491997
-              RPCPI_2019 |   .0229409   .0549872     0.42   0.683    -.0958518    .1417335
-                CAB_2019 |  -.5335771   .2841979    -1.88   0.083    -1.147549     .080395
-                 NIIP_19 |   .0636355    .056515     1.13   0.281    -.0584578    .1857287
-                ers_2019 |  -.4774169   7.454356    -0.06   0.950    -16.58157    15.62674
-               OPEN_2019 |  -.0547133   .0923722    -0.59   0.564    -.2542714    .1448448
-              FUELX_2019 |   .1170329   .1424362     0.82   0.426    -.1906818    .4247476
-              FUELM_2019 |  -.0679243   .3602701    -0.19   0.853    -.8462404    .7103919
-               DEBT_2019 |   .1007907   .1165086     0.87   0.403    -.1509109    .3524923
-                   _cons |   28.72317   15.33736     1.87   0.084    -4.411171    61.85752
-------------------------------------------------------------------------------------------
-
-. estimate  store dfx_5_EL_A6               
-
-.                   
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}              dFX2021m11{col 26}{c |} Coefficient{col 38}  std. err.{col 50}      t{col 58}   P>|t|{col 66}     [95% con{col 79}f. interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 14}RESGDP2020 {c |}{col 26}{res}{space 2}-.7209682{col 38}{space 2} .2547244{col 49}{space 1}   -2.83{col 58}{space 3}0.014{col 66}{space 4}-1.271267{col 79}{space 3}-.1706695
+{txt}{space 24} {c |}
+{space 2}c.RESGDP2020#c.FI_2019 {c |}{col 26}{res}{space 2} 1.083853{col 38}{space 2} .3757554{col 49}{space 1}    2.88{col 58}{space 3}0.013{col 66}{space 4} .2720829{col 79}{space 3} 1.895623
+{txt}{space 24} {c |}
+{space 16}RATE20q4 {c |}{col 26}{res}{space 2}-1.977997{col 38}{space 2} 1.023762{col 49}{space 1}   -1.93{col 58}{space 3}0.075{col 66}{space 4}  -4.1897{col 79}{space 3} .2337054
+{txt}{space 24} {c |}
+c.RATE20q4#c.kaopen_2019 {c |}{col 26}{res}{space 2}-.6024071{col 38}{space 2} .6037134{col 49}{space 1}   -1.00{col 58}{space 3}0.337{col 66}{space 4}-1.906651{col 79}{space 3} .7018364
+{txt}{space 24} {c |}
+{space 10}dRATE22q2_21q2 {c |}{col 26}{res}{space 2}-.3495859{col 38}{space 2} .4785947{col 49}{space 1}   -0.73{col 58}{space 3}0.478{col 66}{space 4}-1.383527{col 79}{space 3} .6843551
+{txt}{space 12}RGDP_PK_2019 {c |}{col 26}{res}{space 2}-1.114054{col 38}{space 2} .5384513{col 49}{space 1}   -2.07{col 58}{space 3}0.059{col 66}{space 4}-2.277307{col 79}{space 3} .0491997
+{txt}{space 14}RPCPI_2019 {c |}{col 26}{res}{space 2} .0229409{col 38}{space 2} .0549872{col 49}{space 1}    0.42{col 58}{space 3}0.683{col 66}{space 4}-.0958518{col 79}{space 3} .1417335
+{txt}{space 16}CAB_2019 {c |}{col 26}{res}{space 2}-.5335771{col 38}{space 2} .2841979{col 49}{space 1}   -1.88{col 58}{space 3}0.083{col 66}{space 4}-1.147549{col 79}{space 3}  .080395
+{txt}{space 17}NIIP_19 {c |}{col 26}{res}{space 2} .0636355{col 38}{space 2}  .056515{col 49}{space 1}    1.13{col 58}{space 3}0.281{col 66}{space 4}-.0584578{col 79}{space 3} .1857287
+{txt}{space 16}ers_2019 {c |}{col 26}{res}{space 2}-.4774169{col 38}{space 2} 7.454356{col 49}{space 1}   -0.06{col 58}{space 3}0.950{col 66}{space 4}-16.58157{col 79}{space 3} 15.62674
+{txt}{space 15}OPEN_2019 {c |}{col 26}{res}{space 2}-.0547133{col 38}{space 2} .0923722{col 49}{space 1}   -0.59{col 58}{space 3}0.564{col 66}{space 4}-.2542714{col 79}{space 3} .1448448
+{txt}{space 14}FUELX_2019 {c |}{col 26}{res}{space 2} .1170329{col 38}{space 2} .1424362{col 49}{space 1}    0.82{col 58}{space 3}0.426{col 66}{space 4}-.1906818{col 79}{space 3} .4247476
+{txt}{space 14}FUELM_2019 {c |}{col 26}{res}{space 2}-.0679243{col 38}{space 2} .3602701{col 49}{space 1}   -0.19{col 58}{space 3}0.853{col 66}{space 4}-.8462404{col 79}{space 3} .7103919
+{txt}{space 15}DEBT_2019 {c |}{col 26}{res}{space 2} .1007907{col 38}{space 2} .1165086{col 49}{space 1}    0.87{col 58}{space 3}0.403{col 66}{space 4}-.1509109{col 79}{space 3} .3524923
+{txt}{space 19}_cons {c |}{col 26}{res}{space 2} 28.72317{col 38}{space 2} 15.33736{col 49}{space 1}    1.87{col 58}{space 3}0.084{col 66}{space 4}-4.411171{col 79}{space 3} 61.85752
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store dfx_5_EL_A6               
+{txt}
+{com}.                   
 . **# Table A.7: Dependent variable: Exchange Market Pressure from May 2021 - Sep 2022
 . 
 . sum sEMP
 
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-        sEMP |         36    .1704756    .1644101  -.3198836   .5527336
-
-. 
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 8}sEMP {c |}{res}         36    .1704756    .1644101  -.3198836   .5527336
+{txt}
+{com}. 
 . cap gen sEMP100 = sEMP*100        
-
-. 
+{txt}
+{com}. 
 . reg               sEMP100 RESGDP2020 if dFX>=0 & dFX<100 & imf!=111, ///
 >           robust
 
-Linear regression                               Number of obs     =         31
-                                                F(1, 29)          =       5.55
-                                                Prob > F          =     0.0255
-                                                R-squared         =     0.0716
-                                                Root MSE          =     13.234
+{txt}Linear regression                               Number of obs     = {res}        31
+                                                {txt}F(1, 29)          =  {res}     5.55
+                                                {txt}Prob > F          = {res}    0.0255
+                                                {txt}R-squared         = {res}    0.0716
+                                                {txt}Root MSE          =    {res} 13.234
 
-------------------------------------------------------------------------------
-             |               Robust
-     sEMP100 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-  RESGDP2020 |  -.1037275   .0440386    -2.36   0.025    -.1937965   -.0136584
-       _cons |   24.27007   3.200731     7.58   0.000     17.72384     30.8163
-------------------------------------------------------------------------------
-
-. estimate  store emp_1_EL_A7
-
-. 
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}     sEMP100{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 2}RESGDP2020 {c |}{col 14}{res}{space 2}-.1037275{col 26}{space 2} .0440386{col 37}{space 1}   -2.36{col 46}{space 3}0.025{col 54}{space 4}-.1937965{col 67}{space 3}-.0136584
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 24.27007{col 26}{space 2} 3.200731{col 37}{space 1}    7.58{col 46}{space 3}0.000{col 54}{space 4} 17.72384{col 67}{space 3}  30.8163
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store emp_1_EL_A7
+{txt}
+{com}. 
 . reg       sEMP100 RESGDP2020                                 ///
 >           RGDP_PK_2019 RPCPI_2019 CAB_2019                   ///
 >               NIIP_19 ers_2019 OPEN_2019                         ///
@@ -1226,51 +1270,51 @@ Linear regression                               Number of obs     =         31
 >               if dFX>=0 & dFX<100 & imf!=111,                    ///
 >               robust
 
-Linear regression                               Number of obs     =         31
-                                                F(9, 21)          =       1.57
-                                                Prob > F          =     0.1887
-                                                R-squared         =     0.3366
-                                                Root MSE          =     13.146
+{txt}Linear regression                               Number of obs     = {res}        31
+                                                {txt}F(9, 21)          =  {res}     1.57
+                                                {txt}Prob > F          = {res}    0.1887
+                                                {txt}R-squared         = {res}    0.3366
+                                                {txt}Root MSE          =    {res} 13.146
 
-------------------------------------------------------------------------------
-             |               Robust
-     sEMP100 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-  RESGDP2020 |  -.1709511    .076045    -2.25   0.035    -.3290954   -.0128069
-RGDP_PK_2019 |   .0305818   .0858897     0.36   0.725    -.1480357    .2091993
-  RPCPI_2019 |  -.0069751   .0839126    -0.08   0.935    -.1814809    .1675307
-    CAB_2019 |  -.4929983    .708962    -0.70   0.494    -1.967366     .981369
-     NIIP_19 |  -.0435134    .035541    -1.22   0.234    -.1174249    .0303982
-    ers_2019 |  -23.37546   14.07878    -1.66   0.112    -52.65389    5.902957
-   OPEN_2019 |   .1206463   .0580726     2.08   0.050    -.0001222    .2414148
-  FUELX_2019 |  -.1014164   .3060513    -0.33   0.744    -.7378849    .5350521
-  FUELM_2019 |  -.3479418   .5438674    -0.64   0.529    -1.478976    .7830923
-       _cons |   31.12734   16.88294     1.84   0.079    -3.982647    66.23733
-------------------------------------------------------------------------------
-
-. estimate  store emp_2_EL_A7
-
-.                   
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}     sEMP100{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 2}RESGDP2020 {c |}{col 14}{res}{space 2}-.1709511{col 26}{space 2}  .076045{col 37}{space 1}   -2.25{col 46}{space 3}0.035{col 54}{space 4}-.3290954{col 67}{space 3}-.0128069
+{txt}RGDP_PK_2019 {c |}{col 14}{res}{space 2} .0305818{col 26}{space 2} .0858897{col 37}{space 1}    0.36{col 46}{space 3}0.725{col 54}{space 4}-.1480357{col 67}{space 3} .2091993
+{txt}{space 2}RPCPI_2019 {c |}{col 14}{res}{space 2}-.0069751{col 26}{space 2} .0839126{col 37}{space 1}   -0.08{col 46}{space 3}0.935{col 54}{space 4}-.1814809{col 67}{space 3} .1675307
+{txt}{space 4}CAB_2019 {c |}{col 14}{res}{space 2}-.4929983{col 26}{space 2}  .708962{col 37}{space 1}   -0.70{col 46}{space 3}0.494{col 54}{space 4}-1.967366{col 67}{space 3}  .981369
+{txt}{space 5}NIIP_19 {c |}{col 14}{res}{space 2}-.0435134{col 26}{space 2}  .035541{col 37}{space 1}   -1.22{col 46}{space 3}0.234{col 54}{space 4}-.1174249{col 67}{space 3} .0303982
+{txt}{space 4}ers_2019 {c |}{col 14}{res}{space 2}-23.37546{col 26}{space 2} 14.07878{col 37}{space 1}   -1.66{col 46}{space 3}0.112{col 54}{space 4}-52.65389{col 67}{space 3} 5.902957
+{txt}{space 3}OPEN_2019 {c |}{col 14}{res}{space 2} .1206463{col 26}{space 2} .0580726{col 37}{space 1}    2.08{col 46}{space 3}0.050{col 54}{space 4}-.0001222{col 67}{space 3} .2414148
+{txt}{space 2}FUELX_2019 {c |}{col 14}{res}{space 2}-.1014164{col 26}{space 2} .3060513{col 37}{space 1}   -0.33{col 46}{space 3}0.744{col 54}{space 4}-.7378849{col 67}{space 3} .5350521
+{txt}{space 2}FUELM_2019 {c |}{col 14}{res}{space 2}-.3479418{col 26}{space 2} .5438674{col 37}{space 1}   -0.64{col 46}{space 3}0.529{col 54}{space 4}-1.478976{col 67}{space 3} .7830923
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 31.12734{col 26}{space 2} 16.88294{col 37}{space 1}    1.84{col 46}{space 3}0.079{col 54}{space 4}-3.982647{col 67}{space 3} 66.23733
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store emp_2_EL_A7
+{txt}
+{com}.                   
 . reg               sEMP100 RESGDP2020 if dFX<100 & imf!=111, ///
 >           robust
 
-Linear regression                               Number of obs     =         35
-                                                F(1, 33)          =       2.94
-                                                Prob > F          =     0.0959
-                                                R-squared         =     0.0246
-                                                Root MSE          =     16.463
+{txt}Linear regression                               Number of obs     = {res}        35
+                                                {txt}F(1, 33)          =  {res}     2.94
+                                                {txt}Prob > F          = {res}    0.0959
+                                                {txt}R-squared         = {res}    0.0246
+                                                {txt}Root MSE          =    {res} 16.463
 
-------------------------------------------------------------------------------
-             |               Robust
-     sEMP100 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-  RESGDP2020 |   -.078397   .0457379    -1.71   0.096    -.1714515    .0146575
-       _cons |   20.09673   3.690933     5.44   0.000     12.58747    27.60599
-------------------------------------------------------------------------------
-
-. estimate  store emp_3_EL_A7
-
-. 
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}     sEMP100{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 2}RESGDP2020 {c |}{col 14}{res}{space 2} -.078397{col 26}{space 2} .0457379{col 37}{space 1}   -1.71{col 46}{space 3}0.096{col 54}{space 4}-.1714515{col 67}{space 3} .0146575
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 20.09673{col 26}{space 2} 3.690933{col 37}{space 1}    5.44{col 46}{space 3}0.000{col 54}{space 4} 12.58747{col 67}{space 3} 27.60599
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store emp_3_EL_A7
+{txt}
+{com}. 
 . reg       sEMP100 RESGDP2020                                 ///
 >           RGDP_PK_2019 RPCPI_2019 CAB_2019                   ///
 >               NIIP_19 ers_2019 OPEN_2019                         ///
@@ -1278,35 +1322,36 @@ Linear regression                               Number of obs     =         35
 >               if dFX<100 & imf!=111,                    ///
 >               robust
 
-Linear regression                               Number of obs     =         35
-                                                F(9, 25)          =       1.72
-                                                Prob > F          =     0.1356
-                                                R-squared         =     0.2100
-                                                Root MSE          =     17.023
+{txt}Linear regression                               Number of obs     = {res}        35
+                                                {txt}F(9, 25)          =  {res}     1.72
+                                                {txt}Prob > F          = {res}    0.1356
+                                                {txt}R-squared         = {res}    0.2100
+                                                {txt}Root MSE          =    {res} 17.023
 
-------------------------------------------------------------------------------
-             |               Robust
-     sEMP100 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-  RESGDP2020 |  -.2251669   .0872926    -2.58   0.016    -.4049494   -.0453843
-RGDP_PK_2019 |   .0447101   .0727179     0.61   0.544    -.1050552    .1944754
-  RPCPI_2019 |  -.0683692   .1372251    -0.50   0.623    -.3509896    .2142511
-    CAB_2019 |  -.0546802   1.003683    -0.05   0.957    -2.121804    2.012444
-     NIIP_19 |  -.0311016   .0383189    -0.81   0.425    -.1100207    .0478176
-    ers_2019 |  -30.91736   17.67421    -1.75   0.093    -67.31806    5.483353
-   OPEN_2019 |   .1322376   .0744774     1.78   0.088    -.0211515    .2856267
-  FUELX_2019 |  -.1539525   .2088538    -0.74   0.468    -.5840949      .27619
-  FUELM_2019 |  -.2740262   .4310648    -0.64   0.531    -1.161821    .6137684
-       _cons |   37.43949   22.18951     1.69   0.104    -8.260662    83.13964
-------------------------------------------------------------------------------
-
-. estimate  store emp_4_EL_A7               
-
-.                   
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}     sEMP100{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 2}RESGDP2020 {c |}{col 14}{res}{space 2}-.2251669{col 26}{space 2} .0872926{col 37}{space 1}   -2.58{col 46}{space 3}0.016{col 54}{space 4}-.4049494{col 67}{space 3}-.0453843
+{txt}RGDP_PK_2019 {c |}{col 14}{res}{space 2} .0447101{col 26}{space 2} .0727179{col 37}{space 1}    0.61{col 46}{space 3}0.544{col 54}{space 4}-.1050552{col 67}{space 3} .1944754
+{txt}{space 2}RPCPI_2019 {c |}{col 14}{res}{space 2}-.0683692{col 26}{space 2} .1372251{col 37}{space 1}   -0.50{col 46}{space 3}0.623{col 54}{space 4}-.3509896{col 67}{space 3} .2142511
+{txt}{space 4}CAB_2019 {c |}{col 14}{res}{space 2}-.0546802{col 26}{space 2} 1.003683{col 37}{space 1}   -0.05{col 46}{space 3}0.957{col 54}{space 4}-2.121804{col 67}{space 3} 2.012444
+{txt}{space 5}NIIP_19 {c |}{col 14}{res}{space 2}-.0311016{col 26}{space 2} .0383189{col 37}{space 1}   -0.81{col 46}{space 3}0.425{col 54}{space 4}-.1100207{col 67}{space 3} .0478176
+{txt}{space 4}ers_2019 {c |}{col 14}{res}{space 2}-30.91736{col 26}{space 2} 17.67421{col 37}{space 1}   -1.75{col 46}{space 3}0.093{col 54}{space 4}-67.31806{col 67}{space 3} 5.483353
+{txt}{space 3}OPEN_2019 {c |}{col 14}{res}{space 2} .1322376{col 26}{space 2} .0744774{col 37}{space 1}    1.78{col 46}{space 3}0.088{col 54}{space 4}-.0211515{col 67}{space 3} .2856267
+{txt}{space 2}FUELX_2019 {c |}{col 14}{res}{space 2}-.1539525{col 26}{space 2} .2088538{col 37}{space 1}   -0.74{col 46}{space 3}0.468{col 54}{space 4}-.5840949{col 67}{space 3}   .27619
+{txt}{space 2}FUELM_2019 {c |}{col 14}{res}{space 2}-.2740262{col 26}{space 2} .4310648{col 37}{space 1}   -0.64{col 46}{space 3}0.531{col 54}{space 4}-1.161821{col 67}{space 3} .6137684
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 37.43949{col 26}{space 2} 22.18951{col 37}{space 1}    1.69{col 46}{space 3}0.104{col 54}{space 4}-8.260662{col 67}{space 3} 83.13964
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimate  store emp_4_EL_A7               
+{txt}
+{com}.                   
 . log close _all
-      name:  estimates
-       log:  C:\Users\jamel\Dropbox\Latex\PROJECTS\22-12-reer-tot-res-pm\Archive\Data\estimate
-> s.log
-  log type:  text
- closed on:   9 Jul 2025, 10:52:35
-----------------------------------------------------------------------------------------------
+      {txt}name:  {res}estimates
+       {txt}log:  {res}C:\Users\jamel\Dropbox\Latex\PROJECTS\22-12-reer-tot-res-pm\Archive\estimates.log
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 9 Jul 2025, 16:16:13
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
