@@ -7,7 +7,7 @@
  ## Coverage
 |Order |Author|Title|Journal|Date|
 |:----|:----|:----|:----|:----|
-|10|[Bloom Prettner Veruete Saadaoui 2025](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Bloom%20Prettner%20Veruete%20Saadaoui%202025)|["Artificial intelligence and the skill premium"](https://doi.org/10.1016/j.frl.2025.107401) | Finance Research Letters | July 2025 |
+|10|[Bloom Prettner Saadaoui Veruete 2025](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Bloom%20Prettner%20Saadaoui%20Veruete%202025)|["Artificial intelligence and the skill premium"](https://doi.org/10.1016/j.frl.2025.107401) | Finance Research Letters | July 2025 |
 |9|[Saadaoui Smyth Vespignani 2025](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Saadaoui%20Smyth%20Vespignani%202025)|["Ensuring the security of the clean energy transition: Examining the impact of geopolitical risk on the price of critical minerals"](https://doi.org/10.1016/j.eneco.2025.108195) | Energy Economics | February 2025 |
 |8|[Coulibaly Gnimassoun Mighri Saadaoui 2024](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Coulibaly%20Gnimassoun%20Mighri%20Saadaoui%202024)|["International reserves, currency depreciation and public debt: New evidence of buffer effects in Africa"](https://doi.org/10.1016/j.ememar.2024.101130) | Emerging Markets Review | March 2024 |
 |7|[Ahmed Aizenman Saadaoui Uddin 2022](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Ahmed%20Aizenman%20Saadaoui%20Uddin%202022)|["On the effectiveness of foreign exchange reserves during the 2021-22 U.S. monetary tightening cycle"](https://doi.org/10.1016/j.econlet.2023.111367) | Economics Letters | December 2023 |
