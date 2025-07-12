@@ -1,0 +1,27 @@
+	(1)	(2)	(3)
+	gfc_before	gfc_after	gfc_after_fi
+VARIABLES	lreer	lreer	lreer
+			
+lgdppk_m100	0.9524***	0.5712***	0.6241***
+	(0.1430)	(0.1657)	(0.0778)
+lgovexp	0.0245	0.0605	0.0578**
+	(0.0408)	(0.0428)	(0.0272)
+etot	0.0074	0.0288**	
+	(0.0286)	(0.0137)	
+L1lres	0.0068	0.0052	
+	(0.0166)	(0.0107)	
+c.etot#c.L1lres	-0.0162	-0.0153***	
+	(0.0105)	(0.0052)	
+0b._cat#c.etot_L1lres			-0.0083***
+			(0.0016)
+1._cat#c.etot_L1lres			0.0098***
+			(0.0029)
+Constant	0.0593	1.8404**	1.6149***
+	(0.6736)	(0.8459)	(0.3674)
+			
+Observations	700	1,200	1,200
+R-squared	0.4555	0.7431	0.0903
+rmse	0.0884	0.0909	0.0894
+Number of cn			100
+Standard errors in parentheses			
+*** p<0.01, ** p<0.05, * p<0.1			

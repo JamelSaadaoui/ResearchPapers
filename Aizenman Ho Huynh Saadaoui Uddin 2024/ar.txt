@@ -1,0 +1,15 @@
+	(1)
+	ar
+VARIABLES	lres
+	
+L.lres	0.7868***
+	(0.0138)
+Constant	0.5501***
+	(0.0348)
+	
+Observations	1,900
+Number of cn	100
+R-squared	0.6436
+rmse	0.222
+Standard errors in parentheses	
+*** p<0.01, ** p<0.05, * p<0.1	

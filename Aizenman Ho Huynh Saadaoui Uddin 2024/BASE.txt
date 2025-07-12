@@ -1,0 +1,22 @@
+	(1)
+	BASE
+VARIABLES	lreer
+	
+lgdppk_m100	0.6589***
+	(0.0665)
+lgovexp	0.1435***
+	(0.0287)
+etot	0.0369***
+	(0.0117)
+L1lres	0.0266***
+	(0.0095)
+c.etot#c.L1lres	-0.0196***
+	(0.0041)
+Constant	1.1186***
+	(0.3350)
+	
+Observations	1,900
+R-squared	0.4702
+rmse	0.120
+Standard errors in parentheses	
+*** p<0.01, ** p<0.05, * p<0.1	
