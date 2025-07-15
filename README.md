@@ -5,7 +5,7 @@
  This repository houses the code and data to accompany most of my research papers. Click on the links in the Author column to access the folder for the code. Furthermore, you can access the publication by clicking on the links in the author column. You can find the list of my publications in the following link: [**Publications**](https://www.jamelsaadaoui.com/publications/). Please quote the articles, if you are inspired by the content.
  
  ## Coverage
-|Order |Author|Title|Journal|Main Language|Date|
+|Order |Author (link to paper)|Title (link to archive)|Journal|Main Language|Date|
 |:----|:----|:----|:----|:----|:----|
 |12|[Bloom Prettner Saadaoui Veruete 2025](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Bloom%20Prettner%20Saadaoui%20Veruete%202025)|["Artificial intelligence and the skill premium"](https://doi.org/10.1016/j.frl.2025.107401) | Finance Research Letters | Mathematica Code | July 2025 |
 |11|[Saadaoui Smyth Vespignani 2025](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Saadaoui%20Smyth%20Vespignani%202025)|["Ensuring the security of the clean energy transition: Examining the impact of geopolitical risk on the price of critical minerals"](https://doi.org/10.1016/j.eneco.2025.108195) | Energy Economics | Stata Code | February 2025 |
