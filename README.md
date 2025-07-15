@@ -6,7 +6,7 @@
  
  ## Coverage
 |Order |Author|Title|Journal|Main Language|Date|
-|:----|:----|:----|:----|:----||:----|
+|:----|:----|:----|:----|:----|:----|
 |12|[Bloom Prettner Saadaoui Veruete 2025](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Bloom%20Prettner%20Saadaoui%20Veruete%202025)|["Artificial intelligence and the skill premium"](https://doi.org/10.1016/j.frl.2025.107401) | Finance Research Letters | Mathematica Code | July 2025 |
 |11|[Saadaoui Smyth Vespignani 2025](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Saadaoui%20Smyth%20Vespignani%202025)|["Ensuring the security of the clean energy transition: Examining the impact of geopolitical risk on the price of critical minerals"](https://doi.org/10.1016/j.eneco.2025.108195) | Energy Economics | Stata Code | February 2025 |
 |10|[Coulibaly Gnimassoun Mighri Saadaoui 2024](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Coulibaly%20Gnimassoun%20Mighri%20Saadaoui%202024)|["International reserves, currency depreciation and public debt: New evidence of buffer effects in Africa"](https://doi.org/10.1016/j.ememar.2024.101130) | Emerging Markets Review | Mathematica Code |  March 2024 |
