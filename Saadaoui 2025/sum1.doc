@@ -1,0 +1,16 @@
+{\rtf1\fs24
+\trowd\trgaph75\trleft-75\intbl\trqc\clbrdrt\brdrs\cellx1872\clbrdrt\brdrs\cellx2736\clbrdrt\brdrs\cellx3600\clbrdrt\brdrs\cellx4464\clbrdrt\brdrs\cellx5472\clbrdrt\brdrs\cellx6336
+\ql \cell\qc (1)\cell\qc (2)\cell\qc (3)\cell\qc (4)\cell\qc (5)\cell\row
+\trowd\trgaph75\trleft-75\trqc\cellx1872\cellx2736\cellx3600\cellx4464\cellx5472\cellx6336
+\trowd\trgaph75\trleft-75\trqc\clbrdrb\brdrs\cellx1872\clbrdrb\brdrs\cellx2736\clbrdrb\brdrs\cellx3600\clbrdrb\brdrs\cellx4464\clbrdrb\brdrs\cellx5472\clbrdrb\brdrs\cellx6336
+\ql VARIABLES\cell\qc N\cell\qc mean\cell\qc sd\cell\qc min\cell\qc max\cell\row
+\trowd\trgaph75\trleft-75\trqc\cellx1872\cellx2736\cellx3600\cellx4464\cellx5472\cellx6336
+\ql \cell\qc \cell\qc \cell\qc \cell\qc \cell\qc \cell\row
+\ql fd\cell\qc 2,000\cell\qc 0.388\cell\qc 0.243\cell\qc 0.0260\cell\qc 0.967\cell\row
+\ql fi\cell\qc 2,000\cell\qc 0.459\cell\qc 0.228\cell\qc 0.0497\cell\qc 0.978\cell\row
+\ql fmd\cell\qc 2,000\cell\qc 0.290\cell\qc 0.298\cell\qc 0\cell\qc 1\cell\row
+\ql fm\cell\qc 2,000\cell\qc 0.302\cell\qc 0.279\cell\qc 0\cell\qc 0.949\cell\row
+\ql \cell\qc \cell\qc \cell\qc \cell\qc \cell\qc \cell\row
+\trowd\trgaph75\trleft-75\trqc\trbrdrb\brdrs\clbrdrb\brdrs\cellx1872\clbrdrb\brdrs\cellx2736\clbrdrb\brdrs\cellx3600\clbrdrb\brdrs\cellx4464\clbrdrb\brdrs\cellx5472\clbrdrb\brdrs\cellx6336
+\ql Number of cn\cell\qc 40\cell\qc 40\cell\qc 40\cell\qc 40\cell\qc 40\cell\row
+}

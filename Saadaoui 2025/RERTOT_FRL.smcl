@@ -1,0 +1,819 @@
+{smcl}
+{txt}{sf}{ul off}{.-}
+      name:  {res}RERTOT_FRL
+       {txt}log:  {res}C:\Users\jamel\Dropbox\Latex\PROJECTS\24-09-rer-fd-ecs\Revision_FRL\Replication\RERTOT_FRL.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 4 Aug 2025, 16:26:32
+{txt}
+{com}. 
+. use datafintransformed-22-11-17, clear
+{txt}
+{com}. 
+. set scheme stcolor
+{txt}
+{com}. 
+. *search xthreg
+. 
+. **# Table 1: Descriptive statistics.
+. 
+. sum lreer lto ltot lres lgdppk_m100 lgovexp
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 7}lreer {c |}{res}      2,200    4.632866    .1832542    2.84686   5.567302
+{txt}{space 9}lto {c |}{res}      2,200    3.650269    .4817038   2.377674   5.392096
+{txt}{space 8}ltot {c |}{res}      2,200    -.014806     .371138   -2.11197   2.513272
+{txt}{space 8}lres {c |}{res}      2,200    2.522981    .8929707   .0925683   4.697033
+{txt}{space 1}lgdppk_m100 {c |}{res}      2,200     4.60517    .5413455   3.159225   5.774917
+{txt}{hline 13}{c +}{hline 57}
+{space 5}lgovexp {c |}{res}      2,127    2.696445    .3713954  -.0494565    3.56532
+{txt}
+{com}. qui: outreg2 using sum.doc, ///
+>  replace sum(log) keep(lreer lto ltot lres lgdppk_m100 lgovexp)
+ : {txt}
+{com}.  
+. sum fd fi fm fmd if count_lgovexp==20
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 10}fd {c |}{res}      2,000    .3877101    .2430807   .0260242   .9674348
+{txt}{space 10}fi {c |}{res}      2,000    .4590305    .2280799   .0496998   .9781906
+{txt}{space 10}fm {c |}{res}      2,000     .302498    .2785787          0   .9494287
+{txt}{space 9}fmd {c |}{res}      2,000    .2903551     .297646          0          1
+{txt}
+{com}. qui: outreg2 using sum1.doc if count_lgovexp==20, ///
+>  replace sum(log) keep(fd fi fm fmd)
+ : {txt}
+{com}. 
+. **# Table 2. Panel threshold regressions and financial development.
+. 
+. // Column 1
+. 
+. **# Financial Dev - Full sample**
+. xthreg lreer lgdppk_m100 lgovexp if count_lgovexp==20, ///
+> rx(etot_L1lres) qx(l2.fd) thnum(1) grid(300) bs(300)
+{res}{txt}Estimating  the  threshold  parameters: {txt}  1st ......{txt}  Done
+{txt}Boostrap for single threshold
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +   50
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  100
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  150
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  200
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  250
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  300
+
+Threshold estimator (level = 95):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:model}{space 1}{c |}{space 1}{ralign 12:Threshold}{space 1}{space 1}{ralign 12:Lower}{space 1}{space 1}{ralign 12:Upper}{space 0}
+{space 0}{hline 11}{c   +}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:Th-1}{space 1}{c |}{space 1}{ralign 12:{res:{sf:      0.0844}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0791}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0851}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 14}{hline 14}{hline 13}
+
+Threshold effect test (bootstrap = 300):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Threshold}{space 1}{c |}{space 1}{ralign 9:RSS}{space 1}{space 1}{ralign 9:MSE}{space 1}{space 1}{ralign 9:Fstat}{space 1}{space 1}{ralign 6:Prob}{space 1}{space 1}{ralign 7:Crit10}{space 1}{space 1}{ralign 7:Crit5}{space 1}{space 1}{ralign 7:Crit1}{space 0}
+{space 0}{hline 11}{c   +}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Single}{space 1}{c |}{space 1}{ralign 9:{res:{sf:  23.2720}}}{space 1}{space 1}{ralign 9:{res:{sf:   0.0131}}}{space 1}{space 1}{ralign 9:{res:{sf:    12.97}}}{space 1}{space 1}{ralign 6:{res:{sf:0.7833}}}{space 1}{space 1}{ralign 7:{res:{sf:36.8851}}}{space 1}{space 1}{ralign 7:{res:{sf:42.3277}}}{space 1}{space 1}{ralign 7:{res:{sf:49.8437}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{res}
+{txt}Fixed-effects (within) regression{col 49}Number of obs{col 67}={col 69}{res}     1,800
+{txt}Group variable: {res}cn{txt}{col 49}Number of groups{col 67}={col 69}{res}       100
+
+{txt}R-squared:{col 49}Obs per group:
+     Within  = {res}0.1286{col 63}{txt}min{col 67}={col 69}{res}        18
+{txt}     Between = {res}0.1258{col 63}{txt}avg{col 67}={col 69}{res}      18.0
+{txt}     Overall = {res}0.0376{col 63}{txt}max{col 67}={col 69}{res}        18
+
+{txt}{col 49}F({res}4{txt}, {res}1696{txt}){col 67}={col 70}{res}    62.57
+{txt}corr(u_i, Xb) = {res}-0.9686{txt}{col 49}Prob > F{col 67}={col 73}{res}0.0000
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}             lreer{col 20}{c |} Coefficient{col 32}  Std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}lgdppk_m100 {c |}{col 20}{res}{space 2} .6930496{col 32}{space 2} .0551961{col 43}{space 1}   12.56{col 52}{space 3}0.000{col 60}{space 4}   .58479{col 73}{space 3} .8013091
+{txt}{space 11}lgovexp {c |}{col 20}{res}{space 2} .1469674{col 32}{space 2} .0218244{col 43}{space 1}    6.73{col 52}{space 3}0.000{col 60}{space 4} .1041619{col 73}{space 3}  .189773
+{txt}{space 18} {c |}
+_cat#c.etot_L1lres {c |}
+{space 16}0  {c |}{col 20}{res}{space 2} .0034922{col 32}{space 2} .0033994{col 43}{space 1}    1.03{col 52}{space 3}0.304{col 60}{space 4}-.0031752{col 73}{space 3} .0101597
+{txt}{space 16}1  {c |}{col 20}{res}{space 2}-.0089182{col 32}{space 2} .0014233{col 43}{space 1}   -6.27{col 52}{space 3}0.000{col 60}{space 4}-.0117098{col 73}{space 3}-.0061266
+{txt}{space 18} {c |}
+{space 13}_cons {c |}{col 20}{res}{space 2} 1.020741{col 32}{space 2} .2654403{col 43}{space 1}    3.85{col 52}{space 3}0.000{col 60}{space 4} .5001164{col 73}{space 3} 1.541366
+{txt}{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+           sigma_u {c |} {res} .42868485
+           {txt}sigma_e {c |} {res} .11714166
+               {txt}rho {c |} {res} .93051816{txt}   (fraction of variance due to u_i)
+{hline 19}{c BT}{hline 64}
+F test that all u_i=0: F({res}99{txt}, {res}1696{txt}) = {res}14.50{col 62}{txt}Prob > F = {res}0.0000
+{txt}
+{com}. 
+. // Column 2
+. 
+. **Financial Institutions - Full sample**
+. xthreg lreer lgdppk_m100 lgovexp if count_lgovexp==20 ///
+>     , ///
+>         rx(etot_L1lres) qx(l2.fi) thnum(1) grid(600) bs(100) trim(0.10)
+{res}{txt}Estimating  the  threshold  parameters: {txt}  1st ......{txt}  Done
+{txt}Boostrap for single threshold
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +   50
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  100
+
+Threshold estimator (level = 95):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:model}{space 1}{c |}{space 1}{ralign 12:Threshold}{space 1}{space 1}{ralign 12:Lower}{space 1}{space 1}{ralign 12:Upper}{space 0}
+{space 0}{hline 11}{c   +}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:Th-1}{space 1}{c |}{space 1}{ralign 12:{res:{sf:      0.4806}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.4790}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.4814}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 14}{hline 14}{hline 13}
+
+Threshold effect test (bootstrap = 100):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Threshold}{space 1}{c |}{space 1}{ralign 9:RSS}{space 1}{space 1}{ralign 9:MSE}{space 1}{space 1}{ralign 9:Fstat}{space 1}{space 1}{ralign 6:Prob}{space 1}{space 1}{ralign 7:Crit10}{space 1}{space 1}{ralign 7:Crit5}{space 1}{space 1}{ralign 7:Crit1}{space 0}
+{space 0}{hline 11}{c   +}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Single}{space 1}{c |}{space 1}{ralign 9:{res:{sf:  22.9223}}}{space 1}{space 1}{ralign 9:{res:{sf:   0.0129}}}{space 1}{space 1}{ralign 9:{res:{sf:    40.36}}}{space 1}{space 1}{ralign 6:{res:{sf:0.0500}}}{space 1}{space 1}{ralign 7:{res:{sf:35.0130}}}{space 1}{space 1}{ralign 7:{res:{sf:39.2648}}}{space 1}{space 1}{ralign 7:{res:{sf:45.8237}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{res}
+{txt}Fixed-effects (within) regression{col 49}Number of obs{col 67}={col 69}{res}     1,800
+{txt}Group variable: {res}cn{txt}{col 49}Number of groups{col 67}={col 69}{res}       100
+
+{txt}R-squared:{col 49}Obs per group:
+     Within  = {res}0.1403{col 63}{txt}min{col 67}={col 69}{res}        18
+{txt}     Between = {res}0.1183{col 63}{txt}avg{col 67}={col 69}{res}      18.0
+{txt}     Overall = {res}0.0344{col 63}{txt}max{col 67}={col 69}{res}        18
+
+{txt}{col 49}F({res}4{txt}, {res}1696{txt}){col 67}={col 70}{res}    69.20
+{txt}corr(u_i, Xb) = {res}-0.9699{txt}{col 49}Prob > F{col 67}={col 73}{res}0.0000
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}             lreer{col 20}{c |} Coefficient{col 32}  Std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}lgdppk_m100 {c |}{col 20}{res}{space 2} .7112848{col 32}{space 2} .0548386{col 43}{space 1}   12.97{col 52}{space 3}0.000{col 60}{space 4} .6037263{col 73}{space 3} .8188433
+{txt}{space 11}lgovexp {c |}{col 20}{res}{space 2}  .153809{col 32}{space 2}  .021652{col 43}{space 1}    7.10{col 52}{space 3}0.000{col 60}{space 4} .1113415{col 73}{space 3} .1962766
+{txt}{space 18} {c |}
+_cat#c.etot_L1lres {c |}
+{space 16}0  {c |}{col 20}{res}{space 2}-.0096133{col 32}{space 2} .0013982{col 43}{space 1}   -6.88{col 52}{space 3}0.000{col 60}{space 4}-.0123557{col 73}{space 3}-.0068708
+{txt}{space 16}1  {c |}{col 20}{res}{space 2} .0077606{col 32}{space 2}  .002883{col 43}{space 1}    2.69{col 52}{space 3}0.007{col 60}{space 4}  .002106{col 73}{space 3} .0134152
+{txt}{space 18} {c |}
+{space 13}_cons {c |}{col 20}{res}{space 2} .9178462{col 32}{space 2} .2636877{col 43}{space 1}    3.48{col 52}{space 3}0.001{col 60}{space 4} .4006587{col 73}{space 3} 1.435034
+{txt}{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+           sigma_u {c |} {res} .44204645
+           {txt}sigma_e {c |} {res} .11635181
+               {txt}rho {c |} {res} .93520838{txt}   (fraction of variance due to u_i)
+{hline 19}{c BT}{hline 64}
+F test that all u_i=0: F({res}99{txt}, {res}1696{txt}) = {res}14.59{col 62}{txt}Prob > F = {res}0.0000
+{txt}
+{com}.         
+. sum fm if fi <= 0.4806 & count_lgovexp==20
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 10}fm {c |}{res}      1,180    .1507849    .1751877          0   .7171974
+{txt}
+{com}. sum fm if fi > 0.4806 & count_lgovexp==20
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 10}fm {c |}{res}        820    .5208167    .2536828   .0036177   .9494287
+{txt}
+{com}. 
+. // Column 3
+. 
+. **Financial Markets - Full sample**     
+. xthreg lreer lgdppk_m100 lgovexp if count_lgovexp==20 ///
+>     , ///
+>         rx(etot_L1lres) qx(l2.fm) thnum(1) grid(300) bs(300)
+{res}{txt}Estimating  the  threshold  parameters: {txt}  1st ......{txt}  Done
+{txt}Boostrap for single threshold
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +   50
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  100
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  150
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  200
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  250
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  300
+
+Threshold estimator (level = 95):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:model}{space 1}{c |}{space 1}{ralign 12:Threshold}{space 1}{space 1}{ralign 12:Lower}{space 1}{space 1}{ralign 12:Upper}{space 0}
+{space 0}{hline 11}{c   +}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:Th-1}{space 1}{c |}{space 1}{ralign 12:{res:{sf:      0.1092}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0977}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.1148}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 14}{hline 14}{hline 13}
+
+Threshold effect test (bootstrap = 300):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Threshold}{space 1}{c |}{space 1}{ralign 9:RSS}{space 1}{space 1}{ralign 9:MSE}{space 1}{space 1}{ralign 9:Fstat}{space 1}{space 1}{ralign 6:Prob}{space 1}{space 1}{ralign 7:Crit10}{space 1}{space 1}{ralign 7:Crit5}{space 1}{space 1}{ralign 7:Crit1}{space 0}
+{space 0}{hline 11}{c   +}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Single}{space 1}{c |}{space 1}{ralign 9:{res:{sf:  23.1985}}}{space 1}{space 1}{ralign 9:{res:{sf:   0.0130}}}{space 1}{space 1}{ralign 9:{res:{sf:    18.66}}}{space 1}{space 1}{ralign 6:{res:{sf:0.5867}}}{space 1}{space 1}{ralign 7:{res:{sf:38.2236}}}{space 1}{space 1}{ralign 7:{res:{sf:46.8354}}}{space 1}{space 1}{ralign 7:{res:{sf:70.2220}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{res}
+{txt}Fixed-effects (within) regression{col 49}Number of obs{col 67}={col 69}{res}     1,800
+{txt}Group variable: {res}cn{txt}{col 49}Number of groups{col 67}={col 69}{res}       100
+
+{txt}R-squared:{col 49}Obs per group:
+     Within  = {res}0.1313{col 63}{txt}min{col 67}={col 69}{res}        18
+{txt}     Between = {res}0.1209{col 63}{txt}avg{col 67}={col 69}{res}      18.0
+{txt}     Overall = {res}0.0360{col 63}{txt}max{col 67}={col 69}{res}        18
+
+{txt}{col 49}F({res}4{txt}, {res}1696{txt}){col 67}={col 70}{res}    64.06
+{txt}corr(u_i, Xb) = {res}-0.9702{txt}{col 49}Prob > F{col 67}={col 73}{res}0.0000
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}             lreer{col 20}{c |} Coefficient{col 32}  Std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}lgdppk_m100 {c |}{col 20}{res}{space 2} .7139527{col 32}{space 2} .0552046{col 43}{space 1}   12.93{col 52}{space 3}0.000{col 60}{space 4} .6056763{col 73}{space 3} .8222291
+{txt}{space 11}lgovexp {c |}{col 20}{res}{space 2} .1441147{col 32}{space 2} .0218229{col 43}{space 1}    6.60{col 52}{space 3}0.000{col 60}{space 4} .1013121{col 73}{space 3} .1869174
+{txt}{space 18} {c |}
+_cat#c.etot_L1lres {c |}
+{space 16}0  {c |}{col 20}{res}{space 2}-.0043845{col 32}{space 2} .0015397{col 43}{space 1}   -2.85{col 52}{space 3}0.004{col 60}{space 4}-.0074044{col 73}{space 3}-.0013647
+{txt}{space 16}1  {c |}{col 20}{res}{space 2}-.0145245{col 32}{space 2} .0021707{col 43}{space 1}   -6.69{col 52}{space 3}0.000{col 60}{space 4} -.018782{col 73}{space 3}-.0102669
+{txt}{space 18} {c |}
+{space 13}_cons {c |}{col 20}{res}{space 2} .9325112{col 32}{space 2} .2651255{col 43}{space 1}    3.52{col 52}{space 3}0.000{col 60}{space 4} .4125037{col 73}{space 3} 1.452519
+{txt}{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+           sigma_u {c |} {res} .44079781
+           {txt}sigma_e {c |} {res} .11696286
+               {txt}rho {c |} {res}  .9342239{txt}   (fraction of variance due to u_i)
+{hline 19}{c BT}{hline 64}
+F test that all u_i=0: F({res}99{txt}, {res}1696{txt}) = {res}14.59{col 62}{txt}Prob > F = {res}0.0000
+{txt}
+{com}. 
+. // Column 4
+. 
+. **# Financial Markets - ECS**
+. xthreg lreer lgdppk_m100 lgovexp if count_lgovexp==20 ///
+> & rn==2, ///
+> rx(etot_L1lres) qx(L2.fm) thnum(1) grid(300) bs(300)
+{res}{txt}Estimating  the  threshold  parameters: {txt}  1st ......{txt}  Done
+{txt}Boostrap for single threshold
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +   50
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  100
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  150
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  200
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  250
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  300
+
+Threshold estimator (level = 95):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:model}{space 1}{c |}{space 1}{ralign 12:Threshold}{space 1}{space 1}{ralign 12:Lower}{space 1}{space 1}{ralign 12:Upper}{space 0}
+{space 0}{hline 11}{c   +}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:Th-1}{space 1}{c |}{space 1}{ralign 12:{res:{sf:      0.0217}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0210}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0220}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 14}{hline 14}{hline 13}
+
+Threshold effect test (bootstrap = 300):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Threshold}{space 1}{c |}{space 1}{ralign 9:RSS}{space 1}{space 1}{ralign 9:MSE}{space 1}{space 1}{ralign 9:Fstat}{space 1}{space 1}{ralign 6:Prob}{space 1}{space 1}{ralign 7:Crit10}{space 1}{space 1}{ralign 7:Crit5}{space 1}{space 1}{ralign 7:Crit1}{space 0}
+{space 0}{hline 11}{c   +}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Single}{space 1}{c |}{space 1}{ralign 9:{res:{sf:   5.0432}}}{space 1}{space 1}{ralign 9:{res:{sf:   0.0072}}}{space 1}{space 1}{ralign 9:{res:{sf:    61.50}}}{space 1}{space 1}{ralign 6:{res:{sf:0.0167}}}{space 1}{space 1}{ralign 7:{res:{sf:39.2743}}}{space 1}{space 1}{ralign 7:{res:{sf:48.3484}}}{space 1}{space 1}{ralign 7:{res:{sf:64.8603}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{res}
+{txt}Fixed-effects (within) regression{col 49}Number of obs{col 67}={col 69}{res}       720
+{txt}Group variable: {res}cn{txt}{col 49}Number of groups{col 67}={col 69}{res}        40
+
+{txt}R-squared:{col 49}Obs per group:
+     Within  = {res}0.1814{col 63}{txt}min{col 67}={col 69}{res}        18
+{txt}     Between = {res}0.0010{col 63}{txt}avg{col 67}={col 69}{res}      18.0
+{txt}     Overall = {res}0.0024{col 63}{txt}max{col 67}={col 69}{res}        18
+
+{txt}{col 49}F({res}4{txt}, {res}676{txt}){col 67}={col 70}{res}    37.45
+{txt}corr(u_i, Xb) = {res}-0.9397{txt}{col 49}Prob > F{col 67}={col 73}{res}0.0000
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}             lreer{col 20}{c |} Coefficient{col 32}  Std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}lgdppk_m100 {c |}{col 20}{res}{space 2} .6172063{col 32}{space 2} .0632999{col 43}{space 1}    9.75{col 52}{space 3}0.000{col 60}{space 4} .4929182{col 73}{space 3} .7414944
+{txt}{space 11}lgovexp {c |}{col 20}{res}{space 2} .1520681{col 32}{space 2} .0408981{col 43}{space 1}    3.72{col 52}{space 3}0.000{col 60}{space 4} .0717654{col 73}{space 3} .2323707
+{txt}{space 18} {c |}
+_cat#c.etot_L1lres {c |}
+{space 16}0  {c |}{col 20}{res}{space 2}-.0134782{col 32}{space 2} .0029661{col 43}{space 1}   -4.54{col 52}{space 3}0.000{col 60}{space 4} -.019302{col 73}{space 3}-.0076544
+{txt}{space 16}1  {c |}{col 20}{res}{space 2} .0144936{col 32}{space 2} .0026559{col 43}{space 1}    5.46{col 52}{space 3}0.000{col 60}{space 4} .0092788{col 73}{space 3} .0197084
+{txt}{space 18} {c |}
+{space 13}_cons {c |}{col 20}{res}{space 2} 1.076252{col 32}{space 2} .3553874{col 43}{space 1}    3.03{col 52}{space 3}0.003{col 60}{space 4} .3784566{col 73}{space 3} 1.774048
+{txt}{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+           sigma_u {c |} {res} .21999629
+           {txt}sigma_e {c |} {res} .08656159
+               {txt}rho {c |} {res} .86593778{txt}   (fraction of variance due to u_i)
+{hline 19}{c BT}{hline 64}
+F test that all u_i=0: F({res}39{txt}, {res}676{txt}) = {res}10.58{col 62}{txt}Prob > F = {res}0.0000
+{txt}
+{com}. sum fm if fm <= 0.0217 & rn==2 & count_lgovexp==20
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 10}fm {c |}{res}        122    .0093684    .0059324   .0028123   .0215554
+{txt}
+{com}. sum fm if fm > 0.0217 & rn==2 & count_lgovexp==20
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 10}fm {c |}{res}        678    .4301768     .273638    .021737   .9494287
+{txt}
+{com}. 
+. // Column 5
+. 
+. **# Financial Markets Depth - ECS**
+. xthreg lreer lgdppk_m100 lgovexp if count_lgovexp==20 ///
+> & rn==2, ///
+> rx(etot_L1lres) qx(L2.fmd) thnum(1) grid(300) bs(300)
+{res}{txt}Estimating  the  threshold  parameters: {txt}  1st ......{txt}  Done
+{txt}Boostrap for single threshold
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +   50
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  100
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  150
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  200
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  250
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  300
+
+Threshold estimator (level = 95):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:model}{space 1}{c |}{space 1}{ralign 12:Threshold}{space 1}{space 1}{ralign 12:Lower}{space 1}{space 1}{ralign 12:Upper}{space 0}
+{space 0}{hline 11}{c   +}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:Th-1}{space 1}{c |}{space 1}{ralign 12:{res:{sf:      0.0234}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0173}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0249}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 14}{hline 14}{hline 13}
+
+Threshold effect test (bootstrap = 300):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Threshold}{space 1}{c |}{space 1}{ralign 9:RSS}{space 1}{space 1}{ralign 9:MSE}{space 1}{space 1}{ralign 9:Fstat}{space 1}{space 1}{ralign 6:Prob}{space 1}{space 1}{ralign 7:Crit10}{space 1}{space 1}{ralign 7:Crit5}{space 1}{space 1}{ralign 7:Crit1}{space 0}
+{space 0}{hline 11}{c   +}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Single}{space 1}{c |}{space 1}{ralign 9:{res:{sf:   5.0576}}}{space 1}{space 1}{ralign 9:{res:{sf:   0.0072}}}{space 1}{space 1}{ralign 9:{res:{sf:    59.33}}}{space 1}{space 1}{ralign 6:{res:{sf:0.0233}}}{space 1}{space 1}{ralign 7:{res:{sf:41.7778}}}{space 1}{space 1}{ralign 7:{res:{sf:51.2579}}}{space 1}{space 1}{ralign 7:{res:{sf:80.7307}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{res}
+{txt}Fixed-effects (within) regression{col 49}Number of obs{col 67}={col 69}{res}       720
+{txt}Group variable: {res}cn{txt}{col 49}Number of groups{col 67}={col 69}{res}        40
+
+{txt}R-squared:{col 49}Obs per group:
+     Within  = {res}0.1826{col 63}{txt}min{col 67}={col 69}{res}        18
+{txt}     Between = {res}0.0013{col 63}{txt}avg{col 67}={col 69}{res}      18.0
+{txt}     Overall = {res}0.0024{col 63}{txt}max{col 67}={col 69}{res}        18
+
+{txt}{col 49}F({res}4{txt}, {res}676{txt}){col 67}={col 70}{res}    37.76
+{txt}corr(u_i, Xb) = {res}-0.9355{txt}{col 49}Prob > F{col 67}={col 73}{res}0.0000
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}             lreer{col 20}{c |} Coefficient{col 32}  Std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}lgdppk_m100 {c |}{col 20}{res}{space 2} .5809665{col 32}{space 2} .0632187{col 43}{space 1}    9.19{col 52}{space 3}0.000{col 60}{space 4} .4568379{col 73}{space 3} .7050951
+{txt}{space 11}lgovexp {c |}{col 20}{res}{space 2} .1585325{col 32}{space 2}  .040872{col 43}{space 1}    3.88{col 52}{space 3}0.000{col 60}{space 4} .0782812{col 73}{space 3} .2387837
+{txt}{space 18} {c |}
+_cat#c.etot_L1lres {c |}
+{space 16}0  {c |}{col 20}{res}{space 2} -.012808{col 32}{space 2} .0028886{col 43}{space 1}   -4.43{col 52}{space 3}0.000{col 60}{space 4}-.0184797{col 73}{space 3}-.0071362
+{txt}{space 16}1  {c |}{col 20}{res}{space 2}  .012576{col 32}{space 2} .0024976{col 43}{space 1}    5.04{col 52}{space 3}0.000{col 60}{space 4}  .007672{col 73}{space 3}   .01748
+{txt}{space 18} {c |}
+{space 13}_cons {c |}{col 20}{res}{space 2} 1.239264{col 32}{space 2} .3548933{col 43}{space 1}    3.49{col 52}{space 3}0.001{col 60}{space 4} .5424382{col 73}{space 3} 1.936089
+{txt}{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+           sigma_u {c |} {res} .21322326
+           {txt}sigma_e {c |} {res} .08649631
+               {txt}rho {c |} {res} .85869291{txt}   (fraction of variance due to u_i)
+{hline 19}{c BT}{hline 64}
+F test that all u_i=0: F({res}39{txt}, {res}676{txt}) = {res}10.49{col 62}{txt}Prob > F = {res}0.0000
+{txt}
+{com}. sum fmd if fmd <= 0.0234 & rn==2 & count_lgovexp==20
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 9}fmd {c |}{res}        119    .0113428    .0052305   .0004064   .0233997
+{txt}
+{com}. sum fmd if fmd > 0.0234 & rn==2 & count_lgovexp==20
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 9}fmd {c |}{res}        681     .410132    .3047344   .0238967   .9888874
+{txt}
+{com}. 
+. **# Fig. 1. Threshold effect in the ECS region.
+. 
+. gen resgdp = (res/gdp)*100
+{txt}
+{com}. by cn: egen resgdp_full = mean(resgdp)
+{txt}
+{com}. by cn: egen resgdp_before = mean(resgdp) if year<2008
+{txt}(1,430 missing values generated)
+
+{com}. by cn: egen resgdp_after = mean(resgdp) if year>2009
+{txt}(990 missing values generated)
+
+{com}. by cn: egen resgdp_full_sd = sd(resgdp)
+{txt}
+{com}. by cn: egen resgdp_before_sd = sd(resgdp) if year<2008
+{txt}(1,430 missing values generated)
+
+{com}. by cn: egen resgdp_after_sd = sd(resgdp) if year>2009
+{txt}(990 missing values generated)
+
+{com}. 
+. graph hbar resgdp_before resgdp_after ///
+> if region=="ECS" & eurozone==0, over(cn, sort(2) ///
+> label(labsize(small))) ///
+> legend(pos(6) label(1 "Before the financial crisis (2007-2009)") label(2 "After the financial crisis (2010-2020)")) yline(17.28) ///
+> title("Buffer effect in the ECS region without EZ") ///
+> note(Source: see the main text.) xsize(7)
+{res}{txt}
+{com}. 
+. graph rename Graph Thres_Res, replace
+{txt}
+{com}. graph export Thres_Res.png, as(png) name("Thres_Res") width(3000) replace
+{txt}{p 0 4 2}
+file {bf}
+Thres_Res.png{rm}
+saved as
+PNG
+format
+{p_end}
+
+{com}. 
+. **# Fig. 2, Fig. 3 present the construction of the confidence intervals for the threshold models in the ECS region, focusing on the Financial Markets Index (FM) and Financial Market Depth (FMD).
+. 
+. // Column 4
+. 
+. **# Financial Markets - ECS**
+. xthreg lreer lgdppk_m100 lgovexp if count_lgovexp==20 ///
+> & rn==2, ///
+> rx(etot_L1lres) qx(L2.fm) thnum(1) grid(300) bs(300)
+{res}{txt}Estimating  the  threshold  parameters: {txt}  1st ......{txt}  Done
+{txt}Boostrap for single threshold
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +   50
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  100
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  150
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  200
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  250
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  300
+
+Threshold estimator (level = 95):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:model}{space 1}{c |}{space 1}{ralign 12:Threshold}{space 1}{space 1}{ralign 12:Lower}{space 1}{space 1}{ralign 12:Upper}{space 0}
+{space 0}{hline 11}{c   +}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:Th-1}{space 1}{c |}{space 1}{ralign 12:{res:{sf:      0.0217}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0210}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0220}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 14}{hline 14}{hline 13}
+
+Threshold effect test (bootstrap = 300):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Threshold}{space 1}{c |}{space 1}{ralign 9:RSS}{space 1}{space 1}{ralign 9:MSE}{space 1}{space 1}{ralign 9:Fstat}{space 1}{space 1}{ralign 6:Prob}{space 1}{space 1}{ralign 7:Crit10}{space 1}{space 1}{ralign 7:Crit5}{space 1}{space 1}{ralign 7:Crit1}{space 0}
+{space 0}{hline 11}{c   +}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Single}{space 1}{c |}{space 1}{ralign 9:{res:{sf:   5.0432}}}{space 1}{space 1}{ralign 9:{res:{sf:   0.0072}}}{space 1}{space 1}{ralign 9:{res:{sf:    61.50}}}{space 1}{space 1}{ralign 6:{res:{sf:0.0200}}}{space 1}{space 1}{ralign 7:{res:{sf:44.1211}}}{space 1}{space 1}{ralign 7:{res:{sf:54.3420}}}{space 1}{space 1}{ralign 7:{res:{sf:69.9921}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{res}
+{txt}Fixed-effects (within) regression{col 49}Number of obs{col 67}={col 69}{res}       720
+{txt}Group variable: {res}cn{txt}{col 49}Number of groups{col 67}={col 69}{res}        40
+
+{txt}R-squared:{col 49}Obs per group:
+     Within  = {res}0.1814{col 63}{txt}min{col 67}={col 69}{res}        18
+{txt}     Between = {res}0.0010{col 63}{txt}avg{col 67}={col 69}{res}      18.0
+{txt}     Overall = {res}0.0024{col 63}{txt}max{col 67}={col 69}{res}        18
+
+{txt}{col 49}F({res}4{txt}, {res}676{txt}){col 67}={col 70}{res}    37.45
+{txt}corr(u_i, Xb) = {res}-0.9397{txt}{col 49}Prob > F{col 67}={col 73}{res}0.0000
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}             lreer{col 20}{c |} Coefficient{col 32}  Std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}lgdppk_m100 {c |}{col 20}{res}{space 2} .6172063{col 32}{space 2} .0632999{col 43}{space 1}    9.75{col 52}{space 3}0.000{col 60}{space 4} .4929182{col 73}{space 3} .7414944
+{txt}{space 11}lgovexp {c |}{col 20}{res}{space 2} .1520681{col 32}{space 2} .0408981{col 43}{space 1}    3.72{col 52}{space 3}0.000{col 60}{space 4} .0717654{col 73}{space 3} .2323707
+{txt}{space 18} {c |}
+_cat#c.etot_L1lres {c |}
+{space 16}0  {c |}{col 20}{res}{space 2}-.0134782{col 32}{space 2} .0029661{col 43}{space 1}   -4.54{col 52}{space 3}0.000{col 60}{space 4} -.019302{col 73}{space 3}-.0076544
+{txt}{space 16}1  {c |}{col 20}{res}{space 2} .0144936{col 32}{space 2} .0026559{col 43}{space 1}    5.46{col 52}{space 3}0.000{col 60}{space 4} .0092788{col 73}{space 3} .0197084
+{txt}{space 18} {c |}
+{space 13}_cons {c |}{col 20}{res}{space 2} 1.076252{col 32}{space 2} .3553874{col 43}{space 1}    3.03{col 52}{space 3}0.003{col 60}{space 4} .3784566{col 73}{space 3} 1.774048
+{txt}{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+           sigma_u {c |} {res} .21999629
+           {txt}sigma_e {c |} {res} .08656159
+               {txt}rho {c |} {res} .86593778{txt}   (fraction of variance due to u_i)
+{hline 19}{c BT}{hline 64}
+F test that all u_i=0: F({res}39{txt}, {res}676{txt}) = {res}10.58{col 62}{txt}Prob > F = {res}0.0000
+{txt}
+{com}. sum fm if fm <= 0.0217 & rn==2 & count_lgovexp==20
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 10}fm {c |}{res}        122    .0093684    .0059324   .0028123   .0215554
+{txt}
+{com}. sum fm if fm > 0.0217 & rn==2 & count_lgovexp==20
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 10}fm {c |}{res}        678    .4301768     .273638    .021737   .9494287
+{txt}
+{com}. 
+. *ereturn list
+. 
+. capture graph drop LR_FMECS     
+{txt}
+{com}. 
+. _matplot e(LR), title("ECS FM - buffer effect") ///
+> yline(7.35, lpattern(dash)) connect(direct) msize(small) mlabp(0) ///
+> mlabs(zero) ytitle("LR Statistics") xtitle("Threshold Parameter") ///
+> recast(line) name(LR_FMECS)
+{res}{txt}
+{com}. 
+. graph export LR_FMECS.png, as(png) name("LR_FMECS") width(3000) replace
+{txt}{p 0 4 2}
+(file {bf}
+LR_FMECS.png{rm}
+not found)
+{p_end}
+{p 0 4 2}
+file {bf}
+LR_FMECS.png{rm}
+saved as
+PNG
+format
+{p_end}
+
+{com}. 
+. // Column 5
+. 
+. **# Financial Markets Depth - ECS**
+. xthreg lreer lgdppk_m100 lgovexp if count_lgovexp==20 ///
+> & rn==2, ///
+> rx(etot_L1lres) qx(L2.fmd) thnum(1) grid(300) bs(300)
+{res}{txt}Estimating  the  threshold  parameters: {txt}  1st ......{txt}  Done
+{txt}Boostrap for single threshold
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +   50
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  100
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  150
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  200
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  250
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  300
+
+Threshold estimator (level = 95):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:model}{space 1}{c |}{space 1}{ralign 12:Threshold}{space 1}{space 1}{ralign 12:Lower}{space 1}{space 1}{ralign 12:Upper}{space 0}
+{space 0}{hline 11}{c   +}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:Th-1}{space 1}{c |}{space 1}{ralign 12:{res:{sf:      0.0234}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0173}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0249}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 14}{hline 14}{hline 13}
+
+Threshold effect test (bootstrap = 300):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Threshold}{space 1}{c |}{space 1}{ralign 9:RSS}{space 1}{space 1}{ralign 9:MSE}{space 1}{space 1}{ralign 9:Fstat}{space 1}{space 1}{ralign 6:Prob}{space 1}{space 1}{ralign 7:Crit10}{space 1}{space 1}{ralign 7:Crit5}{space 1}{space 1}{ralign 7:Crit1}{space 0}
+{space 0}{hline 11}{c   +}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Single}{space 1}{c |}{space 1}{ralign 9:{res:{sf:   5.0576}}}{space 1}{space 1}{ralign 9:{res:{sf:   0.0072}}}{space 1}{space 1}{ralign 9:{res:{sf:    59.33}}}{space 1}{space 1}{ralign 6:{res:{sf:0.0200}}}{space 1}{space 1}{ralign 7:{res:{sf:39.3432}}}{space 1}{space 1}{ralign 7:{res:{sf:47.0501}}}{space 1}{space 1}{ralign 7:{res:{sf:61.2113}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{res}
+{txt}Fixed-effects (within) regression{col 49}Number of obs{col 67}={col 69}{res}       720
+{txt}Group variable: {res}cn{txt}{col 49}Number of groups{col 67}={col 69}{res}        40
+
+{txt}R-squared:{col 49}Obs per group:
+     Within  = {res}0.1826{col 63}{txt}min{col 67}={col 69}{res}        18
+{txt}     Between = {res}0.0013{col 63}{txt}avg{col 67}={col 69}{res}      18.0
+{txt}     Overall = {res}0.0024{col 63}{txt}max{col 67}={col 69}{res}        18
+
+{txt}{col 49}F({res}4{txt}, {res}676{txt}){col 67}={col 70}{res}    37.76
+{txt}corr(u_i, Xb) = {res}-0.9355{txt}{col 49}Prob > F{col 67}={col 73}{res}0.0000
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}             lreer{col 20}{c |} Coefficient{col 32}  Std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}lgdppk_m100 {c |}{col 20}{res}{space 2} .5809665{col 32}{space 2} .0632187{col 43}{space 1}    9.19{col 52}{space 3}0.000{col 60}{space 4} .4568379{col 73}{space 3} .7050951
+{txt}{space 11}lgovexp {c |}{col 20}{res}{space 2} .1585325{col 32}{space 2}  .040872{col 43}{space 1}    3.88{col 52}{space 3}0.000{col 60}{space 4} .0782812{col 73}{space 3} .2387837
+{txt}{space 18} {c |}
+_cat#c.etot_L1lres {c |}
+{space 16}0  {c |}{col 20}{res}{space 2} -.012808{col 32}{space 2} .0028886{col 43}{space 1}   -4.43{col 52}{space 3}0.000{col 60}{space 4}-.0184797{col 73}{space 3}-.0071362
+{txt}{space 16}1  {c |}{col 20}{res}{space 2}  .012576{col 32}{space 2} .0024976{col 43}{space 1}    5.04{col 52}{space 3}0.000{col 60}{space 4}  .007672{col 73}{space 3}   .01748
+{txt}{space 18} {c |}
+{space 13}_cons {c |}{col 20}{res}{space 2} 1.239264{col 32}{space 2} .3548933{col 43}{space 1}    3.49{col 52}{space 3}0.001{col 60}{space 4} .5424382{col 73}{space 3} 1.936089
+{txt}{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+           sigma_u {c |} {res} .21322326
+           {txt}sigma_e {c |} {res} .08649631
+               {txt}rho {c |} {res} .85869291{txt}   (fraction of variance due to u_i)
+{hline 19}{c BT}{hline 64}
+F test that all u_i=0: F({res}39{txt}, {res}676{txt}) = {res}10.49{col 62}{txt}Prob > F = {res}0.0000
+{txt}
+{com}. sum fmd if fmd <= 0.0234 & rn==2 & count_lgovexp==20
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 9}fmd {c |}{res}        119    .0113428    .0052305   .0004064   .0233997
+{txt}
+{com}. sum fmd if fmd > 0.0234 & rn==2 & count_lgovexp==20
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 9}fmd {c |}{res}        681     .410132    .3047344   .0238967   .9888874
+{txt}
+{com}. 
+. *ereturn list
+. 
+. capture graph drop LR_FMDECS    
+{txt}
+{com}. 
+. _matplot e(LR), title("ECS FMD - buffer effect") ///
+> yline(7.35, lpattern(dash)) connect(direct) msize(small) mlabp(0) ///
+> mlabs(zero) ytitle("LR Statistics") xtitle("Threshold Parameter") ///
+> recast(line) name(LR_FMDECS)
+{res}{txt}
+{com}. 
+. graph export LR_FMDECS.png, as(png) name("LR_FMDECS") width(3000) replace
+{txt}{p 0 4 2}
+(file {bf}
+LR_FMDECS.png{rm}
+not found)
+{p_end}
+{p 0 4 2}
+file {bf}
+LR_FMDECS.png{rm}
+saved as
+PNG
+format
+{p_end}
+
+{com}. 
+. **# Appendix A. Robustness checks
+. 
+. **# Robustness 1: Financial Markets Depth - ECS**
+. xthreg lreer lgdppk_m100 lgovexp if count_lgovexp==20 ///
+> & rn==2, ///
+> rx(etot_L1lres) qx(L3.fmd) thnum(1) grid(300) bs(300)
+{res}{txt}Estimating  the  threshold  parameters: {txt}  1st ......{txt}  Done
+{txt}Boostrap for single threshold
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +   50
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  100
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  150
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  200
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  250
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  300
+
+Threshold estimator (level = 95):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:model}{space 1}{c |}{space 1}{ralign 12:Threshold}{space 1}{space 1}{ralign 12:Lower}{space 1}{space 1}{ralign 12:Upper}{space 0}
+{space 0}{hline 11}{c   +}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:Th-1}{space 1}{c |}{space 1}{ralign 12:{res:{sf:      0.0268}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0248}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0279}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 14}{hline 14}{hline 13}
+
+Threshold effect test (bootstrap = 300):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Threshold}{space 1}{c |}{space 1}{ralign 9:RSS}{space 1}{space 1}{ralign 9:MSE}{space 1}{space 1}{ralign 9:Fstat}{space 1}{space 1}{ralign 6:Prob}{space 1}{space 1}{ralign 7:Crit10}{space 1}{space 1}{ralign 7:Crit5}{space 1}{space 1}{ralign 7:Crit1}{space 0}
+{space 0}{hline 11}{c   +}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Single}{space 1}{c |}{space 1}{ralign 9:{res:{sf:   4.1930}}}{space 1}{space 1}{ralign 9:{res:{sf:   0.0063}}}{space 1}{space 1}{ralign 9:{res:{sf:    54.04}}}{space 1}{space 1}{ralign 6:{res:{sf:0.0300}}}{space 1}{space 1}{ralign 7:{res:{sf:37.0046}}}{space 1}{space 1}{ralign 7:{res:{sf:44.9117}}}{space 1}{space 1}{ralign 7:{res:{sf:72.4574}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{res}
+{txt}Fixed-effects (within) regression{col 49}Number of obs{col 67}={col 69}{res}       680
+{txt}Group variable: {res}cn{txt}{col 49}Number of groups{col 67}={col 69}{res}        40
+
+{txt}R-squared:{col 49}Obs per group:
+     Within  = {res}0.1597{col 63}{txt}min{col 67}={col 69}{res}        17
+{txt}     Between = {res}0.0107{col 63}{txt}avg{col 67}={col 69}{res}      17.0
+{txt}     Overall = {res}0.0000{col 63}{txt}max{col 67}={col 69}{res}        17
+
+{txt}{col 49}F({res}4{txt}, {res}636{txt}){col 67}={col 70}{res}    30.22
+{txt}corr(u_i, Xb) = {res}-0.9304{txt}{col 49}Prob > F{col 67}={col 73}{res}0.0000
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}             lreer{col 20}{c |} Coefficient{col 32}  Std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}lgdppk_m100 {c |}{col 20}{res}{space 2}  .553136{col 32}{space 2} .0671746{col 43}{space 1}    8.23{col 52}{space 3}0.000{col 60}{space 4} .4212252{col 73}{space 3} .6850468
+{txt}{space 11}lgovexp {c |}{col 20}{res}{space 2} .1530125{col 32}{space 2} .0412435{col 43}{space 1}    3.71{col 52}{space 3}0.000{col 60}{space 4} .0720225{col 73}{space 3} .2340024
+{txt}{space 18} {c |}
+_cat#c.etot_L1lres {c |}
+{space 16}0  {c |}{col 20}{res}{space 2}-.0103589{col 32}{space 2} .0028371{col 43}{space 1}   -3.65{col 52}{space 3}0.000{col 60}{space 4}-.0159301{col 73}{space 3}-.0047877
+{txt}{space 16}1  {c |}{col 20}{res}{space 2}  .012047{col 32}{space 2} .0024903{col 43}{space 1}    4.84{col 52}{space 3}0.000{col 60}{space 4} .0071568{col 73}{space 3} .0169371
+{txt}{space 18} {c |}
+{space 13}_cons {c |}{col 20}{res}{space 2} 1.399711{col 32}{space 2} .3766669{col 43}{space 1}    3.72{col 52}{space 3}0.000{col 60}{space 4} .6600495{col 73}{space 3} 2.139372
+{txt}{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+           sigma_u {c |} {res} .20754116
+           {txt}sigma_e {c |} {res} .08143554
+               {txt}rho {c |} {res} .86657808{txt}   (fraction of variance due to u_i)
+{hline 19}{c BT}{hline 64}
+F test that all u_i=0: F({res}39{txt}, {res}636{txt}) = {res}11.60{col 62}{txt}Prob > F = {res}0.0000
+{txt}
+{com}. sum fmd if fmd <= 0.0268 & rn==2 & count_lgovexp==20
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 9}fmd {c |}{res}        126    .0121188    .0060165   .0004064    .026792
+{txt}
+{com}. sum fmd if fmd > 0.0268 & rn==2 & count_lgovexp==20
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 9}fmd {c |}{res}        674    .4141286    .3037641   .0278929   .9888874
+{txt}
+{com}. 
+. 
+. capture graph drop LR_FMDECSR   
+{txt}
+{com}. 
+. _matplot e(LR), title("ECS FMD - buffer effect (third lag)") ///
+> yline(7.35, lpattern(dash)) connect(direct) msize(small) mlabp(0) ///
+> mlabs(zero) ytitle("LR Statistics") xtitle("Threshold Parameter") ///
+> recast(line) name(LR_FMDECSR)
+{res}{txt}
+{com}. 
+. graph export LR_FMDECSR.png, as(png) name("LR_FMDECSR") width(3000) replace
+{txt}{p 0 4 2}
+(file {bf}
+LR_FMDECSR.png{rm}
+not found)
+{p_end}
+{p 0 4 2}
+file {bf}
+LR_FMDECSR.png{rm}
+saved as
+PNG
+format
+{p_end}
+
+{com}. 
+. **# Robustness 2: Financial Markets Depth - ECS**
+. xthreg lreer lgdppk_m100 lgovexp if count_lgovexp==20 ///
+> & rn==2, ///
+> rx(etot_L1lres) qx(L2.fmd) thnum(2) grid(300) bs(300 300)
+{res}{txt}Estimating  the  threshold  parameters: {txt}  1st ......{txt}  2nd ......{txt}  Done
+{txt}Boostrap for single threshold
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +   50
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  100
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  150
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  200
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  250
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  300
+{txt}Boostrap for double threshold model:
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +   50
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  100
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  150
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  200
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  250
+{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}.{txt}. +  300
+
+Threshold estimator (level = 95):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:model}{space 1}{c |}{space 1}{ralign 12:Threshold}{space 1}{space 1}{ralign 12:Lower}{space 1}{space 1}{ralign 12:Upper}{space 0}
+{space 0}{hline 11}{c   +}{hline 14}{hline 14}{hline 13}
+{space 0}{space 0}{ralign 10:Th-1}{space 1}{c |}{space 1}{ralign 12:{res:{sf:      0.0234}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0173}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0249}}}{space 0}
+{space 0}{space 0}{ralign 10:Th-21}{space 1}{c |}{space 1}{ralign 12:{res:{sf:      0.0282}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0236}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.0299}}}{space 0}
+{space 0}{space 0}{ralign 10:Th-22}{space 1}{c |}{space 1}{ralign 12:{res:{sf:      0.2857}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.2697}}}{space 1}{space 1}{ralign 12:{res:{sf:      0.2922}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 14}{hline 14}{hline 13}
+
+Threshold effect test (bootstrap = 300 300):
+{res}{txt}{space 0}{hline 11}{c  TT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Threshold}{space 1}{c |}{space 1}{ralign 9:RSS}{space 1}{space 1}{ralign 9:MSE}{space 1}{space 1}{ralign 9:Fstat}{space 1}{space 1}{ralign 6:Prob}{space 1}{space 1}{ralign 7:Crit10}{space 1}{space 1}{ralign 7:Crit5}{space 1}{space 1}{ralign 7:Crit1}{space 0}
+{space 0}{hline 11}{c   +}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{space 0}{space 0}{ralign 10:Single}{space 1}{c |}{space 1}{ralign 9:{res:{sf:   5.0576}}}{space 1}{space 1}{ralign 9:{res:{sf:   0.0072}}}{space 1}{space 1}{ralign 9:{res:{sf:    59.33}}}{space 1}{space 1}{ralign 6:{res:{sf:0.0267}}}{space 1}{space 1}{ralign 7:{res:{sf:41.6066}}}{space 1}{space 1}{ralign 7:{res:{sf:53.2914}}}{space 1}{space 1}{ralign 7:{res:{sf:71.1557}}}{space 0}
+{space 0}{space 0}{ralign 10:Double}{space 1}{c |}{space 1}{ralign 9:{res:{sf:   4.9570}}}{space 1}{space 1}{ralign 9:{res:{sf:   0.0071}}}{space 1}{space 1}{ralign 9:{res:{sf:    14.25}}}{space 1}{space 1}{ralign 6:{res:{sf:0.5967}}}{space 1}{space 1}{ralign 7:{res:{sf:35.6681}}}{space 1}{space 1}{ralign 7:{res:{sf:43.4968}}}{space 1}{space 1}{ralign 7:{res:{sf:56.1298}}}{space 0}
+{space 0}{hline 11}{c  BT}{hline 11}{hline 11}{hline 11}{hline 8}{hline 9}{hline 9}{hline 8}
+{res}
+{txt}Fixed-effects (within) regression{col 49}Number of obs{col 67}={col 69}{res}       720
+{txt}Group variable: {res}cn{txt}{col 49}Number of groups{col 67}={col 69}{res}        40
+
+{txt}R-squared:{col 49}Obs per group:
+     Within  = {res}0.1966{col 63}{txt}min{col 67}={col 69}{res}        18
+{txt}     Between = {res}0.0005{col 63}{txt}avg{col 67}={col 69}{res}      18.0
+{txt}     Overall = {res}0.0035{col 63}{txt}max{col 67}={col 69}{res}        18
+
+{txt}{col 49}F({res}5{txt}, {res}675{txt}){col 67}={col 70}{res}    33.03
+{txt}corr(u_i, Xb) = {res}-0.9385{txt}{col 49}Prob > F{col 67}={col 73}{res}0.0000
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}             lreer{col 20}{c |} Coefficient{col 32}  Std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}lgdppk_m100 {c |}{col 20}{res}{space 2} .5975804{col 32}{space 2} .0632136{col 43}{space 1}    9.45{col 52}{space 3}0.000{col 60}{space 4} .4734615{col 73}{space 3} .7216993
+{txt}{space 11}lgovexp {c |}{col 20}{res}{space 2} .1741253{col 32}{space 2} .0406294{col 43}{space 1}    4.29{col 52}{space 3}0.000{col 60}{space 4} .0943501{col 73}{space 3} .2539004
+{txt}{space 18} {c |}
+_cat#c.etot_L1lres {c |}
+{space 16}0  {c |}{col 20}{res}{space 2}-.0113923{col 32}{space 2} .0028401{col 43}{space 1}   -4.01{col 52}{space 3}0.000{col 60}{space 4}-.0169689{col 73}{space 3}-.0058158
+{txt}{space 16}1  {c |}{col 20}{res}{space 2} .0193939{col 32}{space 2} .0029551{col 43}{space 1}    6.56{col 52}{space 3}0.000{col 60}{space 4} .0135915{col 73}{space 3} .0251963
+{txt}{space 16}2  {c |}{col 20}{res}{space 2} .0002597{col 32}{space 2} .0046852{col 43}{space 1}    0.06{col 52}{space 3}0.956{col 60}{space 4}-.0089396{col 73}{space 3} .0094589
+{txt}{space 18} {c |}
+{space 13}_cons {c |}{col 20}{res}{space 2} 1.108105{col 32}{space 2} .3546799{col 43}{space 1}    3.12{col 52}{space 3}0.002{col 60}{space 4} .4116961{col 73}{space 3} 1.804513
+{txt}{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+           sigma_u {c |} {res} .22030878
+           {txt}sigma_e {c |} {res} .08581939
+               {txt}rho {c |} {res} .86824963{txt}   (fraction of variance due to u_i)
+{hline 19}{c BT}{hline 64}
+F test that all u_i=0: F({res}39{txt}, {res}675{txt}) = {res}10.16{col 62}{txt}Prob > F = {res}0.0000
+{txt}
+{com}. 
+. capture graph drop LR21 LR22
+{txt}
+{com}. capture graph drop LR_ECSFMD2
+{txt}
+{com}. 
+. _matplot e(LR21), columns(1 2) yline(7.35, lpattern(dash)) connect(direct) ///
+> msize(small) mlabp(0) mlabs(zero) ytitle("LR Statistics") ///
+> xtitle("First Threshold") recast(line) name(LR21) nodraw title("ECS FMD - buffer effect (Double Threshold)")
+{txt}
+{com}. _matplot e(LR22), columns(1 2) yline(7.35, lpattern(dash)) connect(direct) ///
+> msize(small) mlabp(0) mlabs(zero) ytitle("LR Statistics") ///
+> xtitle("Second Threshold") recast(line) name(LR22) nodraw
+{txt}
+{com}. graph combine LR21 LR22, cols(1)
+{res}{txt}
+{com}. 
+. graph rename Graph LR_ECSFMD2
+{txt}
+{com}. 
+. graph export LR_ECSFMD2.png, as(png) name("LR_ECSFMD2") width(3000) replace
+{txt}{p 0 4 2}
+(file {bf}
+LR_ECSFMD2.png{rm}
+not found)
+{p_end}
+{p 0 4 2}
+file {bf}
+LR_ECSFMD2.png{rm}
+saved as
+PNG
+format
+{p_end}
+
+{com}. 
+. log close _all
+      {txt}name:  {res}RERTOT_FRL
+       {txt}log:  {res}C:\Users\jamel\Dropbox\Latex\PROJECTS\24-09-rer-fd-ecs\Revision_FRL\Replication\RERTOT_FRL.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 4 Aug 2025, 16:27:38
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
