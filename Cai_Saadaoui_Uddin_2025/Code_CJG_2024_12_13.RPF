@@ -1,0 +1,208 @@
+cal(m) 1980:1
+allocate 2022:3
+
+comp start = 1981:1
+comp end = 2022:3
+
+comp nlags = 2
+comp nsteps = 26
+
+comp ndraws = 3000 ;*bands
+
+comp perL1 = 15
+comp perL2 = 5
+comp perU1 = 84
+comp perU2 = 95
+
+open data data.xlsx
+data(for=xlsx,org=obs)
+close data
+
+comp nvars = 5 ;* number of variables in VAR
+
+dec vect[string] varlabel(nvars)
+dec vect[series] VAR(nvars) DVAR(nvars)
+
+comp varlabel=||'Partisan Conflicts Index','Political Relation News Index',$
+ 'Oil Supply',$
+ 'Oil Demand',$
+ 'Oil Price'||
+
+set S1 = log(PCI)
+set S2 = log(PRIS+SQRT(1+PRIS^2))
+set S3 = SUPPLYG
+set S4 = rea
+set S5 = log(PRICE)
+
+set VAR(1) = S1
+set VAR(2) = S2
+set VAR(3) = S3
+set VAR(4) = S4
+set VAR(5) = S5
+
+@VARLagSelect(lags=12,crit=bic) start end
+# VAR(1) VAR(2) VAR(3) VAR(4) VAR(5)
+
+system(model=varmodel)
+variables VAR(1) to VAR(nvars)
+lags 1 to nlags
+det constant
+end(system)
+
+smpl(reglist)
+# constant VAR(1) to VAR(nvars)
+
+estimate(model=varmodel,print) start end
+comp cstart=%regstart()
+comp bstart = %IF(cstart+nlags>=start,cstart+nlags,start)
+comp bend = %regend()
+
+* Estimation of reduced form VAR + identification of food shock with external instrument as first variable in VAR
+
+estimate(model=varmodel,resids=ETA,noprint,outsigma=vmat) bstart bend
+
+comp bpoint1 = %decomp(vmat)
+comp betaols = %modelgetcoeffs(varmodel)
+declare rect ff(nvars,nvars)
+ewise ff(i,j)=vmat(i,j)/sqrt(vmat(j,j))
+
+impulse(model=varmodel,col=2,results=respoint1,$
+ decomp=bpoint1) * nsteps
+
+dec vect[series] udraws(nvars) resample(nvars) flip(ndraws)
+
+dec vect[series] sETA(nvars)
+
+dec rect[series] IRF1(nvars,nsteps) IRF2(nvars,nsteps) IRF3(nvars,nsteps) IRF3b(nvars,nsteps)
+
+seed 372698
+ system(model=bootmodel)
+ variables resample
+ lags 1 to nlags
+ det constant
+ end(system)
+
+do i=1,nvars
+ set resample(i) = %modeldepvars(varmodel)(i){0}
+end do i
+
+comp count = 0 ;* counts number of draws
+comp bsize = 12 ;* size of blocks
+
+infobox(action=define,progress,lower=1,upper=ndraws) 'MOVING BLOCK BOOTSTRAPPING'
+ until count==ndraws
+ {
+ comp count = count + 1
+ infobox(current=count)
+ comp %modelsetcoeffs(varmodel,betaols)
+ boot(block=bsize,method=overlap) entries / bstart bend
+ do i=1,nvars
+ set udraws(i) = ETA(i)(entries(T))
+ end do i
+comp tel = bstart
+until tel>=bend
+{
+ do s=1,bsize
+  do i=1,nvars
+  statistics(noprint) udraws(i) bstart+s-1 bend-bsize+s
+  set udraws(i) tel tel = udraws(i)-%mean
+ end do i
+ comp tel = tel + 1
+end do s
+}
+
+forecast(paths,model=varmodel,results=resample,from=bstart,to=bend)
+# udraws
+
+estimate(model=bootmodel,resids=sETA,noprint,outsigma=sigmad) bstart bend
+
+comp swish1 = %decomp(sigmad)
+
+impulse(noprint,model=bootmodel,col=2,results=resp1,decomp=swish1) * nsteps
+
+do rr=1,nsteps
+ do tt=1,nvars
+ set IRF1(tt,rr) count count = resp1(tt,1)(rr)-respoint1(tt,1)(rr)
+ end do tt
+end do rr
+}
+end until
+
+infobox(action=remove)
+
+dec rect[series] IRFE1(6,nvars) IRFE2(6,nvars) IRFE3(6,nvars) IRFE3b(6,nvars)
+
+smpl 1 ndraws
+
+do j=1,nsteps
+ do k=1,nvars
+ order IRF1(k,j) 1 ndraws
+ set IRFE1(1,k) j j = respoint1(k,1)(j)
+ *set IRFE2(1,k) j j = respoint2(k,1)(j)
+ set IRFE1(2,k) j j = respoint1(k,1)(j)-IRF1(k,j)(ndraws*perU1/100)
+ set IRFE1(3,k) j j = respoint1(k,1)(j)-IRF1(k,j)(ndraws*perL1/100)
+ set IRFE1(4,k) j j = respoint1(k,1)(j)-IRF1(k,j)(ndraws*perU2/100)
+ set IRFE1(5,k) j j = respoint1(k,1)(j)-IRF1(k,j)(ndraws*perL2/100)
+ end do k
+end do j
+
+GRAPH(STYLE=LINE,WIDTH=7,HEIGHT=5,PATTERNS, SUBHEADER=" 1 SD positive shock to US China relations", $
+ HEADER="US Partisan Conflict Index", KHEIGHT=0.5, KWIDTH=0.5, $
+ key=LORIGHT,NODATES,klabels=||"IRF","68% Lower bond",$
+ "68% Upper bond","90% Lower bond","90% Upper bond"||,$
+ FOOTER="Note: Improved political relations between the US and China reduce US Partisan conflict.") 5
+# IRFE1(1,1) 1 25
+# IRFE1(2,1) 1 25 2
+# IRFE1(3,1) 1 25 2
+# IRFE1(4,1) 1 25 4
+# IRFE1(5,1) 1 25 4
+
+GRAPH(STYLE=LINE,WIDTH=7,HEIGHT=5,PATTERNS, SUBHEADER=" 1 SD positive shock to US China relations", $
+ HEADER="Political Relation News Index", KHEIGHT=0.5, KWIDTH=0.5, $
+ key=UPRIGHT,NODATES,klabels=||"IRF","68% Lower bond",$
+ "68% Upper bond","90% Lower bond","90% Upper bond"||,$
+ FOOTER="Note: Positive shocks on political relations between the US and China are short-lived.") 5
+# IRFE1(1,2) 1 25
+# IRFE1(2,2) 1 25 2
+# IRFE1(3,2) 1 25 2
+# IRFE1(4,2) 1 25 4
+# IRFE1(5,2) 1 25 4
+
+accumulate IRFE1(1,3) 1 25 CIRFE113
+accumulate IRFE1(2,3) 1 25 CIRFE123
+accumulate IRFE1(3,3) 1 25 CIRFE133
+accumulate IRFE1(4,3) 1 25 CIRFE143
+accumulate IRFE1(5,3) 1 25 CIRFE153
+
+GRAPH(STYLE=LINE,WIDTH=7,HEIGHT=5,PATTERNS, SUBHEADER=" 1 SD positive shock to US China relations", $
+ HEADER="World Oil Production", KHEIGHT=0.5, KWIDTH=0.5, $
+ key=LORIGHT,NODATES,klabels=||"IRF","68% Lower bond",$
+ "68% Upper bond","90% Lower bond","90% Upper bond"||,$
+ FOOTER="Note: Improved political relations between the US and China increase oil production.") 5
+# CIRFE113 1 25
+# CIRFE123 1 25 2
+# CIRFE133 1 25 2
+# CIRFE143 1 25 4
+# CIRFE153 1 25 4
+
+GRAPH(STYLE=LINE,WIDTH=7,HEIGHT=5,PATTERNS, SUBHEADER=" 1 SD positive shock to US China relations", $
+ HEADER="World Industrial Production", KHEIGHT=0.5, KWIDTH=0.5, $
+ key=LORIGHT,NODATES,klabels=||"IRF","68% Lower bond",$
+ "68% Upper bond","90% Lower bond","90% Upper bond"||,$
+ FOOTER="Note: Improved political relations between the US and China reduce Industrial Production.") 5
+# IRFE1(1,4) 1 25
+# IRFE1(2,4) 1 25 2
+# IRFE1(3,4) 1 25 2
+# IRFE1(4,4) 1 25 4
+# IRFE1(5,4) 1 25 4
+
+GRAPH(STYLE=LINE,WIDTH=7,HEIGHT=5,PATTERNS, SUBHEADER=" 1 SD positive shock to US China relations", $
+ HEADER="Oil Price", KHEIGHT=0.5, KWIDTH=0.5, $
+ key=LORIGHT,NODATES,klabels=||"IRF","68% Lower bond",$
+ "68% Upper bond","90% Lower bond","90% Upper bond"||,$
+ FOOTER="Note: Improved political relations between the US and China reduce the oil price.") 5
+# IRFE1(1,5) 1 25
+# IRFE1(2,5) 1 25 2
+# IRFE1(3,5) 1 25 2
+# IRFE1(4,5) 1 25 4
+# IRFE1(5,5) 1 25 4
