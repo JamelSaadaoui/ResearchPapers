@@ -1,0 +1,33 @@
+--------------------------------------------------------------------------------------------------------------------
+      name:  SLP_EE_R1
+       log:  C:\Users\jamel\Dropbox\Latex\PROJECTS\24-03-emft-adb-private\manuscript\SI_EE\Replication_EE\SLP_EE_R1.
+> smcl
+  log type:  text
+ opened on:  12 Oct 2025, 21:36:58
+
+. 
+. cd "C:\Users\jamel\Dropbox\Latex\PROJECTS\24-03-emft-adb-private\manuscript\SI_EE\Revision1_EE"
+C:\Users\jamel\Dropbox\Latex\PROJECTS\24-03-emft-adb-private\manuscript\SI_EE\Revision1_EE
+
+. 
+. **# Figure 6. Panel LP - impact of change in vulnerability on bond yields (Baseline)
+. 
+. locproj bonds_tw, shock(L.Dvul100) ///
+>  z h(4) yl(1) sl(1) ///
+>  c(f(1/2).Dvul100 l(1/2).(CAB cpi_tw GDeficit Debt ///
+>    banking currency debt) i.period) ///
+>  fe cluster(imfcode) conf(90 95) ///
+>  ttitle("Horizon") ///
+>  title(`"Impact of Change in Vulnerability on Bonds Yields"') ///
+>  save irfname(bonds_TZR1) noisily stats grname(TZ1)
+variable Debt not found
+(error in option controls())
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\jamel\AppData\Local\Temp\STD75fc_000004.tmp"
+
+. capture log close _all                                
