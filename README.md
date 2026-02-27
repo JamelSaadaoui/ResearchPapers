@@ -7,6 +7,7 @@
  ## Coverage
 |Order |Author (link to archive)|Title (link to paper)|Journal|Main Language|Date|
 |:----|:----|:----|:----|:----|:----|
+|15|[Saadaoui Beirne Park Uddin 2026](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Saadaoui%20Beirne%20Park%20Uddin%202026)|["Impact of climate vulnerability on fiscal risk: Do religious tensions and financial development matter?"](https://doi.org/10.1016/j.eneco.2026.109180) | Energy Economics | Stata Code | Jan 2026 |
 |14|[Cai Saadaoui Uddin 2025](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Cai_Saadaoui_Uddin_2025)|["US partisan conflict, Sino-US political relation news, and oil market dynamics"](https://doi.org/10.1016/j.eneco.2025.108820) | Energy Economics | RATS Code | Sep 2025 |
 |13|[Bloom Prettner Saadaoui Veruete 2025](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Bloom%20Prettner%20Saadaoui%20Veruete%202025)|["Artificial intelligence and the skill premium"](https://doi.org/10.1016/j.frl.2025.107401) | Finance Research Letters | Mathematica Code | Jul 2025 |
 |12|[Saadaoui Smyth Vespignani 2025](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Saadaoui%20Smyth%20Vespignani%202025)|["Ensuring the security of the clean energy transition: Examining the impact of geopolitical risk on the price of critical minerals"](https://doi.org/10.1016/j.eneco.2025.108195) | Energy Economics | Stata Code | Feb 2025 |
