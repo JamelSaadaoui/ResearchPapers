@@ -1,0 +1,19 @@
+{\rtf1\fs24
+\trowd\trgaph75\trleft-75\intbl\trqc\clbrdrt\brdrs\cellx1296\clbrdrt\brdrs\cellx1872\clbrdrt\brdrs\cellx3024\clbrdrt\brdrs\cellx3888\clbrdrt\brdrs\cellx4896\clbrdrt\brdrs\cellx5760
+\ql \cell\qc (1)\cell\qc (2)\cell\qc (3)\cell\qc (4)\cell\qc (5)\cell\row
+\trowd\trgaph75\trleft-75\trqc\cellx1296\cellx1872\cellx3024\cellx3888\cellx4896\cellx5760
+\trowd\trgaph75\trleft-75\trqc\clbrdrb\brdrs\cellx1296\clbrdrb\brdrs\cellx1872\clbrdrb\brdrs\cellx3024\clbrdrb\brdrs\cellx3888\clbrdrb\brdrs\cellx4896\clbrdrb\brdrs\cellx5760
+\ql VARIABLES\cell\qc N\cell\qc mean\cell\qc sd\cell\qc min\cell\qc max\cell\row
+\trowd\trgaph75\trleft-75\trqc\cellx1296\cellx1872\cellx3024\cellx3888\cellx4896\cellx5760
+\ql \cell\qc \cell\qc \cell\qc \cell\qc \cell\qc \cell\row
+\ql UCT\cell\qc 374\cell\qc 100.00\cell\qc 42.55\cell\qc 37.98\cell\qc 349.9\cell\row
+\ql WIP\cell\qc 384\cell\qc 107.3\cell\qc 23.79\cell\qc 64.61\cell\qc 147.7\cell\row
+\ql GECON\cell\qc 386\cell\qc -0.0108\cell\qc 0.476\cell\qc -4.178\cell\qc 1.372\cell\row
+\ql BRENT\cell\qc 386\cell\qc 56.20\cell\qc 32.50\cell\qc 10.16\cell\qc 133.6\cell\row
+\ql PCI\cell\qc 386\cell\qc 114.7\cell\qc 36.52\cell\qc 34.74\cell\qc 271.3\cell\row
+\ql EIA_PROD\cell\qc 382\cell\qc 73.04\cell\qc 7.218\cell\qc 57.93\cell\qc 84.59\cell\row
+\ql WTI\cell\qc 386\cell\qc 53.92\cell\qc 29.14\cell\qc 11.27\cell\qc 134.0\cell\row
+\ql IGREA\cell\qc 386\cell\qc 0.0374\cell\qc 0.620\cell\qc -1.609\cell\qc 1.897\cell\row
+\trowd\trgaph75\trleft-75\trqc\trbrdrb\brdrs\clbrdrb\brdrs\cellx1296\clbrdrb\brdrs\cellx1872\clbrdrb\brdrs\cellx3024\clbrdrb\brdrs\cellx3888\clbrdrb\brdrs\cellx4896\clbrdrb\brdrs\cellx5760
+\ql \cell\qc \cell\qc \cell\qc \cell\qc \cell\qc \cell\row
+}

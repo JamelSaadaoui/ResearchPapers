@@ -1,0 +1,586 @@
+--------------------------------------------------------------------------------------------------------------------
+      name:  lp
+       log:  C:\Users\jamel\Dropbox\Latex\PROJECTS\24-12-pci-pri\replication\lp.log
+  log type:  text
+ opened on:   3 Mar 2026, 08:09:22
+
+. 
+. 
+. import excel "datav2.xlsx", sheet("Sheet1") firstrow clear
+(22 vars, 386 obs)
+
+. 
+. destring UCT, replace
+UCT: all characters numeric; replaced as double
+(12 missing values generated)
+
+. 
+. **#**** Partisan shock *****************************************
+. 
+. **# PCI:UCT
+. 
+. summ
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      PERIOD |        386    17912.15    3396.011      12054      23773
+         UCT |        374         100    42.54736   37.98329   349.9455
+         WIP |        384    107.3418    23.78617   64.61293   147.6918
+       GECON |        386   -.0108198    .4756601  -4.178293   1.372335
+       BRENT |        386    56.20034    32.50446      10.16   133.5852
+-------------+---------------------------------------------------------
+         PCI |        386    114.7014    36.52411      34.74     271.29
+    EIA_PROD |        382    73.03832    7.217573   57.92673   84.59188
+         WTI |        386    53.92461    29.13713   11.26696   133.9583
+       CNEPU |        300    122.3584    40.73361   38.19616   238.3172
+     extconf |        368    9.271739    1.311577        4.5         12
+-------------+---------------------------------------------------------
+      bureau |        368    3.993207    .0579631        3.5          4
+  corruption |        368        4.25    .4336022        3.5          5
+     demoacc |        368     5.85462    .2997372          5          6
+  ethnictens |        368     5.02038    .3003048          4          6
+     govstab |        368    8.302989     1.65479          5         12
+-------------+---------------------------------------------------------
+     intconf |        368    10.48505    .6332473          9         12
+    laworder |        368    5.172554    .6761665        3.5          6
+      milpol |        368    4.638587    .8834415          4          6
+ reltensions |        368    5.566576    .3506276          4          6
+    socioeco |        368    8.751359    1.184021          6         11
+-------------+---------------------------------------------------------
+  invprofile |        368    10.92935    1.848604          5         12
+       IGREA |        386    3.736923    61.95141  -160.8905    189.737
+
+. 
+. display tm(1993m1)
+396
+
+. 
+. gen time = 396+ _n-1
+
+. 
+. format %tm time
+
+. 
+. tsset time
+
+Time variable: time, 1993m1 to 2025m2
+        Delta: 1 month
+
+. 
+. set scheme stcolor
+
+. 
+. 
+. labvars UCT WIP GECON BRENT PCI EIA_PROD WTI IGREA  ///
+>  "US-China Tensions" ///
+>  "World Industrial Production" ///
+>  "Global Economic Condition" ///
+>  "Global Price of Brent Crude" ///
+>  "Partisan Conflict Index" ///
+>  "Global Oil Production" ///
+>  "Global Price of WTI Crude" ///
+>  "Index of Global Real Economic Activity"
+
+.  
+. twoway (tsline BRENT WTI) ///
+>  (tsline UCT, yaxis(2) legend(pos(6) ring(1) ///
+>   cols(2) size(small))), ///
+>  xtitle("") name(G1, replace)
+
+. graph export G1.png, as(png) width(3000) replace
+(file G1.png not found)
+file G1.png saved as PNG format
+
+. 
+. twoway ///
+>  (tsline UCT PCI, yaxis(2) legend(pos(6) ring(1) ///
+>   cols(2) size(small)) graphregion(margin(r+5))), ///
+>  xtitle("") name(G1A, replace)
+
+. graph export G1A.png, as(png) width(3000) replace
+(file G1A.png not found)
+file G1A.png saved as PNG format
+
+. 
+. replace IGREA=IGREA/100
+(386 real changes made)
+
+. 
+. twoway (tsline GECON IGREA, yline(0))  ///
+>  (tsline EIA_PROD WIP , yaxis(2) legend(pos(6) ring(1) ///
+>   cols(2) size(small))), ///
+>  xtitle("") name(G2, replace)
+
+. graph export G2.png, as(png) width(3000) replace
+(file G2.png not found)
+file G2.png saved as PNG format
+
+. 
+. // Descriptive statistics
+. 
+. summarize UCT WIP GECON BRENT PCI EIA_PROD WTI IGREA
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         UCT |        374         100    42.54736   37.98329   349.9455
+         WIP |        384    107.3418    23.78617   64.61293   147.6918
+       GECON |        386   -.0108198    .4756601  -4.178293   1.372335
+       BRENT |        386    56.20034    32.50446      10.16   133.5852
+         PCI |        386    114.7014    36.52411      34.74     271.29
+-------------+---------------------------------------------------------
+    EIA_PROD |        382    73.03832    7.217573   57.92673   84.59188
+         WTI |        386    53.92461    29.13713   11.26696   133.9583
+       IGREA |        386    .0373692    .6195141  -1.608905    1.89737
+
+. global X UCT WIP GECON BRENT PCI EIA_PROD WTI IGREA
+
+. outreg2 using x.doc, replace sum(log) keep($X)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      PERIOD |        386    17912.15    3396.011      12054      23773
+         UCT |        374         100    42.54736   37.98329   349.9455
+         WIP |        384    107.3418    23.78617   64.61293   147.6918
+       GECON |        386   -.0108198    .4756601  -4.178293   1.372335
+       BRENT |        386    56.20034    32.50446      10.16   133.5852
+-------------+---------------------------------------------------------
+         PCI |        386    114.7014    36.52411      34.74     271.29
+    EIA_PROD |        382    73.03832    7.217573   57.92673   84.59188
+         WTI |        386    53.92461    29.13713   11.26696   133.9583
+       CNEPU |        300    122.3584    40.73361   38.19616   238.3172
+     extconf |        368    9.271739    1.311577        4.5         12
+-------------+---------------------------------------------------------
+      bureau |        368    3.993207    .0579631        3.5          4
+  corruption |        368        4.25    .4336022        3.5          5
+     demoacc |        368     5.85462    .2997372          5          6
+  ethnictens |        368     5.02038    .3003048          4          6
+     govstab |        368    8.302989     1.65479          5         12
+-------------+---------------------------------------------------------
+     intconf |        368    10.48505    .6332473          9         12
+    laworder |        368    5.172554    .6761665        3.5          6
+      milpol |        368    4.638587    .8834415          4          6
+ reltensions |        368    5.566576    .3506276          4          6
+    socioeco |        368    8.751359    1.184021          6         11
+-------------+---------------------------------------------------------
+  invprofile |        368    10.92935    1.848604          5         12
+       IGREA |        386    .0373692    .6195141  -1.608905    1.89737
+        time |        386       588.5    111.5728        396        781
+
+
+x.doc
+dir : seeout
+
+. 
+. // Scapegoat theory: Rise in Political disagreement in the US → Rise in US-China tensions to win the election in t
+> he US.
+. 
+. // PCI -> UCT
+.   
+. irf set comparemodels.irf, replace
+(file comparemodels.irf created)
+(file comparemodels.irf now active)
+
+. quietly lpirf BRENT GECON EIA_PROD UCT, step(41) lags(1/2) ///
+>   exog(L(0/1).PCI) 
+
+.   
+. irf create LP 
+(file comparemodels.irf updated)
+
+. 
+. irf graph dm, impulse(PCI) response(BRENT)   ///
+>   irf(LP) yline(0) name(G3, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10) byopts(note(""))
+
+. graph export G3.png, as(png) width(3000) replace
+(file G3.png not found)
+file G3.png saved as PNG format
+
+. 
+. irf graph dm, impulse(PCI) response(UCT)   ///
+>   irf(LP) yline(0) name(G3A, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10) byopts(note(""))
+
+. graph export G3A.png, as(png) width(3000) replace
+(file G3A.png not found)
+file G3A.png saved as PNG format
+
+. 
+. graph combine G3 G3A, ycommon name(G3B, replace)
+
+. graph export G3B.png, as(png) width(3000) replace
+(file G3B.png not found)
+file G3B.png saved as PNG format
+
+.    
+. // WTI
+. 
+. irf set comparemodels.irf, replace
+(file comparemodels.irf created)
+(file comparemodels.irf now active)
+
+. quietly lpirf WTI GECON EIA_PROD UCT, step(41) lags(1/2) ///
+>   exog(L(0/1).PCI)
+
+.   
+. irf create LP 
+(file comparemodels.irf updated)
+
+. 
+. irf graph dm, impulse(PCI) response(WTI)   ///
+>   irf(LP) yline(0) name(G4, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10) byopts(note(""))
+
+. graph export G4.png, as(png) width(3000) replace
+(file G4.png not found)
+file G4.png saved as PNG format
+
+. 
+. irf graph dm, impulse(PCI) response(UCT)   ///
+>   irf(LP) yline(0) name(G4A, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10) byopts(note(""))
+
+. graph export G4A.png, as(png) width(3000) replace
+(file G4A.png not found)
+file G4A.png saved as PNG format
+
+. 
+. graph combine G4 G4A, ycommon name(G4B, replace)
+
+. graph export G4B.png, as(png) width(3000) replace
+(file G4B.png not found)
+file G4B.png saved as PNG format
+
+.    
+. // Extended Lags
+.    
+. irf set comparemodels.irf, replace
+(file comparemodels.irf created)
+(file comparemodels.irf now active)
+
+. quietly lpirf BRENT GECON EIA_PROD UCT  , step(41) lags(1/12) ///
+>   exog(L(0/1).PCI)
+
+.   
+. irf create LP 
+(file comparemodels.irf updated)
+
+. 
+. irf graph dm, impulse(PCI) response(BRENT)   ///
+>   irf(LP) yline(0) name(G3R, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10) byopts(note(""))
+
+. graph export G3R.png, as(png) width(3000) replace
+(file G3R.png not found)
+file G3R.png saved as PNG format
+
+. 
+. irf graph dm, impulse(PCI) response(UCT)   ///
+>   irf(LP) yline(0) name(G3RA, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10) byopts(note(""))
+
+. graph export G3RA.png, as(png) width(3000) replace
+(file G3RA.png not found)
+file G3RA.png saved as PNG format
+
+. 
+. graph combine G3R G3RA, ycommon name(G3B, replace)
+
+. graph export G3RB.png, as(png) width(3000) replace
+(file G3RB.png not found)
+file G3RB.png saved as PNG format
+
+. 
+. // WIP
+. 
+. irf set comparemodels.irf, replace
+(file comparemodels.irf created)
+(file comparemodels.irf now active)
+
+. quietly lpirf BRENT WIP EIA_PROD UCT  , step(41) lags(1/2) ///
+>   exog(L(0/1).PCI)
+
+.   
+. irf create LP 
+(file comparemodels.irf updated)
+
+. 
+. irf graph dm, impulse(PCI) response(BRENT)   ///
+>   irf(LP) yline(0) name(G3R1, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10) byopts(note(""))
+
+. graph export G3R1.png, as(png) width(3000) replace
+(file G3R1.png not found)
+file G3R1.png saved as PNG format
+
+. 
+. irf graph dm, impulse(PCI) response(UCT)   ///
+>   irf(LP) yline(0) name(G3R1A, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10) byopts(note(""))
+
+. graph export G3R1A.png, as(png) width(3000) replace
+(file G3R1A.png not found)
+file G3R1A.png saved as PNG format
+
+. 
+. graph combine G3R1 G3R1A, ycommon name(G3R1B, replace)
+
+. graph export G3R1B.png, as(png) width(3000) replace
+(file G3R1B.png not found)
+file G3R1B.png saved as PNG format
+
+. 
+. // REA
+. 
+. irf set comparemodels.irf, replace
+(file comparemodels.irf created)
+(file comparemodels.irf now active)
+
+. quietly lpirf BRENT IGREA EIA_PROD UCT  , step(41) lags(1/2) ///
+>   exog(L(0/1).PCI)
+
+.   
+. irf create LP 
+(file comparemodels.irf updated)
+
+. 
+. irf graph dm, impulse(PCI) response(BRENT)   ///
+>   irf(LP) yline(0) name(G3R2, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10) byopts(note(""))
+
+. graph export G3R2.png, as(png) width(3000) replace
+(file G3R2.png not found)
+file G3R2.png saved as PNG format
+
+. 
+. irf graph dm, impulse(PCI) response(UCT)   ///
+>   irf(LP) yline(0) name(G3R2A, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10) byopts(note(""))
+
+. graph export G3R2A.png, as(png) width(3000) replace
+(file G3R2A.png not found)
+file G3R2A.png saved as PNG format
+
+. 
+. graph combine G3R2 G3R2A, ycommon name(G3R2B, replace)
+
+. graph export G3R2B.png, as(png) width(3000) replace
+(file G3R2B.png not found)
+file G3R2B.png saved as PNG format
+
+. 
+. 
+. // Threat-unity theory: Rise in US-China tensions → Reduction in Political disagreement in the US due to a rally a
+> round the flag effect.
+.    
+. irf set comparemodels.irf, replace
+(file comparemodels.irf created)
+(file comparemodels.irf now active)
+
+. quietly lpirf BRENT GECON EIA_PROD PCI  , step(41) lags(1/2) ///
+>   exog(L(0/1).UCT)
+
+. irf create LP1 
+(file comparemodels.irf updated)
+
+. 
+. irf graph dm, impulse(UCT) response(BRENT PCI)   ///
+>   irf(LP1) yline(0) name(G4, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10)
+
+. graph export G4.png, as(png) width(3000) replace
+file G4.png saved as PNG format
+
+.    
+. // WTI
+. 
+. irf set comparemodels.irf, replace
+(file comparemodels.irf created)
+(file comparemodels.irf now active)
+
+. quietly lpirf WTI GECON EIA_PROD PCI  , step(41) lags(1/2) ///
+>   exog(L(0/1).UCT)
+
+.   
+. irf create LP1 
+(file comparemodels.irf updated)
+
+. 
+. irf graph dm, impulse(UCT) response(WTI PCI)   ///
+>   irf(LP1) yline(0) name(G4A, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10)
+
+. graph export G4A.png, as(png) width(3000) replace
+file G4A.png saved as PNG format
+
+.    
+. // Extended Lags
+. 
+. irf set comparemodels.irf, replace
+(file comparemodels.irf created)
+(file comparemodels.irf now active)
+
+. quietly lpirf BRENT GECON EIA_PROD PCI  , step(41) lags(1/12) ///
+>   exog(L(0/1).UCT) 
+
+. irf create LP1 
+(file comparemodels.irf updated)
+
+. 
+. irf graph dm, impulse(UCT) response(BRENT PCI)   ///
+>   irf(LP1) yline(0) name(G4R, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10)
+
+. graph export G4R.png, as(png) width(3000) replace
+(file G4R.png not found)
+file G4R.png saved as PNG format
+
+. 
+. // WIP
+. 
+. irf set comparemodels.irf, replace
+(file comparemodels.irf created)
+(file comparemodels.irf now active)
+
+. quietly lpirf BRENT WIP EIA_PROD PCI  , step(41) lags(1/2) ///
+>   exog(L(0/1).UCT)
+
+.   
+. irf create LP 
+(file comparemodels.irf updated)
+
+. 
+. irf graph dm, impulse(UCT) response(BRENT PCI)   ///
+>   irf(LP) yline(0) name(G4R1, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10)
+
+. graph export G4R1.png, as(png) width(3000) replace
+(file G4R1.png not found)
+file G4R1.png saved as PNG format
+
+. 
+. // REA
+. 
+. irf set comparemodels.irf, replace
+(file comparemodels.irf created)
+(file comparemodels.irf now active)
+
+. quietly lpirf BRENT IGREA EIA_PROD PCI  , step(41) lags(1/2) ///
+>   exog(L(0/1).UCT)
+
+.   
+. irf create LP 
+(file comparemodels.irf updated)
+
+. 
+. irf graph dm, impulse(UCT) response(BRENT PCI)   ///
+>   irf(LP) yline(0) name(G4R2, replace) ///
+>    xlabel(0(10)40) level(90) ylab(#10)
+
+. graph export G4R2.png, as(png) width(3000) replace
+(file G4R2.png not found)
+file G4R2.png saved as PNG format
+
+. 
+. keep UCT WIP GECON BRENT PCI EIA_PROD WTI IGREA time
+
+. 
+. save dataset25march.dta, replace
+(file dataset25march.dta not found)
+file dataset25march.dta saved
+
+. 
+. ****************************************************************
+. 
+. var PCI UCT, lags(1)
+
+Vector autoregression
+
+Sample: 1993m2 thru 2024m2                      Number of obs     =        373
+Log likelihood =  -3283.038                     AIC               =   17.63559
+FPE            =   156347.9                     HQIC              =   17.66064
+Det(Sigma_ml)  =   151397.9                     SBIC              =   17.69867
+
+Equation           Parms      RMSE     R-sq      chi2     P>chi2
+----------------------------------------------------------------
+PCI                   3     18.6191   0.7456   1093.067   0.0000
+UCT                   3     21.2006   0.7526   1134.441   0.0000
+----------------------------------------------------------------
+
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+PCI          |
+         PCI |
+         L1. |   .8442178   .0281156    30.03   0.000     .7891122    .8993234
+             |
+         UCT |
+         L1. |   .0418478   .0243025     1.72   0.085    -.0057842    .0894797
+             |
+       _cons |   13.69767   3.367334     4.07   0.000     7.097815    20.29752
+-------------+----------------------------------------------------------------
+UCT          |
+         PCI |
+         L1. |   .1380353   .0320138     4.31   0.000     .0752893    .2007812
+             |
+         UCT |
+         L1. |   .8142974    .027672    29.43   0.000     .7600613    .8685335
+             |
+       _cons |   3.003313   3.834214     0.78   0.433    -4.511608    10.51823
+------------------------------------------------------------------------------
+
+. 
+. varstable, graph
+
+   Eigenvalue stability condition
+  +----------------------------------------+
+  |        Eigenvalue        |   Modulus   |
+  |--------------------------+-------------|
+  |   .9067191               |   .906719   |
+  |   .7517962               |   .751796   |
+  +----------------------------------------+
+   All the eigenvalues lie inside the unit circle.
+   VAR satisfies stability condition.
+
+. 
+. *varsoc
+. 
+. vargranger
+
+   Granger causality Wald tests
+  +------------------------------------------------------------------+
+  |          Equation           Excluded |   chi2     df Prob > chi2 |
+  |--------------------------------------+---------------------------|
+  |               PCI                UCT |  2.9651     1    0.085    |
+  |               PCI                ALL |  2.9651     1    0.085    |
+  |--------------------------------------+---------------------------|
+  |               UCT                PCI |  18.591     1    0.000    |
+  |               UCT                ALL |  18.591     1    0.000    |
+  +------------------------------------------------------------------+
+
+. 
+. irf create VAR1, ///
+>  set(example1) step(50) replace
+(file example1.irf created)
+(file example1.irf now active)
+(irfname VAR1 not found in example1.irf)
+(file example1.irf updated)
+
+. 
+. irf graph irf, irf(VAR1) ///
+>  name(irf, replace)
+
+.  
+. graph export irf.png, as(png) width(3000) replace
+(file irf.png not found)
+file irf.png saved as PNG format
+
+. 
+. ****************************************************************
+. 
+. log close _all
+      name:  lp
+       log:  C:\Users\jamel\Dropbox\Latex\PROJECTS\24-12-pci-pri\replication\lp.log
+  log type:  text
+ closed on:   3 Mar 2026, 08:11:22
+--------------------------------------------------------------------------------------------------------------------

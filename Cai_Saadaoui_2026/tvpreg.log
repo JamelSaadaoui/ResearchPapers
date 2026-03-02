@@ -1,0 +1,118 @@
+--------------------------------------------------------------------------------------------------------------------
+      name:  tvpregO
+       log:  C:\Users\jamel\Dropbox\Latex\PROJECTS\24-12-pci-pri\replication\tvpreg.log
+  log type:  text
+ opened on:   3 Mar 2026, 08:14:20
+
+. 
+. ////////////// Execute the routine //////////////
+> qui do "tvpreg.ado"
+
+. /////////////////////////////////////////////////
+> 
+. *cd C:\Users\jamel\Dropbox\stata\tvpreg\tvpreg\code
+. 
+. set scheme sj
+
+. 
+. use dataset25march.dta, clear
+
+. des
+
+Contains data from dataset25march.dta
+ Observations:           386                  
+    Variables:             9                  3 Mar 2026 08:11
+--------------------------------------------------------------------------------------------------------------------
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+--------------------------------------------------------------------------------------------------------------------
+UCT             double  %10.0g                US-China Tensions
+WIP             double  %10.0g                World Industrial Production
+GECON           double  %10.0g                Global Economic Condition
+BRENT           double  %10.0g                Global Price of Brent Crude
+PCI             double  %10.0g                Partisan Conflict Index
+EIA_PROD        double  %10.0g                Global Oil Production
+WTI             double  %10.0g                Global Price of WTI Crude
+IGREA           double  %10.0g                Index of Global Real Economic Activity
+time            float   %tm                   
+--------------------------------------------------------------------------------------------------------------------
+Sorted by: time
+
+. 
+. tsset time
+
+Time variable: time, 1993m1 to 2025m2
+        Delta: 1 month
+
+. 
+. foreach v in ///
+>        BRENT GECON EIA_PROD UCT PCI {
+  2.     forvalues i = 1(1)2 {
+  3.         gen `v'_l`i' = l`i'.`v'
+  4. }
+  5. }
+(1 missing value generated)
+(2 missing values generated)
+(1 missing value generated)
+(2 missing values generated)
+(4 missing values generated)
+(4 missing values generated)
+(12 missing values generated)
+(12 missing values generated)
+(1 missing value generated)
+(2 missing values generated)
+
+. 
+. 
+. ///// Estimator II: TVP-LP /////
+> // Commo price rates to a one-unit geopolitical risk shock (GPR)
+. mat define cmat = (0,3,6,9,12,15)
+
+. tvpreg BRENT PCI GECON_l* EIA_PROD_l* UCT_l* BRENT_l*, ///
+>  cmatrix(cmat) nhor(0/40) getband newey chol level(95)
+Running the Time-Varying-Parameter Estimation...
+The model is:
+
+    y(t+h) = B(h,t+h) × x(t) + e(t+h)
+
+ with horizon (h) includes 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 
+> 33 34 35 36 37 38 39 40,
+      dependent variable   y(t) (1×1): BRENT,
+      independent variable x(t) (10×1): PCI GECON_l1 GECON_l2 EIA_PROD_l1 EIA_PROD_l2 UCT_l1 UCT_l2 BRENT_l1 BRENT_l
+> 2 _cons,
+      e(t+h) ~ N(0,σ(e,t+h)^2).
+
+The parameter is [vec(B(h,t+h)')',lnσ(e,t+h)]',
+
+The constant parameter model is estimated by OLS.
+
+. 
+. tvpplot, plotcoef(BRENT:PCI) plotconst name(BRENT_PCI) ///
+>  title(Time-varying IRF at different horizons)
+Plotting the parameter path over horizons...
+cov para: BRENT:PCI
+
+. graph export BRENT_PCI.pdf, as(pdf) replace
+file BRENT_PCI.pdf saved as PDF format
+
+. graph export BRENT_PCI.png, as(png) replace
+(file BRENT_PCI.png not found)
+file BRENT_PCI.png saved as PNG format
+
+. 
+. forvalues i = 40(1)40 {
+  2. tvpplot, plotcoef(BRENT:PCI) plotnhor(`i') ///
+>  name(figtvp_`i')  title(Time-varying coefficients at Horizon `i')
+  3.  }
+Plotting the parameter path over time...
+cov para: BRENT:PCI
+
+.  
+. ****************************************************************
+. 
+. log close _all
+      name:  tvpregO
+       log:  C:\Users\jamel\Dropbox\Latex\PROJECTS\24-12-pci-pri\replication\tvpreg.log
+  log type:  text
+ closed on:   3 Mar 2026, 08:15:08
+--------------------------------------------------------------------------------------------------------------------
