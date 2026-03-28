@@ -7,6 +7,7 @@
  ## Coverage
 |Order |Author (link to archive)|Title (link to paper)|Journal|Main Language|Date|
 |:----|:----|:----|:----|:----|:----|
+|17| [Saadaoui2026](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Saadaoui_2026)|["Geopolitical Turning Points and Macroeconomic Volatility: A Bilateral Identification Strategy"]() | Journal of Comparative Economics | Stata Code | March 2026 |
 |16| [Saadaoui Beirne Park Uddin 2026](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Saadaoui%20Beirne%20Park%20Uddin%202026)|["Impact of climate vulnerability on fiscal risk: Do religious tensions and financial development matter?"](https://doi.org/10.1016/j.eneco.2026.109180) | Energy Economics | Stata Code | Feb 2026 |
 |15|[Cai Saadaoui 2025](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Cai_Saadaoui_2026)|["US-China tensions, US partisan conflict, and global oil prices: scapegoating?"](https://doi.org/10.1080/13504851.2025.2522908) | Applied Economics Letters | Stata Code | Feb 2026 |
 |14|[Cai Saadaoui Uddin 2025](https://github.com/JamelSaadaoui/ResearchPapers/tree/main/Cai_Saadaoui_Uddin_2025)|["US partisan conflict, Sino-US political relation news, and oil market dynamics"](https://doi.org/10.1016/j.eneco.2025.108820) | Energy Economics | RATS Code | Sep 2025 |
